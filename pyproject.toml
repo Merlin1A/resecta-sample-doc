@@ -1,0 +1,15 @@
+[project]
+name = "resecta-sample-doc"
+version = "0.1.0"
+description = "Deterministic synthetic test-document generators for the Resecta iOS app"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Jesse Brookins" }]
+dependencies = [
+    "fonttools>=4.63.0",
+    "opentype-feature-freezer>=1.32.2",
+    "pypdf==5.1.0",
+    "reportlab==4.2.5",
+    "pymupdf>=1.24",   # packet variants: PDF -> raster (scan-sim / degrade ladder)
+    "pillow>=10",      # packet variants: image degrade transforms
+]

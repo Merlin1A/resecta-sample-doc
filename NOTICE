@@ -1,0 +1,31 @@
+Resecta Sample Document Generator
+Copyright 2026 Jesse Brookins
+
+This product is licensed under the Apache License, Version 2.0 (the "License").
+You may not use this product except in compliance with the License. A copy of
+the License is available at http://www.apache.org/licenses/LICENSE-2.0.
+
+================================================================================
+Third-party font attribution
+================================================================================
+
+This product bundles the Inter typeface (static instances, version 4.1) under
+the SIL Open Font License, Version 1.1.
+
+  Inter
+  Copyright (c) 2016 The Inter Project Authors (https://github.com/rsms/inter)
+  Licensed under the SIL Open Font License, Version 1.1.
+
+The full Open Font License text ships at fonts/OFL.txt, and fonts/NOTICE.md
+records the font version, retrieval source, archive SHA-256, and the
+deterministic tabular-figures modification applied at build time. Inter carries
+no Reserved Font Name.
+
+================================================================================
+Document content
+================================================================================
+
+All document content produced by this generator is synthetic. The Hartwell
+loan/mortgage packet and the sample bank statement use fictional persons,
+organizations, account numbers, and values; e-mail addresses use the
+RFC 2606 reserved example domains. No real personal data is included.

@@ -1,0 +1,284 @@
+"""occurrences.py -- every DRAWN occurrence, transcribed from the values manifest.
+
+Each Occurrence carries the manifest's id/value/category/tier/label_context/render/justification;
+the draw-time bbox/page/spans are filled in by the generator (manifest.py). Values reference
+personas.py so nothing drifts across exhibits. The FROZEN STMT exhibit is carried, not
+drawn -- see generators/stmt.py.
+
+Every character is printable ASCII. Tier codes: MF/SF/W/MNF (manifest) -> must_fire/should_fire/watch/
+must_not_fire.
+"""
+from __future__ import annotations
+
+from . import personas as P
+from .manifest import Occurrence as O
+
+# ==================================================================================================
+# URLA-B -- borrower (2pp); Delia R. Hartwell + loan originator Karen Delgado
+# ==================================================================================================
+URLA_B = [
+    O("occ_urlab_01", P.DELIA_NAME_MI, "name", "urla_b", "SF", "Name (First, Middle, Last, Suffix):",
+      justification="middle initial breaks the NLTagger span -> tracked recall miss."),
+    O("occ_urlab_02", P.DELIA_NAME, "name", "urla_b", "MF", "Borrower (printed):",
+      justification="clean two-token Title-Case -> NLTagger 0.70 >= 0.60."),
+    O("occ_urlab_03", P.KAREN_NAME, "name", "urla_b", "SF", "Loan Originator Name:",
+      justification="clean two-token; lender employee. Text-leg miss (NLTagger did not tag this name in context) -> should_fire."),
+    O("occ_urlab_04", P.DELIA_DOB, "dateOfBirth", "urla_b", "SF", "Date of Birth (mm/dd/yyyy):",
+      justification="numeric, label-anchored. Text-leg miss (numeric DOB on .financial not detected; OCR leg mislabels as phone) -> should_fire."),
+    O("occ_urlab_05", P.DELIA_DOB_TEXTUAL, "dateOfBirth", "urla_b", "MF", "Born",
+      justification="TEXTUAL date surface (month-name alternation accepted) -> 0.85. Same DOB as occ_04."),
+    O("occ_urlab_06", P.ADDR_RESIDENCE, "address", "urla_b", "MF", "Current Address:", multiline=True,
+      justification="shared residence; 2 spans (street; city/ST/ZIP); 0.70."),
+    O("occ_urlab_06b", P.ADDR_FORMER_CA, "address", "urla_b", "MF", "Former Address:", multiline=True,
+      justification="CA-DL/ID-residence reconciliation; 2 spans."),
+    O("occ_urlab_07", P.ADDR_PO_DELIA, "address", "urla_b", "MF", "Mailing Address (if different):",
+      justification="P.O. Box arm."),
+    O("occ_urlab_08", P.ADDR_EMPLOYER, "address", "urla_b", "MF", "Employer Address:",
+      justification="employer (Tannersworth) address."),
+    O("occ_urlab_09", P.DELIA_SSN, "ssn", "urla_b", "MF", "Social Security Number:",
+      source_range="synthetic + manifest (no provable never-issued SSN space post-2011)",
+      justification="area 502 (001-899, !=666), group 19, serial 7438; valid -> 0.95 with label."),
+    O("occ_urlab_10", P.DELIA_PHONE_HOME, "phone", "urla_b", "MF", "Home Phone:",
+      justification="NANPA 555-0147; phone kw within +-80 -> 0.80 >= 0.70."),
+    O("occ_urlab_11", P.DELIA_PHONE_CELL, "phone", "urla_b", "MF", "Cell Phone:",
+      justification="format-zoo (CA 916 area, kept post-relocation); 555-0182 -> 0.80."),
+    O("occ_urlab_12", P.DELIA_PHONE_WORK, "phone", "urla_b", "MF", "Work Phone:",
+      justification="format-zoo (dotted); 555-0119 -> 0.80."),
+    O("occ_urlab_13", P.DELIA_EMAIL, "email", "urla_b", "MF", "Email:",
+      justification="RFC-2606 -> 0.90 >= 0.83."),
+    O("occ_urlab_14", P.KAREN_EMAIL, "email", "urla_b", "MF", "Email:",
+      justification="RFC-2606 (Sec 9 originator)."),
+    O("occ_urlab_15", P.DELIA_ACCT_CHK, "account", "urla_b", "MF", "Account #",
+      justification="12-digit (dodges 10-digit phone, < 13-digit cc); acct kw +-5, away from phone +-80 / routing +-8. 0.75."),
+    O("occ_urlab_16", P.DELIA_ACCT_401K, "account", "urla_b", "MF", "Acct No.",
+      justification="12-digit 401k; 0.75."),
+    O("occ_urlab_17", P.DELIA_ACCT_MM, "account", "urla_b", "MF", "A/C",
+      justification="12-digit; A/C label clears account AND suppresses the phone competitor. 0.75."),
+    O("occ_urlab_18", P.DELIA_ACCT_MASKED, "account", "urla_b", "W", "Account #", masked=True,
+      justification="masked X breaks \\d{6,15} -> invisible. last-4 3265 = STMT primary checking tie."),
+    O("occ_urlab_19", P.DELIA_CC, "creditCard", "urla_b", "MF", "Account Number:",
+      justification="Visa test PAN, Luhn+IIN+16d -> 0.95; spaced 4-groups deny account/phone capture."),
+    O("occ_urlab_20", P.DELIA_CC_MASKED, "creditCard", "urla_b", "W", "Account Number:", masked=True,
+      justification="< 13 digits -> below CC shape; masked watch."),
+    O("occ_urlab_21", P.CC_LUHN_FAIL, "creditCard", "urla_b", "MNF", "Account Number:",
+      justification="Luhn FAILS -> CC rejects."),
+    O("occ_urlab_22", P.DATE_SIGN_0430, "dateOfBirth", "urla_b", "MNF", "Date:",
+      justification="bare application sign date -> suppressed (financial label-anchored-only gate)."),
+    O("occ_urlab_23", P.DELIA_SSN_MASKED, "ssn", "urla_b", "SF", "Account / Tradeline -- SSN:", masked=True,
+      justification="Masked X breaks \\d runs -> tracked recall miss. Delia's masked SSN."),
+    O("occ_urlab_24", P.VEH_PLATE_FIN, "licensePlate", "urla_b", "MNF", "Collateral Vehicle Plate No:",
+      justification="N-LP-3: plate-labeled + vehicle context BUT on a .financial page -> runsLicensePlate=false -> MNF."),
+    O("occ_urlab_25", P.PHONE_CASE_NEG, "phone", "urla_b", "MNF", "Loan File / Case No.:",
+      justification="N-PHONE-1: negative-context 'case no' + NO positive phone kw within +-80 -> dropped."),
+    O("N-CC-1", P.CC_BAD_IIN, "creditCard", "urla_b", "MNF", "Account Number:",
+      justification="16-digit, Luhn-PASS but lead 9 -> no IIN family -> CC rejects."),
+    O("N-CC-2", P.CC_SHORT, "creditCard", "urla_b", "MNF", "Account Number:",
+      justification="12 digits (3x4) < 13 -> below CC shape; spaced -> account regex sees <6-digit groups."),
+]
+
+# ==================================================================================================
+# URLA-A -- Additional Borrower (1pp); Mateo Hartwell, resident-alien -> ITIN
+# ==================================================================================================
+URLA_A = [
+    O("occ_urlaa_01", P.MATEO_NAME, "name", "urla_a", "MF", "Name (First / Middle / Last / Suffix):",
+      justification="clean two-token Title-Case (deliberately distinct surface from the ALL-CAPS SF variant)."),
+    O("occ_urlaa_02", P.MATEO_NAME_CAPS, "name", "urla_a", "SF", "Printed Name:", all_caps=True,
+      justification="ALL-CAPS -> NLTagger miss -> should_fire."),
+    O("occ_urlaa_03", P.MATEO_ITIN, "itin", "urla_a", "MF",
+      "Social Security Number (or Individual Taxpayer Identification Number) (ITIN):",
+      justification="area 970 (9NN), group 85 in {70-88}; ITIN label -> 0.85. area 9NN -> SSN rejects."),
+    O("occ_urlaa_04", P.MATEO_DOB, "dateOfBirth", "urla_a", "SF", "Date of Birth (mm/dd/yyyy):",
+      justification="label-anchored. Text-leg miss (numeric DOB on .financial; OCR leg mislabels as phone) -> should_fire."),
+    O("occ_urlaa_05", P.ADDR_RESIDENCE, "address", "urla_a", "MF", "Current Address:", multiline=True,
+      justification="shared residence (married); 2 spans."),
+    O("occ_urlaa_06", P.ADDR_PO_MATEO, "address", "urla_a", "MF", "Mailing Address (if different):",
+      justification="P.O. Box arm (co-applicant mailing)."),
+    O("occ_urlaa_07", P.MATEO_PHONE_WORK, "phone", "urla_a", "MF", "Work Phone:",
+      justification="format-zoo (+1); 555-0173 -> 0.80."),
+    O("occ_urlaa_08", P.MATEO_EMAIL, "email", "urla_a", "MF", "Email:",
+      justification="RFC-2606."),
+    O("occ_urlaa_09", P.MATEO_ACCT_SAV, "account", "urla_a", "MF", "Acct #:",
+      justification="12-digit savings; away from phone; 0.75."),
+    O("occ_urlaa_10", P.MATEO_ACCT_MASKED, "account", "urla_a", "W", "Account Number:", masked=True,
+      justification="masked -> invisible."),
+    O("occ_urlaa_11", P.DATE_EMP_START, "dateOfBirth", "urla_a", "MNF", "Start Date (mm/dd/yyyy):",
+      justification="bare employment date -> suppressed (financial)."),
+    O("occ_urlaa_12", P.DATE_SIGN_0430, "dateOfBirth", "urla_a", "MNF", "Date:",
+      justification="bare signature date -> suppressed."),
+    O("N-ITIN-3", P.ITIN_BAD_SEP, "itin", "urla_a", "MNF", "SSN / ITIN:",
+      justification="inconsistent separator (dash then space) -> ITIN backref \\1 fails -> no match."),
+]
+
+# ==================================================================================================
+# T1040 -- 1040-like, original layout (2pp)
+# ==================================================================================================
+T1040 = [
+    O("occ_t1040_01", P.DELIA_SSN, "ssn", "t1040", "MF", "Your Social Security Number (SSN):",
+      source_range="synthetic + manifest", justification="Delia's SSN."),
+    O("occ_t1040_02", P.DELIA_NAME, "name", "t1040", "MF", "Taxpayer name:",
+      justification="clean two-token (MI dropped)."),
+    O("occ_t1040_03", P.ADDR_RESIDENCE, "address", "t1040", "MF", "Home address, City, State, ZIP:",
+      multiline=True, justification="2 spans."),
+    O("occ_t1040_04", P.MATEO_NAME, "name", "t1040", "MF", "Spouse's name:",
+      justification="clean two-token (= occ_urlaa_01 person)."),
+    O("occ_t1040_05", P.MATEO_ITIN, "itin", "t1040", "MF",
+      "Spouse's Individual Taxpayer Identification Number (ITIN):",
+      justification="Mateo's ITIN (= occ_urlaa_03). area 9NN -> SSN rejects."),
+    O("occ_t1040_06", P.LENA_NAME, "name", "t1040", "MF", "(1) Name:",
+      justification="clean two-token (dependent)."),
+    O("occ_t1040_07", P.LENA_SSN, "ssn", "t1040", "MF", "(1) SSN:",
+      source_range="synthetic + manifest", justification="Lena's SSN (area 521, valid)."),
+    O("occ_t1040_08", P.LENA_DOB, "dateOfBirth", "t1040", "MF", "(1) Date of Birth:",
+      justification="Lena, label-anchored -> 0.85."),
+    O("occ_t1040_09", P.THEO_NAME, "name", "t1040", "MF", "(2) Name:",
+      justification="clean two-token (dependent)."),
+    O("occ_t1040_10", P.THEO_SSN, "ssn", "t1040", "MF", "(2) SSN:",
+      source_range="synthetic + manifest", justification="Theo's SSN (area 438, valid)."),
+    O("occ_t1040_11", P.THEO_DOB, "dateOfBirth", "t1040", "MF", "(2) Date of Birth:",
+      justification="Theo, label-anchored."),
+    O("occ_t1040_12", P.EIN_TANNERSWORTH, "ein", "t1040", "MF", "Employer Identification Number (EIN):",
+      justification="prefix 36 (valid) + EIN label -> 0.85. Tannersworth's EIN."),
+    O("occ_t1040_13", P.DELIA_SSN, "ssn", "t1040", "MF", "Your social security number:",
+      source_range="synthetic + manifest",
+      justification="SAME value as occ_01 (genre-honest page-2 repeat). Each repeated box counts as its own occurrence -> distinct box."),
+    O("occ_t1040_14", P.SSN_SSA_ADVERT, "ssn", "t1040", "MNF", "for example, 987-65-4320.",
+      justification="area 987 >= 900 -> SSN rejects. NO substring 'tin'/ITIN keyword within +-8 tokens."),
+    O("occ_t1040_15", P.TAXYEAR_SPAN_DOT, "dateOfBirth", "t1040", "MNF", "For the calendar year:",
+      justification="bare tax-year span -> suppressed."),
+    O("occ_t1040_16", P.DATE_SIGN_0412, "dateOfBirth", "t1040", "MNF", "Sign here -- Date:",
+      justification="bare signature date -> suppressed."),
+    O("occ_t1040_17", P.DATE_SIGN_0412, "dateOfBirth", "t1040", "MNF", "Spouse signature -- Date:",
+      justification="bare signature date -> suppressed."),
+    O("N-SSN-2", P.SSN_900, "ssn", "t1040", "MNF", "SSN instruction footnote:",
+      justification="area 900 >= 900 -> SSN rejects; group 12 out of ITIN range -> ITIN rejects."),
+    O("N-ITIN-1", P.ITIN_BAD_GROUP, "itin", "t1040", "MNF", "Spouse ITIN instruction:",
+      justification="group 12 not in {50-65,70-88,90-92,94-99} -> ITIN rejects; area 9NN -> SSN rejects."),
+    O("N-ITIN-2", P.ITIN_NO_KW, "itin", "t1040", "W", "Taxpayer reference / control no.:",
+      justification="valid ITIN shape, no nearby itin kw. Fires as itin (structural match clears 0.65 without context) -> watch; engine-improvement: require itin context."),
+]
+
+# ==================================================================================================
+# ACH -- direct-deposit authorization (1pp); routing HOME; Sablebrook Bank
+# ==================================================================================================
+ACH = [
+    O("occ_ach_01", P.RTN_BANK, "routingNumber", "ach", "MF", "Routing Number / ABA #:",
+      source_range="synthetic + manifest (FedACH pre-screen clean)",
+      justification="prefix 21 valid, mod-10 (sum 70) valid, group-00 SSN-invalid; routing kw +-8 -> 0.88."),
+    O("occ_ach_02", P.RTN_BANK, "routingNumber", "ach", "MF", "Origin ABA:",
+      justification="shares value w/ occ_01 (same bank RTN twice)."),
+    O("occ_ach_03", P.RTN_WATCH, "routingNumber", "ach", "W", "Form Control No.:",
+      justification="valid RTN, NO routing kw within +-8 -> stays 0.50 < 0.60 -> watch."),
+    O("occ_ach_04", P.RTN_CHECKSUM_FAIL, "routingNumber", "ach", "MNF", "Intermediary Wire Routing:",
+      justification="prefix 61 valid but mod-10 FAILS (sum 53) -> routing rejects on checksum."),
+    O("occ_ach_05", P.DELIA_ACCT_CHK, "account", "ach", "MF", "Account Type Checking -- Acct No.:",
+      justification="Delia checking (= occ_06, occ_urlab_15); 12-digit; away from routing kw; 0.75."),
+    O("occ_ach_06", P.DELIA_ACCT_CHK, "account", "ach", "MF", "Crediting Account Type -- Receiving Acct No.:",
+      justification="shares value w/ occ_05."),
+    O("occ_ach_07", P.DELIA_NAME, "name", "ach", "MF", "Account Holder Name:",
+      justification="clean two-token."),
+    O("occ_ach_08", P.DELIA_NAME_CAPS, "name", "ach", "SF", "INDN:", all_caps=True,
+      justification="INDN prefix corrupts NLTagger context -> miss."),
+    O("occ_ach_09", P.DELIA_NAME_CAPS, "name", "ach", "SF", "INDN:", all_caps=True,
+      justification="as occ_08 (offset)."),
+    O("occ_ach_10", P.DELIA_NAME_CAPS, "name", "ach", "W", "Printed Name:", all_caps=True,
+      justification="anchor present but ALL-CAPS -> undecided -> watch."),
+    O("occ_ach_11", P.ACH_CO_ID, "ein", "ach", "MNF", "CO ID:",
+      justification="'1'+9-digit EIN; 10 contiguous -> einPatternNoSep needs exactly 9 -> no EIN. Keep >+-80 chars from any phone kw."),
+    O("occ_ach_12", P.DATE_SIGN_0430, "dateOfBirth", "ach", "MNF", "Date:",
+      justification="bare authorization date -> suppressed."),
+    O("occ_ach_13", P.ADDR_RESIDENCE, "address", "ach", "MF", "Account Holder Mailing Address:",
+      multiline=True, justification="2 spans."),
+    O("N-RTN-1", P.RTN_BAD_PREFIX, "routingNumber", "ach", "MNF", "2nd Intermediary / Returns Wire Routing:",
+      justification="prefix 90 outside ABA set -> routing rejects; area 901 >= 900 -> SSN rejects."),
+    O("N-INV-1", P.INV_REF_9, "routingNumber", "ach", "MNF", "Reference No.:",
+      justification="area 000 -> SSN rejects; prefix 00 -> routing rejects; no acct kw; 9 digits -> no phone/cc."),
+    O("N-RTN-2", P.ACH_TRACE_15, "routingNumber", "ach", "MNF", "Trace:",
+      justification="15 digits -> routing len!=9; starts 21 -> no cc IIN; Trace: no acct kw; no bounded 9-run -> no SSN."),
+    O("N-ACCT-1", P.ACCT_AS_PHONE, "account", "ach", "MNF", "Account Number:",
+      justification="REC: 10-digit NANP shape + phone kw within +-80 -> phone 0.80 wins overlap over account 0.75 -> MNF-as-account. = STMT account tie."),
+]
+
+# ==================================================================================================
+# W2 -- original layout (1pp); employee Delia; employer Tannersworth
+# ==================================================================================================
+W2 = [
+    O("occ_w2_01", P.DELIA_SSN_MASKED, "ssn", "w2", "SF", "a Employee's social security number",
+      masked=True, justification="masked X breaks \\d runs -> tracked recall miss. Delia (last-4 7438)."),
+    O("occ_w2_02", P.EIN_TANNERSWORTH, "ein", "w2", "MF", "b Employer identification number (EIN)",
+      justification="valid prefix 36 + EIN label -> 0.85. Tannersworth (= occ_t1040_12)."),
+    O("occ_w2_03", P.DELIA_NAME, "name", "w2", "MF", "e Employee's first name and initial / Last name",
+      justification="initial/Suff sub-cells blank -> clean two-token."),
+    O("occ_w2_04", P.ADDR_EMPLOYER, "address", "w2", "MF", "c Employer's name, address, and ZIP code",
+      justification="employer address (single-line value); org-name line rides as a sibling."),
+    O("occ_w2_05", P.ADDR_RESIDENCE, "address", "w2", "MF", "f Employee's address and ZIP code",
+      multiline=True, justification="2 spans."),
+    O("occ_w2_06", P.EIN_INVALID_PREFIX, "ein", "w2", "MNF", "for example, 07-3300449.",
+      justification="prefix 07 in invalid set -> EIN rejected pre-scoring. Keep >+-6 tokens from the real Box-b label."),
+    O("occ_w2_07", P.TAXYEAR_SPAN, "dateOfBirth", "w2", "MNF", "For Tax Year:",
+      justification="bare tax-year date -> suppressed."),
+    O("N-SSN-1", P.SSN_WOOLWORTH, "ssn", "w2", "MNF", "Notice to Employee (Box a example):",
+      justification="Woolworth/wallet SSN -> SSNStructuralValidator Rule 6 hard reject -> MNF."),
+    O("N-EIN-1", P.EIN_NONSHAPE, "ein", "w2", "MNF", "15 Employer's state ID no.:",
+      justification="NON-EIN shape -> no EIN candidate even though bare 'employer' substring is adjacent."),
+]
+
+# ==================================================================================================
+# GOVID -- government-ID / KYC block (1pp); DL=California, passport=Mexico
+# ==================================================================================================
+GOVID = [
+    O("occ_govid_01", P.DELIA_NAME, "name", "govid", "SF", "Full Legal Name:",
+      justification="clean two-token. Text-leg miss on the GOV-ID layout (adjacent-token context breaks the NLTagger span) -> should_fire."),
+    O("occ_govid_02", P.MATEO_NAME_CAPS, "name", "govid", "SF", "Name (as shown on passport):",
+      all_caps=True, justification="ALL-CAPS -> miss."),
+    O("occ_govid_03", P.DELIA_DOB, "dateOfBirth", "govid", "MF", "Date of Birth:",
+      justification="Delia, label-anchored."),
+    O("occ_govid_04", P.MATEO_DOB, "dateOfBirth", "govid", "MF", "Date of Birth:",
+      justification="Mateo, label-anchored."),
+    O("occ_govid_05", P.ADDR_RESIDENCE, "address", "govid", "MF", "Current Residential Address:",
+      multiline=True, justification="2 spans."),
+    O("occ_govid_06", P.DELIA_DL, "driversLicense", "govid", "MF", "Driver's License:",
+      justification="matches CA ^[A-Z][0-9]{7}$ -> 0.80 >= 0.72. Delia."),
+    O("occ_govid_07", P.DELIA_DL, "driversLicense", "govid", "MF", "Primary ID verified -- Driver's License:",
+      justification="same value re-recorded (KYC)."),
+    O("occ_govid_08", P.DL_TOO_LONG, "driversLicense", "govid", "MNF", "Secondary ID -- Driver's License:",
+      justification="1L+14D (15 chars) > every dl_patterns row -> gazetteer suppresses."),
+    O("occ_govid_09", P.MATEO_PASSPORT, "passport", "govid", "MF", "Passport No:",
+      justification="matches MX ^[A-Z][0-9]{8}$ -> 0.80 >= 0.72. Mateo (foreign issuer)."),
+    O("occ_govid_10", P.PP_TOO_SHORT, "passport", "govid", "MNF", "Prior Passport No:",
+      justification="1L+6D (7 chars) matches no issuer row (all 8-9) -> suppressed."),
+    O("occ_govid_11", P.DATE_LICENSE_EXP, "dateOfBirth", "govid", "W", "License Expires:",
+      justification="bare date. GOV-ID classifies non-financial (foia) -> the full DOB path fires on bare dates -> watch (this negative is only valid on a .financial page)."),
+    O("occ_govid_12", P.DATE_PP_ISSUE, "dateOfBirth", "govid", "W", "Passport Date of Issue:",
+      justification="bare date. GOV-ID classifies non-financial (foia) -> the full DOB path fires on bare dates -> watch (this negative is only valid on a .financial page)."),
+    O("N-PP-1", P.PP_ALL_NUMERIC, "passport", "govid", "MNF", "Legacy / Prior Passport No:",
+      justification="pure 9-digit -> passport capture needs a leading letter -> unreachable; area 000 -> SSN rejects."),
+    O("N-PP-2", P.PP_BAD_LEN, "passport", "govid", "MNF", "Transcription-error Passport No:",
+      justification="1L+9D (10 chars) -> matches no 9-char issuer row; 9-digit run has group 00 -> SSN rejects."),
+]
+
+# ==================================================================================================
+# VEH -- licensePlate .generic vehicle-collateral exhibit (1pp)
+# ==================================================================================================
+VEH = [
+    O("occ_veh_01", P.VEH_PLATE, "licensePlate", "veh", "MF", "Plate No:",
+      justification="CA-style 1+3+3 plate; vehicle-context boost -> 0.88; FIRES because page is .generic."),
+    O("occ_veh_02", P.DELIA_NAME, "name", "veh", "MF", "Registered Owner:",
+      justification="clean two-token Title-Case -> 0.70; name not doctype-gated -> fires on .generic."),
+    O("occ_veh_03", P.ADDR_RESIDENCE, "address", "veh", "MF", "Owner Address:", multiline=True,
+      justification="shared residence; 2 spans; 0.70."),
+    O("occ_veh_04", P.VEH_VIN, "licensePlate", "veh", "MNF", "VIN:",
+      justification="licensePlate regex requires a PLATE label -> 17-char VIN behind VIN: never matches -> MNF."),
+    O("occ_veh_05", P.VEH_TAG_NEG, "licensePlate", "veh", "W", "Tag No:",
+      justification="Fires as licensePlate -- 'Tag No' is a plate-label synonym -> watch; Jesse decides must_fire vs engine-suppress."),
+]
+
+# ==================================================================================================
+# Registry
+# ==================================================================================================
+ALL = URLA_B + URLA_A + T1040 + ACH + W2 + GOVID + VEH
+BY_ID = {o.id: o for o in ALL}
+BY_EXHIBIT = {}
+for _o in ALL:
+    BY_EXHIBIT.setdefault(_o.exhibit, []).append(_o)
+
+assert len(BY_ID) == len(ALL), "duplicate occurrence id in registry"
