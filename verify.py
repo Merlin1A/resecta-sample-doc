@@ -54,7 +54,6 @@ reader = PdfReader(str(PDF))
 full_text = pdftotext()
 page_text = {p: pdftotext(p) for p in (1, 2, 3)}
 page_norm = {p: norm(t) for p, t in page_text.items()}
-full_norm = norm(full_text)
 
 # =================================================================================================
 # 1. page count

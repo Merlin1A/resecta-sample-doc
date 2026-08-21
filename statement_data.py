@@ -43,12 +43,8 @@ STATEMENT_DELIVERY = f"Paperless ({CUSTOMER_EMAIL})"
 # --------------------------------------------------------------------------------------------------
 # Period (decision Q4 — fixed)
 # --------------------------------------------------------------------------------------------------
-YEAR = 2026
-PERIOD_START = "05/01/2026"
-PERIOD_END = "05/31/2026"
 STATEMENT_DATE = "06/01/2026"
 PERIOD_LABEL = "05/01/2026 - 05/31/2026"
-PERIOD_PROSE = "May 1, 2026 through May 31, 2026"
 
 BEGINNING_BALANCE = D("2847.13")
 FEES_YTD = D("60.00")  # Jan–May monthly maintenance fees (multi-month accumulator; see manifest)
@@ -173,12 +169,6 @@ def daily_ending_balances() -> list[tuple[int, D]]:
 
 def money(d: D) -> str:
     return f"${d:,.2f}"
-
-
-def money_signed(d: D, *, positive_plus: bool = False) -> str:
-    if d < 0:
-        return f"-${-d:,.2f}"
-    return (f"+${d:,.2f}" if positive_plus else f"${d:,.2f}")
 
 
 # --------------------------------------------------------------------------------------------------

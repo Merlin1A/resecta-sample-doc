@@ -98,5 +98,5 @@ def draw(rc, base_page: int) -> None:
     tx = rc.value(G["occ_veh_05"], lx + 5, y, L.REG, 9.5, L.INK)                     # 88KJ2
     rc.text(tx + 10, y, "Serial No. on file; enclosed attachment item.", L.REG, 8.5, L.GRAY)
 
-    C.page_footer(rc, "Page 12 of 12", veh_safe=True)
+    C.page_footer(rc, "Page 12 of 12")
     rc.end_page()

@@ -85,11 +85,6 @@ def heading(rc, y, label, size=10.5):
     return y - 16
 
 
-def rule(rc, y, x0=None, x1=None, color=RULE, w=0.5):
-    rc.hrule(y, x0 if x0 is not None else LEFT, x1 if x1 is not None else RIGHT, color, w)
-    return y
-
-
 def note(rc, y, text, x=LEFT, size=7.5, color=FAINT, font=REG):
     rc.text(x, y, text, font, size, color)
     return y - (size + 2.5)
@@ -122,16 +117,6 @@ def field(rc, x, y, label, occ, *, vfont=REG, vsize=9, lsize=8, gap=4, label_col
     lx = rc.text(x, y, label, label_font, lsize, label_color)
     vx = rc.value(occ, lx + gap, y, vfont, vsize, value_color)
     return vx
-
-
-def field_below(rc, x, y, label, occ, *, vfont=REG, vsize=9, lsize=8, label_color=GRAY,
-                value_color=INK, leading=12, label_font=MED):
-    """Label on one line, value on the next (used where a wide value needs its own line). The label
-    still sits within the value's +-token window. Returns the y cursor below the value."""
-    rc.text(x, y, label, label_font, lsize, label_color)
-    y -= leading
-    rc.value(occ, x, y, vfont, vsize, value_color)
-    return y - leading
 
 
 def field_multiline(rc, x, y, label, occ, *, vfont=REG, vsize=9, lsize=8, label_color=GRAY,
