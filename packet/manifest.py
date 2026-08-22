@@ -55,18 +55,6 @@ class Occurrence:
         return self.value
 
 
-# --------------------------------------------------------------------------------------------------
-# keyword sets the spacing-constraint checks rely on (engine-verified). Matching is
-# SUBSTRING + case-insensitive (ContextWindowScorer:106). We keep these conservative.
-# --------------------------------------------------------------------------------------------------
-ACCOUNT_KW = ("account", "acct", "a/c")          # account-positive context
-ROUTING_KW = ("routing", "aba", "ach", "transit", "direct deposit")   # routing-positive context
-PHONE_KW = ("phone", "tel", "mobile", "cell", "fax", "number")        # phone-positive (incl. bare 'number')
-ITIN_KW = ("itin", "w-7", "w7", "tin", "taxpayer identification",
-           "individual taxpayer", "tax identification")               # ITIN-positive (C3 forbids 'tin' substring)
-EIN_KW = ("ein", "employer identification", "fein", "federal tax id", "box b")
-
-
 class RecordingCanvas:
     """Wraps a reportlab canvas. Every text draw is recorded (page, baseline_y, x_left, string) so
     page reading order can be reconstructed; `value()`/`value_multiline()` additionally emit a
@@ -102,13 +90,6 @@ class RecordingCanvas:
         self.c.drawRightString(x, y, s)
         self.draws.append((self.page, y, x - w, s))
         return x - w
-
-    def ctext(self, xc, y, s, font, size, color):
-        w = pdfmetrics.stringWidth(s, font, size)
-        self.c.setFillColor(color)
-        self.c.setFont(font, size)
-        self.c.drawCentredString(xc, y, s)
-        self.draws.append((self.page, y, xc - w / 2.0, s))
 
     # ---- geometry helpers (not recorded) ---------------------------------------------------------
     def hrule(self, y, x0, x1, color, w=0.6):

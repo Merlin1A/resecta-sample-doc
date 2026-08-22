@@ -26,9 +26,8 @@ def frow_multi(rc, y, occ, *, x=None, step=4, **kw):
     return yy - step
 
 
-def page_footer(rc, page_label: str, *, veh_safe: bool = False):
-    """A one-line disclosure footer drawn on every page. Doctype-NEUTRAL wording (no financial /
-    court / foia / medical keyword) so it cannot perturb the VEH .generic classification."""
+def page_footer(rc, page_label: str):
+    """A one-line disclosure footer drawn on every page."""
     rc.hrule(L.BOTTOM + 14, L.LEFT, L.RIGHT, L.RULE, 0.5)
     rc.text(L.LEFT, L.BOTTOM + 4, "Synthetic sample for software testing -- not real; values fictional and disclosed.",
             L.REG, 6.5, L.FAINT)
@@ -112,11 +111,3 @@ def signature_line(rc, y, label, width=210):
     rc.hrule(y, L.LEFT, L.LEFT + width, L.LINEFILL, 0.7)
     rc.text(L.LEFT, y - 9, label, L.REG, 7, L.FAINT)
     return y - 20
-
-
-def checkbox(rc, x, y, label, checked=False, size=7.5):
-    """A small [ ] / [X] checkbox + label (form furniture). Returns x just past the label."""
-    rc.box(x, y - 1, x + 7, y + 6, L.RULE, 0.6)
-    if checked:
-        rc.text(x + 1.2, y, "X", L.SEMI, 6.5, L.INK)
-    return rc.text(x + 11, y, label, L.REG, size, L.GRAY)

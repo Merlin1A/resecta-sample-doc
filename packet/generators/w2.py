@@ -25,7 +25,6 @@ def draw(rc, base_page: int) -> None:
     y = C.frow(rc, y, G["occ_w2_07"], step=16)         # For Tax Year: bare span (MNF date)
 
     # ---- box grid (left column: a, e, f; right column: b, c) ----
-    grid_top = y
     colR = L.LEFT + 300
     # Box a -- masked SSN (should-fire)
     L.box_caption(rc, L.LEFT, y - 28, colR - 12, y, G["occ_w2_01"].label_context)
