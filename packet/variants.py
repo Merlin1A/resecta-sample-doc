@@ -9,6 +9,9 @@ coordinate space where applicable.
                  (a trigger, NOT a guard): ground truth is transformed to the rotated display space,
                  so it FAILS against the current engine until that fix lands.
   degrade        a 3-rung quality ladder (skew / blur / low-DPI) off the scan-sim raster.
+                 Each rung re-emits ground truth narrowed to leg ["ocr"] (blur/low-DPI keep the
+                 scan-sim geometry unchanged; skew boxes are the axis-aligned hull of the
+                 1.5deg-rotated box -- APPROXIMATE by construction).
   perf-filler    a 50-200 pp dense born-digital filler (no firing PII) targeting the apply-phase
                  memory cliff.
 
@@ -160,18 +163,68 @@ def rotate_trigger(packet_pdf: bytes, gt: dict, degrees: int = 90):
 # --------------------------------------------------------------------------------------------------
 # degrade ladder (skew / blur / low-DPI), off the 150-DPI raster -- deterministic transforms
 # --------------------------------------------------------------------------------------------------
-def degrade_ladder(packet_pdf: bytes):
+_SKEW_DEGREES = 1.5
+
+
+def _skew_bbox_hull(b, degrees=_SKEW_DEGREES):
+    """Axis-aligned hull of a normalized bbox after the skew-rung rotation.
+
+    PIL's ``Image.rotate(degrees)`` turns the page content ``degrees``
+    counter-clockwise (as viewed) about the image center; the full-page raster
+    makes that the page center. The rotation is isotropic in POINT space, not
+    in normalized units (letter pages are not square), so the corners are
+    rotated in points and re-normalized. The hull over-covers the true rotated
+    quad -- polygons arrive with the E1 factory; this stays APPROXIMATE.
+    """
+    import math
+    cx, cy = PW / 2.0, PH / 2.0
+    th = math.radians(degrees)
+    cos_t, sin_t = math.cos(th), math.sin(th)
+    x0, y0, x1, y1 = b[0] * PW, b[1] * PH, b[2] * PW, b[3] * PH
+    xs, ys = [], []
+    for px, py in ((x0, y0), (x1, y0), (x0, y1), (x1, y1)):
+        dx, dy = px - cx, py - cy
+        xs.append(cx + dx * cos_t - dy * sin_t)
+        ys.append(cy + dx * sin_t + dy * cos_t)
+    hull = [min(xs) / PW, min(ys) / PH, max(xs) / PW, max(ys) / PH]
+    return [round(max(0.0, min(1.0, v)), 6) for v in hull]
+
+
+def _degrade_gt(gt: dict, rung: str, note: str, skewed: bool) -> dict:
+    """Ground truth for one degrade rung: leg ["ocr"], geometry per rung."""
+    vgt = json.loads(json.dumps(gt))   # deep copy; bboxes are resolution-independent
+    vgt["variant"] = {
+        "kind": "degrade", "rung": rung, "rasterized": True, "text_layer": False,
+        "gt_geometry": ("axis-aligned hull of the %.1fdeg-rotated box (approximate)"
+                        % _SKEW_DEGREES) if skewed else "inherited (unchanged)",
+        "note": note,
+    }
+    for r in vgt["occurrences"]:
+        r["leg_applicability"] = ["ocr"]   # image-only -> OCR leg only
+        if skewed:
+            r["bbox"] = _skew_bbox_hull(r["bbox"])
+            for s in r["spans"]:
+                s["bbox"] = _skew_bbox_hull(s["bbox"])
+    return vgt
+
+
+def degrade_ladder(packet_pdf: bytes, gt: dict):
     from PIL import Image
 
     base = _rasterize(packet_pdf, 150)
     rungs = {}
     # skew: small rotation, white fill (no random)
     skew = [
-        im.rotate(1.5, resample=Image.Resampling.BILINEAR, expand=False, fillcolor=255)
+        im.rotate(_SKEW_DEGREES, resample=Image.Resampling.BILINEAR, expand=False, fillcolor=255)
         for im in base
     ]
-    rungs["skew"] = _images_to_pdf(
-        skew, "Hartwell Packet -- degrade skew 1.5deg (test-only)", b"ResectaPacketDegSkew01"
+    rungs["skew"] = (
+        _images_to_pdf(
+            skew, "Hartwell Packet -- degrade skew 1.5deg (test-only)", b"ResectaPacketDegSkew01"
+        ),
+        _degrade_gt(
+            gt, "skew", "150 DPI raster rotated 1.5deg CCW about the page center.", skewed=True
+        ),
     )
     # blur: downscale 50% then back up (deterministic softening)
     blur = [
@@ -180,13 +233,17 @@ def degrade_ladder(packet_pdf: bytes):
         )
         for im in base
     ]
-    rungs["blur"] = _images_to_pdf(
-        blur, "Hartwell Packet -- degrade blur (test-only)", b"ResectaPacketDegBlur01"
+    rungs["blur"] = (
+        _images_to_pdf(blur, "Hartwell Packet -- degrade blur (test-only)", b"ResectaPacketDegBlur01"),
+        _degrade_gt(gt, "blur", "150 DPI raster softened by a 50% down/up resample.", skewed=False),
     )
     # low-DPI: re-rasterize the source at 100 DPI
     low = _rasterize(packet_pdf, 100)
-    rungs["lowdpi"] = _images_to_pdf(
-        low, "Hartwell Packet -- degrade low-DPI 100 (test-only)", b"ResectaPacketDegLow100"
+    rungs["lowdpi"] = (
+        _images_to_pdf(
+            low, "Hartwell Packet -- degrade low-DPI 100 (test-only)", b"ResectaPacketDegLow100"
+        ),
+        _degrade_gt(gt, "lowdpi", "Source re-rasterized at 100 DPI.", skewed=False),
     )
     return rungs
 
@@ -251,7 +308,7 @@ def build_all(perf_pages: int = 120, *, write=True) -> dict:
     out = {}
     ss_pdf, ss_gt = scan_sim(packet_pdf, gt)
     rt_pdf, rt_gt = rotate_trigger(packet_pdf, gt)
-    deg = degrade_ladder(packet_pdf)
+    deg = degrade_ladder(packet_pdf, gt)
     perf = perf_filler(perf_pages)
     out = {
         "scan_sim": (ss_pdf, ss_gt),
@@ -269,8 +326,10 @@ def build_all(perf_pages: int = 120, *, write=True) -> dict:
         (OUTDIR / "packet-rotate-trigger-ground-truth.json").write_text(
             json.dumps(rt_gt, indent=2) + "\n", encoding="ascii"
         )
-        for name, pdf in deg.items():
+        for name, (pdf, dgt) in deg.items():
             (OUTDIR / f"packet-degrade-{name}.pdf").write_bytes(pdf)
+            (OUTDIR / f"packet-degrade-{name}-ground-truth.json").write_text(
+                json.dumps(dgt, indent=2) + "\n", encoding="ascii")
         (OUTDIR / f"perf-filler-{perf_pages}pp.pdf").write_bytes(perf)
     return out
 
@@ -279,8 +338,8 @@ def main() -> None:
     out = build_all()
     print(f"scan-sim:       {len(out['scan_sim'][0]):,} bytes (image-only, OCR leg)")
     print(f"rotate-trigger: {len(out['rotate_trigger'][0]):,} bytes (/Rotate 90; transformed GT)")
-    for name, pdf in out["degrade"].items():
-        print(f"degrade/{name:7s} {len(pdf):,} bytes")
+    for name, (pdf, _dgt) in out["degrade"].items():
+        print(f"degrade/{name:7s} {len(pdf):,} bytes (+ transformed ground truth)")
     print(f"perf-filler:    {len(out['perf']):,} bytes")
     print(f"-> {OUTDIR}")
 

@@ -668,11 +668,31 @@ def run():
         check(rrots == {90}, "12c. rotate-trigger /Rotate 90 on all pages", str(rrots))
         rprob = schema.validate_ground_truth(rt_gt["occurrences"])
         check(not rprob, "12d. rotate-trigger transformed ground truth valid", f"{rprob[:2]}")
-        # degrade ladder: 3 rungs, non-trivial
+        # degrade ladder: 3 rungs of (pdf, ground truth), non-trivial
         check(
             set(o["degrade"]) == {"skew", "blur", "lowdpi"}
-            and all(len(v) > 1000 for v in o["degrade"].values()),
+            and all(len(pdf) > 1000 for pdf, _ in o["degrade"].values()),
             "12e. degrade ladder: skew/blur/low-DPI rungs generate",
+        )
+        # degrade ground truth: leg ocr on every rung; skew hull transformed + valid
+        dgt_ok = all(
+            all(r["leg_applicability"] == ["ocr"] for r in dgt["occurrences"])
+            for _, dgt in o["degrade"].values()
+        )
+        check(dgt_ok, "12e2. degrade ground truth narrowed to OCR leg (all rungs)")
+        sk_gt = o["degrade"]["skew"][1]
+        sk_prob = schema.validate_ground_truth(sk_gt["occurrences"])
+        sk_moved = any(
+            r["bbox"] != g["bbox"] for r, g in zip(sk_gt["occurrences"], gt["occurrences"])
+        )
+        bl_same = all(
+            r["bbox"] == g["bbox"]
+            for r, g in zip(o["degrade"]["blur"][1]["occurrences"], gt["occurrences"])
+        )
+        check(
+            not sk_prob and sk_moved and bl_same,
+            "12e3. skew ground truth hull-transformed + valid; blur geometry inherited",
+            f"{sk_prob[:2]}",
         )
         # perf filler: page count in 50-200
         pf = PdfReader(_io.BytesIO(o["perf"]))
@@ -689,7 +709,11 @@ def run():
         # variant GT ASCII
         import json as _j
 
-        vj = _j.dumps(ss_gt) + _j.dumps(rt_gt)
+        vj = (
+            _j.dumps(ss_gt)
+            + _j.dumps(rt_gt)
+            + "".join(_j.dumps(d) for _, d in o["degrade"].values())
+        )
         check(all(ord(c) <= 126 for c in vj), "12h. variant ground truth printable ASCII")
     except ImportError:
         print("SKIP  12. variants (PyMuPDF not available -- run with .venv/bin/python)")
