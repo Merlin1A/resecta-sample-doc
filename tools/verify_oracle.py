@@ -839,23 +839,40 @@ def phase_scan(cells_dir: Path, docs_root: Path | None, dpi: int) -> None:
     )
 
 
+TERM_PRESENCE_LAYERS = {
+    "Text Extraction", "OCR Check", "Binary String Search", "Operator Re-Extraction",
+}
+TERM_SURFACES = ("text_layer", "decompressed_bytes", "ocr")
+
+
 def classify(cell: Cell, leak_hits: list[dict], review: list[dict]) -> tuple[str, str | None]:
+    """Attribution-aware grading. A PASS is graded on leak-class hits alone
+    (ambient term presence is legitimate content, never a false-pass driver).
+    An ATTENTION/FAIL driven by a term-presence layer (L1/L2/L3/L10 — their
+    claim is document-wide readability of redaction-matching text) is
+    corroborated by term presence in any oracle text surface, ambient
+    included. A FAIL/ATTENTION from the geometry/count layers (L6/L7/L9,
+    structure, page count) needs leak-class evidence — ambient text elsewhere
+    says nothing about an in-region overlap or a count deficit."""
     overall = cell.report["overall"]["case"]
     leaked = bool(leak_hits)
-    if overall in ("pass", "info", "warn"):
-        cls = "false_pass" if leaked else "true_pass"
-    elif overall == "attention":
-        cls = "attention_true" if leaked else "attention_false"
-    elif overall == "fail":
-        cls = "true_fail" if leaked else "false_fail"
-    else:  # skipped — no app verdict to grade
-        cls = "skipped"
     attributed = None
     if overall in ("fail", "attention", "warn"):
         for layer in cell.report.get("layers", []):
             if layer["status"]["case"] == overall:
                 attributed = layer["name"]
                 break
+    term_presence = leaked or any(
+        r.get("surface") in TERM_SURFACES and r.get("term") for r in review)
+    corroborated = (term_presence if attributed in TERM_PRESENCE_LAYERS else leaked)
+    if overall in ("pass", "info", "warn"):
+        cls = "false_pass" if leaked else "true_pass"
+    elif overall == "attention":
+        cls = "attention_true" if corroborated else "attention_false"
+    elif overall == "fail":
+        cls = "true_fail" if corroborated else "false_fail"
+    else:  # skipped — no app verdict to grade
+        cls = "skipped"
     return cls, attributed
 
 
