@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "generator": "packet/t23.py (T2.3, P1.7)",
+  "notes": "DOCS_ROOT-direct family (T1.4 manifest untouched); deterministic byte-for-byte; plants sidecar = packet-t23-plants.json",
+  "fixtures": [
+    {
+      "id": "packet-rotate-180",
+      "path": "t23/packet-rotate-180.pdf",
+      "pages": 12,
+      "gt": "t23/packet-rotate-180-ground-truth.json",
+      "sha256": "956921c33876bc7ef7e436041dd393146d89fb11e2353cda4e87bfba4a74cd14",
+      "notes": "IM-08 /Rotate 180 leg, degrees-aware display-space GT (C12-72). Measures only -- F12-04 stays parked."
+    },
+    {
+      "id": "packet-rotate-270",
+      "path": "t23/packet-rotate-270.pdf",
+      "pages": 12,
+      "gt": "t23/packet-rotate-270-ground-truth.json",
+      "sha256": "c5d56ece9edb0352f474af698c219f7748c18c07deba03d73156ac677d121b25",
+      "notes": "IM-08 /Rotate 270 leg, degrees-aware display-space GT (C12-72). Measures only -- F12-04 stays parked."
+    },
+    {
+      "id": "packet-annotated",
+      "path": "t23/packet-annotated.pdf",
+      "pages": 12,
+      "gt": "t23/packet-t23-plants.json",
+      "sha256": "f406e913cc342f7902d2d015fd9ca93cf56c9859dbb54ea609ea4b743f7d5b11",
+      "notes": "IM-14 annotation realism leg: FreeText(/AP+/Contents) - Stamp(/AP only) - Square+Popup(/Contents only)."
+    },
+    {
+      "id": "packet-incremental",
+      "path": "t23/packet-incremental.pdf",
+      "pages": 12,
+      "gt": "t23/packet-t23-plants.json",
+      "sha256": "4523a9eae345ac2f0ddd665540bd9e2d68526976c003f9887a2424b629a40b32",
+      "notes": "IM-23 REAL /Prev two-revision packet: rev-1 overlay carries the plant, rev-2 replaces it; prior bytes remain ([R01] 1.5)."
+    }
+  ]
+}

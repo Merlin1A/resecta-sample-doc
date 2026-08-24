@@ -125,11 +125,34 @@ def scan_sim(packet_pdf: bytes, gt: dict, dpi: int = 150):
 # --------------------------------------------------------------------------------------------------
 # rotate-trigger (/Rotate 90; transformed ground truth; FAILS until the engine rotated-coord fix)
 # --------------------------------------------------------------------------------------------------
-def _rotate_bbox_90(b):
-    """(nx,ny) bottom-left -> /Rotate 90 clockwise display space: (nx,ny)->(ny,1-nx).
-    bbox [x0,y0,x1,y1] -> [y0, 1-x1, y1, 1-x0]."""
+def _rotate_bbox(b, degrees: int):
+    """Degrees-aware GT transform into the /Rotate display space (C12-72).
+
+    Normalized bottom-left coords; the point maps (clockwise display):
+      90:  (nx,ny) -> (ny, 1-nx)      bbox [x0,y0,x1,y1] -> [y0, 1-x1, y1, 1-x0]
+      180: (nx,ny) -> (1-nx, 1-ny)    bbox -> [1-x1, 1-y1, 1-x0, 1-y0]
+      270: (nx,ny) -> (1-ny, nx)      bbox -> [1-y1, x0, 1-y0, x1]
+    Normalization absorbs the 90/270 page-dimension swap (both axes stay 0..1).
+    """
     x0, y0, x1, y1 = b
-    return [round(y0, 6), round(1 - x1, 6), round(y1, 6), round(1 - x0, 6)]
+    if degrees == 90:
+        return [round(y0, 6), round(1 - x1, 6), round(y1, 6), round(1 - x0, 6)]
+    if degrees == 180:
+        return [round(1 - x1, 6), round(1 - y1, 6), round(1 - x0, 6), round(1 - y0, 6)]
+    if degrees == 270:
+        return [round(1 - y1, 6), round(x0, 6), round(1 - y0, 6), round(x1, 6)]
+    raise ValueError(f"unsupported rotation {degrees} (90/180/270 only)")
+
+
+_ROTATE_NOTES = {
+    # The 90deg wording is FROZEN (byte-stable committed GT + the T1.4 manifest pin).
+    90: "TRIGGER for the open rotated-coordinate P0; FAILS until the engine "
+        "fix lands. bbox transformed (nx,ny)->(ny,1-nx).",
+    180: "IM-08 rotation leg. /Rotate 180 keeps the axes (no width/height swap); "
+         "bbox transformed (nx,ny)->(1-nx,1-ny). Measures only -- F12-04 stays parked.",
+    270: "IM-08 rotation leg. /Rotate 270 swaps the axes like 90; "
+         "bbox transformed (nx,ny)->(1-ny,nx). Measures only -- F12-04 stays parked.",
+}
 
 
 def rotate_trigger(packet_pdf: bytes, gt: dict, degrees: int = 90):
@@ -143,20 +166,19 @@ def rotate_trigger(packet_pdf: bytes, gt: dict, degrees: int = 90):
     w.write(out)
     pdf = _finalize(
         out.getvalue(),
-        "Hartwell Packet -- rotate-trigger 90deg (test-only)",
-        b"ResectaPacketRotate90",
+        f"Hartwell Packet -- rotate-trigger {degrees}deg (test-only)",
+        f"ResectaPacketRotate{degrees}".encode("ascii"),
     )
     vgt = json.loads(json.dumps(gt))
     vgt["variant"] = {
         "kind": "rotate-trigger",
         "rotate_degrees": degrees,
-        "note": "TRIGGER for the open rotated-coordinate P0; FAILS until the engine "
-        "fix lands. bbox transformed (nx,ny)->(ny,1-nx).",
+        "note": _ROTATE_NOTES[degrees],
     }
     for rec in vgt["occurrences"]:
-        rec["bbox"] = _rotate_bbox_90(rec["bbox"])
+        rec["bbox"] = _rotate_bbox(rec["bbox"], degrees)
         for s in rec["spans"]:
-            s["bbox"] = _rotate_bbox_90(s["bbox"])
+            s["bbox"] = _rotate_bbox(s["bbox"], degrees)
     return pdf, vgt
 
 
