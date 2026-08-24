@@ -346,3 +346,183 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+
+
+# --------------------------------------------------------------------------------------------------
+# hidden-text packet variants (T2.4 / IM-09..12 -- the PB-86 realism leg)
+# --------------------------------------------------------------------------------------------------
+# Plants live in the page-0 bottom margin (footer occupies user-space y 44..52; both bands below
+# it are measured char-free): band A (covered, baseline y 26) carries the plants the H2.2 cell
+# burns; band B (uncovered, baseline y 10) carries the re-exposure probes no region touches.
+# Classes: white-on-white (`1 g`), `3 Tr`, content-stream opaque box -- in packet-hidden-text.pdf;
+# OCG /OFF in packet-hidden-ocg.pdf (SEPARATE file: hidden OCG triggers the engine's AD-2-1
+# per-page secure fallback, which would drag the other classes off the searchable path).
+# Sidecar: variants/packet-hidden-plants.json (term, class, role, bbox + burn region, normalized
+# bottom-left, y-up). Deterministic via _finalize (pinned metadata + /ID).
+
+_HIDDEN_FONT = "FPLNT"
+_BAND_A_Y, _BAND_B_Y = 26, 10
+_SLOT_X = (60, 240, 420)
+_PLANT_SIZE = 9
+
+
+def _plant_bbox(x: float, y: float) -> list:
+    return [round(x / PW, 4), round((y - 2) / PH, 4), round(120 / PW, 4), round(13 / PH, 4)]
+
+
+def _burn_region(x: float) -> list:
+    # generous pad around a band-A slot; stays inside the char-free margin band
+    return [round((x - 6) / PW, 4), round(21 / PH, 4), round(136 / PW, 4), round(17 / PH, 4)]
+
+
+def _hidden_ops(cls: str, term: str, x: float, y: float) -> bytes:
+    def esc(s: str) -> bytes:
+        return s.replace("\\", r"\\").replace("(", r"\(").replace(")", r"\)").encode("latin-1")
+    tj = b"BT %s/%s %d Tf %d %d Td (%s) Tj ET\n" % (
+        b"3 Tr " if cls == "tr3_invisible" else b"",
+        _HIDDEN_FONT.encode(), _PLANT_SIZE, int(x), int(y), esc(term))
+    if cls == "white_on_white":
+        return b"1 g\n" + tj + b"0 g\n"
+    if cls == "tr3_invisible":
+        return tj
+    if cls == "opaque_box":
+        return tj + b"0 g %d %d 132 15 re f\n" % (int(x) - 6, int(y) - 3)
+    if cls == "ocg_off":
+        return b"/OC /OCPLNT BDC\n" + tj + b"EMC\n"
+    raise ValueError(cls)
+
+
+def _assert_band_free(pdf_bytes: bytes, page_index: int) -> None:
+    """Both margin bands must be char-free on the target page (fitz, top-down y)."""
+    import fitz
+    doc = fitz.open(stream=pdf_bytes, filetype="pdf")
+    words = doc[page_index].get_text("words")
+    doc.close()
+    for w in words:
+        top, bottom = w[1], w[3]
+        if bottom > PH - 40:  # anything below user-space y=40
+            raise AssertionError(f"margin band occupied on page {page_index}: {w[:5]}")
+
+
+def _packet_with_hidden(packet_pdf: bytes, specs: list[dict], *, ocg: bool,
+                        title: str, doc_id: bytes) -> bytes:
+    import io as _io
+    from pypdf import PdfReader, PdfWriter
+    from pypdf.generic import (ArrayObject, DecodedStreamObject, DictionaryObject,
+                               NameObject, TextStringObject)
+    _assert_band_free(packet_pdf, 0)
+    reader = PdfReader(_io.BytesIO(packet_pdf))
+    writer = PdfWriter(clone_from=reader)
+    page = writer.pages[0]
+
+    font_ref = writer._add_object(DictionaryObject({
+        NameObject("/Type"): NameObject("/Font"),
+        NameObject("/Subtype"): NameObject("/Type1"),
+        NameObject("/BaseFont"): NameObject("/Helvetica"),
+        NameObject("/Encoding"): NameObject("/WinAnsiEncoding"),
+    }))
+    resources = page["/Resources"]
+    resources = resources.get_object()
+    fonts = resources.get("/Font")
+    fonts = fonts.get_object() if fonts is not None else None
+    if fonts is None:
+        fonts = DictionaryObject()
+        resources[NameObject("/Font")] = fonts
+    fonts[NameObject("/" + _HIDDEN_FONT)] = font_ref
+
+    if ocg:
+        ocg_ref = writer._add_object(DictionaryObject({
+            NameObject("/Type"): NameObject("/OCG"),
+            NameObject("/Name"): TextStringObject("Planted Hidden Layer"),
+        }))
+        writer._root_object[NameObject("/OCProperties")] = DictionaryObject({
+            NameObject("/OCGs"): ArrayObject([ocg_ref]),
+            NameObject("/D"): DictionaryObject({
+                NameObject("/OFF"): ArrayObject([ocg_ref]),
+            }),
+        })
+        props = resources.get("/Properties")
+        props = props.get_object() if props is not None else None
+        if props is None:
+            props = DictionaryObject()
+            resources[NameObject("/Properties")] = props
+        props[NameObject("/OCPLNT")] = ocg_ref
+
+    ops = b"".join(_hidden_ops(s["hidden_class"], s["term"], s["x"], s["y"]) for s in specs)
+    stream = DecodedStreamObject()
+    stream.set_data(b"q\n" + ops + b"Q\n")
+    stream_ref = writer._add_object(stream)
+    raw_contents = page.raw_get("/Contents")
+    existing = raw_contents.get_object()
+    if isinstance(existing, ArrayObject):
+        arr = ArrayObject(list(existing) + [stream_ref])
+    else:
+        arr = ArrayObject([raw_contents, stream_ref])
+    page[NameObject("/Contents")] = arr
+
+    out = _io.BytesIO()
+    writer.write(out)
+    return _finalize(out.getvalue(), title, doc_id)
+
+
+def hidden_text(packet_pdf: bytes):
+    """IM-09..12: page-0 margin plants x4 hidden classes, covered (band A) + uncovered
+    (band B) roles. Returns (hidden_text_pdf, hidden_ocg_pdf, sidecar_dict)."""
+    trio = [
+        {"hidden_class": "white_on_white", "term_stem": "PKTWOW"},
+        {"hidden_class": "tr3_invisible", "term_stem": "PKTTR3"},
+        {"hidden_class": "opaque_box", "term_stem": "PKTBOX"},
+    ]
+    specs, rows = [], []
+    for i, t in enumerate(trio):
+        for role, y, nn in (("covered", _BAND_A_Y, "01"), ("uncovered", _BAND_B_Y, "02")):
+            term = f"PLANT-{t['term_stem']}-{nn}"
+            spec = {"hidden_class": t["hidden_class"], "term": term,
+                    "x": _SLOT_X[i], "y": y}
+            specs.append(spec)
+            rows.append({
+                "file": "packet-hidden-text.pdf", "page": 0,
+                "hidden_class": t["hidden_class"], "term": term, "role": role,
+                "bbox": _plant_bbox(_SLOT_X[i], y),
+                "burn_region": _burn_region(_SLOT_X[i]) if role == "covered" else None,
+            })
+    ht = _packet_with_hidden(packet_pdf, specs, ocg=False,
+                             title="Hartwell Packet -- hidden-text variant (test-only)",
+                             doc_id=b"ResectaPacketHiddenTx1")
+
+    ocg_specs, ocg_rows = [], []
+    for role, x, y, nn in (("covered", _SLOT_X[0], _BAND_A_Y, "01"),
+                           ("uncovered", _SLOT_X[1], _BAND_B_Y, "02")):
+        term = f"PLANT-PKTOCG-{nn}"
+        ocg_specs.append({"hidden_class": "ocg_off", "term": term, "x": x, "y": y})
+        ocg_rows.append({
+            "file": "packet-hidden-ocg.pdf", "page": 0,
+            "hidden_class": "ocg_off", "term": term, "role": role,
+            "bbox": _plant_bbox(x, y),
+            "burn_region": _burn_region(x) if role == "covered" else None,
+        })
+    ho = _packet_with_hidden(packet_pdf, ocg_specs, ocg=True,
+                             title="Hartwell Packet -- hidden-OCG variant (test-only)",
+                             doc_id=b"ResectaPacketHiddenOc1")
+
+    sidecar = {
+        "schema_version": 1,
+        "generated_by": "packet.variants hidden_text (IM-09..12)",
+        "coordinates": "normalized bottom-left [x, y, w, h] (y-up)",
+        "plants": rows + ocg_rows,
+    }
+    return ht, ho, sidecar
+
+
+def build_hidden(write: bool = True) -> dict:
+    if not _have_fitz():
+        raise SystemExit("hidden variants require PyMuPDF (fitz)")
+    res = B.build(write=False)
+    ht, ho, sidecar = hidden_text(res["pdf"])
+    if write:
+        OUTDIR.mkdir(exist_ok=True)
+        (OUTDIR / "packet-hidden-text.pdf").write_bytes(ht)
+        (OUTDIR / "packet-hidden-ocg.pdf").write_bytes(ho)
+        (OUTDIR / "packet-hidden-plants.json").write_text(
+            json.dumps(sidecar, indent=2) + "\n", encoding="ascii")
+    return {"hidden_text": ht, "hidden_ocg": ho, "sidecar": sidecar}
