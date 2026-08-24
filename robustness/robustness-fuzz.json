@@ -1,0 +1,1613 @@
+{
+  "schema_version": 1,
+  "generator": "packet/fuzz.py (T4.3 adapter, P1.7)",
+  "source": {
+    "builder": "resecta-data/fuzz/pdf-mutations",
+    "seed": 20260416,
+    "base_sha256": "362375692b8cff378d66c43fcf46f00ba09e1ea982602fcc5c8b70e96f54339a",
+    "base_bytes": 235819
+  },
+  "taxonomy": "engine PipelineError.ImportFailure case names. expected.import is the generator's structural prior, not ground truth -- H4.2 measures the real outcome and divergence is a result, not a harness defect.",
+  "fixtures": [
+    {
+      "id": "byte_flip_000",
+      "path": "robustness/fuzz/byte_flip_000.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 3 of the byte at offset 96662 (body region) inverted: 0x31 to 0x39. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "c9beffda9174c5c116e9c3edeb643911b06b9859fc4dbf229d3ac52784451703"
+    },
+    {
+      "id": "byte_flip_001",
+      "path": "robustness/fuzz/byte_flip_001.pdf",
+      "kind": "byte_flip",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Bit 4 of the byte at offset 1 (signature region) inverted: 0x50 to 0x40. Prior is reject because the edit damages the %PDF- token itself, which is what a reader keys on to recognize the file at all.",
+      "sha256": "6d6b4354c5e9086c0568be17b411058ff7f06a122376643c25c368d239e5e947"
+    },
+    {
+      "id": "byte_flip_002",
+      "path": "robustness/fuzz/byte_flip_002.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 3 of the byte at offset 138582 (body region) inverted: 0xa2 to 0xaa. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "cb927722e0f3c860cd7d344f7fc05396d072632d9404c8cdbb9b15aa756dec98"
+    },
+    {
+      "id": "byte_flip_003",
+      "path": "robustness/fuzz/byte_flip_003.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 4 of the byte at offset 234757 (xref_table region) inverted: 0x30 to 0x20. Prior is open because the edit damages a cross-reference entry; readers that rebuild the table recover.",
+      "sha256": "2b788212986928cfe31bab8a9824a5b4806eeda74a7f9bd4bc09c4712ccb2ac8"
+    },
+    {
+      "id": "byte_flip_004",
+      "path": "robustness/fuzz/byte_flip_004.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 4 of the byte at offset 72130 (body region) inverted: 0xb5 to 0xa5. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "f8558118b7fba59278a03736d671e7348f1ee8a320bc5625f435116d7031d465"
+    },
+    {
+      "id": "byte_flip_005",
+      "path": "robustness/fuzz/byte_flip_005.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 2 of the byte at offset 6 (version region) inverted: 0x2e to 0x2a. Prior is open because the edit damages only the advisory version digits after %PDF-, which readers are expected to tolerate.",
+      "sha256": "9747e9c7621ebc6af9268ef06f5a14123903bedb89054366acc89b41d6b01620"
+    },
+    {
+      "id": "byte_flip_006",
+      "path": "robustness/fuzz/byte_flip_006.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 2 of the byte at offset 141615 (body region) inverted: 0x91 to 0x95. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "5e91395a3da5c5ca52db6c13acc75fea2fe198e0f226587b5bb5bf67b5bfdd12"
+    },
+    {
+      "id": "byte_flip_007",
+      "path": "robustness/fuzz/byte_flip_007.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 2 of the byte at offset 235635 (trailer region) inverted: 0x74 to 0x70. Prior is open because the edit damages the trailer dictionary; readers that scan for the catalog recover.",
+      "sha256": "f91017fe2fbb98609eb74262022ae56d3cc7446a23b4a1e87d415da65e0efe84"
+    },
+    {
+      "id": "byte_flip_008",
+      "path": "robustness/fuzz/byte_flip_008.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 7 of the byte at offset 181701 (body region) inverted: 0x20 to 0xa0. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "4cb5db1f6da5ce5ac1b675241da22f078fbce3c3530b5e7ff105f1aaf78262db"
+    },
+    {
+      "id": "byte_flip_009",
+      "path": "robustness/fuzz/byte_flip_009.pdf",
+      "kind": "byte_flip",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Bit 1 of the byte at offset 2 (signature region) inverted: 0x44 to 0x46. Prior is reject because the edit damages the %PDF- token itself, which is what a reader keys on to recognize the file at all.",
+      "sha256": "dbd6708f7e458bca75df20385b2af78c83d6073f1ba8d13add5e13351870bcef"
+    },
+    {
+      "id": "byte_flip_010",
+      "path": "robustness/fuzz/byte_flip_010.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 6 of the byte at offset 185489 (body region) inverted: 0x20 to 0x60. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "a4199f14eee2f2f6e693a3b18fd0878aa5005e10e260b993ff6e1d0f1eaf8808"
+    },
+    {
+      "id": "byte_flip_011",
+      "path": "robustness/fuzz/byte_flip_011.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 3 of the byte at offset 235606 (xref_table region) inverted: 0x30 to 0x38. Prior is open because the edit damages a cross-reference entry; readers that rebuild the table recover.",
+      "sha256": "cf3fe49eb2fef0debde5898b3e3d9c467e7309d3da1e9aa183703af3bd830272"
+    },
+    {
+      "id": "byte_flip_012",
+      "path": "robustness/fuzz/byte_flip_012.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 3 of the byte at offset 189181 (body region) inverted: 0x2e to 0x26. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "a483ac06188c946f8af84522dbb8e4a0c270945e51b5e50ac446617a254cad16"
+    },
+    {
+      "id": "byte_flip_013",
+      "path": "robustness/fuzz/byte_flip_013.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 7 of the byte at offset 6 (version region) inverted: 0x2e to 0xae. Prior is open because the edit damages only the advisory version digits after %PDF-, which readers are expected to tolerate.",
+      "sha256": "5306cbe480aab6a29bd4e1dd20e52461c8471bf5ef392be454f872a5d0d606dd"
+    },
+    {
+      "id": "byte_flip_014",
+      "path": "robustness/fuzz/byte_flip_014.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 2 of the byte at offset 208893 (body region) inverted: 0x54 to 0x50. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "db209ef847bec7bd7b57c0e02b8a377262e4aa320332a2acb336fe1161c52555"
+    },
+    {
+      "id": "byte_flip_015",
+      "path": "robustness/fuzz/byte_flip_015.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 5 of the byte at offset 235708 (trailer region) inverted: 0x37 to 0x17. Prior is open because the edit damages the trailer dictionary; readers that scan for the catalog recover.",
+      "sha256": "025c185a251fb9560f02fa1de94dc5d2918d67863dafd4a11fbe1cb8741f7be1"
+    },
+    {
+      "id": "byte_flip_016",
+      "path": "robustness/fuzz/byte_flip_016.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 0 of the byte at offset 18348 (body region) inverted: 0xe1 to 0xe0. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "75319168f87fbef3108f46803cdc5d86b55e1fe98a804e8114d831223e3b9d6f"
+    },
+    {
+      "id": "byte_flip_017",
+      "path": "robustness/fuzz/byte_flip_017.pdf",
+      "kind": "byte_flip",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Bit 0 of the byte at offset 0 (signature region) inverted: 0x25 to 0x24. Prior is reject because the edit damages the %PDF- token itself, which is what a reader keys on to recognize the file at all.",
+      "sha256": "6428b9b715f9ce58fd6fcada7194d24832b61ccbcad9a530f92214bbc2286981"
+    },
+    {
+      "id": "byte_flip_018",
+      "path": "robustness/fuzz/byte_flip_018.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 5 of the byte at offset 174100 (body region) inverted: 0x32 to 0x12. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "ab8b50e299a87669b65b335acb2b55272ddb697690d3166872265a685c1d1d12"
+    },
+    {
+      "id": "byte_flip_019",
+      "path": "robustness/fuzz/byte_flip_019.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 2 of the byte at offset 235080 (xref_table region) inverted: 0x31 to 0x35. Prior is open because the edit damages a cross-reference entry; readers that rebuild the table recover.",
+      "sha256": "9761bbc692ec95811e0a490962283428d579efebea05d541ad4406789d7f4cd0"
+    },
+    {
+      "id": "byte_flip_020",
+      "path": "robustness/fuzz/byte_flip_020.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 7 of the byte at offset 168476 (body region) inverted: 0x39 to 0xb9. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "59155c37c3bb6e8cbf6027c4a63c08bdc68972294c88ce18dfd8ea3e47328f70"
+    },
+    {
+      "id": "byte_flip_021",
+      "path": "robustness/fuzz/byte_flip_021.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 5 of the byte at offset 6 (version region) inverted: 0x2e to 0x0e. Prior is open because the edit damages only the advisory version digits after %PDF-, which readers are expected to tolerate.",
+      "sha256": "a2b75164a1c68f8c1c344f3d7dfaad6f71cd7a6a1009a1a5d7a37ad10c004941"
+    },
+    {
+      "id": "byte_flip_022",
+      "path": "robustness/fuzz/byte_flip_022.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 2 of the byte at offset 209377 (body region) inverted: 0x37 to 0x33. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "d8d275c87a2770bb1478840cbd55a12ad7373bcd867f5a391e81677e81968881"
+    },
+    {
+      "id": "byte_flip_023",
+      "path": "robustness/fuzz/byte_flip_023.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 2 of the byte at offset 235799 (trailer region) inverted: 0x72 to 0x76. Prior is open because the edit damages the trailer dictionary; readers that scan for the catalog recover.",
+      "sha256": "fcff1d7cfd9beac46b15fc8ae43142a1a2f68ff3473e3f1dd938306903d979a7"
+    },
+    {
+      "id": "byte_flip_024",
+      "path": "robustness/fuzz/byte_flip_024.pdf",
+      "kind": "byte_flip",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Bit 2 of the byte at offset 178023 (body region) inverted: 0x2e to 0x2a. Prior is open because the edit damages one object's bytes; the document structure around it is intact.",
+      "sha256": "0ebc83ce765f1080d807799727dccd4fee6f290ff90262d872427aa28461939e"
+    },
+    {
+      "id": "truncation_000",
+      "path": "robustness/fuzz/truncation_000.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 9069 of 235819 bytes (1/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "d1892b63b8f37be08205e6bc9ca904f8beff649ccb57fb498395b8cd1632fadd"
+    },
+    {
+      "id": "truncation_001",
+      "path": "robustness/fuzz/truncation_001.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 18139 of 235819 bytes (2/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "263b880a67dbe8c014a905cf9010441b2ba7ae859a33ac449e2c0a7668dd5fe2"
+    },
+    {
+      "id": "truncation_002",
+      "path": "robustness/fuzz/truncation_002.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 27209 of 235819 bytes (3/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "c1ff4947e421d388fac259c861aa7c3e0f5bc64196f204f429660a144a944087"
+    },
+    {
+      "id": "truncation_003",
+      "path": "robustness/fuzz/truncation_003.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 36279 of 235819 bytes (4/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "f8b3498afa2a892fed8321f43c3102df1960d159f99e903e2a0590d064b89ad9"
+    },
+    {
+      "id": "truncation_004",
+      "path": "robustness/fuzz/truncation_004.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 45349 of 235819 bytes (5/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "62b3937ef5c59e61ca119c384ce91d3ca318784ee27a389c17f25361d9a3d268"
+    },
+    {
+      "id": "truncation_005",
+      "path": "robustness/fuzz/truncation_005.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 54419 of 235819 bytes (6/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "b04d9c112708d1814097038d7ac129682f27f6085e250481509226343a318ccb"
+    },
+    {
+      "id": "truncation_006",
+      "path": "robustness/fuzz/truncation_006.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 63489 of 235819 bytes (7/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "268bb8bcee5d46acd32a336b85d674306cd65957ee5884e52457451aeabdd2ae"
+    },
+    {
+      "id": "truncation_007",
+      "path": "robustness/fuzz/truncation_007.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 72559 of 235819 bytes (8/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "e65e536dc253cfea2878271eaa438ab7c6e71c99197ad6a20d3159348f4d8088"
+    },
+    {
+      "id": "truncation_008",
+      "path": "robustness/fuzz/truncation_008.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 81629 of 235819 bytes (9/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "3fc3153bf7fb6697c3428fc580a739f0c122a686db02f703a7dc73dcd8f69938"
+    },
+    {
+      "id": "truncation_009",
+      "path": "robustness/fuzz/truncation_009.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 90699 of 235819 bytes (10/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "16635a914d9377a90beca22765dc76926655bffcb9f4394058c37b51f797f2e9"
+    },
+    {
+      "id": "truncation_010",
+      "path": "robustness/fuzz/truncation_010.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 99769 of 235819 bytes (11/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "d81fbcfb1eb7d7576dd9891ec79431010c9f2d69a30fee039308e3ae637accbe"
+    },
+    {
+      "id": "truncation_011",
+      "path": "robustness/fuzz/truncation_011.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 108839 of 235819 bytes (12/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "db6e1268fc4790b78fa0eb2397a7d7f8d1817d173cbaeca4f310fa9591ceaf7d"
+    },
+    {
+      "id": "truncation_012",
+      "path": "robustness/fuzz/truncation_012.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 117909 of 235819 bytes (13/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "955d5712a49fac9605baecdbf022152a2d45fa1b0969045166312682f946fe3e"
+    },
+    {
+      "id": "truncation_013",
+      "path": "robustness/fuzz/truncation_013.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 126979 of 235819 bytes (14/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "8080b18edee639e19762f3848c146c03d2dac431476dedeafa58b57618e68648"
+    },
+    {
+      "id": "truncation_014",
+      "path": "robustness/fuzz/truncation_014.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 136049 of 235819 bytes (15/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "47ee7f4067c664730fcec9adde508dc14e77bf01b16e0b75ed56b21f35aa74c5"
+    },
+    {
+      "id": "truncation_015",
+      "path": "robustness/fuzz/truncation_015.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 145119 of 235819 bytes (16/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "9c7cc8b1e61f966dbce20fd33da41fac5bb274edf3b2b1eddcc7becc006b4ef2"
+    },
+    {
+      "id": "truncation_016",
+      "path": "robustness/fuzz/truncation_016.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 154189 of 235819 bytes (17/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "2af895e5fb9f81b34daa942cc723f36e79ffd5c72e16165950831c9f83ec8275"
+    },
+    {
+      "id": "truncation_017",
+      "path": "robustness/fuzz/truncation_017.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 163259 of 235819 bytes (18/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "8f17948610c1a6d1ec76bbd606f9b55f195f0ccf0147c4d6f51243d915e11935"
+    },
+    {
+      "id": "truncation_018",
+      "path": "robustness/fuzz/truncation_018.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 172329 of 235819 bytes (19/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "d8003771fd231c83238a24d16dc98767f1192cf7dcd9d0da0365e22ebd05eb42"
+    },
+    {
+      "id": "truncation_019",
+      "path": "robustness/fuzz/truncation_019.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 181399 of 235819 bytes (20/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "35f0c4eb47048907f9dcd3d403011005a977088a8118ec53641a6064cbf1ff96"
+    },
+    {
+      "id": "truncation_020",
+      "path": "robustness/fuzz/truncation_020.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 190469 of 235819 bytes (21/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "1bb79f21edc40dcbbd548450121a7ccbb6fef00945fc0d63ed257cd799f698f9"
+    },
+    {
+      "id": "truncation_021",
+      "path": "robustness/fuzz/truncation_021.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 199539 of 235819 bytes (22/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "579514dd0be41c26697e4014d65a28b01b00e3217a292ded9950d7378db3457a"
+    },
+    {
+      "id": "truncation_022",
+      "path": "robustness/fuzz/truncation_022.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 208609 of 235819 bytes (23/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "80d27ae65b05d7484f3adebf194abeb45541914c0180ce0bdd5979d5503cd80f"
+    },
+    {
+      "id": "truncation_023",
+      "path": "robustness/fuzz/truncation_023.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 217679 of 235819 bytes (24/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "a5fbfd6c60d75f7ea75b9a390a5cf2c00ca9b51333bcd9b4480f94ffe4a5f3c7"
+    },
+    {
+      "id": "truncation_024",
+      "path": "robustness/fuzz/truncation_024.pdf",
+      "kind": "truncation",
+      "pages": null,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "corrupt",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "Kept the first 226749 of 235819 bytes (25/26 of the file); the cut lands before the cross-reference table. Prior is reject because the trailer, the startxref offset and the end-of-file marker are all gone, so a reader has no documented route to the catalog.",
+      "sha256": "1280d90b66961a56e93913e37d4b2bedaa691fbfff64154baf81b392f6836de4"
+    },
+    {
+      "id": "xref_damage_000",
+      "path": "robustness/fuzz/xref_damage_000.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "startxref now points at byte 619121 instead of 234365. Prior is open because readers that rebuild the table recover.",
+      "sha256": "436c2401bd5d15e8cd3d1637477e30e745c36636a7ed1d8a4e069234854ebc74"
+    },
+    {
+      "id": "xref_damage_001",
+      "path": "robustness/fuzz/xref_damage_001.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 0 now points at byte 618789343 instead of 0. Prior is open because readers that rebuild the table recover.",
+      "sha256": "257eb7c422cd4431be12dc4b07ef2947e124022fd62c9c3b624a816901380874"
+    },
+    {
+      "id": "xref_damage_002",
+      "path": "robustness/fuzz/xref_damage_002.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 1 now points at byte 2235422768 instead of 15. Prior is open because readers that rebuild the table recover.",
+      "sha256": "276d8ae2b226860eef013a98dcb9cb6021a51d512768d5584fd39e85ebfceb76"
+    },
+    {
+      "id": "xref_damage_003",
+      "path": "robustness/fuzz/xref_damage_003.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "The 'xref' keyword is misspelled at offset 234366 (bit 7 inverted). Prior is open because readers that scan for objects recover.",
+      "sha256": "babc3b8dd9140debe2a4bcf294114ecc3eb2917f9b7adb79150f69aa8465d16d"
+    },
+    {
+      "id": "xref_damage_004",
+      "path": "robustness/fuzz/xref_damage_004.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "startxref now points at byte 390846 instead of 234365. Prior is open because readers that rebuild the table recover.",
+      "sha256": "9d8411d11edbcddd0588b5bfa9fa50d3b05d441151865a07742ade55aec530ea"
+    },
+    {
+      "id": "xref_damage_005",
+      "path": "robustness/fuzz/xref_damage_005.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 2 now points at byte 5400107116 instead of 342. Prior is open because readers that rebuild the table recover.",
+      "sha256": "2b10f608fb8e09825b6c950ef061098a34f995c1a238c45901c61f9fb2c0165e"
+    },
+    {
+      "id": "xref_damage_006",
+      "path": "robustness/fuzz/xref_damage_006.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 3 now points at byte 9753701219 instead of 479. Prior is open because readers that rebuild the table recover.",
+      "sha256": "67a0eb678e08db4d510989b72d753349ae6c19b362915752a8e48db344532871"
+    },
+    {
+      "id": "xref_damage_007",
+      "path": "robustness/fuzz/xref_damage_007.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "The 'xref' keyword is misspelled at offset 234365 (bit 2 inverted). Prior is open because readers that scan for objects recover.",
+      "sha256": "9a4f1b03b538558dcaa53a5343a7a9f7521a658d4e202147f3b6f6911910ed76"
+    },
+    {
+      "id": "xref_damage_008",
+      "path": "robustness/fuzz/xref_damage_008.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "startxref now points at byte 382411 instead of 234365. Prior is open because readers that rebuild the table recover.",
+      "sha256": "595a4941814ff50b59288409b8f26a82b05789971d57a580e87a2a319302d1c2"
+    },
+    {
+      "id": "xref_damage_009",
+      "path": "robustness/fuzz/xref_damage_009.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 4 now points at byte 1647176090 instead of 528. Prior is open because readers that rebuild the table recover.",
+      "sha256": "304483985d5325943a1841fec29d82cf14d705ac2852dbc0618f946ef9c23b90"
+    },
+    {
+      "id": "xref_damage_010",
+      "path": "robustness/fuzz/xref_damage_010.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 5 now points at byte 2743333849 instead of 717. Prior is open because readers that rebuild the table recover.",
+      "sha256": "268094bb1e4624aab90ef617a064289fb0a8630bf322245be3d578abae07f6bb"
+    },
+    {
+      "id": "xref_damage_011",
+      "path": "robustness/fuzz/xref_damage_011.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "The 'xref' keyword is misspelled at offset 234365 (bit 6 inverted). Prior is open because readers that scan for objects recover.",
+      "sha256": "dec0c0e92261da5940db367baffd22f67b1dea7c8bc9ec62d4b050a0b438e298"
+    },
+    {
+      "id": "xref_damage_012",
+      "path": "robustness/fuzz/xref_damage_012.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "startxref now points at byte 435003 instead of 234365. Prior is open because readers that rebuild the table recover.",
+      "sha256": "6209f1933346ebeba8fe6480452a67b59b3b527cd94a677d868fc4fe14ac26f8"
+    },
+    {
+      "id": "xref_damage_013",
+      "path": "robustness/fuzz/xref_damage_013.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 6 now points at byte 830213900 instead of 9959. Prior is open because readers that rebuild the table recover.",
+      "sha256": "826dfd991bc45611be8d9c541e47a0d8761c1e1000e3ec49cc1ecf528fbb0830"
+    },
+    {
+      "id": "xref_damage_014",
+      "path": "robustness/fuzz/xref_damage_014.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 7 now points at byte 7463522804 instead of 10031. Prior is open because readers that rebuild the table recover.",
+      "sha256": "725a79f1ce18502e91a97ab53238bf2b86b68b6ac08e8c44ac82c91237783dd8"
+    },
+    {
+      "id": "xref_damage_015",
+      "path": "robustness/fuzz/xref_damage_015.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "The 'xref' keyword is misspelled at offset 234367 (bit 2 inverted). Prior is open because readers that scan for objects recover.",
+      "sha256": "2f9ce4ba1497d2ccf54d017ef44adf6a9b0a4c71a7a126f336c08cc1ed940a21"
+    },
+    {
+      "id": "xref_damage_016",
+      "path": "robustness/fuzz/xref_damage_016.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "startxref now points at byte 177399 instead of 234365. Prior is open because readers that rebuild the table recover.",
+      "sha256": "2109e8db6f8d12629f0ee6da0b05f4ccb61586b2eafafe28f8d569d6f837d76a"
+    },
+    {
+      "id": "xref_damage_017",
+      "path": "robustness/fuzz/xref_damage_017.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 8 now points at byte 8349335225 instead of 10051. Prior is open because readers that rebuild the table recover.",
+      "sha256": "1feb288db4d7cd36cc9b84d0cb02b6bd6080529572a47472c9c2d3d3ff3ace94"
+    },
+    {
+      "id": "xref_damage_018",
+      "path": "robustness/fuzz/xref_damage_018.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 9 now points at byte 7128520946 instead of 11360. Prior is open because readers that rebuild the table recover.",
+      "sha256": "bc990ced00896198de4880b9beff26303528d010bc948724e166aea6792f96e7"
+    },
+    {
+      "id": "xref_damage_019",
+      "path": "robustness/fuzz/xref_damage_019.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "The 'xref' keyword is misspelled at offset 234366 (bit 3 inverted). Prior is open because readers that scan for objects recover.",
+      "sha256": "bb75d1462901c9cac771e92391108a694d82410db1fed84e11bebdb4d0398cd6"
+    },
+    {
+      "id": "xref_damage_020",
+      "path": "robustness/fuzz/xref_damage_020.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "startxref now points at byte 798962 instead of 234365. Prior is open because readers that rebuild the table recover.",
+      "sha256": "68b37a18106ac512455b373a8245a42d5fcb1e56095c10ebc4ae1e77450f0d2e"
+    },
+    {
+      "id": "xref_damage_021",
+      "path": "robustness/fuzz/xref_damage_021.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 10 now points at byte 2517176796 instead of 11617. Prior is open because readers that rebuild the table recover.",
+      "sha256": "3241cf810bd40b1cd53375e522a850b1f6196f3ea14787156a55d69ad4a18a9a"
+    },
+    {
+      "id": "xref_damage_022",
+      "path": "robustness/fuzz/xref_damage_022.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Cross-reference entry 11 now points at byte 115670203 instead of 25036. Prior is open because readers that rebuild the table recover.",
+      "sha256": "0f3aa406a16238a6cc4d6953b53aa567c5ba19a969f6e54fcb89e2342aeded7d"
+    },
+    {
+      "id": "xref_damage_023",
+      "path": "robustness/fuzz/xref_damage_023.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "The 'xref' keyword is misspelled at offset 234367 (bit 5 inverted). Prior is open because readers that scan for objects recover.",
+      "sha256": "dde8e24dd7c70086d360372501c5ff58ee78add4d2d674283754d38d878754a4"
+    },
+    {
+      "id": "xref_damage_024",
+      "path": "robustness/fuzz/xref_damage_024.pdf",
+      "kind": "xref_damage",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "startxref now points at byte 248523 instead of 234365. Prior is open because readers that rebuild the table recover.",
+      "sha256": "c395e697d55b328ad383add0f46e70a8f0e2a4219de81888dbcf595cc35996d9"
+    },
+    {
+      "id": "bad_length_000",
+      "path": "robustness/fuzz/bad_length_000.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 736 now reads 6045 instead of 9190, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "88e17690180056a491aa14674bbf20ef5458e9e10438d2ec7782685b72fc7aa2"
+    },
+    {
+      "id": "bad_length_001",
+      "path": "robustness/fuzz/bad_length_001.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 11677 now reads 15340 instead of 13325, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "9a03ed22ab2ad483e72089f1c8cc02e98094066b79ec3157d5f238c908310fea"
+    },
+    {
+      "id": "bad_length_002",
+      "path": "robustness/fuzz/bad_length_002.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 25081 now reads 14 instead of 670, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "87eec3d106cb3893eada0950ca8908a2b374e8669a6f95b286c699285659fc8d"
+    },
+    {
+      "id": "bad_length_003",
+      "path": "robustness/fuzz/bad_length_003.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 27408 now reads 43134 instead of 13381, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "487a703da0062d2d60e99b45695c8b61b85b8721b3a1d0b7def1a19d7b138606"
+    },
+    {
+      "id": "bad_length_004",
+      "path": "robustness/fuzz/bad_length_004.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 40868 now reads 334 instead of 672, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "783af829be5d684f7208fb185939bb50abd395c6824a5a0f2bb6f4a17507cc75"
+    },
+    {
+      "id": "bad_length_005",
+      "path": "robustness/fuzz/bad_length_005.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 43202 now reads 41015 instead of 13435, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "8d0c860b80a30956b1b6e44fa86e3d8f89b81dd3bf63c62a6d0e52b99c65e48e"
+    },
+    {
+      "id": "bad_length_006",
+      "path": "robustness/fuzz/bad_length_006.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 56716 now reads 81 instead of 672, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "be5102c62653ca328ded6a808039836e03da31345a527c3dbbb8f1a2de3f8c25"
+    },
+    {
+      "id": "bad_length_007",
+      "path": "robustness/fuzz/bad_length_007.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 59058 now reads 25951 instead of 13505, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "a4f8da919d23672abf211bd86571cfe6a537ced5252a9048a06de40ae3d6de4b"
+    },
+    {
+      "id": "bad_length_008",
+      "path": "robustness/fuzz/bad_length_008.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 72642 now reads 221 instead of 674, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "5d3576c11c7ce61d3c65db0a60287a8a87bff9537aef7c6eb2d4188c561720d7"
+    },
+    {
+      "id": "bad_length_009",
+      "path": "robustness/fuzz/bad_length_009.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 73559 now reads 9584 instead of 9542, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "e885c573f0057da5a538ff39c7c848782f86229be248ceea3eb0432a184541a5"
+    },
+    {
+      "id": "bad_length_010",
+      "path": "robustness/fuzz/bad_length_010.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 83345 now reads 4241 instead of 9714, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "373250da8456851e3e736bf44d9508ea53ff3700ae2b9b737d045a7be9bfeaf9"
+    },
+    {
+      "id": "bad_length_011",
+      "path": "robustness/fuzz/bad_length_011.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 93304 now reads 8043 instead of 6085, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "09ca4795b26dae2fb881614469ae4ff974ff5e606debdaad62eda7afe6c9e6f1"
+    },
+    {
+      "id": "bad_length_012",
+      "path": "robustness/fuzz/bad_length_012.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 101125 now reads 11227 instead of 13325, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "d6391ab1a73c2bceadf5cbb355dd65dd518afbe96e6790a37f07bd87ad64f0c2"
+    },
+    {
+      "id": "bad_length_013",
+      "path": "robustness/fuzz/bad_length_013.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 114529 now reads 868 instead of 670, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "ae1a6a2ab70e270ae5d0bb18f358b9ff0ce142f0652ed53e952818426c75d223"
+    },
+    {
+      "id": "bad_length_014",
+      "path": "robustness/fuzz/bad_length_014.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 116856 now reads 711 instead of 13381, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "95c5c5222a994f145cb47e2cf2257052a5f83717a9c75f31a4b38b3f62f2315b"
+    },
+    {
+      "id": "bad_length_015",
+      "path": "robustness/fuzz/bad_length_015.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 130316 now reads 723 instead of 672, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "c0011526b8112b36e133d5925697e4a4a958cca43e6acc3424550ed303281bc0"
+    },
+    {
+      "id": "bad_length_016",
+      "path": "robustness/fuzz/bad_length_016.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 132650 now reads 6156 instead of 13435, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "39fa9e8702dd0b6a75b78c2e69390199613299a3eb17ff936461796d4fa10a81"
+    },
+    {
+      "id": "bad_length_017",
+      "path": "robustness/fuzz/bad_length_017.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 146164 now reads 819 instead of 672, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "5875d42bbe70e86c64877dbd88c7c536adcae5d55fda47872017cd91eb3fb904"
+    },
+    {
+      "id": "bad_length_018",
+      "path": "robustness/fuzz/bad_length_018.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 148506 now reads 2596 instead of 13505, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "fa497245b15c8d485e8ab01ae8abb3a92b135ee512ef7ead4fe9553ba24a38ad"
+    },
+    {
+      "id": "bad_length_019",
+      "path": "robustness/fuzz/bad_length_019.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 162090 now reads 683 instead of 674, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "23fbc8fbda4e465cdfd58efcd1b180287e58e503f37dd43a24a3e3251a5148f1"
+    },
+    {
+      "id": "bad_length_020",
+      "path": "robustness/fuzz/bad_length_020.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 163008 now reads 11668 instead of 13681, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "9254a8fca87d3cf330d0947e3c6a6ae71cb4c65421536ca5733082f104a15399"
+    },
+    {
+      "id": "bad_length_021",
+      "path": "robustness/fuzz/bad_length_021.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 176935 now reads 85727 instead of 10093, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "98a72d3ddbd008cb2b561488f8f7d2dd6be5ffb70a1cec16c04704a4c652e74d"
+    },
+    {
+      "id": "bad_length_022",
+      "path": "robustness/fuzz/bad_length_022.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 187273 now reads 6000 instead of 8958, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "74a25e3e519ec4e0c8e3b54f47ef229fd8a828a0732729786d25ebda59fded81"
+    },
+    {
+      "id": "bad_length_023",
+      "path": "robustness/fuzz/bad_length_023.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 196475 now reads 8414 instead of 7508, which overstates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "185c31be450b8d840c7ee3809b18a5de6cb6df6a0120f599f211faa391511f41"
+    },
+    {
+      "id": "bad_length_024",
+      "path": "robustness/fuzz/bad_length_024.pdf",
+      "kind": "bad_length",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "Stream /Length at offset 204227 now reads 5838 instead of 6088, which understates the stream. Prior is open because readers that search for the endstream keyword recover.",
+      "sha256": "1e74f1c300048f5e3c0b5d83b342b55e9ad7cd1b20387033999fea3f18d0162e"
+    }
+  ]
+}

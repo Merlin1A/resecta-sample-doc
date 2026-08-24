@@ -1,0 +1,294 @@
+%PDF-1.4
+%âãÏÓ
+1 0 obj
+<<
+/Producer (Resecta Sample Packet Generator)
+/Title (Hartwell Loan Application Packet \050synthetic sample\051)
+/Author (Resecta)
+/Subject (Synthetic PII\055dense sample\057test document packet)
+/Creator (Resecta Sample Packet Generator)
+/CreationDate (D\07220260614000000Z)
+/ModDate (D\07220260614000000Z)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 12
+/Kids [ 4 0 R 24 0 R 26 0 R 28 0 R 47 0 R 49 0 R 51 0 R 53 0 R 55 0 R 57 0 R 59 0 R 61 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Contents 5 0 R
+/MediaBox [ 0 0 612 792 ]
+/Resources <<
+/Font 6 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+5 0 obj
+<<
+/Length 9190
+>>
+stream
+1 0 0 1 0 0 cm  
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 736 Tm /F2+0 15 Tf 18 TL (Uniform Residential Loan Application) Tj T* ET
+.541176 .541176 .541176 rg
+BT 1 0 0 1 391.5469 737 Tm /F3+0 8 Tf 9.6 TL (Freddie Mac Form 65 / Fannie Mae Form 1003) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 723 Tm /F4+0 8.5 Tf 10.2 TL (Section 1: Borrower Information. Complete and sign before submitting.) Tj T* ET
+.168627 .227451 .333333 RG
+1.2 w
+n 42 716 m 570 716 l S
+.933333 .945098 .956863 rg
+n 42 687 528 16 re f*
+.168627 .227451 .333333 rg
+BT 1 0 0 1 47 690.5 Tm /F5+0 9.5 Tf 11.4 TL (Section 1a. Personal Information) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 676 Tm /F3+0 8 Tf 9.6 TL (Name \(First, Middle, Last, Suffix\):) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 173.2344 676 Tm /F4+0 9 Tf 10.8 TL (Delia R. Hartwell) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 661 Tm /F3+0 8 Tf 9.6 TL (Social Security Number:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 138.0742 661 Tm /F4+0 9 Tf 10.8 TL (502-19-7438) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 646 Tm /F3+0 8 Tf 9.6 TL (Date of Birth \(mm/dd/yyyy\):) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 152.7695 646 Tm /F4+0 9 Tf 10.8 TL (03/14/1985) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 631 Tm /F3+0 8 Tf 9.6 TL (Citizenship:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 90.83594 631 Tm /F4+0 9 Tf 10.8 TL (U.S. Citizen) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 615 Tm /F5+0 9.5 Tf 11.4 TL (Contact Information) Tj T* ET
+.72549 .72549 .72549 RG
+.6 w
+n 42 611 m 570 611 l S
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 599 Tm /F3+0 8 Tf 9.6 TL (Home Phone:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 97.17969 599 Tm /F4+0 9 Tf 10.8 TL (\(208\) 555-0147) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 584 Tm /F3+0 8 Tf 9.6 TL (Cell Phone:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 89.18359 584 Tm /F4+0 9 Tf 10.8 TL (916-555-0182) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 569 Tm /F3+0 8 Tf 9.6 TL (Work Phone:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 95.00781 569 Tm /F4+0 9 Tf 10.8 TL (208.555.0119) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 554 Tm /F3+0 8 Tf 9.6 TL (Email:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 68.65234 554 Tm /F4+0 9 Tf 10.8 TL (d.hartwell@example.net) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 538 Tm /F3+0 8 Tf 9.6 TL (Current Address:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 526 Tm /F4+0 9 Tf 10.8 TL (4127 Wrenfield Place) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 514 Tm /F4+0 9 Tf 10.8 TL (Boise, ID 83702) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 496 Tm /F3+0 8 Tf 9.6 TL (Former Address:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 484 Tm /F4+0 9 Tf 10.8 TL (812 Aldergrove Avenue) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 472 Tm /F4+0 9 Tf 10.8 TL (Modesto, CA 95354) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 454 Tm /F3+0 8 Tf 9.6 TL (Mailing Address \(if different\):) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 158.5859 454 Tm /F4+0 9 Tf 10.8 TL (P.O. Box 2215, Boise, ID 83701) Tj T* ET
+.933333 .945098 .956863 rg
+n 42 423 528 16 re f*
+.168627 .227451 .333333 rg
+BT 1 0 0 1 47 426.5 Tm /F5+0 9.5 Tf 11.4 TL (Section 1b. Current Employment and Income) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 412 Tm /F3+0 8 Tf 9.6 TL (Employer or Business Name:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 155.5547 412 Tm /F4+0 9 Tf 10.8 TL (Tannersworth Freight Systems, Inc.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 398 Tm /F3+0 8 Tf 9.6 TL (Employer Address:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 118.3867 398 Tm /F4+0 9 Tf 10.8 TL (2900 Commerce Park Drive, Meridian, ID 83642) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 384 Tm /F3+0 8 Tf 9.6 TL (Position or Title:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 107.7188 384 Tm /F4+0 9 Tf 10.8 TL (Logistics Operations Coordinator) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 342 384 Tm /F3+0 8 Tf 9.6 TL (Gross Monthly Income:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 434.3125 384 Tm /F4+0 9 Tf 10.8 TL ($6,200.00) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 366 Tm /F4+0 7 Tf 8.4 TL (Provide the borrower's current employer and the gross monthly income before deductions. If the borrower has additional employment, attach a continuation) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 356.8 Tm /F4+0 7 Tf 8.4 TL (with the same fields. Income shown on this sample is fictional and provided only so software can be checked end to end.) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 338.6 Tm /F5+0 9.5 Tf 11.4 TL (Disclosures and Authorizations) Tj T* ET
+.72549 .72549 .72549 RG
+.6 w
+n 42 334.6 m 570 334.6 l S
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 322.6 Tm /F4+0 6.6 Tf 7.92 TL (Privacy and Information Use. The information collected on this application is used) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 314.2 Tm /F4+0 6.6 Tf 7.92 TL (to evaluate the request, to verify the statements made, and to service the) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 305.8 Tm /F4+0 6.6 Tf 7.92 TL (resulting relationship. Every applicant authorizes the named parties to obtain and) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 297.4 Tm /F4+0 6.6 Tf 7.92 TL (exchange the information needed to complete and service the request, and to) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 289 Tm /F4+0 6.6 Tf 7.92 TL (retain a copy of this application whether or not it is approved.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 277.6 Tm /F4+0 6.6 Tf 7.92 TL (Electronic Records Consent. By signing, the applicant consents to receive) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 269.2 Tm /F4+0 6.6 Tf 7.92 TL (disclosures and statements electronically at the electronic address provided, and) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 260.8 Tm /F4+0 6.6 Tf 7.92 TL (confirms the ability to open and retain documents in electronic form. Consent may) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 252.4 Tm /F4+0 6.6 Tf 7.92 TL (be withdrawn by written notice, after which paper copies are provided at no) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 244 Tm /F4+0 6.6 Tf 7.92 TL (added cost to the applicant.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 232.6 Tm /F4+0 6.6 Tf 7.92 TL (Accuracy of Statements. Every applicant represents that the statements made are) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 224.2 Tm /F4+0 6.6 Tf 7.92 TL (true and complete and understands that an intentional misstatement may delay or) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 215.8 Tm /F4+0 6.6 Tf 7.92 TL (end consideration of the request. The applicant agrees to notify the named parties) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 207.4 Tm /F4+0 6.6 Tf 7.92 TL (promptly of any material change before the request is final.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 322.6 Tm /F4+0 6.6 Tf 7.92 TL (Servicing and Assignment. The relationship resulting from an approved request) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 314.2 Tm /F4+0 6.6 Tf 7.92 TL (may be serviced by the named party or by a successor. The applicant will be) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 305.8 Tm /F4+0 6.6 Tf 7.92 TL (notified of any change in the party that collects payments and maintains the) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 297.4 Tm /F4+0 6.6 Tf 7.92 TL (account, and the posted terms will not change solely because servicing is) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 289 Tm /F4+0 6.6 Tf 7.92 TL (reassigned.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 277.6 Tm /F4+0 6.6 Tf 7.92 TL (Fees and Charges. A schedule of fees that may apply is provided separately. Fees) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 269.2 Tm /F4+0 6.6 Tf 7.92 TL (are assessed only as described in that schedule and in the agreement that) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 260.8 Tm /F4+0 6.6 Tf 7.92 TL (governs the account. Questions about a specific fee may be directed to the) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 252.4 Tm /F4+0 6.6 Tf 7.92 TL (servicing contact named in the most recent statement.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 241 Tm /F4+0 6.6 Tf 7.92 TL (Record Retention. A copy of this application and the supporting documents is) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 232.6 Tm /F4+0 6.6 Tf 7.92 TL (retained for the period set by the governing agreement. The applicant may) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 224.2 Tm /F4+0 6.6 Tf 7.92 TL (request a copy of the retained documents by contacting the servicing party in) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 215.8 Tm /F4+0 6.6 Tf 7.92 TL (writing at the posted business address.) Tj T* ET
+.72549 .72549 .72549 RG
+.5 w
+n 42 56 m 570 56 l S
+.541176 .541176 .541176 rg
+BT 1 0 0 1 42 46 Tm /F4+0 6.5 Tf 7.8 TL (Synthetic sample for software testing -- not real; values fictional and disclosed.) Tj T* ET
+.541176 .541176 .541176 rg
+BT 1 0 0 1 530.2383 46 Tm /F4+0 6.5 Tf 7.8 TL (Page 1 of 12) Tj T* ET
+ 
+
+endstream
+endobj
+6 0 obj
+<<
+/F2+0 8 0 R
+/F3+0 12 0 R
+/F4+0 16 0 R
+/F5+0 20 0 R
+>>
+endobj
+7 0 obj
+null
+endobj
+8 0 obj
+<<
+/BaseFont /AAAAAA+Inter-Bold
+/FirstChar 0
+/FontDescriptor 9 0 R
+/LastChar 127
+/Name /F2+0
+/Subtype /TrueType
+/ToUnicode 11 0 R
+/Type /Font
+/Widths [ 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 585.9375 268.5547 337.8906 551.7578 648.9258 654.7852 1015.625 671.875 338.8672 390.625 390.625 646.4844 646.4844 268.5547 646.4844 268.5547 388.1836 646.4844 646.4844 646.4844 646.4844 646.4844 646.4844 646.4844 646.4844 646.4844 646.4844 268.5547 268.5547 646.4844 646.4844 646.4844 559.5703 1016.113 746.582 661.6211 739.7461 722.168 607.4219 586.9141 750.4883 747.0703 280.7617 584.4727 719.2383 565.4297 931.6406 762.207 770.5078 647.9492 776.8555 656.7383 654.7852 667.4805 731.9336 746.582 1037.598 738.2812 730.957 664.0625 390.625 388.1836 390.625 486.8164 476.0742 365.2344 580.5664 630.3711 588.3789 630.3711 595.7031 397.9492 631.8359 622.5586 270.9961 270.9961 580.0781 270.9961 912.5977 622.5586 613.2812 630.3711 630.3711 407.2266 560.0586 366.2109 622.5586 599.6094 850.0977 580.0781 602.0508 572.7539 390.625 371.582 390.625 646.4844 656.25 ]
+>>
+endobj
+9 0 obj
+<<
+/Ascent 968.75
+/CapHeight 727.5391
+/Descent -241.2109
+/Flags 262148
+/FontBBox [ -787.5977 -334.4727 2583.008 1112.793 ]
+/FontFile2 10 0 R
+/FontName /AAAAAA+Inter-Bold
+/ItalicAngle 0
+/MissingWidth 656.25
+/StemV 165
+/Type /FontDescriptor
+>>
+endobj
+10 0 obj
+<<
+/Filter [ /FlateDecode ]
+/Length1 21676
+/Length 13325
+>>
+stream
+xœÍ|i`TEÖhUİ¥;µ÷$¥;’N	IØiÒˆ	!¬I³$i²	!	B€€"
+èˆ ¢Î¨Ã¨€"v@‘QœqÅĞÜ@Äqaé›wªnwÒtæûŞûñ’Ü¾§ªNU­Î9U÷vF£NÄ¡â‰Sd˜Ã·o‡šáª¨lp5lQ• „‡Ãe¨\Üj^õ³c3Bd*”ùš¦Ú†9«âJ
+	ª¿´&aÛ„ÔUå”ÖU»ªr¢f>ƒĞøÃ0^vTÌê«Pş7”ãëZÛ’íƒZÊ‡ñÎÎ_Péİ•9¡hF?6¸ÚšHgèıPşÊæFWCuˆ9¶B…€¯¸«iAK«t½‚Ğ”ßÒö¦æê¦ºnk;”é|ß"^( ‡‘€É¿5Êwòz…<w¤ä½ñ§‘ª{2ú}7”,têÉS&LAO"Ôİ­8"i`®#øPømãË„t6ŸQù!€E¬bP'«û¿ù% ¨‘)Q R¡@?… P†ÔHƒ´H‡ôÈ€Œ(E HdBQ(Å X Ê‚âÅ£”ˆ’P?Ô%£dC©(@éh Ê@™hÊBÙ(FCĞP4G#ĞH4
+ÙÑh”‹hÊCcÑ84å£;@…h*BQ1š„&£)h*š†¦£TŠœhš‰f¡Ù¨•£
+ôñƒâèº@åË—!$•	gº/ğó»ÏJÓ{Ûº/'ø²îËr«pÚFáwÚ%<B:á¹D2±C:æ9ç«w¹ÕäqñKá{n	yÄ.:o6‘“çëO:Ñ3¦RzÓ;î¥Şq¹Õ=cäÚ|ã»‘ÍìFÓJóœfsÁA2©À-N™Qêdr÷sVÔ˜×M+u“×KJPqe¥uÉbq#§9¬cö€8*rSİØæ6WÔ¤º‰Íj±ZRİœÍ\µ—ÓéQ®Ã­u˜+*r»ˆÎ‘Û•À9ÜÄ1µÍì²àpU¹ùâ¶=„Æm©²ĞÚ=!zœeĞš»G‹µĞfu£âÒjç&lBŞææRÜzG)Ïmp8¼&s•Ù}¤ØÍ'ÎØÓ;ò*óÜb^©ÅÍ%8'Ï,dÓºR³»¸ªì€íL¡ÁN§¹KÆŠúA•·dv§ÓötŠy¤¸ÔÒXç2»UÅ¥Pc¦m*
+eS(»ÂTát:M -w£Ò&—ºQE¶@ÙTà¡PLë`ª¤4Çé¬r9İ8Åéôrà4W?Ö\gª[°™>Á<)Å¥n…5×­´æ‚ KEª[dâI˜«ºsrÍ´‘²k’É§ŸnEE^¥[H¶@£Ã¼Î¼æêJ@B“J+ŠM®ÉÎR«Óâ4»íSJ¡ÍDåâ%%Õ­°¹){`¡3©+¡hÍµ‚¹Xs]n2§Æ+·"9Õ`3SjC€-Í1ÓÜö
+'E©Ã¨UÙö„ G^n²¥Çpm})H§ 	`½Âœ·Îê¢JeÂF&ª·ÙDú¨ÕZ]cä)‚¡»;z!S/kşBlŒ¡½ÁAˆËƒYLV‹3Œ8ÔÖEH»Ê5&ÕfT³Ùê¸ƒ  hÈFK“¡Æô¥†Â˜PÌ ƒJ˜Ù­vT˜×U˜İj[ª[c+˜ZÚÅWqÆ»ƒ«­m©n­­`RiÁ¹Òdz-«×ÙºÆ1­´K£q¸±+×­N¡KL+·+”~„Á‡@\Bqiğ›»4Ó†%[¬ĞÍ›ävÚV2­q'ã€şqPÛWY¿ Â.„´V—ÃFîÁ3mém¨‘¼©¥n5×œçó¶‚Éåš+„‡cZ”››K% ƒ6ìêÒ)SÜëSLq .ğ¨OIum]˜ŞÃAŞôaëâè=ÒÖÅÓ»ÉÖ%Ğ{”­K¤÷h[—‚Şcl]JzµuĞ{ŠÍê“¿[¬ I[Íin<›®–T·Í¯ÑĞÓ¸PnLõkLìil–Í6äMùE>©}2«”Oş,ÀŸèŠşèİ
+üÑ{<ğGï	À½'ôüÑ{?àŞûôüÑ{šÍ<œì L^a§‡+L¥°Ó¨Í¦ÛÜRÜ`=„¥0ÎüÚ´º[©cÿUå>Ã§â®1Zœ{`r—€õy¥à)—™~âù%œA6s£<F“qòn–ími¡õÈğ"¼cFZwÂzÊk6È¸=ı°X\ƒSİ9¶4ãğT÷àÿ„
+†]	èC@EÈ`N3£.D›¿nİ8ë8ğ!¥øÀëBDŒ±^
+¾Ëà6î4¡u¡\w #¥z]šÕl¾ÆÖÍœ&ç­¹>l³»‚úû¤Ò½¼Y0›öò‰B¤3—zZ8m+ëa[á7/×
+êíä¨Ä;*ª¬n‚*4ó—	à
+êénîãÒÀÿ[Ç‚­0ÃX±T6Œw›I¬²OÁ‰€208á–QaDJD%‚ƒO¯'ía¸Of¨½²°1èir«XûXë8:)ÕâÈRfdI»ÑÔÒ4ópè”zo¥™ÒåU…[L€R¾î"+ñvÖîÕ–•šü(?J>uUĞçf–}*¶ƒÿH£Rë6:J‹MSÍÃi]éXëvtŸÖÉ¦â>­¹·íûk=6÷Ğ”_›pŒÍ=,eĞFm˜úETPhš;zä1–©}&Ê’wA‚–+³NÔ
+Ë'V<şX[—
+b¯ËÿĞ¤Çı¿²bÊõcÃ­àªüìÅâôÒ9ğĞŸTÆCiXŠÅê•‹—›äƒôò²‡lV¸6Í«ü_¨/€á°NëÎ¸Ğæ·	TŠy nóX¼>iÙ¨A»' 8Ñ¶¡± €)0É¶³šÉ °š)g S)¦Q
+L§8(±í_è ¨ Ì §m/–ëf $×Í¤x˜B³(ƒfS<•Q<•Ó9ó ¨ sRÀEç¤À:'*)Îx ª(ª)j(j]c ªctQ¨ÑE¡¹Œ.
+ÍctQh>£‹BŒ.
+52º(´ d<¼GM¬ä¶¸PGØL…ÎJ¹PjXëÅi•AŠ³ˆá`/Îbè<¢gÔ%¬Äz´É í±T)z;ŒãEX&ƒ¡C)ÂrÀÙ3Ş
+Vbè+e¢wÊ E_=½«e"Ü)ƒá.ÀÕ3ŞVbèwË E_+ƒıèéE¸W)Â:¤ëm{YfëM{xÂåÁ¦	Ü 37Å­¬vsñÅm¾`ŠTx¼TÁı¬°ÃÎ^É[4ìĞÀÎ{ì´ÇáGí80êp .( ;%ûH!ˆ¢¢Ô­Ób]­kD£Öjj‘:‡Å©ÃjQœ‡†Ä…Ö¢Q‹¢MáÑ%‘8<	›Œá¦Zdì‡c¢Œ1µ(*>€Š(¡‰HÉ‹Ê:Ä[1gæ¹ZdF±Ä[›‘ `T‹‚Q *8°©R• •
+6õ O4Ù7R’…ØùÿMN{ÙĞ¡ééññ11J%Ï›7Æ‘;Ú>tÔĞQ#G–>$}Èàœì¬A™ãÄHKµ¥$÷ï—”˜c±ÆYÌ±ÑQ¦Èp£A¯Ô*µuXhHpP *€Wğ
+(õ#R°EmÁj‹š^V}fV¦ŞšÅé-YÖœ,‹>“AYIì3“Vè9ŠÃ ­Õ«¡£×Ïbâ–”Ø.Áö#vøÃöS§¤#~ˆíPõÀÒ‘¦¦#Ò‘ÎNÍG:ív©Byúê¦gBô³0o@ıÊÑváÈiû“ VÀŸçˆıI¸uÚO?é±wr§+è‰ÖÎî‹$H8öŠlöş<,}*44}â8â0!³I‘À#À‡
+¡€È©Å@cŠ–³p\\bÖ ìÌƒ^'7`‡a}QeeQQUş»vC”ôe…ee…eˆ¡·¸î	˜+@…àÙ©š!!êM(åÛÇ†.ˆ„9T«Ä¢8}B¨Šğ¼P  ‚àœL0.ÁEÅÆDGA/SdUN«îù	ŒM±h-œUkÍÉdW&g+Sae†F²g„ôáˆ/GOz;ıÄ·ÂıáãÄw¼“ôö©÷K—>Ä‹¤õxÑØú¥Ië¿”>ùBZOJ°0¦uçğgÅÇ€§T4ÚóÕ˜#¢Ï¥¥Fğ˜OR'|!â9Ìñ˜®	£ˆ(°HÄJò¬	xèÙøQMZu´F­ŒJ²ã“,ƒQ”HåœfCŒ–ÄÄ$µ1†èu¼B¯Î»MLˆzÌ¿"}.âşŠÕÕ³şxrågÛ¶|²ŒH)êã–¿µXúî‡Š…Um¥esÿ²/äß§«áuÆ´£ÛVYtà@Àâ#EåAÒzutÃóË|¼¿\yGŞÄ(œ§Í²›4
+èP÷Epö\V”„²À7(pkÁÙ‚±ˆ	pV|(qÀ\¤Pp.S6C°R‰\A‚ŠC¨™
+Üzè“ş«}‚° ”x{ª°ÜÏ>è6]x,–öC¿ĞÍé´§äd÷ï¯Õ`4rx¶#Ç‘Ö/«V|R<,õ¨HX‹J‰`‡R„8:•:˜·A.â[j8œ‰¹Œl¨L´Æ‰PeÀ}J¢eîÆ;
+7ÖÁgÁÆë‹ü
+GyôîÔâ8 /73“¯b@FFäŒ‡œE3š1c‹³È¹ÅÉ%ø•¼ñƒpâZ÷§9EÙ³Ë²ŠrfÜøg/Œ¨=Nê>/”_fRÑP´±Àm«
+B„„#ÇS,4İTÇASF¶"AÀ.HfM@°
+]œHÀ<'€„}0Õ¹Wb/‘qDÙšv-FÙƒRSÌ±¦ÈĞ`dÅV…O¬ƒ²sd‹f’Ô‰
+…Ì8 ­%IµXÁ¬93ƒËaæMÅ	Æíxì³¶‡—ŸRµ¯}É®²y3×c,×óG|&½>sÒÛË¤ÓA#F-®h¸³xÀ¨ñÜâLÃ‚?¶¬qO-ÜQ=÷¹ªò'+êÍµKŸå¬Îßz®Xê®5ÄeªsØ´*òZvìäÌAã
+GfÌaÌÔWá1¿a7¯H½sœ×‹Å–®†Ì÷lf>n»tS!T¹$ZvAy)+Ï‰¡å«dŸãŠ¨ÒIË¡Éü~*”«>¥åÁÒ"|}¨º{ÓõP iîÁë¡î¬æCñh|‘û†|Ş³íC²_­ë¾ˆÿ„ó`ŒÚW)íQİf‰á@§Ñ®Ú^ˆ‹ı(ÇT$³tŸÃ¯*ÅŸ©Õ}W8ƒ!óHµ'ƒJ½¦Q ÁŠdŠÂH¤Ö*ˆEªU3R‡!ûL0«Ã,p‘-Ò×ÒçØŒ#q6K_H_ã@ééß:ü ¿›¥yÒÃÒ©Ñƒ»	ñH¦´w!Ä?	ò	Dıí‰¢Àq@@!\Ó'hç*¨[(á¨Q Z¯#R ª­‚:b°¾ß£’ÃùxÎş‰;ş6~s=á'YN0ö.àODuZ.~ßdåú´œíç™næ~BË¡İÍÊót´<Ê'ş|-ßø³ö†\ZvBûû¬½ñºŒğÏAy§GO|
+xyĞh¸¶ûUr4ŒñAr†jØ«ÿS€“$ëŸa} Xš;èE§ø[‘–ßÄo†9š®ĞòSè/wÊ?ëÛŞüWªã‰İù 1%£ö¡4A í1' NXAã±4¬jAà]
+Ìó³ù"s,„¦øØds2ô‹±j’• uÌB’o}*,#‰o5ÃâÕû§øîÔé#³ææ·ğÒirçGw>ğñò¶Ú’Ik U(‚”¿¾òÁé‰)µùE³Êf>ğÊìŠW¬|nÄ yóÃ%«_ô—IS¡h<Î•–ÆŠU¼q(V’arDpo´Rè[éõo6óH%òªzˆÌÀ§O
+ ¢Hæp`çàÅhÔks± e†>™HàU¼ êDÿ£®	Ğu„×€¾]q@ qy{şÂ öì›ûC/‘8D¢ÉÜŞñü;:!ŞYF„_îÈñ£ÆÎÎHOéŸ˜`‰0jÂh›ã‰:LoÉà½ˆÖ¸Ä$«Ho>m„LUM1hšÄ[å•‘cy.CísÎ|¢t\šøõ§xÎş;¯¬š²ÿ¡9¿Qš~·øŞ#Õ¯¯s_tàñ”åwl‘N–—îÃKqı²FN,¾ÿó¿;5/o‘¦~ŠŸÁ6‹÷\YuV:vp»ôıãÅ%³—ñĞ¦ÏWÍ©ñÌN|àÏÆ	Û¤åÒ³Ò¤û2#ÿ?Š<†­t<´xÅ3ÌFB’ò&¬K
+£9m0è|æIËmÎ—B(M£H	¸E8uˆB‰$I$ŠØƒ *éùÏ·^Æ‹SãÇ'%Œ‰£QÏ!ùw7cÕÖG¥›¨o]şàÌ«F‘‡Ø³•4å£3s„îVÁ—Z‚ËEì%Áj‰†İ…NıÂ,
+ğÎ™j[7
+=Mò@	–¶Ì,Y™2`]K&şğÓ#-SšİúÕé0V®]¶¶EºüİœÕ-ó~N|¸ı®m‘¡|é‹Í»^7mvû{u3&ÕÀj/ë¾ l†õ†Ù#Â$„N01NàWô:|ÿ@Qd„Q¯³‰ÆÑr'Yƒ4ñ™`64µÆ¯³s,"˜…æ˜ôæ¾ıxèë;±ÆmşªïêÜ}òÔ®•{8K½Mº¨{O¿ò=.yqùÅíKï•¤‹W®ßÛ¾ş»- ;¡P2TAêgO $•ËÆ!¨œ† J’VÈØ/« Ç?ƒ§öËcŸ„È&Ï¿‰ú4vìŞ-’oŸúô““Ç…{¥½gÏI{öbÅÙë×¾‘c=Õ[#‹9ì6úTvéµ¨w#D÷"Í(_Ü¡?Š@Õ”Şâ½Ör_{
+I§§“ìNx¤­W¥{=½ãÏ„ñhL»u|ğG|	O‡@jfŠ‘~#¯å>ğÌ&.ÏtÔŠ«×Ù˜TƒÍh¤}èQäl¸EĞ¤å¾ŠTø	»Ø^Uš±YùKªÔ0UÂş$Ê™Ş“^wÀÃ^ßÃvë¥·ÌOuìúèäŞ'öóÒa2ÿéSİKxú…ïpéşÎÏ7ÍkïF/JÒßœ=ôºôÍÃ^ş…&ß${<¢ù'æki8Ÿ>Aˆ<÷“kÏïZ<Ü‹3¤ã% gÈŒkid™g<.>èŸ£®˜}øg:tS~Pz—.Yö:=ƒ8ÈÖiŠ½D?´d&ÙŞ'®`•v¾°!dAeQ‰0O£êx’sVú¬w:ëpšô³îûÏKfÍklœÏ®ûÅ÷=ºî‡¹BQ¢İ
+ò`µ¸3æy€¿'”ÜPª1ÈÉÍA`W
+Ê¾0°ñÜ€yŞ'# er¾!œê¥ç‹¶ÌÀ»<Ënì%wıCšîµ³a0—€bíQ²ébL*XTa³HP«ùÀpY¾z*Ù;…×SzíT¼ıã©bu
+®—Tpœo”x©ôY©v¤#I–ªŠ&!D4$ïâ?¸šØ_­î—z	Ÿ”ŞMCDN†æ'©ûºzààH"ğ Ó©¶¾0©ø…­édèöÕÁ»ß,«zkg–g4y5ó©£U3şüÜ`Ïh¯,ú(ŞnÑˆä¶’4 ƒ:Ü'I»gd”[$Az$MÅ§le•x°ôœ4µÿØü4eP’ÿÂ¢ÆOòÉ_†]¿™½öË\Ï–sÀZ{ÖZ(2ıJ^¬ÃÈ¨3©M°¸Bq¨Øwq1ïÄeông8ıQéèXWGßÀCŞxc÷ûïï~şƒz¼ã‹ÒÎï¿—{‡z.'u_şV’s ªçÏAAHÏ,280áZºÖ}Å+½v^A((Ñ"ÊZ—34ÑjQ«{CIŞ³—–¯¼òœôıÇî¾û¾
+'V}¹ióç+¥òÉıM×ÉyW÷]LZP«=(Ş@NJ@
+Ù;ö8pk‚À5.¹Hñ9 zs¼‘Ä{K@‚XÓù+XlãHc¢^§¦™Šk·Š’í9‹Ño˜™‘ÓW¦ËçŸ’¾\Öñ-æga¢}>3µtßŞŸ#}÷È@¢[?òåvYÆ>q0È8Ó®Ä„ïÉ!ü"¹Ø“Hèµa!€¬6@gÆ—h‡Ela›}²–°ñN<BÚ-}uùc¬Y»ä-ıôñ#e{^&:Ï.ğ‹…mòzœû‡³ ód«yì ‰€zW 	Ş³¶Iï‰Õ1Q‘‚0JÆÉLpfvŠ$«;)©wã-{{*9£|šDvJßK¯Š¸¿òéeí­mê'7z¶=ıã:"}¤¼·yÑÊß”¯¥§Hï~º¸paı´	“cú§İ¶ö­¦…¹sÆWÁ”ÉF=:
