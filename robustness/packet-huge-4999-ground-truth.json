@@ -1,0 +1,497 @@
+{
+  "schema_version": 1,
+  "packet": "hartwell-loan-packet",
+  "generator": "resecta-sample-doc/packet",
+  "page_count": 1,
+  "bbox_origin": "bottom-left",
+  "page_size_pt": [
+    3862.864,
+    4999.0
+  ],
+  "exhibits": [
+    {
+      "name": "urla_b",
+      "base_page": 0,
+      "pages": 2
+    },
+    {
+      "name": "urla_a",
+      "base_page": 2,
+      "pages": 1
+    },
+    {
+      "name": "stmt",
+      "base_page": 3,
+      "pages": 3
+    },
+    {
+      "name": "t1040",
+      "base_page": 6,
+      "pages": 2
+    },
+    {
+      "name": "ach",
+      "base_page": 8,
+      "pages": 1
+    },
+    {
+      "name": "w2",
+      "base_page": 9,
+      "pages": 1
+    },
+    {
+      "name": "govid",
+      "base_page": 10,
+      "pages": 1
+    },
+    {
+      "name": "veh",
+      "base_page": 11,
+      "pages": 1
+    }
+  ],
+  "occurrences": [
+    {
+      "id": "occ_urlab_01",
+      "value": "Delia R. Hartwell",
+      "category": "name",
+      "page": 0,
+      "bbox": [
+        0.283063,
+        0.850794,
+        0.396208,
+        0.864544
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "should_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "Name (First, Middle, Last, Suffix):",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.283063,
+            0.850794,
+            0.396208,
+            0.864544
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "middle initial breaks the NLTagger span -> tracked recall miss.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_urlab_09",
+      "value": "502-19-7438",
+      "category": "ssn",
+      "page": 0,
+      "bbox": [
+        0.225611,
+        0.831855,
+        0.330506,
+        0.845604
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "Social Security Number:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.225611,
+            0.831855,
+            0.330506,
+            0.845604
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "area 502 (001-899, !=666), group 19, serial 7438; valid -> 0.95 with label.",
+      "source_range": "synthetic + manifest (no provable never-issued SSN space post-2011)",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_urlab_04",
+      "value": "03/14/1985",
+      "category": "dateOfBirth",
+      "page": 0,
+      "bbox": [
+        0.249623,
+        0.812916,
+        0.336509,
+        0.826665
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "should_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "Date of Birth (mm/dd/yyyy):",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.249623,
+            0.812916,
+            0.336509,
+            0.826665
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "numeric, label-anchored. Text-leg miss (numeric DOB on .financial not detected; OCR leg mislabels as phone) -> should_fire.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_urlab_10",
+      "value": "(208) 555-0147",
+      "category": "phone",
+      "page": 0,
+      "bbox": [
+        0.15879,
+        0.753572,
+        0.279123,
+        0.767322
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "Home Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.15879,
+            0.753572,
+            0.279123,
+            0.767322
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "NANPA 555-0147; phone kw within +-80 -> 0.80 >= 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_urlab_11",
+      "value": "916-555-0182",
+      "category": "phone",
+      "page": 0,
+      "bbox": [
+        0.145725,
+        0.734633,
+        0.260155,
+        0.748382
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "Cell Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.145725,
+            0.734633,
+            0.260155,
+            0.748382
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "format-zoo (CA 916 area, kept post-relocation); 555-0182 -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_urlab_12",
+      "value": "208.555.0119",
+      "category": "phone",
+      "page": 0,
+      "bbox": [
+        0.155242,
+        0.715693,
+        0.258499,
+        0.729443
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "Work Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.155242,
+            0.715693,
+            0.258499,
+            0.729443
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "format-zoo (dotted); 555-0119 -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_urlab_13",
+      "value": "d.hartwell@example.net",
+      "category": "email",
+      "page": 0,
+      "bbox": [
+        0.112177,
+        0.696754,
+        0.27927,
+        0.710503
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "Email:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.112177,
+            0.696754,
+            0.27927,
+            0.710503
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "RFC-2606 -> 0.90 >= 0.83.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_urlab_06",
+      "value": "4127 Wrenfield Place Boise, ID 83702",
+      "category": "address",
+      "page": 0,
+      "bbox": [
+        0.068627,
+        0.646249,
+        0.220289,
+        0.67515
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "Current Address:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.068627,
+            0.6614,
+            0.220289,
+            0.67515
+          ]
+        },
+        {
+          "page": 0,
+          "bbox": [
+            0.068627,
+            0.646249,
+            0.181054,
+            0.659998
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "shared residence; 2 spans (street; city/ST/ZIP); 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_urlab_06b",
+      "value": "812 Aldergrove Avenue Modesto, CA 95354",
+      "category": "address",
+      "page": 0,
+      "bbox": [
+        0.068627,
+        0.593219,
+        0.23511,
+        0.62212
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "Former Address:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.068627,
+            0.60837,
+            0.23511,
+            0.62212
+          ]
+        },
+        {
+          "page": 0,
+          "bbox": [
+            0.068627,
+            0.593219,
+            0.210114,
+            0.606968
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "CA-DL/ID-residence reconciliation; 2 spans.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_urlab_07",
+      "value": "P.O. Box 2215, Boise, ID 83701",
+      "category": "address",
+      "page": 0,
+      "bbox": [
+        0.259127,
+        0.570491,
+        0.480498,
+        0.584241
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "Mailing Address (if different):",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.259127,
+            0.570491,
+            0.480498,
+            0.584241
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "P.O. Box arm.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_urlab_08",
+      "value": "2900 Commerce Park Drive, Meridian, ID 83642",
+      "category": "address",
+      "page": 0,
+      "bbox": [
+        0.193442,
+        0.499784,
+        0.530105,
+        0.513534
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "Employer Address:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.193442,
+            0.499784,
+            0.530105,
+            0.513534
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "employer (Tannersworth) address.",
+      "source_range": "",
+      "schema_version": 1
+    }
+  ],
+  "variant": {
+    "kind": "huge_page",
+    "long_side_pt": 4999.0,
+    "source_page": 0,
+    "gt_geometry": "inherited (full-bleed aspect-true scale; normalized boxes unchanged)"
+  }
+}

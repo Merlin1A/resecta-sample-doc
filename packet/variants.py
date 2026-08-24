@@ -265,8 +265,11 @@ _FILLER_SENTENCES = [
 ]
 
 
-def perf_filler(pages: int = 120) -> bytes:
-    pages = max(50, min(200, pages))
+def perf_filler(pages: int = 120, *, clamp: bool = True) -> bytes:
+    # clamp=False is the T4.2 escape hatch (IM-18): the 501-pp import-cap
+    # rejection fixture needs to build past the 200-page jetsam-filler range.
+    if clamp:
+        pages = max(50, min(200, pages))
     buf = io.BytesIO()
     c = canvas.Canvas(buf, pagesize=letter, invariant=1, pageCompression=1)
     L.register_fonts()
