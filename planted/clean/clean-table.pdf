@@ -1,0 +1,55 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 612 792] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>
+endobj
+
+4 0 obj
+<<  /Length 560 >>
+stream
+BT /F1 14 Tf 72 730 Td (Synthetic planted-leak fixture -- clean control table) Tj ET
+BT /F1 10 Tf 72 706 Td (Fictional content; no real PII. Oracle-calibration corpus \(T2.2\).) Tj ET
+BT /F1 11 Tf 90 640 Td (Row) Tj ET
+BT /F1 11 Tf 300 640 Td (Amount) Tj ET
+BT /F1 11 Tf 90 616 Td (AA-101) Tj ET
+BT /F1 11 Tf 300 616 Td (12.00) Tj ET
+BT /F1 11 Tf 90 592 Td (AA-102) Tj ET
+BT /F1 11 Tf 300 592 Td (7.50) Tj ET
+BT /F1 11 Tf 90 568 Td (AA-103) Tj ET
+BT /F1 11 Tf 300 568 Td (19.25) Tj ET
+BT /F1 11 Tf 90 544 Td (AA-104) Tj ET
+BT /F1 11 Tf 300 544 Td (3.10) Tj ET
+
+endstream
+endobj
+
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica /Encoding /WinAnsiEncoding >>
+endobj
+
+6 0 obj
+<< /Producer (Synthetic Fixture Producer) /Creator (build_planted_corpus) >>
+endobj
+
+xref
+0 7
+0000000000 65535 f 
+0000000015 00000 n 
+0000000065 00000 n 
+0000000123 00000 n 
+0000000250 00000 n 
+0000000863 00000 n 
+0000000961 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R /Info 6 0 R >>
+startxref
+1054
+%%EOF
