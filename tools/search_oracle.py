@@ -507,6 +507,25 @@ def phase_metamorphic(args):
                 ok = hit_multiset(cl) == hit_multiset(cr)
                 add("literal-equals-escaped-regex", doc_id, f"{lit}~{rx}", v, v, ok)
 
+    # Annotate failures on burst cells (the bufferingNewest drop makes any
+    # cross-vector count comparison unreliable there) — kept in the report,
+    # sliced apart from real relation violations.
+    for r in results:
+        if r["ok"]:
+            continue
+        run = load_run(Path(args.hits), r["doc"])
+        cs = {(c["qid"], c["vector_id"]): c for c in run["cells"]}
+        qids = r["qid"].split("~")
+        burst = False
+        for qid in qids:
+            for v in r["vectors"]:
+                cell = cs.get((qid, v))
+                if cell:
+                    pages = Counter(h["page"] for h in cell["hits"])
+                    if pages and max(pages.values()) > 100:
+                        burst = True
+        r["burst_drop_suspect"] = burst
+
     failures = [r for r in results if not r["ok"]]
     by_rel = Counter(r["relation"] for r in results)
     fail_rel = Counter(r["relation"] for r in failures)
@@ -517,6 +536,8 @@ def phase_metamorphic(args):
         "by_relation": dict(by_rel),
         "failures": failures,
         "failed_by_relation": dict(fail_rel),
+        "failures_non_burst": [r for r in failures
+                               if not r.get("burst_drop_suspect")],
     }
     dump(out, Path(args.out) / "metamorphic.json")
     print(f"[metamorphic] {len(results)} checks, {len(failures)} failures "
@@ -610,6 +631,12 @@ def phase_ocr(args):
 
     # Correctness-vs-OCR-text: re-derive expected per-page counts from the
     # product's own Vision lines under the documented OCR-leg semantics.
+    # Patterns the product safety-REJECTS (established on the text-leg diff)
+    # are graded separately: the pure-regex reimpl cannot model the rejection,
+    # so the check there is that the rejection holds on this leg too
+    # (product all-zero), not count equality.
+    safety_rejected = set((args.safety_rejected or "").split(",")) - {""}
+    rejected_cells = []
     cell_results = []
     for cell in run["cells"]:
         q = queries[cell["qid"]]
@@ -651,9 +678,12 @@ def phase_ocr(args):
                         want[page] = None  # py-compile divergence; skip cell
         if None in want:
             continue
-        # Product-side safety rejections yield empty streams the pure-regex
-        # reimpl cannot model — those rows are adjudication rows, not OCR
-        # correctness misses (mirror the text-leg treatment).
+        if cell["qid"] in safety_rejected:
+            rejected_cells.append({
+                "qid": cell["qid"], "vector_id": cell["vector_id"],
+                "product_zero": sum(got) == 0,
+            })
+            continue
         cell_results.append({
             "qid": cell["qid"], "vector_id": cell["vector_id"],
             "match": got == want, "product": got, "reimpl": want,
@@ -693,6 +723,12 @@ def phase_ocr(args):
             "rate": round(matched / len(cell_results), 6) if cell_results else None,
             "mismatches": mismatches,
         },
+        "safety_rejected_cells": {
+            "qids": sorted(safety_rejected),
+            "n": len(rejected_cells),
+            "all_product_zero": all(c["product_zero"] for c in rejected_cells),
+            "nonzero": [c for c in rejected_cells if not c["product_zero"]],
+        },
         "findability_vs_packet_text": {
             "queries": findability,
             "median_found_frac": fracs[len(fracs) // 2] if fracs else None,
@@ -713,6 +749,8 @@ def phase_freeze(args):
     bank, vectors, queries = load_bank()
     doc_id = args.doc
     run = load_run(Path(args.hits), doc_id)
+    run2 = load_run(Path(args.hits), doc_id, run=2)
+    cells2 = {(c["qid"], c["vector_id"]): c for c in run2["cells"]}
     adjudication = json.loads(Path(args.adjudication).read_text()) \
         if args.adjudication else {"rows": []}
     adj_by_key = {}
@@ -720,12 +758,33 @@ def phase_freeze(args):
         if row.get("doc") in (doc_id, "*"):
             adj_by_key[(row["qid"], row.get("vector_id", "*"))] = row
 
+    def is_burst(cell):
+        pages = Counter(h["page"] for h in cell["hits"])
+        return bool(pages) and max(pages.values()) > 100
+
     ocr_leg = any(s != "rich" for s in run["text_layer_status"])
     cells_out = {}
+    burst_max_cells = []
+    unadjudicated_nondet = []
     for cell in run["cells"]:
         key = f"{cell['qid']}|{cell['vector_id']}"
         adj = adj_by_key.get((cell["qid"], cell["vector_id"])) \
             or adj_by_key.get((cell["qid"], "*"))
+        source_note = None
+        c2 = cells2.get((cell["qid"], cell["vector_id"]))
+        # Cross-run reconciliation. Text leg: a run difference is legal only
+        # on burst cells (the bufferingNewest drop) — freeze the higher-yield
+        # run (drops only LOSE hits; max-of-runs is a lower bound on truth).
+        # OCR leg: run 2 is an independent Vision pass — variance expected;
+        # GT regenerates from run 1 by definition.
+        if not ocr_leg and c2 is not None and cell["hits"] != c2["hits"]:
+            if is_burst(cell) or is_burst(c2):
+                if c2["yielded"] > cell["yielded"]:
+                    cell = c2
+                burst_max_cells.append(key)
+                source_note = "burst-max-of-runs"
+            elif not adj:
+                unadjudicated_nondet.append(key)
         expected_hits = [
             {"page": h["page"], "start": h.get("start"), "end": h.get("end"),
              "text": h["text"], "bbox": h["rect"]}
@@ -734,7 +793,8 @@ def phase_freeze(args):
         entry = {
             "expected_n": len(expected_hits),
             "hits": expected_hits,
-            "source": "regenerated-ocr" if ocr_leg else "adjudicated-product",
+            "source": source_note or (
+                "regenerated-ocr" if ocr_leg else "adjudicated-product"),
         }
         if adj:
             entry["adjudication"] = {
@@ -745,6 +805,9 @@ def phase_freeze(args):
                 if adj.get(k):
                     entry["adjudication"][k] = adj[k]
         cells_out[key] = entry
+    if unadjudicated_nondet:
+        sys.exit(f"[freeze] REFUSED: non-burst cross-run differences need "
+                 f"adjudication: {unadjudicated_nondet}")
     out = {
         "schema_version": 1,
         "generated_by": "search_oracle.py freeze",
@@ -754,12 +817,14 @@ def phase_freeze(args):
         "leg": "ocr" if ocr_leg else "text",
         "regenerated": ocr_leg,
         "source_run_index": run["run_index"],
+        "burst_max_cells": burst_max_cells,
         "cells": cells_out,
     }
     dump(out, GT_DIR / f"{doc_id}.search-gt.json")
     print(f"[freeze] {doc_id}: {len(cells_out)} cells frozen "
           f"({'OCR-regenerated' if ocr_leg else 'adjudicated text leg'}; "
-          f"{len(adj_by_key)} adjudication rows applied)")
+          f"{len(adj_by_key)} adjudication rows; "
+          f"{len(burst_max_cells)} burst-max cells)")
 
 
 # ---------------------------------------------------------------------------
@@ -836,6 +901,8 @@ def main():
     p.add_argument("--doc", required=True)
     p.add_argument("--hits", required=True)
     p.add_argument("--out", required=True)
+    p.add_argument("--safety-rejected", default=None,
+                   help="comma qids the product safety-rejects (graded as product-zero rows)")
     p.set_defaults(fn=phase_ocr)
 
     p = sub.add_parser("freeze")
