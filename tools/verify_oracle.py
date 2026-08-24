@@ -44,6 +44,15 @@ Usage:
   # then the printed engine-test Vision command, then:
   python tools/verify_oracle.py finalize --cells <run>/cells [--keep-renders]
 
+  # T2.2 oracle-recall calibration (P1.4, M12-12) -- the oracle runs DIRECTLY over the
+  # planted corpus (each plant is a KNOWN leak it must find; no redaction pass):
+  python tools/verify_oracle.py calibrate --planted <sd-root>/planted --out <run>/calibration
+  # then the printed Vision command, then:
+  python tools/verify_oracle.py calibrate-finalize --planted <sd-root>/planted --out <run>/calibration
+
+  # PB-86 hidden-text re-exposure analysis over H2.2 section-E cells (M12-11):
+  python tools/verify_oracle.py pb86 --cells <run>/cells
+
 Runs with the sd worktree venv (pymupdf + numpy + cv2 present); external tools per the D12-20
 inventory (qpdf, mutool, poppler, tesseract, exiftool). Every run records tool versions.
 """
@@ -1109,6 +1118,382 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
         "fill_fail_regions", "placement_iou")}, indent=1))
 
 
+# ---------------------------------------------------------------- calibration (T2.2, M12-12)
+
+SURFACE_STRUCTURE_SIGNALS = {
+    "ocg_off": "/OCProperties",
+    "xmp_metadata": "/Metadata",
+    "acroform_v": "/AcroForm",
+    "outlines": "/Outlines",
+    "thumb": "/Thumb",
+    "embedded_file": "/EmbeddedFiles",
+    "javascript": "/JavaScript",
+    "object_stream": "info_extra",
+    "info_dict": "info_extra",
+    "prior_revision": "revisions",
+    "annotation_ap": "annots",
+    "annotation_contents": "annots",
+}
+
+
+class CalCell:
+    """Duck-typed Cell for a planted fixture: no burned regions, no report."""
+
+    def __init__(self, cell_dir: Path, pdf: Path, fixture: str, terms: list[str]):
+        self.dir = cell_dir
+        self.output = pdf
+        self.doc_id = fixture
+        self.mode = "calibration"
+        self.region_set = "planted"
+        self.key = fixture
+        self.terms = terms
+        self.expected_visible = set()
+        self.burned = []
+
+    def burned_by_page(self) -> dict:
+        return {}
+
+
+def load_planted(planted_dir: Path) -> dict:
+    manifest = json.loads((planted_dir / "planted-leaks.json").read_text())
+    return manifest
+
+
+def cal_cells(planted_dir: Path, out: Path) -> list[tuple[CalCell, dict | None]]:
+    """(cell, manifest_row) per planted fixture; clean rows probe ALL plant terms."""
+    manifest = load_planted(planted_dir)
+    repo = planted_dir.parent
+    all_terms = sorted({p["term"] for r in manifest["rows"] for p in r["plants"]})
+    cells: list[tuple[CalCell, dict | None]] = []
+    for row in manifest["rows"]:
+        pdf = repo / row["path"]
+        terms = [p["term"] for p in row["plants"]]
+        cells.append((CalCell(out / row["fixture"], pdf, row["fixture"], terms), row))
+    for row in manifest["clean"]:
+        pdf = repo / row["path"]
+        cells.append((CalCell(out / row["fixture"], pdf, row["fixture"], all_terms), None))
+    return cells
+
+
+def phase_calibrate(planted_dir: Path, out: Path, dpi: int) -> None:
+    out.mkdir(parents=True, exist_ok=True)
+    vision_in = out / "vision-in"
+    vision_in.mkdir(exist_ok=True)
+    versions = tool_versions()
+    cells = cal_cells(planted_dir, out)
+    print(f"[calibrate] {len(cells)} fixtures, dpi={dpi}")
+    for cell, _row in cells:
+        cell.dir.mkdir(parents=True, exist_ok=True)
+        workdir = cell.dir / "oracle-work"
+        workdir.mkdir(exist_ok=True)
+        render = cell.dir / "render"
+        render.mkdir(exist_ok=True)
+        if not list(render.glob("pp-*.png")):
+            run(["pdftoppm", "-r", str(dpi), "-gray", "-png",
+                 str(cell.output), str(render / "pp")], timeout=900)
+        for png in sorted(render.glob("pp-*.png")):
+            link = vision_in / f"{cell.key}__{png.name}"
+            if not link.exists():
+                link.symlink_to(png.resolve())
+        scope = {t: "unique" for t in cell.terms}
+        o0 = o0_structure(cell, workdir)
+        o1_hits, o1_diag = o1_text_layer(cell, scope)
+        o2_hits = o2_bytes(cell, o0, scope, workdir)
+        tess = o3_tesseract(cell, render)
+        px_dims: dict[int, tuple[int, int]] = {}
+        try:
+            import cv2
+            for png in render.glob("pp-*.png"):
+                m = re.search(r"pp-0*(\d+)", png.name)
+                if m:
+                    img = cv2.imread(str(png), cv2.IMREAD_GRAYSCALE)
+                    if img is not None:
+                        px_dims[int(m.group(1)) - 1] = (img.shape[1], img.shape[0])
+        except Exception:  # noqa: BLE001
+            pass
+        tess_hits = ocr_hits_for_engine(
+            cell, {p: d["text"] for p, d in tess.items()},
+            {p: d["words"] for p, d in tess.items()}, px_dims)
+        o4 = o4_census(cell)
+        o6_hits = o6_adversarial(cell, scope)
+        partial = {
+            "schema_version": SCHEMA_VERSION,
+            "fixture": cell.key,
+            "o0": o0,
+            "o1_hits": o1_hits,
+            "o1_diag": o1_diag,
+            "o2_hits": o2_hits,
+            "o3_tesseract_hits": tess_hits,
+            "o4": o4,
+            "o6_hits": o6_hits,
+            "px_dims": {str(k): v for k, v in px_dims.items()},
+            "versions": versions,
+            "dpi": dpi,
+        }
+        (cell.dir / "calibrate-partial.json").write_text(
+            json.dumps(partial, indent=1, sort_keys=True))
+        print(f"[calibrate] scanned {cell.key}")
+    print(
+        "[calibrate] scan done. Run the Vision leg, then calibrate-finalize:\n"
+        f"  RESECTA_VISION_IN={vision_in} RESECTA_VISION_OUT={out / 'vision-out'} "
+        "swift test --filter VisionOracleEmitterTests\n"
+        f"  python tools/verify_oracle.py calibrate-finalize --planted {planted_dir} --out {out}"
+    )
+
+
+def _structure_signal_fired(surface: str, o0: dict) -> bool:
+    sig = SURFACE_STRUCTURE_SIGNALS.get(surface)
+    if sig is None:
+        return False
+    if sig == "info_extra":
+        return bool(o0["info_extra_keys"])
+    if sig == "revisions":
+        return o0["revisions"] > 1
+    if sig == "annots":
+        return bool(o0["annots_pages"])
+    if sig == "/AcroForm":
+        return ("/AcroForm" in set(o0["structure_keys_json"]) | set(o0["structure_keys_bytes"])) \
+            and o0["acroform_has_v"]
+    return sig in set(o0["structure_keys_json"]) | set(o0["structure_keys_bytes"])
+
+
+def phase_calibrate_finalize(planted_dir: Path, out: Path) -> None:
+    cells = cal_cells(planted_dir, out)
+    vision_out = out / "vision-out"
+    plant_results: list[dict] = []
+    clean_results: list[dict] = []
+    for cell, row in cells:
+        partial_path = cell.dir / "calibrate-partial.json"
+        if not partial_path.exists():
+            print(f"[calibrate] MISSING scan for {cell.key}; skipped")
+            continue
+        partial = json.loads(partial_path.read_text())
+        px_dims = {int(k): tuple(v) for k, v in partial.get("px_dims", {}).items()}
+        vision_texts: dict[int, str] = {}
+        vision_words: dict[int, list] = {}
+        vision_present = False
+        if vision_out.exists():
+            for vp in vision_out.glob(f"{cell.key}__pp-*.json"):
+                vision_present = True
+                m = re.search(r"pp-0*(\d+)\.json$", vp.name)
+                if not m:
+                    continue
+                pageno = int(m.group(1)) - 1
+                rep = json.loads(vp.read_text())
+                vision_texts[pageno] = "\n".join(
+                    l["text"] for l in rep.get("lines", []))
+                words = []
+                dims = px_dims.get(pageno)
+                if dims:
+                    w_px, h_px = dims
+                    for l in rep.get("lines", []):
+                        bx, by, bw, bh = l["bbox"]
+                        words.append((l["text"],
+                                      (bx * w_px, (1 - by - bh) * h_px,
+                                       (bx + bw) * w_px, (1 - by) * h_px)))
+                vision_words[pageno] = words
+        vision_hits = ocr_hits_for_engine(cell, vision_texts, vision_words, px_dims)
+        tess_hits = partial["o3_tesseract_hits"]
+
+        def term_legs(term: str) -> tuple[list[str], bool]:
+            legs: list[str] = []
+            for h in partial["o1_hits"]:
+                if h["term"] == term and (h.get("extractors") or h.get("localized")):
+                    legs.append("o1")
+                    break
+            for h in partial["o2_hits"]:
+                if h.get("term") == term:
+                    legs.append("o2-image" if h["surface"] == "image" else "o2")
+            if term in tess_hits:
+                legs.append("o3-tesseract")
+            if term in vision_hits:
+                legs.append("o3-vision")
+            if term in tess_hits and term in vision_hits:
+                legs.append("o3-quorum")
+            for h in partial["o6_hits"]:
+                if h.get("term") == term:
+                    legs.append("o6")
+            return sorted(set(legs)), vision_present
+
+        if row is not None:
+            for plant in row["plants"]:
+                term = plant["term"]
+                surface = plant["surface"]
+                legs, vp = term_legs(term)
+                structure_fired = _structure_signal_fired(surface, partial["o0"])
+                term_recovered = bool(legs)
+                structure_only_expected = plant["expected_legs"] == ["structure"]
+                found = term_recovered or (structure_only_expected and structure_fired)
+                expected_found = any(
+                    (e == "structure" and structure_fired)
+                    or (e == "o1" and "o1" in legs)
+                    or (e == "o2" and any(l.startswith("o2") for l in legs))
+                    or (e == "o3" and any(l.startswith("o3") for l in legs))
+                    or (e == "o6" and "o6" in legs)
+                    for e in plant["expected_legs"])
+                plant_results.append({
+                    "fixture": cell.key,
+                    "surface": surface,
+                    "hidden_class": plant.get("hidden_class"),
+                    "term": term,
+                    "expected_legs": plant["expected_legs"],
+                    "legs_found": legs,
+                    "structure_signal_fired": structure_fired,
+                    "term_recovered": term_recovered,
+                    "found": found,
+                    "found_by_expected_leg": expected_found,
+                    "vision_leg_present": vp,
+                })
+        else:
+            spurious_terms = []
+            for t in cell.terms:
+                legs, _vp = term_legs(t)
+                if legs:
+                    spurious_terms.append({"term": t, "legs": legs})
+            o0 = partial["o0"]
+            content_keys = sorted(set(o0["structure_keys_json"]))
+            clean_results.append({
+                "fixture": cell.key,
+                "spurious_term_hits": spurious_terms,
+                "content_structure_keys": content_keys,
+                "info_extra_keys": sorted(o0["info_extra_keys"]),
+                "revisions": o0["revisions"],
+                "false_fail": bool(spurious_terms) or bool(content_keys)
+                or o0["revisions"] > 1 or bool(o0["info_extra_keys"]),
+            })
+
+    by_surface: dict[str, dict] = {}
+    for r in plant_results:
+        d = by_surface.setdefault(r["surface"], {"n": 0, "found": 0, "expected": 0,
+                                                 "term_recovered": 0})
+        d["n"] += 1
+        d["found"] += int(r["found"])
+        d["expected"] += int(r["found_by_expected_leg"])
+        d["term_recovered"] += int(r["term_recovered"])
+    leg_matrix: dict[str, dict[str, int]] = {}
+    for r in plant_results:
+        row_m = leg_matrix.setdefault(r["surface"], {})
+        for leg in r["legs_found"]:
+            row_m[leg] = row_m.get(leg, 0) + 1
+        if r["structure_signal_fired"]:
+            row_m["structure"] = row_m.get("structure", 0) + 1
+    misses = [r for r in plant_results if not r["found"]]
+    manifest = load_planted(planted_dir)
+    summary = {
+        "schema_version": SCHEMA_VERSION,
+        "generated_by": "verify_oracle.py calibrate-finalize",
+        "plants": len(plant_results),
+        "plants_found_any": sum(r["found"] for r in plant_results),
+        "recall_by_surface": {
+            s: {"n": d["n"], "found_any": d["found"],
+                "found_by_expected_leg": d["expected"],
+                "term_recovered": d["term_recovered"],
+                "recall": round(d["found"] / d["n"], 4) if d["n"] else None}
+            for s, d in sorted(by_surface.items())},
+        "leg_matrix": {s: dict(sorted(v.items())) for s, v in sorted(leg_matrix.items())},
+        "misses": misses,
+        "clean_docs": len(clean_results),
+        "clean_false_fails": sum(r["false_fail"] for r in clean_results),
+        "clean_detail": clean_results,
+        "skipped_stretch_rows": manifest.get("skipped", []),
+        "vision_leg_present_everywhere": all(
+            r["vision_leg_present"] for r in plant_results) if plant_results else False,
+    }
+    (out / "calibration-summary.json").write_text(
+        json.dumps({"plant_results": plant_results, **summary}, indent=1, sort_keys=False))
+    print(f"[calibrate] {summary['plants_found_any']}/{summary['plants']} plants found; "
+          f"clean false-FAILs {summary['clean_false_fails']}/{summary['clean_docs']}")
+    print(json.dumps({k: summary[k] for k in ("recall_by_surface", "clean_false_fails")},
+                     indent=1))
+
+
+# ---------------------------------------------------------------- PB-86 (M12-11)
+
+def phase_pb86(cells_dir: Path) -> None:
+    plants_path = cells_dir / "pb86-plants.json"
+    if not plants_path.exists():
+        sys.exit(f"no pb86-plants.json under {cells_dir}")
+    plants = json.loads(plants_path.read_text())["plants"]
+    results: list[dict] = []
+    qdf_cache: dict[str, bytes] = {}
+    for row in plants:
+        cell_dir = cells_dir / row["cell"]
+        output = cell_dir / "output.pdf"
+        if not output.exists():
+            results.append({**row, "status": "cell-missing"})
+            continue
+        term = row["term"]
+        ft = fold(term)
+        fn = fold_nospace(term)
+        text_legs: list[str] = []
+        for name, cmd in (
+                ("pdftotext-layout", ["pdftotext", "-layout", "-enc", "UTF-8",
+                                      "-nopgbrk", str(output), "-"]),
+                ("pdftotext-raw", ["pdftotext", "-raw", "-enc", "UTF-8",
+                                   "-nopgbrk", str(output), "-"])):
+            if ft in fold(run_bytes(cmd).decode("utf-8", "replace")):
+                text_legs.append(name)
+        stext = "".join(c for _w, _h, chars in stext_pages(output) for c, _b in chars)
+        if fn and fn in fold_nospace(stext):
+            text_legs.append("mutool-stext")
+        try:
+            import pymupdf
+            doc = pymupdf.open(output)
+            rd = "".join(pg.get_text() for pg in doc)
+            doc.close()
+            if ft in fold(rd):
+                text_legs.append("pymupdf")
+        except Exception:  # noqa: BLE001
+            pass
+        key = row["cell"]
+        if key not in qdf_cache:
+            qdf_path = cell_dir / "oracle-work"
+            qdf_path.mkdir(exist_ok=True)
+            qdf_file = qdf_path / "pb86-qdf.pdf"
+            run(["qpdf", "--qdf", "--object-streams=disable", str(output), str(qdf_file)])
+            qdf_cache[key] = qdf_file.read_bytes() if qdf_file.exists() else b""
+        qdf = qdf_cache[key]
+        byte_hit = (term.encode() in qdf or hex_string(term) in qdf
+                    or hex_string(term).upper() in qdf or octal_escape(term) in qdf
+                    or fn in fold_nospace(tj_reassembled(qdf)))
+        cell_meta = {}
+        cj = cell_dir / "cell.json"
+        if cj.exists():
+            c = json.loads(cj.read_text())
+            cell_meta = {"per_page_modes": c.get("per_page_modes"),
+                         "verdict": (c.get("overall_per_sweep") or [None])[0]}
+        results.append({**row, "status": "measured",
+                        "text_layer_legs": text_legs,
+                        "re_exposed_text_layer": bool(text_legs),
+                        "bytes_hit": bool(byte_hit), **cell_meta})
+
+    def rate(rows: list[dict]) -> dict:
+        n = len(rows)
+        re_exp = sum(r["re_exposed_text_layer"] for r in rows)
+        return {"n": n, "re_exposed": re_exp,
+                "rate": round(re_exp / n, 4) if n else None}
+
+    classes = sorted({r["hidden_class"] for r in results})
+    summary = {
+        "schema_version": SCHEMA_VERSION,
+        "generated_by": "verify_oracle.py pb86",
+        "measured": sum(r["status"] == "measured" for r in results),
+        "missing_cells": [r["cell"] for r in results if r["status"] == "cell-missing"],
+        "re_exposure_by_class": {
+            cls: {
+                "uncovered": rate([r for r in results if r["hidden_class"] == cls
+                                   and not r["covered"] and r["status"] == "measured"]),
+                "covered_residual": rate([r for r in results if r["hidden_class"] == cls
+                                          and r["covered"] and r["status"] == "measured"]),
+            } for cls in classes},
+        "rows": results,
+    }
+    (cells_dir / "pb86-summary.json").write_text(
+        json.dumps(summary, indent=1, sort_keys=False))
+    print(json.dumps(summary["re_exposure_by_class"], indent=1))
+    print(f"[pb86] {summary['measured']} plant-cells -> {cells_dir / 'pb86-summary.json'}")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = ap.add_subparsers(dest="phase", required=True)
@@ -1119,11 +1504,26 @@ def main() -> None:
     fin = sub.add_parser("finalize", help="merge the Vision leg, quorum, classification, summary")
     fin.add_argument("--cells", required=True, type=Path)
     fin.add_argument("--keep-renders", action="store_true")
+    cal = sub.add_parser("calibrate", help="T2.2: O-legs directly over the planted corpus")
+    cal.add_argument("--planted", required=True, type=Path)
+    cal.add_argument("--out", required=True, type=Path)
+    cal.add_argument("--dpi", type=int, default=400)
+    calf = sub.add_parser("calibrate-finalize", help="merge Vision + per-plant recall summary")
+    calf.add_argument("--planted", required=True, type=Path)
+    calf.add_argument("--out", required=True, type=Path)
+    pb = sub.add_parser("pb86", help="M12-11: hidden-text re-exposure over section-E cells")
+    pb.add_argument("--cells", required=True, type=Path)
     args = ap.parse_args()
     if args.phase == "scan":
         phase_scan(args.cells, args.docs_root, args.dpi)
-    else:
+    elif args.phase == "finalize":
         phase_finalize(args.cells, args.keep_renders)
+    elif args.phase == "calibrate":
+        phase_calibrate(args.planted, args.out, args.dpi)
+    elif args.phase == "calibrate-finalize":
+        phase_calibrate_finalize(args.planted, args.out)
+    else:
+        phase_pb86(args.cells)
 
 
 if __name__ == "__main__":
