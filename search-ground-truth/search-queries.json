@@ -1,0 +1,898 @@
+{
+ "defaults": {
+  "caseSensitive": false,
+  "exactMatch": false,
+  "foldDiacritics": false,
+  "includeOCR": true,
+  "multiTermConjunction": false,
+  "normalizeSmartPunctuation": true,
+  "normalizeUnicode": true,
+  "stripDigitSeparators": false,
+  "wholeWord": false
+ },
+ "docs": {
+  "packet": {
+   "path": "packet.pdf",
+   "sha256": "362375692b8cff378d66c43fcf46f00ba09e1ea982602fcc5c8b70e96f54339a"
+  },
+  "packet-scan-sim-150dpi": {
+   "path": "variants/packet-scan-sim-150dpi.pdf",
+   "sha256": "9af85bcef11b7e0cc14db1b43040f0cc121482598a8f5174296775268bf51874"
+  }
+ },
+ "generated_by": "resecta-sample-doc/tools/build_search_queries.py",
+ "metamorphic": {
+  "case_variant_sets": [
+   [
+    "q02",
+    "q04",
+    "q05"
+   ],
+   [
+    "q35",
+    "q36"
+   ]
+  ],
+  "expected_inert": {
+   "packet_text_leg": [
+    "normalizeUnicode",
+    "foldDiacritics",
+    "includeOCR"
+   ],
+   "packet_text_leg_note": "packet text is pure ASCII and all pages are rich; NFKC, diacritic fold and the OCR toggle must not change hit sets \u2014 EXCEPT queries carrying non-ASCII characters (q24/q25), where normalizeUnicode participates by design.",
+   "regex_mode": [
+    "caseSensitive",
+    "exactMatch",
+    "stripDigitSeparators",
+    "foldDiacritics",
+    "multiTermConjunction"
+   ],
+   "regex_mode_note": "the regex path never case-folds, never applies the length-changing extensions, ignores exactMatch, and conjunction only affects multiTerm.",
+   "text_regex_single_mode": [
+    "multiTermConjunction"
+   ]
+  },
+  "literal_regex_twins": [
+   [
+    "q01",
+    "r02"
+   ],
+   [
+    "q08",
+    "r03"
+   ]
+  ],
+  "relations": [
+   "case-insensitive hits are a superset of case-sensitive hits (same query)",
+   "diacritic-folded hits are a superset of unfolded hits (same query)",
+   "whole-word hits are a subset of substring hits (same query)",
+   "multiTerm AND hit pages are a subset of OR hit pages (same terms)",
+   "a literal's text-mode hits equal the escaped literal's regex-mode hits",
+   "exactMatch and wholeWord produce identical hit sets on text/multiTerm/OCR paths"
+  ],
+  "strip_pairs": [
+   [
+    "q09",
+    "q08"
+   ],
+   [
+    "q12",
+    "q11"
+   ],
+   [
+    "q16",
+    "q15"
+   ],
+   [
+    "q18",
+    "q17"
+   ]
+  ],
+  "wholeword_regex_near_twin": [
+   [
+    "q26",
+    "r09"
+   ]
+  ]
+ },
+ "pair_coverage": {
+  "pairs_covered": 144,
+  "pairs_total": 144
+ },
+ "queries": [
+  {
+   "expect_packet_occurrences": 14,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "surname token, multi-page",
+   "qid": "q01",
+   "query": "Hartwell"
+  },
+  {
+   "expect_packet_occurrences": 6,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "two-token name",
+   "qid": "q02",
+   "query": "Delia Hartwell"
+  },
+  {
+   "expect_packet_occurrences": 4,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "name with middle initial + period",
+   "qid": "q03",
+   "query": "Delia R. Hartwell"
+  },
+  {
+   "expect_packet_occurrences": 9,
+   "family": "case-variant",
+   "mode": "text",
+   "notes": "all-caps twin of q02 (caseSensitive probe)",
+   "qid": "q04",
+   "query": "DELIA HARTWELL"
+  },
+  {
+   "expect_packet_occurrences": 0,
+   "family": "case-variant",
+   "mode": "text",
+   "notes": "lowercase twin of q02 (0 verbatim)",
+   "qid": "q05",
+   "query": "delia hartwell"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "substring",
+   "mode": "text",
+   "notes": "prefix of Hartwell (wholeWord probe)",
+   "qid": "q06",
+   "query": "Hart"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "substring",
+   "mode": "text",
+   "notes": "suffix substring of Hartwell (wholeWord probe)",
+   "qid": "q07",
+   "query": "well"
+  },
+  {
+   "expect_packet_occurrences": 1,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "second-borrower name, page 1",
+   "qid": "q34",
+   "query": "Karen Delgado"
+  },
+  {
+   "expect_packet_occurrences": 2,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "dependent name",
+   "qid": "q35",
+   "query": "Mateo Hartwell"
+  },
+  {
+   "expect_packet_occurrences": 2,
+   "family": "case-variant",
+   "mode": "text",
+   "notes": "all-caps twin of q35",
+   "qid": "q36",
+   "query": "MATEO HARTWELL"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "street-name token, multi-page",
+   "qid": "q40",
+   "query": "Wrenfield"
+  },
+  {
+   "expect_packet_occurrences": 3,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "primary SSN, dashed",
+   "qid": "q08",
+   "query": "502-19-7438"
+  },
+  {
+   "expect_packet_occurrences": 0,
+   "family": "separator-variant",
+   "mode": "text",
+   "notes": "SSN digits only \u2014 matches q08's value only with stripDigitSeparators",
+   "qid": "q09",
+   "query": "502197438"
+  },
+  {
+   "expect_packet_occurrences": 2,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "masked SSN render",
+   "qid": "q10",
+   "query": "XXX-XX-7438"
+  },
+  {
+   "expect_packet_occurrences": 1,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "ITIN with mixed dash/space separators",
+   "qid": "q11",
+   "query": "970-72 5518"
+  },
+  {
+   "expect_packet_occurrences": 0,
+   "family": "separator-variant",
+   "mode": "text",
+   "notes": "ITIN digits only (strip probe)",
+   "qid": "q12",
+   "query": "970725518"
+  },
+  {
+   "expect_packet_occurrences": 2,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "EIN, dashed",
+   "qid": "q31",
+   "query": "36-4419872"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "10-digit EIN-shaped value present verbatim",
+   "qid": "q32",
+   "query": "1364419872"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "separator-variant",
+   "mode": "text",
+   "notes": "EIN digits only \u2014 strip-on matches 36-4419872; ALSO a verbatim substring of the distinct value 1364419872 (strip-off still hits that suffix)",
+   "qid": "q33",
+   "query": "364419872"
+  },
+  {
+   "expect_packet_occurrences": 1,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "credit card, space-grouped",
+   "qid": "q17",
+   "query": "4111 1111 1111 1111"
+  },
+  {
+   "expect_packet_occurrences": 0,
+   "family": "separator-variant",
+   "mode": "text",
+   "notes": "card digits only (strip probe)",
+   "qid": "q18",
+   "query": "4111111111111111"
+  },
+  {
+   "expect_packet_occurrences": 0,
+   "family": "separator-variant",
+   "mode": "text",
+   "notes": "SO-01 comma+decimal probe: matches '6,200.00' only with strip on (comma and period are both in the separator set)",
+   "qid": "q19",
+   "query": "620000"
+  },
+  {
+   "expect_packet_occurrences": 1,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "passport value",
+   "qid": "q29",
+   "query": "N42851960"
+  },
+  {
+   "expect_packet_occurrences": 1,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "short plate value",
+   "qid": "q30",
+   "query": "88KJ2"
+  },
+  {
+   "expect_packet_occurrences": 1,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "plate decoy value (search is category-blind)",
+   "qid": "q22",
+   "query": "6ABC123"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "substring",
+   "mode": "text",
+   "notes": "two-digit token: whole-word matches INSIDE 502-19-7438 (dashes are non-alnum boundaries) \u2014 boundary-rule pin",
+   "qid": "q27",
+   "query": "19"
+  },
+  {
+   "expect_packet_occurrences": 1,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "phone, parenthesized",
+   "qid": "q13",
+   "query": "(208) 555-0147"
+  },
+  {
+   "expect_packet_occurrences": 0,
+   "family": "separator-variant",
+   "mode": "text",
+   "notes": "phone digits only \u2014 parens are NOT in the separator set, so strip-on must still MISS (208) 555-0147; separator-set boundary pin",
+   "qid": "q14",
+   "query": "2085550147"
+  },
+  {
+   "expect_packet_occurrences": 1,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "phone, dot-separated",
+   "qid": "q15",
+   "query": "208.555.0119"
+  },
+  {
+   "expect_packet_occurrences": 0,
+   "family": "separator-variant",
+   "mode": "text",
+   "notes": "phone digits only \u2014 strip-on matches 208.555.0119 (dots strip)",
+   "qid": "q16",
+   "query": "2085550119"
+  },
+  {
+   "expect_packet_occurrences": 2,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "email with dots",
+   "qid": "q37",
+   "query": "d.hartwell@example.net"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "street fragment",
+   "qid": "q20",
+   "query": "4127 Wrenfield Place"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "city-state-zip fragment",
+   "qid": "q21",
+   "query": "Boise, ID 83702"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "substring",
+   "mode": "text",
+   "notes": "state code \u2014 collides with substrings only at alnum boundaries (wholeWord discriminator across many pages)",
+   "qid": "q26",
+   "query": "ID"
+  },
+  {
+   "expect_packet_occurrences": 0,
+   "family": "separator-variant",
+   "mode": "text",
+   "notes": "unpunctuated twin of 'P.O. Box 2215' \u2014 matches only with strip on (periods+spaces strip from both sides)",
+   "qid": "q38",
+   "query": "PO Box 2215"
+  },
+  {
+   "expect_packet_occurrences": 1,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "boxed mailing address",
+   "qid": "q39",
+   "query": "P.O. Box 2215"
+  },
+  {
+   "expect_packet_occurrences": 0,
+   "family": "smartpunct-probe",
+   "mode": "text",
+   "notes": "NON-BREAKING HYPHEN query: NFKC(U+2011)=U+2010 which the smart-punct map does NOT fold \u2014 expected to match ONLY when normalizeUnicode is OFF and normalizeSmartPunctuation is ON (interaction pin)",
+   "qid": "q24",
+   "query": "502\u201119\u20117438"
+  },
+  {
+   "expect_packet_occurrences": 0,
+   "family": "smartpunct-probe",
+   "mode": "text",
+   "notes": "EN DASH query: U+2013 survives NFKC and the map folds it to '-' \u2014 matches whenever normalizeSmartPunctuation is ON",
+   "qid": "q25",
+   "query": "502\u201319\u20137438"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "separator-variant",
+   "mode": "text",
+   "notes": "trailing comma: strip-on removes the comma from the QUERY too, degenerating to plain 'Hartwell' (separator strip is not digit-scoped) \u2014 semantics pin",
+   "qid": "q28",
+   "query": "Hartwell,"
+  },
+  {
+   "expect_packet_occurrences": 0,
+   "family": "absent-control",
+   "mode": "text",
+   "notes": "never present, all modes",
+   "qid": "q23",
+   "query": "ZEBRA-QUARTZ-9911"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "gt-value",
+   "mode": "text",
+   "notes": "common document word (dense-hit row)",
+   "qid": "q41",
+   "query": "Loan"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-shape",
+   "mode": "regex",
+   "notes": "SSN/ITIN dashed shape (masked XXX rows must NOT hit)",
+   "pattern": "\\d{3}-\\d{2}-\\d{4}",
+   "qid": "r01"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-twin",
+   "mode": "regex",
+   "notes": "literal-as-regex twin of q01",
+   "pattern": "Hartwell",
+   "qid": "r02"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-twin",
+   "mode": "regex",
+   "notes": "escaped twin of q08 (no metacharacters \u2014 identical string)",
+   "pattern": "502-19-7438",
+   "qid": "r03"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-shape",
+   "mode": "regex",
+   "notes": "US phone with dash or dot groups",
+   "pattern": "\\d{3}[-.]\\d{3}[-.]\\d{4}",
+   "qid": "r04"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-invalid",
+   "mode": "regex",
+   "notes": "unbalanced parenthesis \u2014 must not compile; empty stream",
+   "pattern": "(\\d{3}\\) \\d{3}-\\d{4}",
+   "qid": "r05"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-shape",
+   "mode": "regex",
+   "notes": "digit runs (dense-hit / cap probe)",
+   "pattern": "\\d+",
+   "qid": "r06"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-shape",
+   "mode": "regex",
+   "notes": "inline case-insensitivity flag (engine passes pattern verbatim)",
+   "pattern": "(?i)hartwell",
+   "qid": "r07"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-shape",
+   "mode": "regex",
+   "notes": "whitespace-class name (newline-crossing probe)",
+   "pattern": "Delia\\s+R\\.\\s+Hartwell",
+   "qid": "r08"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-shape",
+   "mode": "regex",
+   "notes": "\\b word-boundary twin of q26+wholeWord (near-equivalence relation)",
+   "pattern": "\\bID\\b",
+   "qid": "r09"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-shape",
+   "mode": "regex",
+   "notes": "credit card with optional space groups (bounded quantifier)",
+   "pattern": "4111(\\s?\\d{4}){3}",
+   "qid": "r10"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-shape",
+   "mode": "regex",
+   "notes": "mm/dd/yyyy dates",
+   "pattern": "\\d{2}/\\d{2}/\\d{4}",
+   "qid": "r11"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "regex-pathological",
+   "mode": "regex",
+   "notes": "classic ReDoS shape \u2014 precheck-rejected; empty stream (H3.4 tie-in)",
+   "pattern": "(a+)+b",
+   "qid": "r12"
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "multiterm",
+   "mode": "multiTerm",
+   "notes": "overlapping page sets: AND = intersection pages, OR = union",
+   "qid": "m01",
+   "terms": [
+    "Hartwell",
+    "Boise"
+   ]
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "multiterm",
+   "mode": "multiTerm",
+   "notes": "disjoint page sets (Delgado p1, Modesto p0): AND must be empty",
+   "qid": "m02",
+   "terms": [
+    "Delgado",
+    "Modesto"
+   ]
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "multiterm",
+   "mode": "multiTerm",
+   "notes": "absent conjunct: AND empty everywhere, OR = Hartwell hits",
+   "qid": "m03",
+   "terms": [
+    "Hartwell",
+    "ZEBRA-QUARTZ-9911"
+   ]
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "multiterm",
+   "mode": "multiTerm",
+   "notes": "three dashed ids (co-page probe)",
+   "qid": "m04",
+   "terms": [
+    "502-19-7438",
+    "970-72-5518",
+    "078-05-1120"
+   ]
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "multiterm",
+   "mode": "multiTerm",
+   "notes": "three cities, partially overlapping pages",
+   "qid": "m05",
+   "terms": [
+    "Boise",
+    "Meridian",
+    "Modesto"
+   ]
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "multiterm",
+   "mode": "multiTerm",
+   "notes": "substring terms x wholeWord interplay",
+   "qid": "m06",
+   "terms": [
+    "Hart",
+    "well"
+   ]
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "multiterm",
+   "mode": "multiTerm",
+   "notes": "empty term in the list (filtering semantics pin)",
+   "qid": "m07",
+   "terms": [
+    "Hartwell",
+    ""
+   ]
+  },
+  {
+   "expect_packet_occurrences": null,
+   "family": "multiterm",
+   "mode": "multiTerm",
+   "notes": "case-variant + email pair (caseSensitive interplay)",
+   "qid": "m08",
+   "terms": [
+    "DELIA HARTWELL",
+    "d.hartwell@example.net"
+   ]
+  }
+ ],
+ "schema_version": 1,
+ "toggles": [
+  "caseSensitive",
+  "wholeWord",
+  "includeOCR",
+  "normalizeUnicode",
+  "exactMatch",
+  "stripDigitSeparators",
+  "normalizeSmartPunctuation",
+  "foldDiacritics",
+  "multiTermConjunction"
+ ],
+ "vectors": [
+  {
+   "id": "v00-default",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": false,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v01-flip-caseSensitive",
+   "options": {
+    "caseSensitive": true,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": false,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v02-flip-wholeWord",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": false,
+    "wholeWord": true
+   }
+  },
+  {
+   "id": "v03-flip-includeOCR",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": false,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": false,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v04-flip-normalizeUnicode",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": false,
+    "stripDigitSeparators": false,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v05-flip-exactMatch",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": true,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": false,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v06-flip-stripDigitSeparators",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": true,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v07-flip-normalizeSmartPunctuation",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": false,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": false,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v08-flip-foldDiacritics",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": true,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": false,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v09-flip-multiTermConjunction",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": true,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": false,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v10-pair",
+   "options": {
+    "caseSensitive": true,
+    "exactMatch": true,
+    "foldDiacritics": true,
+    "includeOCR": false,
+    "multiTermConjunction": true,
+    "normalizeSmartPunctuation": false,
+    "normalizeUnicode": false,
+    "stripDigitSeparators": true,
+    "wholeWord": true
+   }
+  },
+  {
+   "id": "v11-dual-caseSensitive-wholeWord",
+   "options": {
+    "caseSensitive": true,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": false,
+    "wholeWord": true
+   }
+  },
+  {
+   "id": "v12-dual-exactMatch-wholeWord",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": true,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": false,
+    "wholeWord": true
+   }
+  },
+  {
+   "id": "v13-dual-foldDiacritics-stripDigitSeparators",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": true,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": true,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v14-dual-wholeWord-stripDigitSeparators",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": true,
+    "wholeWord": true
+   }
+  },
+  {
+   "id": "v15-dual-normalizeUnicode-normalizeSmartPunctuation",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": false,
+    "normalizeUnicode": false,
+    "stripDigitSeparators": false,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v16-dual-caseSensitive-normalizeUnicode",
+   "options": {
+    "caseSensitive": true,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": false,
+    "stripDigitSeparators": false,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v17-dual-includeOCR-stripDigitSeparators",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": false,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": true,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": true,
+    "wholeWord": false
+   }
+  },
+  {
+   "id": "v18-dual-wholeWord-normalizeSmartPunctuation",
+   "options": {
+    "caseSensitive": false,
+    "exactMatch": false,
+    "foldDiacritics": false,
+    "includeOCR": true,
+    "multiTermConjunction": false,
+    "normalizeSmartPunctuation": false,
+    "normalizeUnicode": true,
+    "stripDigitSeparators": false,
+    "wholeWord": true
+   }
+  }
+ ]
+}
