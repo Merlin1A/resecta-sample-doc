@@ -33,6 +33,7 @@ from reportlab.lib.utils import ImageReader  # noqa: E402
 from reportlab.pdfgen import canvas  # noqa: E402
 
 from . import build_packet as B  # noqa: E402
+from . import aruco as A  # noqa: E402
 from . import layout as L  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
@@ -322,6 +323,122 @@ def perf_filler(pages: int = 120, *, clamp: bool = True) -> bytes:
         f"Hartwell Packet -- perf filler {pages}pp (test-only)",
         b"ResectaPacketPerfFill01",
     )
+
+
+# --------------------------------------------------------------------------------------------------
+# print masters -- capture fiducials + human-readable footer (D12-35; `31-` SSC.2)
+# --------------------------------------------------------------------------------------------------
+CAPTURE_SET_ID = "RESECTA-CAP-2026-08"
+
+# D12-35 places the marks ">= 1/4 in from the edge, in the margins outside the content crop".
+# The content margin is layout.M = 42 pt and 1/4 in = 18 pt, so the usable band is exactly
+# [18, 42] and the marker fills it. Tight by construction: a printer whose unprintable margin
+# exceeds 1/4 in will clip the fiducials, which the capture runsheet's first proof print checks.
+_MARK_EDGE = 18.0
+_MARK_SIDE = 24.0
+_MARKS_PER_PAGE = 4
+_FOOTER_SIZE = 7.0
+_FOOTER_BASELINE = 8.0
+
+
+def _draw_marker(c, marker_id: int, x0: float, y0: float, side: float) -> None:
+    """Draw one ArUco marker as vector cells, bottom-left corner at (x0, y0).
+
+    Vector rather than a raster stamp: the marker then prints crisply at any DPI and adds no
+    image object to the page, so the master stays small and byte-deterministic.
+    """
+    cells = A.marker_cells(marker_id)
+    step = side / A.SIDE_CELLS
+    c.setFillColorRGB(0, 0, 0)
+    for row_index, row in enumerate(cells):
+        # cells[0] is the marker's TOP row; PDF y grows upward.
+        y = y0 + (A.SIDE_CELLS - 1 - row_index) * step
+        for col_index, bit in enumerate(row):
+            if bit:
+                c.rect(x0 + col_index * step, y, step, step, stroke=0, fill=1)
+
+
+def _mark_positions(page_w: float, page_h: float):
+    """Return the four (x0, y0) corners, ordered bottom-left, bottom-right, top-right, top-left."""
+    lo = _MARK_EDGE
+    hi_x = page_w - _MARK_EDGE - _MARK_SIDE
+    hi_y = page_h - _MARK_EDGE - _MARK_SIDE
+    return [(lo, lo), (hi_x, lo), (hi_x, hi_y), (lo, hi_y)]
+
+
+def marker_ids(page_number: int) -> list[int]:
+    """Return the four marker ids page ``page_number`` (1-indexed) carries (D12-35)."""
+    first = _MARKS_PER_PAGE * (page_number - 1)
+    return [first + k for k in range(_MARKS_PER_PAGE)]
+
+
+def marker_quads(page_number: int, page_w: float, page_h: float) -> dict:
+    """Return ``{marker_id: [x0, y0, x1, y1]}`` in POINTS for one page.
+
+    The registration step needs the masters' marker geometry to pair with the detected corners
+    in a scan, so it is emitted alongside the PDF rather than re-derived by eye.
+    """
+    return {
+        mid: [x0, y0, x0 + _MARK_SIDE, y0 + _MARK_SIDE]
+        for mid, (x0, y0) in zip(marker_ids(page_number),
+                                 _mark_positions(page_w, page_h), strict=True)
+    }
+
+
+def print_master(pdf_bytes: bytes, *, set_id: str = CAPTURE_SET_ID,
+                 doc_id: bytes = b"ResectaCaptureMaster01") -> dict:
+    """Add capture marks to every page of ``pdf_bytes`` without disturbing its content.
+
+    Each page gains four ArUco corner fiducials (ids ``4*(page-1) .. 4*(page-1)+3``) and a
+    human-readable footer, drawn on a transparent overlay that is merged over the original page.
+    Nothing inside the content margin is touched, so **every ground-truth box carries verbatim** --
+    the marks live in the margins the evaluated image is cropped back to.
+
+    Returns ``{"pdf": bytes, "marks": [{page, page_size_pt, markers, footer}, ...]}``; the marks
+    list is the registration side's input.
+    """
+    from pypdf import PdfReader, PdfWriter
+
+    reader = PdfReader(io.BytesIO(pdf_bytes))
+    total = len(reader.pages)
+    if total * _MARKS_PER_PAGE > A.COUNT:
+        raise SystemExit(
+            f"{total} pages need {total * _MARKS_PER_PAGE} marker ids but "
+            f"{A.DICT_NAME} holds {A.COUNT}")
+
+    L.register_fonts()
+    marks = []
+    overlay_buf = io.BytesIO()
+    overlay = canvas.Canvas(overlay_buf, pagesize=(L.PW, L.PH), invariant=1, pageCompression=1)
+    for index, page in enumerate(reader.pages):
+        box = page.mediabox
+        page_w, page_h = float(box.width), float(box.height)
+        overlay.setPageSize((page_w, page_h))
+        page_number = index + 1
+        for mid, (x0, y0) in zip(marker_ids(page_number),
+                                 _mark_positions(page_w, page_h), strict=True):
+            _draw_marker(overlay, mid, x0, y0, _MARK_SIDE)
+        footer = f"{set_id} | page {page_number:02d}/{total:02d} | synthetic - no real data"
+        overlay.setFillColor(L.INK)
+        overlay.setFont(L.REG, _FOOTER_SIZE)
+        overlay.drawCentredString(page_w / 2.0, _FOOTER_BASELINE, footer)
+        overlay.showPage()
+        marks.append({
+            "page": index,
+            "page_size_pt": [page_w, page_h],
+            "markers": marker_quads(page_number, page_w, page_h),
+            "footer": footer,
+        })
+    overlay.save()
+
+    stamped = PdfReader(io.BytesIO(overlay_buf.getvalue()))
+    writer = PdfWriter()
+    for page, mark in zip(reader.pages, stamped.pages, strict=True):
+        page.merge_page(mark)
+        writer.add_page(page)
+    out = io.BytesIO()
+    writer.write(out)
+    return {"pdf": _finalize(out.getvalue(), f"{set_id} print masters", doc_id), "marks": marks}
 
 
 # --------------------------------------------------------------------------------------------------

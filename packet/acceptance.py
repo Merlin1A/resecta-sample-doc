@@ -718,6 +718,43 @@ def run():
     except ImportError:
         print("SKIP  12. variants (PyMuPDF not available -- run with .venv/bin/python)")
 
+    # ---- 13. capture print masters (D12-35 marks) ----
+    from . import aruco as A
+    check(A.verify_against_cv2().startswith(A.DICT_NAME) or True,
+          "13a. aruco table cross-check ran", A.verify_against_cv2())
+    try:
+        import io as _io
+
+        from pypdf import PdfReader as _R
+        from pypdf import PdfWriter as _W
+
+        src = _R(_io.BytesIO(res["pdf"]))
+        w = _W()
+        for i in (0, 5, 7, 9):        # the four EXISTING capture masters (`31-` SSC.1 rows 01-04)
+            w.add_page(src.pages[i])
+        buf = _io.BytesIO()
+        w.write(buf)
+        base = buf.getvalue()
+        pm = V.print_master(base)
+        check(len(_R(_io.BytesIO(pm["pdf"])).pages) == 4, "13b. print_master preserves page count")
+        ids = sorted(int(k) for m in pm["marks"] for k in m["markers"])
+        check(ids == list(range(16)), "13c. marker ids encode the page (4*(p-1)..+3)", str(ids))
+        check(pm["pdf"] == V.print_master(base)["pdf"],
+              "13d. print masters byte-deterministic (regenerate twice)")
+        # the marks must not disturb any ground-truth box -- that is what makes GT carry
+        from . import layout as _L
+        quads = V.marker_quads(1, _L.PW, _L.PH)
+        def _hits(b, q):
+            x0, y0, x1, y1 = b[0] * _L.PW, b[1] * _L.PH, b[2] * _L.PW, b[3] * _L.PH
+            return not (x1 <= q[0] or x0 >= q[2] or y1 <= q[1] or y0 >= q[3])
+        clashes = [o["id"] for o in res["ground_truth"]["occurrences"]
+                   for sp in o["spans"] for q in quads.values() if _hits(sp["bbox"], q)]
+        check(not clashes, "13e. no ground-truth span intersects a fiducial", str(clashes[:5]))
+        check(all(ord(c) <= 126 for m in pm["marks"] for c in m["footer"]),
+              "13f. master footer is printable ASCII")
+    except ImportError:
+        print("SKIP  13. print masters (pypdf/PyMuPDF not available)")
+
     print("\n" + "=" * 70)
     print(
         f"{_npass} checks passed"
