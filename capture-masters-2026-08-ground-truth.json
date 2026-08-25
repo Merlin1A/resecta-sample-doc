@@ -1,0 +1,6787 @@
+{
+  "schema_version": 1,
+  "packet": "resecta-capture-masters-2026-08",
+  "generator": "resecta-sample-doc/packet",
+  "set_id": "RESECTA-CAP-2026-08",
+  "page_count": 16,
+  "bbox_origin": "bottom-left",
+  "page_size_pt": [
+    612.0,
+    792.0
+  ],
+  "imported": [
+    {
+      "master_page": 0,
+      "packet_page": 0,
+      "exhibit": "urla_b p1"
+    },
+    {
+      "master_page": 1,
+      "packet_page": 5,
+      "exhibit": "stmt p3 (frozen)"
+    },
+    {
+      "master_page": 2,
+      "packet_page": 7,
+      "exhibit": "t1040 p2"
+    },
+    {
+      "master_page": 3,
+      "packet_page": 9,
+      "exhibit": "w2"
+    }
+  ],
+  "exhibits": [
+    {
+      "name": "mail_m1",
+      "base_page": 4,
+      "pages": 1,
+      "class": "C2",
+      "designed_doctype": "financial"
+    },
+    {
+      "name": "mail_m2",
+      "base_page": 5,
+      "pages": 1,
+      "class": "C2",
+      "designed_doctype": "financial"
+    },
+    {
+      "name": "forms_m3",
+      "base_page": 6,
+      "pages": 1,
+      "class": "C2",
+      "designed_doctype": "financial"
+    },
+    {
+      "name": "forms_m4",
+      "base_page": 7,
+      "pages": 1,
+      "class": "C2",
+      "designed_doctype": "generic"
+    },
+    {
+      "name": "court_k1",
+      "base_page": 8,
+      "pages": 1,
+      "class": "C3",
+      "designed_doctype": "court"
+    },
+    {
+      "name": "court_k2",
+      "base_page": 9,
+      "pages": 1,
+      "class": "C3",
+      "designed_doctype": "court"
+    },
+    {
+      "name": "court_k3",
+      "base_page": 10,
+      "pages": 1,
+      "class": "C3",
+      "designed_doctype": "foia"
+    },
+    {
+      "name": "court_k4",
+      "base_page": 11,
+      "pages": 1,
+      "class": "C3",
+      "designed_doctype": "court"
+    },
+    {
+      "name": "medical_h1",
+      "base_page": 12,
+      "pages": 1,
+      "class": "C4",
+      "designed_doctype": "medical"
+    },
+    {
+      "name": "medical_h2",
+      "base_page": 13,
+      "pages": 1,
+      "class": "C4",
+      "designed_doctype": "medical"
+    },
+    {
+      "name": "hr_h3",
+      "base_page": 14,
+      "pages": 1,
+      "class": "C4",
+      "designed_doctype": "financial"
+    },
+    {
+      "name": "hr_h4",
+      "base_page": 15,
+      "pages": 1,
+      "class": "C4",
+      "designed_doctype": "financial"
+    }
+  ],
+  "occurrences": [
+    {
+      "id": "occ_m1_07",
+      "value": "08/11/2026",
+      "category": "dateOfBirth",
+      "page": 4,
+      "bbox": [
+        0.107658,
+        0.878572,
+        0.194543,
+        0.892322
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Date:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 4,
+          "bbox": [
+            0.107658,
+            0.878572,
+            0.194543,
+            0.892322
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "bare letter date on .financial: only the label-anchored dobPattern runs and 'Date:' is not a DOB label -> no candidate.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m1_08",
+      "value": "0417-B",
+      "category": "other",
+      "page": 4,
+      "bbox": [
+        0.644078,
+        0.878572,
+        0.701379,
+        0.892322
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Office Code:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 4,
+          "bbox": [
+            0.644078,
+            0.878572,
+            0.701379,
+            0.892322
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'0417-B': 4 digits + letter -- below every numeric detector's minimum run (account needs 6, phone 10, ssn 9) and no labeled-id pattern -> no detector has a candidate.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m1_01",
+      "value": "NADIA PETROVA",
+      "category": "name",
+      "page": 4,
+      "bbox": [
+        0.081699,
+        0.835491,
+        0.208475,
+        0.850004
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "should_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": true,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 4,
+          "bbox": [
+            0.081699,
+            0.835491,
+            0.208475,
+            0.850004
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "USPS Pub 28 window-block surface, ALL-CAPS, no label: NLTagger pass-1 miss on ALL-CAPS; the strict shadow pass needs surname+given bloom hits (unverified) -> should_fire.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m1_02",
+      "value": "2210 LARKSPUR DR APT 4 MERIDIAN ID 83646-2210",
+      "category": "address",
+      "page": 4,
+      "bbox": [
+        0.081699,
+        0.8014,
+        0.283072,
+        0.832327
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": true,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 4,
+          "bbox": [
+            0.081699,
+            0.817814,
+            0.283072,
+            0.832327
+          ]
+        },
+        {
+          "page": 4,
+          "bbox": [
+            0.081699,
+            0.8014,
+            0.282041,
+            0.815913
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "ALL-CAPS USPS lines: the regex arm MISSES (street-suffix alternation is case-sensitive, 'DR' != 'Dr'); the AddressSpatialAssembler arm fires: (?i) street line '2210 LARKSPUR DR', ZIP anchor 83646, word-bounded 'ID' state, SCF 836 -> ID cross-check -> 0.80 >= 0.60; no comma -> no city cross-check. 2 spans.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m1_03",
+      "value": "Nadia Petrova",
+      "category": "name",
+      "page": 4,
+      "bbox": [
+        0.173726,
+        0.727057,
+        0.27149,
+        0.740807
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Claimant Name:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 4,
+          "bbox": [
+            0.173726,
+            0.727057,
+            0.27149,
+            0.740807
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "clean two-token Title-Case; NLTagger host probe tags 'Claimant Name: Nadia Petrova' -> 0.70 >= 0.60.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m1_04",
+      "value": "06/02/1979",
+      "category": "dateOfBirth",
+      "page": 4,
+      "bbox": [
+        0.15678,
+        0.70938,
+        0.243665,
+        0.72313
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Date of Birth:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 4,
+          "bbox": [
+            0.15678,
+            0.70938,
+            0.243665,
+            0.72313
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "label-anchored numeric on .financial (D4 path, dobPattern adjacency) -> 0.85 >= 0.30.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m1_05",
+      "value": "551022840093",
+      "category": "account",
+      "page": 4,
+      "bbox": [
+        0.203923,
+        0.691703,
+        0.318353,
+        0.705453
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Benefit Account No.:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 4,
+          "bbox": [
+            0.203923,
+            0.691703,
+            0.318353,
+            0.705453
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "12-digit (phone-immune, < 13-digit cc); 'account' kw within +-5 tokens -> boosted 0.58 raw, posterior clears 0.60 (packet occ_urlab_15 precedent, strict-true at P1.2). No routing kw within +-8.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m1_06",
+      "value": "(208) 555-0134",
+      "category": "phone",
+      "page": 4,
+      "bbox": [
+        0.172335,
+        0.674027,
+        0.292667,
+        0.687776
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Questions? Call",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 4,
+          "bbox": [
+            0.172335,
+            0.674027,
+            0.292667,
+            0.687776
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "NANP 555-01xx; 'call' positive kw within +-80 chars -> 0.80 >= 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m1_09",
+      "value": "4471029386",
+      "category": "phone",
+      "page": 4,
+      "bbox": [
+        0.57307,
+        0.405087,
+        0.668428,
+        0.418837
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Reference No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 4,
+          "bbox": [
+            0.57307,
+            0.405087,
+            0.668428,
+            0.418837
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "10 contiguous digits match the separator-optional phone regex, but no positive phone kw (phone/tel/call/contact/number/...) within +-80 chars -> bare 0.60 < 0.70; 'reference no' is also a phone NEGATIVE. Account: no acct kw within +-5 -> base 0.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m2_07",
+      "value": "20260811-77",
+      "category": "account",
+      "page": 5,
+      "bbox": [
+        0.164011,
+        0.878572,
+        0.268906,
+        0.892322
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Statement No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 5,
+          "bbox": [
+            0.164011,
+            0.878572,
+            0.268906,
+            0.892322
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'20260811-77': the 8-digit run is an account-regex candidate with no acct kw within +-5 -> base 0. Earns the financial invoice_label bonus (classification), not a fire.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m2_08",
+      "value": "09/05/2026",
+      "category": "dateOfBirth",
+      "page": 5,
+      "bbox": [
+        0.62634,
+        0.878572,
+        0.713226,
+        0.892322
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Due Date:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 5,
+          "bbox": [
+            0.62634,
+            0.878572,
+            0.713226,
+            0.892322
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "bare date on .financial; 'Due Date' is not a DOB label -> the label-anchored path has no candidate.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m2_02",
+      "value": "Nadia Petrova",
+      "category": "name",
+      "page": 5,
+      "bbox": [
+        0.179962,
+        0.817966,
+        0.277726,
+        0.831716
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Customer Name:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 5,
+          "bbox": [
+            0.179962,
+            0.817966,
+            0.277726,
+            0.831716
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "clean two-token Title-Case; NLTagger host probe tags 'Customer Name: Nadia Petrova' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m2_01",
+      "value": "773100442019",
+      "category": "account",
+      "page": 5,
+      "bbox": [
+        0.152395,
+        0.800289,
+        0.266825,
+        0.814039
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Account No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 5,
+          "bbox": [
+            0.152395,
+            0.800289,
+            0.266825,
+            0.814039
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "12-digit; 'account' kw adjacent (+-5) -> boosted; posterior clears 0.60 (occ_urlab_15 precedent). Kept > 8 tokens from any routing kw.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m2_03",
+      "value": "2210 Larkspur Drive Apt 4 Meridian, ID 83646",
+      "category": "address",
+      "page": 5,
+      "bbox": [
+        0.068627,
+        0.752309,
+        0.253794,
+        0.781211
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Service Address:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 5,
+          "bbox": [
+            0.068627,
+            0.767461,
+            0.253794,
+            0.781211
+          ]
+        },
+        {
+          "page": 5,
+          "bbox": [
+            0.068627,
+            0.752309,
+            0.203185,
+            0.766059
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "Title-Case 'Drive' + 'ID 83646': regex arm -> 0.70; assembler arm also fires. 2 spans.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m2_04",
+      "value": "(208) 555-0134",
+      "category": "phone",
+      "page": 5,
+      "bbox": [
+        0.187245,
+        0.729582,
+        0.307577,
+        0.743332
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Telephone on file:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 5,
+          "bbox": [
+            0.187245,
+            0.729582,
+            0.307577,
+            0.743332
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'tel' substring positive within +-80 chars -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m2_06",
+      "value": "48213077",
+      "category": "account",
+      "page": 5,
+      "bbox": [
+        0.136757,
+        0.634885,
+        0.213044,
+        0.648635
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Meter No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 5,
+          "bbox": [
+            0.136757,
+            0.634885,
+            0.213044,
+            0.648635
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "8-digit run is an account-regex candidate, but no acct kw within +-5 tokens -> base 0.0 -> dropped at the > 0 guard. Not 9/10 digits -> no ssn/phone/routing candidate.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m2_05",
+      "value": "(208) 555-0195",
+      "category": "phone",
+      "page": 5,
+      "bbox": [
+        0.211601,
+        0.335138,
+        0.331934,
+        0.348887
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Billing questions? Call",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 5,
+          "bbox": [
+            0.211601,
+            0.335138,
+            0.331934,
+            0.348887
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "the utility's own billing line (an org phone; fires as phone all the same); 'call' positive within +-80 chars -> 0.80. One minted number per org: the housing authority's reviewer line stays on M3/M4, so a value colliding across two unrelated orgs can never make a cross-page analysis ambiguous.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m2_09",
+      "value": "**** 4421",
+      "category": "creditCard",
+      "page": 5,
+      "bbox": [
+        0.204791,
+        0.317461,
+        0.285027,
+        0.331211
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "watch",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Autopay card on file:",
+      "render": {
+        "all_caps": false,
+        "masked": true,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 5,
+          "bbox": [
+            0.204791,
+            0.317461,
+            0.285027,
+            0.331211
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "masked '**** 4421' < 13 digits -> below the cc shape; masked watch (occ_urlab_20 precedent).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m3_01",
+      "value": "Nadia Petrova",
+      "category": "name",
+      "page": 6,
+      "bbox": [
+        0.078431,
+        0.825542,
+        0.176195,
+        0.839291
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Applicant Name:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 6,
+          "bbox": [
+            0.078431,
+            0.825542,
+            0.176195,
+            0.839291
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "clean two-token Title-Case; NLTagger host probe tags 'Applicant Name: Nadia Petrova' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m3_03",
+      "value": "06/02/1979",
+      "category": "dateOfBirth",
+      "page": 6,
+      "bbox": [
+        0.519608,
+        0.825542,
+        0.606493,
+        0.839291
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "should_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Date of Birth (mm/dd/yyyy):",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 6,
+          "bbox": [
+            0.519608,
+            0.825542,
+            0.606493,
+            0.839291
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "the boxed-form hint '(mm/dd/yyyy)' sits between label and date, breaking dobPattern adjacency -> text-leg miss (occ_urlab_04 precedent) -> should_fire. Same DOB as occ_02.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m3_04",
+      "value": "512-40-7781",
+      "category": "ssn",
+      "page": 6,
+      "bbox": [
+        0.078431,
+        0.785138,
+        0.183326,
+        0.798887
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Social Security Number:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 6,
+          "bbox": [
+            0.078431,
+            0.785138,
+            0.183326,
+            0.798887
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "area 512, group 40, serial 7781 valid; 'social security' positive within +-5 -> 0.95. Kept > 5 tokens from the financial ssn negatives (account number / claim number).",
+      "source_range": "synthetic + manifest (no provable never-issued SSN space post-2011)",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m3_05",
+      "value": "W4471029",
+      "category": "driversLicense",
+      "page": 6,
+      "bbox": [
+        0.519608,
+        0.785138,
+        0.600849,
+        0.798887
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Driver's License No:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 6,
+          "bbox": [
+            0.519608,
+            0.785138,
+            0.600849,
+            0.798887
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "label 'Driver's License' + 1L+7D -> CA ^[A-Z][0-9]{7}$ gazetteer row -> 0.80 >= 0.72.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m3_06",
+      "value": "208-555-0136",
+      "category": "phone",
+      "page": 6,
+      "bbox": [
+        0.078431,
+        0.70433,
+        0.192862,
+        0.718079
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Cell Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 6,
+          "bbox": [
+            0.078431,
+            0.70433,
+            0.192862,
+            0.718079
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'phone'/'cell' positive -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m3_07",
+      "value": "n.petrova@example.net",
+      "category": "email",
+      "page": 6,
+      "bbox": [
+        0.519608,
+        0.70433,
+        0.684618,
+        0.718079
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Email:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 6,
+          "bbox": [
+            0.519608,
+            0.70433,
+            0.684618,
+            0.718079
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "RFC-2606 -> 0.90 >= 0.83.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m3_08",
+      "value": "2210 Larkspur Drive Apt 4 Meridian, ID 83646",
+      "category": "address",
+      "page": 6,
+      "bbox": [
+        0.068627,
+        0.653825,
+        0.253794,
+        0.682726
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Current Address:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 6,
+          "bbox": [
+            0.068627,
+            0.668976,
+            0.253794,
+            0.682726
+          ]
+        },
+        {
+          "page": 6,
+          "bbox": [
+            0.068627,
+            0.653825,
+            0.203185,
+            0.667574
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "Title-Case regex arm -> 0.70; 2 spans.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m3_02",
+      "value": "06/02/1979",
+      "category": "dateOfBirth",
+      "page": 6,
+      "bbox": [
+        0.15678,
+        0.578067,
+        0.243665,
+        0.591817
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Date of Birth:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 6,
+          "bbox": [
+            0.15678,
+            0.578067,
+            0.243665,
+            0.591817
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "label-anchored numeric on .financial -> 0.85.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m3_09",
+      "value": "HA-2026-004471",
+      "category": "other",
+      "page": 6,
+      "bbox": [
+        0.165665,
+        0.359633,
+        0.30117,
+        0.373382
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Application ID:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 6,
+          "bbox": [
+            0.165665,
+            0.359633,
+            0.30117,
+            0.373382
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'HA-2026-004471': no contiguous 6-digit run (account), no 'No.'-prefixed docket shape, letters-dash-digits with a 4-digit block breaks the MRN institution shape -> no detector candidate.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m3_10",
+      "value": "08/14/2026",
+      "category": "dateOfBirth",
+      "page": 6,
+      "bbox": [
+        0.644825,
+        0.331855,
+        0.73171,
+        0.345604
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Date Signed:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 6,
+          "bbox": [
+            0.644825,
+            0.331855,
+            0.73171,
+            0.345604
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "bare signature date on .financial -> suppressed (label-anchored-only gate).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m4_07",
+      "value": "08/14/2026",
+      "category": "dateOfBirth",
+      "page": 7,
+      "bbox": [
+        0.139604,
+        0.873522,
+        0.226489,
+        0.887271
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Date Sent:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 7,
+          "bbox": [
+            0.139604,
+            0.873522,
+            0.226489,
+            0.887271
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "page classifies .generic -> full DOBDetector: numeric base 0.05, no DOB label within +-80 chars, no 'age' on the line -> 0.05 < 0.30.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m4_08",
+      "value": "TX-26-0447",
+      "category": "other",
+      "page": 7,
+      "bbox": [
+        0.173726,
+        0.855845,
+        0.269537,
+        0.869594
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Transmittal Ref:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 7,
+          "bbox": [
+            0.173726,
+            0.855845,
+            0.269537,
+            0.869594
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'TX-26-0447': letters-dash-2-digits-dash-4-digits -- no numeric run >= 6, no labeled-id shape -> no candidate.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m4_01",
+      "value": "Naomi Sandoval",
+      "category": "name",
+      "page": 7,
+      "bbox": [
+        0.177134,
+        0.797764,
+        0.28997,
+        0.811514
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Recipient Name:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 7,
+          "bbox": [
+            0.177134,
+            0.797764,
+            0.28997,
+            0.811514
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "clean two-token Title-Case; NLTagger host probe tags the reviewer's name in this label form -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m4_03",
+      "value": "(208) 555-0181",
+      "category": "phone",
+      "page": 7,
+      "bbox": [
+        0.162946,
+        0.76241,
+        0.283278,
+        0.77616
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Recipient Fax:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 7,
+          "bbox": [
+            0.162946,
+            0.76241,
+            0.283278,
+            0.77616
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "fax-shaped NANP; 'fax' is a phone positive kw -> 0.80 (the engine has no fax kind: category phone).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m4_04",
+      "value": "(208) 555-0182",
+      "category": "phone",
+      "page": 7,
+      "bbox": [
+        0.180224,
+        0.744734,
+        0.300556,
+        0.758483
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Recipient Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 7,
+          "bbox": [
+            0.180224,
+            0.744734,
+            0.300556,
+            0.758483
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'phone' positive -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m4_02",
+      "value": "Nadia Petrova",
+      "category": "name",
+      "page": 7,
+      "bbox": [
+        0.163584,
+        0.689178,
+        0.261348,
+        0.702928
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Sender Name:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 7,
+          "bbox": [
+            0.163584,
+            0.689178,
+            0.261348,
+            0.702928
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "clean two-token Title-Case; NLTagger host probe -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m4_05",
+      "value": "(208) 555-0139",
+      "category": "phone",
+      "page": 7,
+      "bbox": [
+        0.149395,
+        0.671501,
+        0.269728,
+        0.685251
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Sender Fax:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 7,
+          "bbox": [
+            0.149395,
+            0.671501,
+            0.269728,
+            0.685251
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'fax' positive -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m4_06",
+      "value": "208.555.0138",
+      "category": "phone",
+      "page": 7,
+      "bbox": [
+        0.166673,
+        0.653825,
+        0.26993,
+        0.667574
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Sender Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 7,
+          "bbox": [
+            0.166673,
+            0.653825,
+            0.26993,
+            0.667574
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "dotted format zoo; 'phone' positive -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_m4_09",
+      "value": "4471-0293",
+      "category": "account",
+      "page": 7,
+      "bbox": [
+        0.15572,
+        0.453067,
+        0.241543,
+        0.466817
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Account Ref:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 7,
+          "bbox": [
+            0.15572,
+            0.453067,
+            0.241543,
+            0.466817
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'account' kw present but '4471-0293' has no contiguous >= 6-digit run -> the account regex has no candidate; 4-digit halves are below every other minimum.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_03",
+      "value": "Priya Ramaswamy",
+      "category": "name",
+      "page": 8,
+      "bbox": [
+        0.277577,
+        0.921349,
+        0.411659,
+        0.935863
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Attorney for Plaintiff:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.277577,
+            0.921349,
+            0.411659,
+            0.935863
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "NLTagger host probe tags 'Attorney for Plaintiff: Priya Ramaswamy' (0.70); the 'Plaintiff' legal-prefix pass also yields it at 0.65.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_07",
+      "value": "284415",
+      "category": "account",
+      "page": 8,
+      "bbox": [
+        0.265894,
+        0.890672,
+        0.326288,
+        0.905185
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Idaho State Bar No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.265894,
+            0.890672,
+            0.326288,
+            0.905185
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "6-digit run: an account-regex candidate (account RUNS on .court, CND-10) with no acct kw within +-5 -> base 0 -> dropped. No 9/10-digit shape.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_04",
+      "value": "1100 Idaho Street, Suite 400 Boise, ID 83702",
+      "category": "address",
+      "page": 8,
+      "bbox": [
+        0.124183,
+        0.798641,
+        0.337448,
+        0.843831
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.124183,
+            0.829318,
+            0.337448,
+            0.843831
+          ]
+        },
+        {
+          "page": 8,
+          "bbox": [
+            0.124183,
+            0.798641,
+            0.242856,
+            0.813154
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "Title-Case '1100 Idaho Street, Suite 400' + 'Boise, ID 83702' -> regex arm 0.70 (.{0,100}? bridges the suite + newline); 2 spans.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_05",
+      "value": "(208) 555-0140",
+      "category": "phone",
+      "page": 8,
+      "bbox": [
+        0.209555,
+        0.767963,
+        0.336573,
+        0.782477
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Telephone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.209555,
+            0.767963,
+            0.336573,
+            0.782477
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'tel' positive -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_06",
+      "value": "p.ramaswamy@example.com",
+      "category": "email",
+      "page": 8,
+      "bbox": [
+        0.410893,
+        0.767963,
+        0.626462,
+        0.782477
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Email:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.410893,
+            0.767963,
+            0.626462,
+            0.782477
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "RFC-2606 -> 0.90.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_01",
+      "value": "MARCUS BELLAMY",
+      "category": "name",
+      "page": 8,
+      "bbox": [
+        0.124183,
+        0.614578,
+        0.268232,
+        0.629091
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "should_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": true,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.124183,
+            0.614578,
+            0.268232,
+            0.629091
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "caption party in ALL-CAPS: NLTagger pass-1 miss; strict shadow pass needs bloom hits (unverified); 'Plaintiff' follows the name so the legal-prefix pass finds nothing after it -> should_fire.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_02",
+      "value": "TERRENCE WHITFIELD",
+      "category": "name",
+      "page": 8,
+      "bbox": [
+        0.124183,
+        0.522546,
+        0.29304,
+        0.53706
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "should_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": true,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.124183,
+            0.522546,
+            0.29304,
+            0.53706
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "caption defendant in ALL-CAPS, same mechanism -> should_fire.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_08",
+      "value": "26-CV-01842",
+      "category": "other",
+      "page": 8,
+      "bbox": [
+        0.602814,
+        0.614578,
+        0.715454,
+        0.629091
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Case No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.602814,
+            0.614578,
+            0.715454,
+            0.629091
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'26-CV-01842' has no PII shape; 'case no' is a phone + ssn NEGATIVE anyway. Earns the court docket_number bonus (classification).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_09",
+      "value": "08/12/2026",
+      "category": "dateOfBirth",
+      "page": 8,
+      "bbox": [
+        0.576971,
+        0.522546,
+        0.668684,
+        0.53706
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Filed:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.576971,
+            0.522546,
+            0.668684,
+            0.53706
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": ".court -> full DOBDetector: base 0.05, no DOB label within +-80 chars -> 0.05 < 0.30.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_12",
+      "value": "Beatrice Lindqvist",
+      "category": "name",
+      "page": 8,
+      "bbox": [
+        0.674757,
+        0.491869,
+        0.805921,
+        0.506383
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Assigned to: Judge",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.674757,
+            0.491869,
+            0.805921,
+            0.506383
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'Judge' legal prefix -> 0.65; NLTagger host probe tags 'Assigned to: Judge Beatrice Lindqvist' (0.70).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_10",
+      "value": "Marcus Bellamy",
+      "category": "name",
+      "page": 8,
+      "bbox": [
+        0.209996,
+        0.369313,
+        0.320606,
+        0.383062
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Plaintiff",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.209996,
+            0.369313,
+            0.320606,
+            0.383062
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "body line 'Plaintiff Marcus Bellamy resides at ...': the legal-prefix pass takes the Title-Case words after 'Plaintiff' until a lowercase token ('resides') -> 0.65 >= 0.60; the NLTagger host probe also tags it (0.70).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_11",
+      "value": "4415 Camas Lane, Boise, ID 83705",
+      "category": "address",
+      "page": 8,
+      "bbox": [
+        0.40147,
+        0.369313,
+        0.649574,
+        0.383062
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "resides at",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.40147,
+            0.369313,
+            0.649574,
+            0.383062
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "inline single-line Title-Case '4415 Camas Lane, Boise, ID 83705' -> regex arm 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k1_13",
+      "value": "Terrence Whitfield",
+      "category": "name",
+      "page": 8,
+      "bbox": [
+        0.229929,
+        0.307959,
+        0.358958,
+        0.321708
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Defendant",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 8,
+          "bbox": [
+            0.229929,
+            0.307959,
+            0.358958,
+            0.321708
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "body line 'Defendant Terrence Whitfield is an individual who ...': the legal-prefix pass takes the Title-Case words after 'Defendant' until a lowercase token ('is') -> 0.65 >= 0.60; the NLTagger host re-probe of 2026-08-25 also tags the sentence (0.70). The same two-arm mechanism as occ_k1_10 on the plaintiff line.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k2_09",
+      "value": "26-CV-01842",
+      "category": "other",
+      "page": 9,
+      "bbox": [
+        0.135229,
+        0.908875,
+        0.24194,
+        0.922625
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Case No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 9,
+          "bbox": [
+            0.135229,
+            0.908875,
+            0.24194,
+            0.922625
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "no PII shape; phone/ssn negative context.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k2_10",
+      "value": "07/30/2026",
+      "category": "dateOfBirth",
+      "page": 9,
+      "bbox": [
+        0.186892,
+        0.891198,
+        0.273777,
+        0.904948
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Deposition taken",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 9,
+          "bbox": [
+            0.186892,
+            0.891198,
+            0.273777,
+            0.904948
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "full DOBDetector: base 0.05, kept > 80 chars from the testimony's 'date of birth' label -> 0.05 < 0.30.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k2_01",
+      "value": "Marcus Bellamy",
+      "category": "name",
+      "page": 9,
+      "bbox": [
+        0.147673,
+        0.845592,
+        0.264428,
+        0.860105
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Deponent:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 9,
+          "bbox": [
+            0.147673,
+            0.845592,
+            0.264428,
+            0.860105
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "NLTagger host probe tags 'Deponent: Marcus Bellamy' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k2_02",
+      "value": "Marcus Bellamy",
+      "category": "name",
+      "page": 9,
+      "bbox": [
+        0.247545,
+        0.785018,
+        0.358155,
+        0.798767
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "A. My name is",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 9,
+          "bbox": [
+            0.247545,
+            0.785018,
+            0.358155,
+            0.798767
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "testimony sentence; NLTagger host probe tags 'My name is Marcus Bellamy.' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k2_03",
+      "value": "September 9, 1983",
+      "category": "dateOfBirth",
+      "page": 9,
+      "bbox": [
+        0.275111,
+        0.71912,
+        0.411033,
+        0.73287
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "my date of birth is",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 9,
+          "bbox": [
+            0.275111,
+            0.71912,
+            0.411033,
+            0.73287
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": ".court -> full DOBDetector textual path ('September 9, 1983', year in 1900-2030): base 0.05 + 0.30 ('date of birth' within +-80 chars) = 0.35 >= 0.30 (0.05 margin, the occ_govid_03 precedent on a non-financial page).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k2_04",
+      "value": "3308",
+      "category": "ssn",
+      "page": 9,
+      "bbox": [
+        0.509027,
+        0.653223,
+        0.54717,
+        0.666973
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "the last four digits of my Social Security number are",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 9,
+          "bbox": [
+            0.509027,
+            0.653223,
+            0.54717,
+            0.666973
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "4 digits only: the SSN state machine needs a 9-digit shape -> no candidate despite the 'social security' positive.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k2_05",
+      "value": "4415 Camas Lane, Boise, ID 83705",
+      "category": "address",
+      "page": 9,
+      "bbox": [
+        0.199205,
+        0.587326,
+        0.44731,
+        0.601076
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "I live at",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 9,
+          "bbox": [
+            0.199205,
+            0.587326,
+            0.44731,
+            0.601076
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "single-line Title-Case 'Lane' + 'ID 83705' -> regex arm 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k2_06",
+      "value": "208-555-0152",
+      "category": "phone",
+      "page": 9,
+      "bbox": [
+        0.214794,
+        0.521429,
+        0.329224,
+        0.535179
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "my cell is",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 9,
+          "bbox": [
+            0.214794,
+            0.521429,
+            0.329224,
+            0.535179
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'cell' positive within +-80 chars -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k2_07",
+      "value": "Terrence Whitfield",
+      "category": "name",
+      "page": 9,
+      "bbox": [
+        0.338683,
+        0.455532,
+        0.467711,
+        0.469282
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "my supervisor,",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 9,
+          "bbox": [
+            0.338683,
+            0.455532,
+            0.467711,
+            0.469282
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "NLTagger host probe tags 'my supervisor, Terrence Whitfield, told me' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k2_08",
+      "value": "BELL-0000123",
+      "category": "medicalRecord",
+      "page": 9,
+      "bbox": [
+        0.813725,
+        0.08832,
+        0.918923,
+        0.101306
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 9,
+          "bbox": [
+            0.813725,
+            0.08832,
+            0.918923,
+            0.101306
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "Bates 'BELL-0000123' matches the MRN institution shape [A-Z]{2,5}-\\d{6,10}, but runsMRN is medical-only -> the detector never runs on .court (doctype-gated, the occ_urlab_24 mechanism).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k3_11",
+      "value": "2400 Wexford Avenue, Suite 300 Arlington, VA 22201",
+      "category": "address",
+      "page": 10,
+      "bbox": [
+        0.068627,
+        0.878724,
+        0.290016,
+        0.905599
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 10,
+          "bbox": [
+            0.068627,
+            0.892613,
+            0.290016,
+            0.905599
+          ]
+        },
+        {
+          "page": 10,
+          "bbox": [
+            0.068627,
+            0.878724,
+            0.203352,
+            0.89171
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "agency letterhead address, Title-Case 'Avenue' + 'VA 22201' -> regex arm 0.70 (fixed; the (address, foia) gazetteer only scales scorer-based detectors); 2 spans.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k3_10",
+      "value": "August 14, 2026",
+      "category": "dateOfBirth",
+      "page": 10,
+      "bbox": [
+        0.068627,
+        0.850794,
+        0.18682,
+        0.864544
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 10,
+          "bbox": [
+            0.068627,
+            0.850794,
+            0.18682,
+            0.864544
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": ".foia -> full DOBDetector textual path: 'August 14, 2026' base 0.05, no DOB label within +-80 chars -> 0.05 < 0.30.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k3_09",
+      "value": "2026-01447",
+      "category": "other",
+      "page": 10,
+      "bbox": [
+        0.682371,
+        0.850794,
+        0.777729,
+        0.864544
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "FOIA Request No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 10,
+          "bbox": [
+            0.682371,
+            0.850794,
+            0.777729,
+            0.864544
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'2026-01447': 4+5 digits split by a dash -- no >= 6-digit run, no ssn/phone shape; drives the foia_header bonus.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k3_04",
+      "value": "Priya Ramaswamy",
+      "category": "name",
+      "page": 10,
+      "bbox": [
+        0.199142,
+        0.825542,
+        0.326167,
+        0.839291
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Name of Requester:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 10,
+          "bbox": [
+            0.199142,
+            0.825542,
+            0.326167,
+            0.839291
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "clean two-token Title-Case under the 'Name of ...' label form the NLTagger host probe tags -> 0.70 (re-probed on the page text).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k3_08",
+      "value": "(b)(7)(C)",
+      "category": "other",
+      "page": 10,
+      "bbox": [
+        0.193253,
+        0.699279,
+        0.257002,
+        0.713029
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Exemptions cited:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 10,
+          "bbox": [
+            0.193253,
+            0.699279,
+            0.257002,
+            0.713029
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'(b)(7)(C)': an exemption citation, no PII shape; drives the foia exemption_citation bonus.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k3_01",
+      "value": "Leonard Achterberg",
+      "category": "name",
+      "page": 10,
+      "bbox": [
+        0.178364,
+        0.639152,
+        0.330453,
+        0.657453
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "(b)(6)",
+      "render": {
+        "all_caps": false,
+        "masked": true,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 10,
+          "bbox": [
+            0.178364,
+            0.639152,
+            0.330453,
+            0.657453
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "ALREADY REDACTED: a black bar is drawn where the name would be and the text is never emitted -- nothing exists for either leg to fire on. GT keeps the hidden value + bar rect so an evaluator can assert silence there.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k3_02",
+      "value": "Corinne Vasquez",
+      "category": "name",
+      "page": 10,
+      "bbox": [
+        0.249868,
+        0.61895,
+        0.380507,
+        0.637251
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "(b)(7)(C)",
+      "render": {
+        "all_caps": false,
+        "masked": true,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 10,
+          "bbox": [
+            0.249868,
+            0.61895,
+            0.380507,
+            0.637251
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "ALREADY REDACTED under a (b)(7)(C) bar; no text under the bar.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k3_03",
+      "value": "441-27-1911",
+      "category": "ssn",
+      "page": 10,
+      "bbox": [
+        0.245452,
+        0.598748,
+        0.361076,
+        0.617049
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "(b)(6)",
+      "render": {
+        "all_caps": false,
+        "masked": true,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 10,
+          "bbox": [
+            0.245452,
+            0.598748,
+            0.361076,
+            0.617049
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "ALREADY REDACTED under a (b)(6) bar; no text under the bar.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k3_07",
+      "value": "1245602234",
+      "category": "npi",
+      "page": 10,
+      "bbox": [
+        0.177008,
+        0.526147,
+        0.277664,
+        0.540661
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Provider NPI:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 10,
+          "bbox": [
+            0.177008,
+            0.526147,
+            0.277664,
+            0.540661
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "10 digits starting 1, Luhn-80840 valid; runsNPI includes .foia; 'npi' positive within +-5 -> 0.90 >= 0.602.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k3_05",
+      "value": "Dana Whitcombe",
+      "category": "name",
+      "page": 10,
+      "bbox": [
+        0.068627,
+        0.416299,
+        0.194243,
+        0.430812
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Sincerely,",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 10,
+          "bbox": [
+            0.068627,
+            0.416299,
+            0.194243,
+            0.430812
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "signature block; NLTagger host probe tags 'Sincerely, Dana Whitcombe' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k3_06",
+      "value": "(571) 555-0136",
+      "category": "phone",
+      "page": 10,
+      "bbox": [
+        0.14524,
+        0.384885,
+        0.265572,
+        0.398635
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Telephone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 10,
+          "bbox": [
+            0.14524,
+            0.384885,
+            0.265572,
+            0.398635
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'tel' positive -> 0.80; phone has no doctype gate.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k4_08",
+      "value": "26-CV-01842",
+      "category": "other",
+      "page": 11,
+      "bbox": [
+        0.138762,
+        0.880945,
+        0.251401,
+        0.895458
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Case No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 11,
+          "bbox": [
+            0.138762,
+            0.880945,
+            0.251401,
+            0.895458
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "no PII shape; docket_number bonus only.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k4_11",
+      "value": "08/12/2026",
+      "category": "dateOfBirth",
+      "page": 11,
+      "bbox": [
+        0.068627,
+        0.806755,
+        0.150686,
+        0.81974
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Filed",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 11,
+          "bbox": [
+            0.068627,
+            0.806755,
+            0.150686,
+            0.81974
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "same mechanism as occ_10 (docket-column date).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k4_10",
+      "value": "08/20/2026",
+      "category": "dateOfBirth",
+      "page": 11,
+      "bbox": [
+        0.068627,
+        0.757512,
+        0.150686,
+        0.770498
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Entered",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 11,
+          "bbox": [
+            0.068627,
+            0.757512,
+            0.150686,
+            0.770498
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "full DOBDetector base 0.05; no DOB label within +-80 chars (the DOB block is isolated) -> 0.05 < 0.30.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k4_09",
+      "value": "$4,250.00",
+      "category": "other",
+      "page": 11,
+      "bbox": [
+        0.177906,
+        0.699279,
+        0.252455,
+        0.713029
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Judgment sum:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 11,
+          "bbox": [
+            0.177906,
+            0.699279,
+            0.252455,
+            0.713029
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "currency amount: no detector shape ('$4,250.00' is 4+2 digits split by ',' and '.'); drives the financial currency_amount bonus, which .court still strictly beats.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k4_05",
+      "value": "590114873320",
+      "category": "account",
+      "page": 11,
+      "bbox": [
+        0.219573,
+        0.663926,
+        0.334004,
+        0.677675
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Garnishee Account No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 11,
+          "bbox": [
+            0.219573,
+            0.663926,
+            0.334004,
+            0.677675
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "12-digit; account RUNS on .court (CND-10); 'account' kw within +-5 -> boosted; posterior clears 0.60 (occ_urlab_15 precedent).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k4_01",
+      "value": "Marcus Bellamy",
+      "category": "name",
+      "page": 11,
+      "bbox": [
+        0.189542,
+        0.60837,
+        0.300153,
+        0.62212
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Plaintiff / Creditor:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 11,
+          "bbox": [
+            0.189542,
+            0.60837,
+            0.300153,
+            0.62212
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'Plaintiff' legal prefix -> the Title-Case words after it -> 0.65 >= 0.60 (the probe does not tag 'Judgment Creditor:' forms, so the label leads with the prefix word).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k4_02",
+      "value": "Terrence Whitfield",
+      "category": "name",
+      "page": 11,
+      "bbox": [
+        0.198549,
+        0.590693,
+        0.327577,
+        0.604443
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Defendant / Debtor:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 11,
+          "bbox": [
+            0.198549,
+            0.590693,
+            0.327577,
+            0.604443
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'Defendant' legal prefix -> 0.65; NLTagger host probe also tags 'Judgment Debtor: Terrence Whitfield' (0.70).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k4_03",
+      "value": "9020 Overland Road, Suite 210 Boise, ID 83709",
+      "category": "address",
+      "page": 11,
+      "bbox": [
+        0.068627,
+        0.525037,
+        0.288878,
+        0.553938
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Debtor Address:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 11,
+          "bbox": [
+            0.068627,
+            0.540188,
+            0.288878,
+            0.553938
+          ]
+        },
+        {
+          "page": 11,
+          "bbox": [
+            0.068627,
+            0.525037,
+            0.181054,
+            0.538786
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "Title-Case 'Road, Suite 210' + 'Boise, ID 83709' -> regex arm 0.70; 2 spans.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k4_04",
+      "value": "09/09/1983",
+      "category": "dateOfBirth",
+      "page": 11,
+      "bbox": [
+        0.160475,
+        0.429077,
+        0.247361,
+        0.442827
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "DOB:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 11,
+          "bbox": [
+            0.160475,
+            0.429077,
+            0.247361,
+            0.442827
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": ".court -> full DOBDetector: 0.05 + 0.30 ('dob' label within +-80 chars) = 0.35 >= 0.30. Isolated in a party-identification block > 80 chars from the docket dates.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k4_07",
+      "value": "Helen Marchetti",
+      "category": "name",
+      "page": 11,
+      "bbox": [
+        0.155222,
+        0.398774,
+        0.26543,
+        0.412524
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Prepared by:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 11,
+          "bbox": [
+            0.155222,
+            0.398774,
+            0.26543,
+            0.412524
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "NLTagger host probe tags 'Prepared by: Helen Marchetti' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_k4_06",
+      "value": "(208) 555-0110",
+      "category": "phone",
+      "page": 11,
+      "bbox": [
+        0.187711,
+        0.365946,
+        0.308043,
+        0.379695
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Clerk's Office Tel:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 11,
+          "bbox": [
+            0.187711,
+            0.365946,
+            0.308043,
+            0.379695
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'tel' positive -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_04",
+      "value": "XKE44027191",
+      "category": "account",
+      "page": 12,
+      "bbox": [
+        0.078431,
+        0.85837,
+        0.183469,
+        0.87212
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Insured ID:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.078431,
+            0.85837,
+            0.183469,
+            0.87212
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'XKE44027191' is an account-regex candidate ([A-Z]{0,3}\\d{6,15}) with no acct kw within +-5 -> base 0 -> dropped; 8 digits -> no ssn; not MRN-shaped (no dash).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_01",
+      "value": "Rosalind Okafor",
+      "category": "name",
+      "page": 12,
+      "bbox": [
+        0.371765,
+        0.85837,
+        0.482202,
+        0.87212
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Patient:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.371765,
+            0.85837,
+            0.482202,
+            0.87212
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'Patient' legal-prefix pass -> 0.65 (a lowercase token follows the name so the box stays clean); NLTagger host probe tags 'Patient: Rosalind Okafor (self)' (0.70).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_02",
+      "value": "11/23/1988",
+      "category": "dateOfBirth",
+      "page": 12,
+      "bbox": [
+        0.078431,
+        0.825542,
+        0.165317,
+        0.839291
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Patient Date of Birth:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.078431,
+            0.825542,
+            0.165317,
+            0.839291
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": ".medical -> full DOBDetector: 0.05 + 0.30 (label within +-80) = 0.35 >= 0.30; 'Age:' on the line adds 0.15 -> 0.50.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_03",
+      "value": "40018827",
+      "category": "medicalRecord",
+      "page": 12,
+      "bbox": [
+        0.509804,
+        0.825542,
+        0.586091,
+        0.839291
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "MRN:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.509804,
+            0.825542,
+            0.586091,
+            0.839291
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "mrn.labeled \\bMR[N]?[:#\\s]+[A-Z0-9]{5,12}; runsMRN on .medical; 'patient'/'dob' positives within +-5 tokens -> 0.92 >= 0.60. 8 digits: no ssn/phone/npi shape; no acct kw within +-5.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_09",
+      "value": "87 Juniper Court Nampa, ID 83651",
+      "category": "address",
+      "page": 12,
+      "bbox": [
+        0.078431,
+        0.782613,
+        0.202002,
+        0.810251
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Patient Address:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.078431,
+            0.796501,
+            0.196459,
+            0.810251
+          ]
+        },
+        {
+          "page": 12,
+          "bbox": [
+            0.078431,
+            0.782613,
+            0.202002,
+            0.796362
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "Title-Case '87 Juniper Court' + 'Nampa, ID 83651' -> regex arm 0.70; 2 spans.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_08",
+      "value": "(208) 555-0163",
+      "category": "phone",
+      "page": 12,
+      "bbox": [
+        0.509804,
+        0.777562,
+        0.630137,
+        0.791312
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Patient Telephone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.509804,
+            0.777562,
+            0.630137,
+            0.791312
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'tel' positive -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_07",
+      "value": "1497734082",
+      "category": "npi",
+      "page": 12,
+      "bbox": [
+        0.078431,
+        0.674027,
+        0.17379,
+        0.687776
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Referring Provider NPI:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.078431,
+            0.674027,
+            0.17379,
+            0.687776
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "check digit off by one -> NPILuhn80840.isValid false -> rejected before scoring, despite the label.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_05",
+      "value": "1497734081",
+      "category": "npi",
+      "page": 12,
+      "bbox": [
+        0.371765,
+        0.674027,
+        0.467123,
+        0.687776
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Rendering Provider NPI:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.371765,
+            0.674027,
+            0.467123,
+            0.687776
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "[12]\\d{9} + Luhn-80840 valid; 'npi' positive within +-5 -> 0.90 >= 0.602 (base alone would be 0.65).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_06",
+      "value": "1865047728",
+      "category": "npi",
+      "page": 12,
+      "bbox": [
+        0.656471,
+        0.674027,
+        0.751829,
+        0.687776
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Billing Provider NPI:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.656471,
+            0.674027,
+            0.751829,
+            0.687776
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "type-2 NPI, Luhn-80840 valid; 'npi' positive -> 0.90.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_10",
+      "value": "Imani Thorne",
+      "category": "name",
+      "page": 12,
+      "bbox": [
+        0.078431,
+        0.641198,
+        0.169525,
+        0.654948
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Rendering Provider: Dr.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.078431,
+            0.641198,
+            0.169525,
+            0.654948
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'Dr.' legal prefix -> 0.65; NLTagger host probe tags 'Rendering Provider: Dr. Imani Thorne (MD)' (0.70). Parenthesised credential keeps the prefix pass from absorbing it.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_12",
+      "value": "E11.9",
+      "category": "other",
+      "page": 12,
+      "bbox": [
+        0.20077,
+        0.556602,
+        0.242166,
+        0.570352
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Diagnosis Code:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.20077,
+            0.556602,
+            0.242166,
+            0.570352
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'E11.9': letter + 2 digits + decimal -- no PII shape; drives the medical icd_shape bonus.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_11",
+      "value": "4471029",
+      "category": "account",
+      "page": 12,
+      "bbox": [
+        0.199449,
+        0.498522,
+        0.266199,
+        0.512271
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Patient Account No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.199449,
+            0.498522,
+            0.266199,
+            0.512271
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "7-digit run; account RUNS on .medical; 'account' kw adjacent -> boosted; posterior clears 0.60 (occ_urlab_15 precedent).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_14",
+      "value": "",
+      "category": "signatureCandidate",
+      "page": 12,
+      "bbox": [
+        0.183007,
+        0.453283,
+        0.379085,
+        0.486111
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "watch",
+      "leg_applicability": [
+        "image"
+      ],
+      "label_context": "Signature:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.183007,
+            0.453283,
+            0.379085,
+            0.486111
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "a drawn stroke beside an exact 'Signature:' OCR block: the DRAW-3 heuristic (Sobel density + curvature on the region right of the label) is triage-only, never auto-applied, and runs on the page image -- not a Scan text/OCR leg -> image leg, watch.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h1_13",
+      "value": "HCF-2026041",
+      "category": "medicalRecord",
+      "page": 12,
+      "bbox": [
+        0.331782,
+        0.415188,
+        0.438422,
+        0.428938
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Claim Control No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 12,
+          "bbox": [
+            0.331782,
+            0.415188,
+            0.438422,
+            0.428938
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'HCF-2026041' matches the MRN institution shape and MRN runs here, but NO MRN positive kw (patient/mrn/chart/dob/physician/hospital/diagnosis/...) within +-5 tokens -> base 0.55 < 0.60.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_11",
+      "value": "1450 Birch Street, Suite 2 Nampa, ID 83686",
+      "category": "address",
+      "page": 13,
+      "bbox": [
+        0.068627,
+        0.895139,
+        0.238685,
+        0.922013
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.068627,
+            0.909027,
+            0.238685,
+            0.922013
+          ]
+        },
+        {
+          "page": 13,
+          "bbox": [
+            0.068627,
+            0.895139,
+            0.185333,
+            0.908124
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "letterhead: Title-Case 'Birch Street, Suite 2' + 'Nampa, ID 83686' -> regex arm 0.70; 2 spans.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_10",
+      "value": "(208) 555-0170",
+      "category": "phone",
+      "page": 13,
+      "bbox": [
+        0.161847,
+        0.878572,
+        0.282179,
+        0.892322
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Clinic Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.161847,
+            0.878572,
+            0.282179,
+            0.892322
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'phone' positive -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_12",
+      "value": "40018827",
+      "category": "barcode",
+      "page": 13,
+      "bbox": [
+        0.696078,
+        0.888889,
+        0.871078,
+        0.919192
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "watch",
+      "leg_applicability": [
+        "image"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.696078,
+            0.888889,
+            0.871078,
+            0.919192
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "a REAL Code 128 symbol encoding the MRN on the specimen label: VNDetectBarcodesRequest (DRAW-2) decodes it on the page image -- an image leg the Scan text/OCR runs never take -> watch. Value = the payload; bbox = the symbol.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_13",
+      "value": "LAB-4471902",
+      "category": "medicalRecord",
+      "page": 13,
+      "bbox": [
+        0.779705,
+        0.873978,
+        0.86668,
+        0.885436
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Accession No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.779705,
+            0.873978,
+            0.86668,
+            0.885436
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'LAB-4471902' matches the MRN institution shape but sits with NO MRN positive kw within +-5 tokens -> 0.55 < 0.60.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_01",
+      "value": "Rosalind Okafor",
+      "category": "name",
+      "page": 13,
+      "bbox": [
+        0.125158,
+        0.795086,
+        0.241731,
+        0.8096
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Patient:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.125158,
+            0.795086,
+            0.241731,
+            0.8096
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'Patient' legal-prefix pass -> 0.65; NLTagger host probe tags it (0.70).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_02",
+      "value": "40018827",
+      "category": "medicalRecord",
+      "page": 13,
+      "bbox": [
+        0.601268,
+        0.795086,
+        0.681793,
+        0.8096
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "MRN:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.601268,
+            0.795086,
+            0.681793,
+            0.8096
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "mrn.labeled; 'patient'/'dob' within +-5 tokens -> 0.92.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_04",
+      "value": "11/23/1988",
+      "category": "dateOfBirth",
+      "page": 13,
+      "bbox": [
+        0.108685,
+        0.77741,
+        0.200398,
+        0.791923
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "DOB:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.108685,
+            0.77741,
+            0.200398,
+            0.791923
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "full DOBDetector: 0.05 + 0.30 ('dob' within +-80 chars) = 0.35 >= 0.30.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_03",
+      "value": "P40018827",
+      "category": "medicalRecord",
+      "page": 13,
+      "bbox": [
+        0.632891,
+        0.77741,
+        0.72333,
+        0.791923
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Patient ID:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.632891,
+            0.77741,
+            0.72333,
+            0.791923
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "mrn.patientID \\bPatient\\s+ID[:#\\s]+[A-Z0-9]{5,12}; 'patient' is itself a positive -> 0.92.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_15",
+      "value": "I10",
+      "category": "other",
+      "page": 13,
+      "bbox": [
+        0.206421,
+        0.615946,
+        0.229442,
+        0.629695
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Dx:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.206421,
+            0.615946,
+            0.229442,
+            0.629695
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'I10': ICD shape, no PII shape.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_08",
+      "value": "CT4471328",
+      "category": "dea",
+      "page": 13,
+      "bbox": [
+        0.836601,
+        0.549179,
+        0.918755,
+        0.562165
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "watch",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Auth:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.836601,
+            0.549179,
+            0.918755,
+            0.562165
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "the SAME valid DEA in the medication table with NO dea/prescriber/prescription/registration kw within +-5 tokens -> base 0.55 < 0.60 -> does not fire; keyword-starved valid value = watch (occ_ach_03 precedent).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_06",
+      "value": "CT4471328",
+      "category": "dea",
+      "page": 13,
+      "bbox": [
+        0.30675,
+        0.468219,
+        0.393735,
+        0.481968
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "DEA No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.30675,
+            0.468219,
+            0.393735,
+            0.481968
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "[A-Z]{2}\\d{7}: checksum (4+7+3)+2(4+1+2)=28 -> 8 valid, registrant letter C valid; runsDEA on .medical; 'dea'/'prescriber' positives within +-5 -> 0.90 >= 0.60. Kept > 5 tokens from the (dea, medical) negatives (rx number / prescription number / pharmacy id).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_07",
+      "value": "CT4471329",
+      "category": "dea",
+      "page": 13,
+      "bbox": [
+        0.251655,
+        0.450542,
+        0.338641,
+        0.464291
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "prior DEA No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.251655,
+            0.450542,
+            0.338641,
+            0.464291
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "check digit off by one -> isValidChecksum false -> rejected before scoring despite the 'DEA' label.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_14",
+      "value": "08/11/2026",
+      "category": "dateOfBirth",
+      "page": 13,
+      "bbox": [
+        0.180964,
+        0.402562,
+        0.26785,
+        0.416312
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Date of Service:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.180964,
+            0.402562,
+            0.26785,
+            0.416312
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "full DOBDetector base 0.05; kept > 80 chars from the 'DOB:' label -> 0.05 < 0.30 ('date of service' is not a DOB label).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_05",
+      "value": "1497734081",
+      "category": "npi",
+      "page": 13,
+      "bbox": [
+        0.170683,
+        0.384885,
+        0.266042,
+        0.398635
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Attending NPI:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.170683,
+            0.384885,
+            0.266042,
+            0.398635
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "Luhn-80840 valid; 'npi' positive -> 0.90.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h2_09",
+      "value": "Imani Thorne",
+      "category": "name",
+      "page": 13,
+      "bbox": [
+        0.171987,
+        0.367056,
+        0.268141,
+        0.38157
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Attending: Dr.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 13,
+          "bbox": [
+            0.171987,
+            0.367056,
+            0.268141,
+            0.38157
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'Dr.' legal prefix -> 0.65 (the host probe does NOT tag 'Attending: Dr. Imani Thorne' on its own, so the prefix pass is the mechanism).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_01",
+      "value": "Rosalind Okafor",
+      "category": "name",
+      "page": 14,
+      "bbox": [
+        0.078431,
+        0.825542,
+        0.188869,
+        0.839291
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Employee Name:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.078431,
+            0.825542,
+            0.188869,
+            0.839291
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "clean two-token Title-Case; NLTagger host probe tags 'Employee Name: Rosalind Okafor' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_02",
+      "value": "11/23/1988",
+      "category": "dateOfBirth",
+      "page": 14,
+      "bbox": [
+        0.519608,
+        0.825542,
+        0.606493,
+        0.839291
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Date of Birth:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.519608,
+            0.825542,
+            0.606493,
+            0.839291
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "label-anchored numeric on .financial -> 0.85.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_03",
+      "value": "487-62-1930",
+      "category": "ssn",
+      "page": 14,
+      "bbox": [
+        0.078431,
+        0.785138,
+        0.183326,
+        0.798887
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Social Security No.:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.078431,
+            0.785138,
+            0.183326,
+            0.798887
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "area 487, group 62, serial 1930 valid; 'social security' positive -> 0.95. Kept > 5 tokens from 'ein' / 'account number' / 'routing number'.",
+      "source_range": "synthetic + manifest",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_04",
+      "value": "K2093311",
+      "category": "driversLicense",
+      "page": 14,
+      "bbox": [
+        0.078431,
+        0.68539,
+        0.155063,
+        0.69914
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Driver's License:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.078431,
+            0.68539,
+            0.155063,
+            0.69914
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "label + 1L+7D -> CA gazetteer row -> 0.80 >= 0.72.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_05",
+      "value": "C11402876",
+      "category": "passport",
+      "page": 14,
+      "bbox": [
+        0.519608,
+        0.68539,
+        0.606637,
+        0.69914
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Passport No:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.519608,
+            0.68539,
+            0.606637,
+            0.69914
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "label + 1L+8D -> US ^[A-Z][0-9]{8}$ (also MX/VN) -> 0.80 >= 0.72.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_06",
+      "value": "87 Juniper Court Nampa, ID 83651",
+      "category": "address",
+      "page": 14,
+      "bbox": [
+        0.068627,
+        0.599532,
+        0.192199,
+        0.628433
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Home Address:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.068627,
+            0.614683,
+            0.186655,
+            0.628433
+          ]
+        },
+        {
+          "page": 14,
+          "bbox": [
+            0.068627,
+            0.599532,
+            0.192199,
+            0.613281
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "Title-Case regex arm -> 0.70; 2 spans.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_07",
+      "value": "(208) 555-0163",
+      "category": "phone",
+      "page": 14,
+      "bbox": [
+        0.15879,
+        0.571754,
+        0.279123,
+        0.585503
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Home Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.15879,
+            0.571754,
+            0.279123,
+            0.585503
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'phone' positive -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_08",
+      "value": "r.okafor@example.org",
+      "category": "email",
+      "page": 14,
+      "bbox": [
+        0.170324,
+        0.554077,
+        0.325159,
+        0.567827
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Personal Email:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.170324,
+            0.554077,
+            0.325159,
+            0.567827
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "RFC-2606 -> 0.90.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_09",
+      "value": "Samuel Okafor",
+      "category": "name",
+      "page": 14,
+      "bbox": [
+        0.19564,
+        0.498369,
+        0.304073,
+        0.512883
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Alternate Contact:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.19564,
+            0.498369,
+            0.304073,
+            0.512883
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "clean two-token Title-Case; NLTagger host probe tags 'Alternate Contact: Samuel Okafor (spouse)' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_10",
+      "value": "(208) 555-0165",
+      "category": "phone",
+      "page": 14,
+      "bbox": [
+        0.171084,
+        0.480845,
+        0.291416,
+        0.494594
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Contact Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.171084,
+            0.480845,
+            0.291416,
+            0.494594
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'phone'/'contact' positives -> 0.80.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_11",
+      "value": "EMP-0048213",
+      "category": "medicalRecord",
+      "page": 14,
+      "bbox": [
+        0.161921,
+        0.425289,
+        0.269724,
+        0.439039
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Employee ID:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.161921,
+            0.425289,
+            0.269724,
+            0.439039
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'EMP-0048213' matches the MRN institution shape, but runsMRN is medical-only -> never runs on this .financial page (doctype-gated).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_12",
+      "value": "03/16/2020",
+      "category": "dateOfBirth",
+      "page": 14,
+      "bbox": [
+        0.467587,
+        0.425289,
+        0.554472,
+        0.439039
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Hire Date:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.467587,
+            0.425289,
+            0.554472,
+            0.439039
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "bare date on .financial -> suppressed (label-anchored-only gate).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_13",
+      "value": "4410",
+      "category": "other",
+      "page": 14,
+      "bbox": [
+        0.779276,
+        0.425289,
+        0.81742,
+        0.439039
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Cost Center:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.779276,
+            0.425289,
+            0.81742,
+            0.439039
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'4410': 4 digits, below every numeric minimum -> no candidate.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h3_14",
+      "value": "",
+      "category": "signatureCandidate",
+      "page": 14,
+      "bbox": [
+        0.183007,
+        0.239646,
+        0.379085,
+        0.272475
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "watch",
+      "leg_applicability": [
+        "image"
+      ],
+      "label_context": "Signature:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 14,
+          "bbox": [
+            0.183007,
+            0.239646,
+            0.379085,
+            0.272475
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "drawn stroke beside an exact 'Signature:' block -> DRAW-3 heuristic candidate; image leg, triage-only -> watch.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_01",
+      "value": "Rosalind Okafor",
+      "category": "name",
+      "page": 15,
+      "bbox": [
+        0.144384,
+        0.850642,
+        0.260957,
+        0.865155
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Employee:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.144384,
+            0.850642,
+            0.260957,
+            0.865155
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "NLTagger host probe tags 'Employee: Rosalind Okafor' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_10",
+      "value": "48213",
+      "category": "other",
+      "page": 15,
+      "bbox": [
+        0.526485,
+        0.850794,
+        0.574164,
+        0.864544
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Employee No.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.526485,
+            0.850794,
+            0.574164,
+            0.864544
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'48213': 5 digits, below the account regex minimum of 6 -> no candidate anywhere.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_02",
+      "value": "487-62-1930",
+      "category": "ssn",
+      "page": 15,
+      "bbox": [
+        0.695578,
+        0.850794,
+        0.800472,
+        0.864544
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "SSN:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.695578,
+            0.850794,
+            0.800472,
+            0.864544
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "valid SSN; 'ssn' positive -> 0.95. Kept > 5 tokens from the routing/account zone (the (ssn, financial) negatives 'routing number' 0.8 / 'account number' 0.7).",
+      "source_range": "synthetic + manifest",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_12",
+      "value": "08/15/2026",
+      "category": "dateOfBirth",
+      "page": 15,
+      "bbox": [
+        0.199831,
+        0.775037,
+        0.286716,
+        0.788786
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Pay Period Ending:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.199831,
+            0.775037,
+            0.286716,
+            0.788786
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "bare date on .financial -> suppressed.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_03",
+      "value": "124007112",
+      "category": "routingNumber",
+      "page": 15,
+      "bbox": [
+        0.186865,
+        0.644986,
+        0.272687,
+        0.658736
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Routing Number:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.186865,
+            0.644986,
+            0.272687,
+            0.658736
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "prefix 12 valid, ABA mod-10 valid; routing RUNS on .financial; 'routing' kw within +-8 tokens -> 0.88 >= 0.60; no acct kw within +-5 (so it is not also captured as an account). Group 00 -> SSN rejects.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_04",
+      "value": "640081127735",
+      "category": "account",
+      "page": 15,
+      "bbox": [
+        0.191639,
+        0.577436,
+        0.306069,
+        0.591185
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Account Number:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.191639,
+            0.577436,
+            0.306069,
+            0.591185
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "12-digit; 'account' kw adjacent -> boosted; posterior clears 0.60 (occ_urlab_15 precedent); no routing kw within +-8.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_05",
+      "value": "XXXXXX7735",
+      "category": "account",
+      "page": 15,
+      "bbox": [
+        0.587725,
+        0.577436,
+        0.686056,
+        0.591185
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "watch",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Account on file:",
+      "render": {
+        "all_caps": false,
+        "masked": true,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.587725,
+            0.577436,
+            0.686056,
+            0.591185
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "masked X breaks the digit run -> invisible; masked watch (occ_urlab_18 precedent).",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_06",
+      "value": "Ezra Okafor",
+      "category": "name",
+      "page": 15,
+      "bbox": [
+        0.152,
+        0.519203,
+        0.238634,
+        0.533716
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Dependent:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.152,
+            0.519203,
+            0.238634,
+            0.533716
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "NLTagger host probe tags 'Dependent: Ezra Okafor' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_07",
+      "value": "04/09/2015",
+      "category": "dateOfBirth",
+      "page": 15,
+      "bbox": [
+        0.521358,
+        0.519355,
+        0.608243,
+        0.533104
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Date of Birth:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.521358,
+            0.519355,
+            0.608243,
+            0.533104
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "label-anchored numeric on .financial -> 0.85.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_08",
+      "value": "Amara Okafor",
+      "category": "name",
+      "page": 15,
+      "bbox": [
+        0.152,
+        0.501526,
+        0.253755,
+        0.516039
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Dependent:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.152,
+            0.501526,
+            0.253755,
+            0.516039
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "NLTagger host probe tags 'Dependent: Amara Okafor' -> 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_09",
+      "value": "12/30/2018",
+      "category": "dateOfBirth",
+      "page": 15,
+      "bbox": [
+        0.521358,
+        0.501678,
+        0.608243,
+        0.515428
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Date of Birth:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.521358,
+            0.501678,
+            0.608243,
+            0.515428
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "label-anchored numeric on .financial -> 0.85.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_11",
+      "value": "MED-HDHP-2",
+      "category": "other",
+      "page": 15,
+      "bbox": [
+        0.107546,
+        0.443597,
+        0.210753,
+        0.457347
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Plan:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.107546,
+            0.443597,
+            0.210753,
+            0.457347
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "'MED-HDHP-2': letters and a single digit -> no candidate.",
+      "source_range": "",
+      "schema_version": 1
+    },
+    {
+      "id": "occ_h4_13",
+      "value": "1497734081",
+      "category": "npi",
+      "page": 15,
+      "bbox": [
+        0.252518,
+        0.425921,
+        0.347876,
+        0.43967
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Primary Care Provider NPI:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 15,
+          "bbox": [
+            0.252518,
+            0.425921,
+            0.347876,
+            0.43967
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "a VALID NPI, but runsNPI is medical + foia only -> the detector never runs on this .financial page (doctype-gated). 10 digits with 'number'-free label and no phone kw within +-80 chars -> phone bare 0.60 < 0.70.",
+      "source_range": "",
+      "schema_version": 1
+    }
+  ],
+  "carried_packet": [
+    {
+      "id": "occ_urlab_01",
+      "value": "Delia R. Hartwell",
+      "category": "name",
+      "page": 0,
+      "bbox": [
+        0.283063,
+        0.850794,
+        0.396208,
+        0.864544
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "should_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Name (First, Middle, Last, Suffix):",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.283063,
+            0.850794,
+            0.396208,
+            0.864544
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "middle initial breaks the NLTagger span -> tracked recall miss.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 0
+      }
+    },
+    {
+      "id": "occ_urlab_09",
+      "value": "502-19-7438",
+      "category": "ssn",
+      "page": 0,
+      "bbox": [
+        0.225611,
+        0.831855,
+        0.330506,
+        0.845604
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Social Security Number:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.225611,
+            0.831855,
+            0.330506,
+            0.845604
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "area 502 (001-899, !=666), group 19, serial 7438; valid -> 0.95 with label.",
+      "source_range": "synthetic + manifest (no provable never-issued SSN space post-2011)",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 0
+      }
+    },
+    {
+      "id": "occ_urlab_04",
+      "value": "03/14/1985",
+      "category": "dateOfBirth",
+      "page": 0,
+      "bbox": [
+        0.249623,
+        0.812916,
+        0.336509,
+        0.826665
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "should_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Date of Birth (mm/dd/yyyy):",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.249623,
+            0.812916,
+            0.336509,
+            0.826665
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "numeric, label-anchored. Text-leg miss (numeric DOB on .financial not detected; OCR leg mislabels as phone) -> should_fire.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 0
+      }
+    },
+    {
+      "id": "occ_urlab_10",
+      "value": "(208) 555-0147",
+      "category": "phone",
+      "page": 0,
+      "bbox": [
+        0.15879,
+        0.753572,
+        0.279123,
+        0.767322
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Home Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.15879,
+            0.753572,
+            0.279123,
+            0.767322
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "NANPA 555-0147; phone kw within +-80 -> 0.80 >= 0.70.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 0
+      }
+    },
+    {
+      "id": "occ_urlab_11",
+      "value": "916-555-0182",
+      "category": "phone",
+      "page": 0,
+      "bbox": [
+        0.145725,
+        0.734633,
+        0.260155,
+        0.748382
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Cell Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.145725,
+            0.734633,
+            0.260155,
+            0.748382
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "format-zoo (CA 916 area, kept post-relocation); 555-0182 -> 0.80.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 0
+      }
+    },
+    {
+      "id": "occ_urlab_12",
+      "value": "208.555.0119",
+      "category": "phone",
+      "page": 0,
+      "bbox": [
+        0.155242,
+        0.715693,
+        0.258499,
+        0.729443
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Work Phone:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.155242,
+            0.715693,
+            0.258499,
+            0.729443
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "format-zoo (dotted); 555-0119 -> 0.80.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 0
+      }
+    },
+    {
+      "id": "occ_urlab_13",
+      "value": "d.hartwell@example.net",
+      "category": "email",
+      "page": 0,
+      "bbox": [
+        0.112177,
+        0.696754,
+        0.27927,
+        0.710503
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Email:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.112177,
+            0.696754,
+            0.27927,
+            0.710503
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "RFC-2606 -> 0.90 >= 0.83.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 0
+      }
+    },
+    {
+      "id": "occ_urlab_06",
+      "value": "4127 Wrenfield Place Boise, ID 83702",
+      "category": "address",
+      "page": 0,
+      "bbox": [
+        0.068627,
+        0.646249,
+        0.220289,
+        0.67515
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Current Address:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.068627,
+            0.6614,
+            0.220289,
+            0.67515
+          ]
+        },
+        {
+          "page": 0,
+          "bbox": [
+            0.068627,
+            0.646249,
+            0.181054,
+            0.659998
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "shared residence; 2 spans (street; city/ST/ZIP); 0.70.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 0
+      }
+    },
+    {
+      "id": "occ_urlab_06b",
+      "value": "812 Aldergrove Avenue Modesto, CA 95354",
+      "category": "address",
+      "page": 0,
+      "bbox": [
+        0.068627,
+        0.593219,
+        0.23511,
+        0.62212
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Former Address:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.068627,
+            0.60837,
+            0.23511,
+            0.62212
+          ]
+        },
+        {
+          "page": 0,
+          "bbox": [
+            0.068627,
+            0.593219,
+            0.210114,
+            0.606968
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "CA-DL/ID-residence reconciliation; 2 spans.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 0
+      }
+    },
+    {
+      "id": "occ_urlab_07",
+      "value": "P.O. Box 2215, Boise, ID 83701",
+      "category": "address",
+      "page": 0,
+      "bbox": [
+        0.259127,
+        0.570491,
+        0.480498,
+        0.584241
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Mailing Address (if different):",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.259127,
+            0.570491,
+            0.480498,
+            0.584241
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "P.O. Box arm.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 0
+      }
+    },
+    {
+      "id": "occ_urlab_08",
+      "value": "2900 Commerce Park Drive, Meridian, ID 83642",
+      "category": "address",
+      "page": 0,
+      "bbox": [
+        0.193442,
+        0.499784,
+        0.530105,
+        0.513534
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Employer Address:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 0,
+          "bbox": [
+            0.193442,
+            0.499784,
+            0.530105,
+            0.513534
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "employer (Tannersworth) address.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 0
+      }
+    },
+    {
+      "id": "occ_t1040_13",
+      "value": "502-19-7438",
+      "category": "ssn",
+      "page": 2,
+      "bbox": [
+        0.313725,
+        0.906198,
+        0.424447,
+        0.920711
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Your social security number:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 2,
+          "bbox": [
+            0.313725,
+            0.906198,
+            0.424447,
+            0.920711
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "SAME value as occ_01 (genre-honest page-2 repeat). Each repeated box counts as its own occurrence -> distinct box.",
+      "source_range": "synthetic + manifest",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 7
+      }
+    },
+    {
+      "id": "occ_t1040_14",
+      "value": "987-65-4320",
+      "category": "ssn",
+      "page": 2,
+      "bbox": [
+        0.265091,
+        0.843066,
+        0.375813,
+        0.85758
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "for example, 987-65-4320.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 2,
+          "bbox": [
+            0.265091,
+            0.843066,
+            0.375813,
+            0.85758
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "area 987 >= 900 -> SSN rejects. NO substring 'tin'/ITIN keyword within +-8 tokens.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 7
+      }
+    },
+    {
+      "id": "N-ITIN-2",
+      "value": "970-72-5518",
+      "category": "itin",
+      "page": 2,
+      "bbox": [
+        0.281001,
+        0.775037,
+        0.385895,
+        0.788786
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "watch",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Taxpayer reference / control no.:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 2,
+          "bbox": [
+            0.281001,
+            0.775037,
+            0.385895,
+            0.788786
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "valid ITIN shape, no nearby itin kw. Fires as itin (structural match clears 0.65 without context) -> watch; engine-improvement: require itin context.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 7
+      }
+    },
+    {
+      "id": "N-SSN-2",
+      "value": "900-12-3456",
+      "category": "ssn",
+      "page": 2,
+      "bbox": [
+        0.232167,
+        0.749784,
+        0.337061,
+        0.763534
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "SSN instruction footnote:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 2,
+          "bbox": [
+            0.232167,
+            0.749784,
+            0.337061,
+            0.763534
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "area 900 >= 900 -> SSN rejects; group 12 out of ITIN range -> ITIN rejects.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 7
+      }
+    },
+    {
+      "id": "occ_t1040_16",
+      "value": "04/12/2026",
+      "category": "dateOfBirth",
+      "page": 2,
+      "bbox": [
+        0.599603,
+        0.699279,
+        0.686488,
+        0.713029
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Sign here -- Date:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 2,
+          "bbox": [
+            0.599603,
+            0.699279,
+            0.686488,
+            0.713029
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "bare signature date -> suppressed.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 7
+      }
+    },
+    {
+      "id": "occ_t1040_17",
+      "value": "04/12/2026",
+      "category": "dateOfBirth",
+      "page": 2,
+      "bbox": [
+        0.649395,
+        0.666451,
+        0.73628,
+        0.6802
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Spouse signature -- Date:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 2,
+          "bbox": [
+            0.649395,
+            0.666451,
+            0.73628,
+            0.6802
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "bare signature date -> suppressed.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 7
+      }
+    },
+    {
+      "id": "occ_w2_07",
+      "value": "Jan 1 - Dec 31, 2025",
+      "category": "dateOfBirth",
+      "page": 3,
+      "bbox": [
+        0.158848,
+        0.881097,
+        0.311759,
+        0.894847
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "For Tax Year:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 3,
+          "bbox": [
+            0.158848,
+            0.881097,
+            0.311759,
+            0.894847
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "bare tax-year date -> suppressed.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 9
+      }
+    },
+    {
+      "id": "occ_w2_01",
+      "value": "XXX-XX-7438",
+      "category": "ssn",
+      "page": 3,
+      "bbox": [
+        0.078431,
+        0.832813,
+        0.197733,
+        0.84809
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "should_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "a Employee's social security number",
+      "render": {
+        "all_caps": false,
+        "masked": true,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 3,
+          "bbox": [
+            0.078431,
+            0.832813,
+            0.197733,
+            0.84809
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "masked X breaks \\d runs -> tracked recall miss. Delia (last-4 7438).",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 9
+      }
+    },
+    {
+      "id": "occ_w2_02",
+      "value": "36-4419872",
+      "category": "ein",
+      "page": 3,
+      "bbox": [
+        0.568627,
+        0.832813,
+        0.674581,
+        0.84809
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "b Employer identification number (EIN)",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 3,
+          "bbox": [
+            0.568627,
+            0.832813,
+            0.674581,
+            0.84809
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "valid prefix 36 + EIN label -> 0.85. Tannersworth (= occ_t1040_12).",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 9
+      }
+    },
+    {
+      "id": "occ_w2_04",
+      "value": "2900 Commerce Park Drive, Meridian, ID 83642",
+      "category": "address",
+      "page": 3,
+      "bbox": [
+        0.078431,
+        0.782613,
+        0.415094,
+        0.796362
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "c Employer's name, address, and ZIP code",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 3,
+          "bbox": [
+            0.078431,
+            0.782613,
+            0.415094,
+            0.796362
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "employer address (single-line value); org-name line rides as a sibling.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 9
+      }
+    },
+    {
+      "id": "occ_w2_03",
+      "value": "Delia Hartwell",
+      "category": "name",
+      "page": 3,
+      "bbox": [
+        0.078431,
+        0.743319,
+        0.179535,
+        0.757832
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "e Employee's first name and initial / Last name",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 3,
+          "bbox": [
+            0.078431,
+            0.743319,
+            0.179535,
+            0.757832
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "initial/Suff sub-cells blank -> clean two-token.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 9
+      }
+    },
+    {
+      "id": "occ_w2_05",
+      "value": "4127 Wrenfield Place Boise, ID 83702",
+      "category": "address",
+      "page": 3,
+      "bbox": [
+        0.078431,
+        0.699279,
+        0.230093,
+        0.726918
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "f Employee's address and ZIP code",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": true
+      },
+      "spans": [
+        {
+          "page": 3,
+          "bbox": [
+            0.078431,
+            0.713168,
+            0.230093,
+            0.726918
+          ]
+        },
+        {
+          "page": 3,
+          "bbox": [
+            0.078431,
+            0.699279,
+            0.190858,
+            0.713029
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "2 spans.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 9
+      }
+    },
+    {
+      "id": "N-EIN-1",
+      "value": "099-2241-7",
+      "category": "ein",
+      "page": 3,
+      "bbox": [
+        0.733303,
+        0.668824,
+        0.833959,
+        0.683337
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "15 Employer's state ID no.:",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 3,
+          "bbox": [
+            0.733303,
+            0.668824,
+            0.833959,
+            0.683337
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "NON-EIN shape -> no EIN candidate even though bare 'employer' substring is adjacent.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 9
+      }
+    },
+    {
+      "id": "N-SSN-1",
+      "value": "078-05-1120",
+      "category": "ssn",
+      "page": 3,
+      "bbox": [
+        0.428105,
+        0.601552,
+        0.532999,
+        0.615301
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "Notice to Employee (Box a example):",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 3,
+          "bbox": [
+            0.428105,
+            0.601552,
+            0.532999,
+            0.615301
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "Woolworth/wallet SSN -> SSNStructuralValidator Rule 6 hard reject -> MNF.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 9
+      }
+    },
+    {
+      "id": "occ_w2_06",
+      "value": "07-3300449",
+      "category": "ein",
+      "page": 3,
+      "bbox": [
+        0.501183,
+        0.583875,
+        0.596541,
+        0.597625
+      ],
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "text",
+        "ocr"
+      ],
+      "label_context": "for example, 07-3300449.",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [
+        {
+          "page": 3,
+          "bbox": [
+            0.501183,
+            0.583875,
+            0.596541,
+            0.597625
+          ]
+        }
+      ],
+      "overlaps": [],
+      "justification": "prefix 07 in invalid set -> EIN rejected pre-scoring. Keep >+-6 tokens from the real Box-b label.",
+      "source_range": "",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 9
+      }
+    },
+    {
+      "id": "stmt_mf_phone",
+      "value": "800-555-0199",
+      "category": "phone",
+      "page": 1,
+      "bbox": null,
+      "bbox_origin": "bottom-left",
+      "expectation": "must_fire",
+      "leg_applicability": [
+        "text"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [],
+      "overlaps": [],
+      "count": 3,
+      "measured_pending": true,
+      "justification": "Reg E, context-boosted 0.80.",
+      "source_range": "frozen statement; geometry resolved at draw time",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 5
+      }
+    },
+    {
+      "id": "stmt_mnf_ocrconcat_3",
+      "value": "0610112026",
+      "category": "account",
+      "page": 1,
+      "bbox": null,
+      "bbox_origin": "bottom-left",
+      "expectation": "must_not_fire",
+      "leg_applicability": [
+        "ocr"
+      ],
+      "label_context": "",
+      "render": {
+        "all_caps": false,
+        "masked": false,
+        "multiline": false
+      },
+      "spans": [],
+      "overlaps": [],
+      "count": 1,
+      "measured_pending": true,
+      "justification": "OCR-concatenated date -> false account.",
+      "source_range": "frozen statement; geometry resolved at draw time",
+      "schema_version": 1,
+      "carried_from": {
+        "document": "packet.pdf",
+        "page": 5
+      }
+    }
+  ]
+}
