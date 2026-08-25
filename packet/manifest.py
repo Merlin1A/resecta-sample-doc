@@ -144,6 +144,30 @@ class RecordingCanvas:
         self._emit(occ, [x0, y0, x1, y1], spans)
         return yy
 
+    # ---- non-text regions (P1.8 / T1.3(a)): a bar, a barcode, a signature stroke ---------------
+    def region_value(self, occ: Occurrence, x0, y0, x1, y1):
+        """Emit a ground-truth occurrence for a NON-TEXT region the caller has drawn (a redaction
+        bar, a barcode, a signature stroke). Coordinates are POINTS, bottom-left origin; nothing is
+        drawn here and nothing is recorded in `draws`, so the reading-order text stays exactly what
+        the page carries as text."""
+        bbox = [x0 / self.PW, y0 / self.PH, x1 / self.PW, y1 / self.PH]
+        self._emit(occ, bbox, [{"page": self.page, "bbox": bbox}])
+        return bbox
+
+    def bar_value(self, occ: Occurrence, x, y, font, size, pad=1.5):
+        """The already-redacted-input surface: fill a black bar exactly where `occ.value` WOULD have
+        been drawn at (x, y) in `font`/`size`, without ever drawing the text. Ground truth carries the
+        hidden value and the bar's rect so an evaluator can assert that nothing fires there on any
+        leg. Returns the x just past the bar."""
+        s = occ.value_text
+        x0, y0, x1, y1 = self._bbox(x, y, s, font, size)
+        px0, py0 = x0 * self.PW - pad, y0 * self.PH - pad
+        px1, py1 = x1 * self.PW + pad, y1 * self.PH + pad
+        self.c.setFillColorRGB(0, 0, 0)
+        self.c.rect(px0, py0, px1 - px0, py1 - py0, stroke=0, fill=1)
+        self.region_value(occ, px0, py0, px1, py1)
+        return px1
+
     def _emit(self, occ: Occurrence, bbox, spans):
         self.occurrences.append(
             {

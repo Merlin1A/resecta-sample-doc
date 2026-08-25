@@ -119,3 +119,91 @@ def signature_line(rc, y, label, width=210):
     rc.hrule(y, L.LEFT, L.LEFT + width, L.LINEFILL, 0.7)
     rc.text(L.LEFT, y - 9, label, L.REG, 7, L.FAINT)
     return y - 20
+
+
+# ==================================================================================================
+# Capture-packet furniture (P1.8 / T1.3(a)). All PII-FREE; every character printable ASCII.
+# ==================================================================================================
+def table_header(rc, y, cols, *, size=7.5, color=None, rule=True):
+    """Draw a row of column captions. `cols` = [(x, caption), ...]. Returns the y below the rule."""
+    color = L.ACCENT if color is None else color
+    for x, cap in cols:
+        rc.text(x, y, cap, L.SEMI, size, color)
+    if rule:
+        rc.hrule(y - 4, L.LEFT, L.RIGHT, L.RULE, 0.6)
+    return y - 15
+
+
+def cell(rc, x, y, s, *, font=None, size=8.5, color=None):
+    """One plain (non-PII) table cell."""
+    return rc.text(x, y, s, L.REG if font is None else font, size, L.INK if color is None else color)
+
+
+def numbered_margin(rc, top_y, bottom_y, n=28, x_num=None, x_rule=None):
+    """Pleading-paper furniture: `n` numbered lines down the left margin and the double vertical
+    rule. Returns (leading, [baseline_y ...]) so the caller can place text on the numbered lines."""
+    x_num = L.LEFT if x_num is None else x_num
+    x_rule = L.LEFT + 22 if x_rule is None else x_rule
+    leading = (top_y - bottom_y) / float(n - 1)
+    ys = [top_y - i * leading for i in range(n)]
+    for i, yy in enumerate(ys):
+        rc.rtext(x_num + 12, yy, str(i + 1), L.REG, 7, L.FAINT)
+    rc.c.setStrokeColor(L.RULE)
+    rc.c.setLineWidth(0.6)
+    rc.c.line(x_rule, top_y + leading * 0.6, x_rule, bottom_y - leading * 0.6)
+    rc.c.line(x_rule + 3, top_y + leading * 0.6, x_rule + 3, bottom_y - leading * 0.6)
+    rc.c.line(L.RIGHT - 4, top_y + leading * 0.6, L.RIGHT - 4, bottom_y - leading * 0.6)
+    return leading, ys
+
+
+def stamp_box(rc, x, y, w, h, lines, *, size=10):
+    """A bordered 'stamp' (exhibit / received) -- heavier rule, centered caption lines."""
+    rc.box(x, y, x + w, y + h, L.INK, 1.4)
+    yy = y + h - size - 4
+    for ln in lines:
+        rc.c.setFillColor(L.INK)
+        rc.c.setFont(L.BOLD, size)
+        rc.c.drawCentredString(x + w / 2.0, yy, ln)
+        rc.draws.append((rc.page, yy, x + 4, ln))
+        yy -= size + 3
+
+
+def window_block(rc, x, y, w, h):
+    """The #10 window-envelope address block: a dashed box the mail class prints into."""
+    rc.c.setStrokeColor(L.LINEFILL)
+    rc.c.setLineWidth(0.6)
+    rc.c.setDash(3, 3)
+    rc.c.rect(x, y, w, h, stroke=1, fill=0)
+    rc.c.setDash()
+
+
+def barcode_code128(rc, occ, x, y, *, bar_height=28, bar_width=0.9):
+    """Draw a REAL Code 128 symbol (vector bars, no human-readable line) encoding `occ.value` and
+    emit an `image`-leg ground-truth region for it. Returns the symbol width in points."""
+    from reportlab.graphics.barcode import code128
+    bc = code128.Code128(occ.value_text, barHeight=bar_height, barWidth=bar_width,
+                         humanReadable=False, quiet=True)
+    bc.drawOn(rc.c, x, y)
+    rc.region_value(occ, x, y, x + bc.width, y + bar_height)
+    return bc.width
+
+
+def signature_stroke(rc, occ, x, y, w=120, h=22):
+    """A deterministic handwriting-like stroke (two cubic beziers) to the right of a 'Signature:'
+    label -- the DRAW-3 heuristic's candidate region. Emits an `image`-leg ground-truth region."""
+    c = rc.c
+    c.setStrokeColor(L.INK)
+    c.setLineWidth(1.3)
+    c.setLineCap(1)
+    base = y + 4
+    p = c.beginPath()
+    p.moveTo(x + 2, base + 2)
+    p.curveTo(x + 10, base + h, x + 22, base - 6, x + 34, base + 8)
+    p.curveTo(x + 44, base + h - 2, x + 52, base - 4, x + 62, base + 6)
+    p.curveTo(x + 74, base + h, x + 86, base - 8, x + 98, base + 4)
+    p.curveTo(x + 106, base + 12, x + 112, base + 2, x + w - 4, base + 6)
+    c.drawPath(p, stroke=1, fill=0)
+    c.setLineWidth(0.7)
+    c.line(x, y, x + w, y)
+    rc.region_value(occ, x, y - 2, x + w, y + h + 2)
+    return x + w

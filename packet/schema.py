@@ -30,7 +30,9 @@ PII_KINDS = {
     "other",
 }
 EXPECTATIONS = {"must_fire", "should_fire", "watch", "must_not_fire"}
-LEGS = {"text", "ocr"}
+# "image": Vision-side detectors (barcode / signature heuristic) -- not a Scan text/OCR leg; the
+# H1.2 text and OCR runs skip such rows (leg filter), device Site-A measures them (P1.8, T1.3(a)).
+LEGS = {"text", "ocr", "image"}
 
 
 def _bbox_problems(bbox, where):
