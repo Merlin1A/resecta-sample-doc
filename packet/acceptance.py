@@ -8,6 +8,11 @@ phone spacing, CO-ID phone distance, 987-65-4320 tin-distance, N-EIN-1 shape, oc
 distance); render-per-tier; multiline spans; no directional-with-period; no un-manifested PII shape
 in furniture; printable ASCII; and byte-determinism (regenerate twice).
 
+SS14 does the same for the CAPTURE MASTERS (P1.8 / T1.3(a), `packet.build_capture`): the 12 new
+born-digital exhibits + the 4 imported packet pages, their doctype profiles, the per-page
+C-constraints their generator docstrings claim, the K3 bars, the fiducial clearances over all 16
+pages, and the D12-40 tripwire that `packet.pdf` is still byte-frozen.
+
 Run: .venv/bin/python -m packet.acceptance   (exit 0 = all green)
 """
 
@@ -17,6 +22,7 @@ import re
 import sys
 
 from . import build_packet as B
+from . import layout as L
 from . import occurrences as OCC
 from . import schema
 
@@ -755,12 +761,239 @@ def run():
     except ImportError:
         print("SKIP  13. print masters (pypdf/PyMuPDF not available)")
 
+    # ---- 14. capture masters (P1.8 / T1.3(a)) ----
+    _capture_checks()
+
     print("\n" + "=" * 70)
     print(
         f"{_npass} checks passed"
         + (f" | {len(_fail)} FAILED: {_fail}" if _fail else " | ALL GREEN")
     )
     return 0 if not _fail else 1
+
+
+
+# ==================================================================================================
+# SS14 -- the CAPTURE MASTERS (P1.8 / T1.3(a)). Structural, like the rest of this file: the checks
+# read the emitted bytes, the ground truth and the reconstructed reading order, never the engine.
+# The registry ADVERTISES this family: EXHIBIT_DOCTYPE's comment says it is "asserted by acceptance
+# SS14 against the real sets", and each generator docstring states C-constraints that are only
+# load-bearing if something asserts them.
+# ==================================================================================================
+# context-scoring groups used by the capture pages (SUBSTRING, ContextWindowScorer)
+DEA_CTX = ("dea", "prescriber", "prescription", "registration")
+MRN_CTX = ("patient", "mrn", "chart", "dob", "physician", "hospital", "diagnosis", "clinic")
+DOB_CTX = ("dob", "date of birth")
+
+
+def _capture_checks():
+    try:
+        from . import build_capture as BC
+        from . import occurrences_capture as CAP
+        from . import variants as CV
+    except ImportError:
+        print("SKIP  14. capture masters (pypdf not available)")
+        return
+
+    res = BC.build(write=True)
+    rc = res["recording"]
+    gt = res["ground_truth"]
+    bases = res["bases"]
+    drawn = gt["occurrences"]
+    carried = gt["carried_packet"]
+    by_id = {r["id"]: r for r in drawn}
+    page_of = {name: bases[name] for name, _fn in BC.CAPTURE_ASSEMBLY}
+    pages = {pg: page_model(rc, pg) for pg in page_of.values()}
+
+    def wtok(oid, half, kws):
+        """[(token index, [keywords hit])] for every occurrence of the value on its page."""
+        toks, _offs, _norm = pages[by_id[oid]["page"]]
+        return [(i, has_any(token_window(toks, i, half), kws))
+                for i in positions(toks, by_id[oid]["value"])]
+
+    def wchar(oid, half, kws):
+        toks, offs, norm = pages[by_id[oid]["page"]]
+        return [(i, has_any(char_window(norm, offs[i], len(toks[i]), half), kws))
+                for i in positions(toks, by_id[oid]["value"])]
+
+    def none_near(oid, half, kws, *, chars=False):
+        hits = wchar(oid, half, kws) if chars else wtok(oid, half, kws)
+        return [f"{oid}:{k}" for _i, ks in hits for k in ks]
+
+    def some_near(oid, half, kws):
+        hits = wtok(oid, half, kws)
+        return [] if (hits and all(ks for _i, ks in hits)) else [f"{oid}:no-kw"]
+
+    # ---- 14a/b/c. schema + registry + assembly ----
+    problems = schema.validate_ground_truth(drawn + carried)
+    check(not problems, "14a. capture ground-truth schema valid (drawn + carried)", f"{problems[:3]}")
+    check(len(drawn) == len(CAP.CAPTURE_ALL) == 138,
+          "14b. one record per drawn capture occurrence (138)",
+          f"{len(drawn)} vs {len(CAP.CAPTURE_ALL)}")
+    check({r["id"] for r in drawn} == set(CAP.CAPTURE_BY_ID), "14c. drawn ids == capture registry ids")
+    check(gt["page_count"] == 16, "14d. 16 pages", str(gt["page_count"]))
+    check([e["name"] for e in gt["exhibits"]] == [n for n, _f in BC.CAPTURE_ASSEMBLY]
+          and [i["packet_page"] for i in gt["imported"]] == list(BC.PACKET_SLICE),
+          "14e. capture assembly order (4 imported packet pages, then M1..H4)")
+
+    # ---- 14f/g. every must-fire value present + labeled ----
+    miss = []
+    for o in CAP.CAPTURE_ALL:
+        if o.tier != "MF":
+            continue
+        _t, _o, norm = pages[by_id[o.id]["page"]]
+        needle = o.value if isinstance(o.value, str) else o.value[0]
+        if needle.replace(" ", "") not in norm.replace(" ", ""):
+            miss.append(o.id)
+    check(not miss, "14f. every capture must-fire value present on its page", f"missing: {miss}")
+    lblmiss = [o.id for o in CAP.CAPTURE_ALL if o.tier == "MF" and o.label_context
+               and _label_kw(o.label_context) not in pages[by_id[o.id]["page"]][2].lower()]
+    check(not lblmiss, "14g. capture must-fire label keyword present on page", f"{lblmiss}")
+
+    # ---- 14h. per-page doctype: the DESIGNED class must win on the raw single-token count ----
+    # The classifier caps a class at 5 raw keywords and then adds bonuses < 1.0, so a strict win on
+    # the capped raw count cannot be flipped by any bonus. That is the same argument as check 3h.
+    sets = {"financial": FINANCIAL_KW, "generic": GENERIC_KW, "court": COURT_KW,
+            "foia": FOIA_KW, "medical": MEDICAL_KW}
+    bad = []
+    for name, _fn in BC.CAPTURE_ASSEMBLY:
+        toks, _o, _n = pages[page_of[name]]
+        words = {_clean(t).lower() for t in toks}
+        raw = {k: min(len(words & v), 5) for k, v in sets.items()}
+        want = CAP.EXHIBIT_DOCTYPE[name]
+        if not all(raw[want] > raw[k] for k in raw if k != want):
+            bad.append(f"{name}:want={want}:{raw}")
+    check(not bad, "14h. per-page doctype profile wins for EXHIBIT_DOCTYPE", f"{bad}")
+
+    # ---- 14i. H2's twin DEA: the SAME valid value twice -- one fed, one keyword-starved ----
+    # occ_h2_06 (must-fire) and occ_h2_08 (watch) carry an identical string, so a per-id window test
+    # cannot tell them apart; assert the SPLIT instead, which is exactly the designed mechanism.
+    hits = wtok("occ_h2_06", 5, DEA_CTX)
+    fed = [i for i, ks in hits if ks]
+    starved = [i for i, ks in hits if not ks]
+    check(len(hits) == 2 and len(fed) == 1 and len(starved) == 1,
+          "14i. H2 twin DEA: exactly one fed (+-5 tokens) and one starved",
+          f"positions={[i for i, _ in hits]} fed={fed} starved={starved}")
+
+    # ---- 14j. the C-constraint separations the page docstrings claim ----
+    bad = []
+    bad += none_near("occ_h2_14", 80, DOB_CTX, chars=True)        # date of service > 80 chars from DOB
+    bad += some_near("occ_h4_03", 8, ROUTING_CTX)                 # routing: routing kw within +-8
+    bad += none_near("occ_h4_03", 5, ACCOUNT_CTX)                 # routing: no acct kw within +-5
+    bad += some_near("occ_h4_04", 5, ACCOUNT_CTX)                 # account: acct kw within +-5
+    bad += none_near("occ_h4_04", 8, ROUTING_CTX)                 # account: no routing kw within +-8
+    for oid in ("occ_m3_04", "occ_h3_03", "occ_h4_02"):           # the SSN boxes
+        bad += none_near(oid, 5, ACCOUNT_CTX + ROUTING_CTX + EIN_CTX)
+    bad += some_near("occ_m1_05", 5, ACCOUNT_CTX)                 # must-fire accounts
+    bad += some_near("occ_m2_01", 5, ACCOUNT_CTX)
+    bad += some_near("occ_k4_05", 5, ACCOUNT_CTX)
+    bad += some_near("occ_h1_11", 5, ACCOUNT_CTX)
+    check(not bad, "14j. capture C-constraint token/char windows", f"{bad}")
+
+    # ---- 14k. the keyword-starved must-not-fires: a real shape with its gating keyword ABSENT ----
+    bad = []
+    for oid in ("occ_m2_06", "occ_m2_07", "occ_h1_04", "occ_k1_07", "occ_h4_13"):
+        bad += none_near(oid, 5, ACCOUNT_CTX)                     # account shape, no acct kw
+    for oid in ("occ_h1_13", "occ_h2_13"):
+        bad += none_near(oid, 5, MRN_CTX)                         # MRN institution shape, no MRN kw
+    bad += none_near("occ_m1_09", 80, PHONE_CTX, chars=True)      # 10-digit ref, no phone kw
+    bad += none_near("occ_h4_13", 80, PHONE_CTX, chars=True)      # 10-digit NPI, no phone kw
+    for oid in ("occ_k2_10", "occ_k4_10", "occ_k4_11", "occ_k3_10", "occ_m4_07"):
+        bad += none_near(oid, 80, DOB_CTX, chars=True)            # bare dates, no DOB label
+    check(not bad, "14k. keyword-starved must-not-fires stay starved", f"{bad}")
+
+    # ---- 14l. K3's exemption bars carry NO text underneath ----
+    bad = []
+    for oid in ("occ_k3_01", "occ_k3_02", "occ_k3_03"):
+        _t, _o, norm = pages[by_id[oid]["page"]]
+        hidden = by_id[oid]["value"]
+        if hidden.replace(" ", "") in norm.replace(" ", ""):
+            bad.append(oid)
+        if not by_id[oid]["render"]["masked"]:
+            bad.append(f"{oid}:not-masked")
+    check(not bad, "14l. K3 bars carry no text under them", f"{bad}")
+
+    # ---- 14m. no un-manifested SSN/email/phone shape in the new furniture (check 8, extended) ----
+    SHAPES = ((r"\b\d{3}-\d{2}-\d{4}\b", "ssn"), (r"[\w.]+@[\w.]+", "email"),
+              (r"\(?\d{3}\)?[-.\s]\d{3}[-.\s]\d{4}", "phone"))
+    allowed = set()
+    for o in CAP.CAPTURE_ALL:
+        vt = o.value_text
+        allowed |= {vt, vt.replace(" ", "")}
+        for pat, _k in SHAPES:
+            for m in re.findall(pat, vt):
+                allowed |= {m, m.replace(" ", "")}
+    bad = []
+    for pg, (_t, _o, norm) in pages.items():
+        for pat, kind in SHAPES:
+            for m in re.findall(pat, norm):
+                if m not in allowed and m.replace(" ", "") not in allowed:
+                    bad.append(f"p{pg}:{kind}:{m}")
+    check(not bad, "14m. no un-manifested SSN/email/phone shape in capture furniture", f"{bad[:6]}")
+
+    # ---- 14n. printable ASCII (drawn text + ground truth + sidecar) ----
+    import json as _cj
+    nonascii = [s for (_p, _y, _x, s) in rc.draws if any(ord(c) > 126 or ord(c) < 9 for c in s)]
+    jtxt = _cj.dumps(gt) + _cj.dumps(res["sidecar"])
+    check(not nonascii and all(ord(c) <= 126 for c in jtxt),
+          "14n. capture printable ASCII (drawn text + JSON)", f"{nonascii[:3]}")
+
+    # ---- 14o. drawn text stays inside the content box (nothing in the fiducial margin band) ----
+    bad = []
+    for name, _fn in BC.CAPTURE_ASSEMBLY:
+        pg = page_of[name]
+        for (_p, y, _x, s) in [d for d in rc.draws if d[0] == pg]:
+            if y > L.TOP or (y < L.BOTTOM + 14 and not (s.startswith("Synthetic sample")
+                                                        or s.startswith("Page "))):
+                bad.append(f"{name}:{y:.0f}:{s[:24]}")
+    check(not bad, "14o. capture text stays inside the content box", f"{bad[:4]}")
+
+    # ---- 14p. byte-determinism (regenerate twice) ----
+    again = BC.build(write=False)
+    check(again["pdf"] == res["pdf"] and again["sha256"] == res["sha256"],
+          "14p. capture masters byte-deterministic (regenerate twice)",
+          f"{res['sha256'][:16]} vs {again['sha256'][:16]}")
+
+    # ---- 14q. fiducials: ids encode the page over all 16, and no GT span touches one ----
+    ids = sorted(int(k) for m in res["marks"] for k in m["markers"])
+    check(ids == list(range(16 * 4)), "14q. marker ids encode the page across 16 pages",
+          f"{ids[:4]}..{ids[-4:] if ids else []}")
+    clashes = []
+    for row in drawn + carried:
+        quads = CV.marker_quads(row["page"] + 1, L.PW, L.PH)
+        for sp in row["spans"]:
+            b = sp["bbox"]
+            x0, y0, x1, y1 = b[0] * L.PW, b[1] * L.PH, b[2] * L.PW, b[3] * L.PH
+            for q in quads.values():
+                if not (x1 <= q[0] or x0 >= q[2] or y1 <= q[1] or y0 >= q[3]):
+                    clashes.append(row["id"])
+    check(not clashes, "14r. no capture ground-truth span intersects a fiducial (16 pages)",
+          str(sorted(set(clashes))[:5]))
+    side = res["sidecar"]
+    check(len(side["pages"]) == 16 and side["pages"] == res["marks"]
+          and side["sha256"] == res["sha256"] and side["set_id"] == CV.CAPTURE_SET_ID,
+          "14s. marker sidecar mirrors print_master's geometry")
+
+    # ---- 14t. the imported packet pages keep their ground truth verbatim, page remapped ----
+    pkt = B.build(write=False)["ground_truth"]
+    pkt_by_id = {r["id"]: r for r in pkt["occurrences"] + pkt["carried_stmt"]}
+    remap = {p: i for i, p in enumerate(BC.PACKET_SLICE)}
+    bad = []
+    for row in carried:
+        src = pkt_by_id[row["id"]]
+        if row["value"] != src["value"] or row["bbox"] != src["bbox"]:
+            bad.append(f"{row['id']}:value-or-bbox-drifted")
+        if row["page"] != remap[src["page"]] or row["carried_from"]["page"] != src["page"]:
+            bad.append(f"{row['id']}:page-remap")
+        if [s["page"] for s in row["spans"]] != [remap[src["page"]]] * len(row["spans"]):
+            bad.append(f"{row['id']}:span-page")
+    check(len(carried) == 28 and not bad,
+          "14t. imported packet ground truth carried verbatim, page remapped", f"{len(carried)} {bad[:3]}")
+
+    # ---- 14u. the D12-40 tripwire, restated here so acceptance fails loudly too ----
+    import hashlib as _h
+    disk = _h.sha256(BC.PACKET_PDF.read_bytes()).hexdigest()
+    check(disk == BC.PACKET_SHA256, "14u. D12-40 tripwire: packet.pdf byte-unchanged", disk)
 
 
 def _label_kw(label_context):
