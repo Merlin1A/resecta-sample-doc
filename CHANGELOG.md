@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 
 ## Unreleased
 
+### Added
+
+- GitHub Actions: a pull-request gate that rebuilds both documents and checks
+  them byte-for-byte; `uv.lock` now pins `pymupdf`.
+
 ## 0.1.0 — 2026-06-24
 
 Initial public release.
