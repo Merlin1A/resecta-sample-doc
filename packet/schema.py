@@ -3,13 +3,31 @@
 Pure-Python (no jsonschema dependency). `validate_record` returns a list of problems (empty == OK);
 `validate_ground_truth` validates a whole emitted list. Every character is printable ASCII.
 """
+
 from __future__ import annotations
 
 # the 17+ PIIKind keys (mirrors Models/RedactionRegion.swift:116 in the iOS engine)
 PII_KINDS = {
-    "ssn", "creditCard", "name", "address", "email", "phone", "ein", "itin",
-    "driversLicense", "passport", "medicalRecord", "dateOfBirth", "npi", "dea",
-    "account", "routingNumber", "licensePlate", "barcode", "signatureCandidate", "other",
+    "ssn",
+    "creditCard",
+    "name",
+    "address",
+    "email",
+    "phone",
+    "ein",
+    "itin",
+    "driversLicense",
+    "passport",
+    "medicalRecord",
+    "dateOfBirth",
+    "npi",
+    "dea",
+    "account",
+    "routingNumber",
+    "licensePlate",
+    "barcode",
+    "signatureCandidate",
+    "other",
 }
 EXPECTATIONS = {"must_fire", "should_fire", "watch", "must_not_fire"}
 LEGS = {"text", "ocr"}
@@ -36,16 +54,30 @@ def _bbox_problems(bbox, where):
 def validate_record(r: dict) -> list[str]:
     p = []
     rid = r.get("id", "<no-id>")
-    required = ["id", "value", "category", "page", "bbox", "bbox_origin", "expectation",
-               "leg_applicability", "label_context", "render", "spans", "overlaps",
-               "justification", "source_range", "schema_version"]
+    required = [
+        "id",
+        "value",
+        "category",
+        "page",
+        "bbox",
+        "bbox_origin",
+        "expectation",
+        "leg_applicability",
+        "label_context",
+        "render",
+        "spans",
+        "overlaps",
+        "justification",
+        "source_range",
+        "schema_version",
+    ]
     for k in required:
         if k not in r:
             p.append(f"{rid}: missing required key {k!r}")
     if p:
         return p
-    # carried/measured records (the FROZEN STMT rows) have no draw-time geometry yet -- resolved
-    # later. Validate everything EXCEPT geometry for those.
+    # carried/measured records (the FROZEN STMT rows) carry no draw-time geometry (bbox null,
+    # measured_pending true). Validate everything EXCEPT geometry for those.
     measured = bool(r.get("measured_pending"))
     if not isinstance(r["id"], str) or not r["id"]:
         p.append(f"{rid}: id must be a non-empty string")
@@ -63,8 +95,11 @@ def validate_record(r: dict) -> list[str]:
     if not isinstance(r["label_context"], str):
         p.append(f"{rid}: label_context must be a string")
     render = r["render"]
-    if not (isinstance(render, dict) and set(render) == {"all_caps", "masked", "multiline"}
-            and all(isinstance(v, bool) for v in render.values())):
+    if not (
+        isinstance(render, dict)
+        and set(render) == {"all_caps", "masked", "multiline"}
+        and all(isinstance(v, bool) for v in render.values())
+    ):
         p.append(f"{rid}: render must be {{all_caps,masked,multiline}} booleans")
     if not isinstance(r["overlaps"], list):
         p.append(f"{rid}: overlaps must be a list")

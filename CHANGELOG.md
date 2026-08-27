@@ -12,6 +12,13 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 - GitHub Actions: a pull-request gate that rebuilds both documents and checks
   them byte-for-byte; `uv.lock` now pins `pymupdf`.
 
+### Changed
+
+- ruff and mypy configuration with a `lint` CI job; `EMPLOYER_NAME` is the
+  single source of the employer literal; the packet ground truth's watch-tier
+  note is person-neutral; the README states which records carry measured
+  boxes.
+
 ## 0.1.0 — 2026-06-24
 
 Initial public release.

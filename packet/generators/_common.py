@@ -6,10 +6,10 @@ text and asserts every PII-shaped match is a manifest value, so accidental injec
 
 Every character is printable ASCII.
 """
+
 from __future__ import annotations
 
 from .. import layout as L
-
 
 ROW = 15  # default vertical step between stacked single-line fields
 
@@ -29,8 +29,14 @@ def frow_multi(rc, y, occ, *, x=None, step=4, **kw):
 def page_footer(rc, page_label: str):
     """A one-line disclosure footer drawn on every page."""
     rc.hrule(L.BOTTOM + 14, L.LEFT, L.RIGHT, L.RULE, 0.5)
-    rc.text(L.LEFT, L.BOTTOM + 4, "Synthetic sample for software testing -- not real; values fictional and disclosed.",
-            L.REG, 6.5, L.FAINT)
+    rc.text(
+        L.LEFT,
+        L.BOTTOM + 4,
+        "Synthetic sample for software testing -- not real; values fictional and disclosed.",
+        L.REG,
+        6.5,
+        L.FAINT,
+    )
     rc.rtext(L.RIGHT, L.BOTTOM + 4, page_label, L.REG, 6.5, L.FAINT)
 
 
@@ -43,8 +49,9 @@ def continuation_header(rc, title: str, page_label: str):
     return L.TOP - 30
 
 
-def fine_print(rc, y, paragraphs, *, x=None, width=None, size=7.0, leading=9.2, gap=3.0,
-               color=None):
+def fine_print(
+    rc, y, paragraphs, *, x=None, width=None, size=7.0, leading=9.2, gap=3.0, color=None
+):
     """Render a list of dense instructional paragraphs (drives up text-leg coverage; genre-honest
     for forms). Returns the y cursor below the last paragraph."""
     x = L.LEFT if x is None else x
@@ -62,8 +69,9 @@ def two_column_fine_print(rc, y, paragraphs, *, size=6.8, leading=8.8, gutter=16
     colw = (L.CONTENT_W - gutter) / 2.0
     mid = len(paragraphs) // 2 + len(paragraphs) % 2
     left = fine_print(rc, y, paragraphs[:mid], x=L.LEFT, width=colw, size=size, leading=leading)
-    right = fine_print(rc, y, paragraphs[mid:], x=L.LEFT + colw + gutter, width=colw,
-                       size=size, leading=leading)
+    right = fine_print(
+        rc, y, paragraphs[mid:], x=L.LEFT + colw + gutter, width=colw, size=size, leading=leading
+    )
     return min(left, right)
 
 

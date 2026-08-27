@@ -10,7 +10,9 @@ This is the *sources* step (network). `generate_statement.py` is fully offline a
 
 Run:  uv run python prepare_fonts.py
 """
+
 from __future__ import annotations
+
 import hashlib
 import io
 import os
@@ -22,7 +24,9 @@ import zipfile
 from pathlib import Path
 
 INTER_VERSION = "4.1"
-INTER_URL = f"https://github.com/rsms/inter/releases/download/v{INTER_VERSION}/Inter-{INTER_VERSION}.zip"
+INTER_URL = (
+    f"https://github.com/rsms/inter/releases/download/v{INTER_VERSION}/Inter-{INTER_VERSION}.zip"
+)
 INTER_SHA256 = "9883fdd4a49d4fb66bd8177ba6625ef9a64aa45899767dde3d36aa425756b11e"
 
 # release-internal path -> output filename
@@ -42,7 +46,7 @@ def fetch() -> bytes:
         if hashlib.sha256(data).hexdigest() == INTER_SHA256:
             return data
     print(f"downloading {INTER_URL}")
-    with urllib.request.urlopen(INTER_URL, timeout=120) as r:  # noqa: S310 (pinned host+sha)
+    with urllib.request.urlopen(INTER_URL, timeout=120) as r:
         data = r.read()
     got = hashlib.sha256(data).hexdigest()
     if got != INTER_SHA256:
@@ -58,8 +62,13 @@ def freeze_tnum(path: Path) -> None:
     out = path.with_suffix(".tf.ttf")
     # SOURCE_DATE_EPOCH fixes head.created/modified (fontTools honors it) => byte-stable output.
     env = dict(os.environ, SOURCE_DATE_EPOCH="1780272000")  # 2026-06-01T00:00:00Z
-    subprocess.run([*cmd, "-f", "tnum", str(path), str(out)], check=True, env=env,
-                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    subprocess.run(
+        [*cmd, "-f", "tnum", str(path), str(out)],
+        check=True,
+        env=env,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
     out.replace(path)
 
 
