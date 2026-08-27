@@ -1,0 +1,63 @@
+# Pull-request gate: rebuild both documents from the locked environment and
+# assert byte identity with the committed files.
+name: ci
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+env:
+  PYTHONHASHSEED: "0"
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.11.26"
+      - name: Lockfile is current
+        run: uv lock --check
+      - name: Sync the locked environment
+        run: uv sync --frozen --python 3.12
+      - name: Rebuild the packet and assert byte identity
+        run: |
+          uv run python -m packet.build_packet
+          if [ -n "$(git status --porcelain -- packet.pdf packet-ground-truth.json)" ]; then
+            git status --porcelain -- packet.pdf packet-ground-truth.json
+            echo "Rebuilt packet differs from the committed files" >&2
+            exit 1
+          fi
+          sha256sum packet.pdf packet-ground-truth.json
+      - name: Acceptance suite
+        run: uv run python -m packet.acceptance
+      - name: Rebuild the statement and assert byte identity
+        run: |
+          uv run python generate_statement.py
+          if [ -n "$(git status --porcelain -- sample-bank-statement.pdf)" ]; then
+            echo "Rebuilt statement differs from the committed file" >&2
+            exit 1
+          fi
+          sha256sum sample-bank-statement.pdf
+      - name: Variants (pymupdf + pillow leg)
+        run: uv run python -m packet.variants
+
+  # Slot for a lint/type job; it lands together with the repository's
+  # ruff and mypy configuration.

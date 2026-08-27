@@ -1,5 +1,7 @@
 # resecta-sample-doc
 
+[![ci](https://github.com/Merlin1A/resecta-sample-doc/actions/workflows/ci.yml/badge.svg)](https://github.com/Merlin1A/resecta-sample-doc/actions/workflows/ci.yml)
+
 Deterministic generators for the synthetic test documents used by the
 [Resecta](https://github.com/Merlin1A/resecta) on-device iOS redaction app.
 
@@ -26,6 +28,9 @@ is optional — a standard virtualenv works.
 ```sh
 uv sync          # or: python -m venv .venv && pip install -e .
 ```
+
+Every pull request rebuilds both documents on a hosted runner and checks
+them byte-for-byte against the committed files.
 
 The core generator needs `reportlab` + `pypdf`; the test-only variants
 additionally need `pymupdf` + `pillow`.
