@@ -8,20 +8,21 @@ Determinism: reportlab `invariant` fixes internal dates + font subset
 tags; a pypdf finalize pass sets the seeded metadata, a fixed creation timestamp, and a fixed
 document /ID, so two runs are byte-identical. No randomness, no clock reads.
 """
+
 from __future__ import annotations
 
 import io
 from pathlib import Path
-from decimal import Decimal as D
 
 from reportlab import rl_config
-rl_config.invariant = 1  # noqa: E402  (must precede save; fixes dates + subset tags)
 
-from reportlab.pdfgen import canvas  # noqa: E402
-from reportlab.lib.pagesizes import letter  # noqa: E402
+rl_config.invariant = 1
+
 from reportlab.lib.colors import HexColor  # noqa: E402
+from reportlab.lib.pagesizes import letter  # noqa: E402
 from reportlab.pdfbase import pdfmetrics  # noqa: E402
 from reportlab.pdfbase.ttfonts import TTFont  # noqa: E402
+from reportlab.pdfgen import canvas  # noqa: E402
 
 import statement_data as S  # noqa: E402
 
@@ -31,27 +32,31 @@ OUT = HERE / "sample-bank-statement.pdf"
 
 # ---- fonts ----
 REG, MED, SEMI, BOLD = "Inter", "Inter-Medium", "Inter-SemiBold", "Inter-Bold"
-for _name, _fn in {REG: "Inter-Regular.ttf", MED: "Inter-Medium.ttf",
-                   SEMI: "Inter-SemiBold.ttf", BOLD: "Inter-Bold.ttf"}.items():
+for _name, _fn in {
+    REG: "Inter-Regular.ttf",
+    MED: "Inter-Medium.ttf",
+    SEMI: "Inter-SemiBold.ttf",
+    BOLD: "Inter-Bold.ttf",
+}.items():
     pdfmetrics.registerFont(TTFont(_name, str(FONT_DIR / _fn)))
 
 # ---- geometry ----
-PW, PH = letter                 # 612 x 792 pt
-M = 36                          # 0.5 in margins
-LEFT, RIGHT = M, PW - M         # 36, 576
-TOP = PH - M                    # 756
-COL_DATE = LEFT + 2             # 38
+PW, PH = letter  # 612 x 792 pt
+M = 36  # 0.5 in margins
+LEFT, RIGHT = M, PW - M  # 36, 576
+TOP = PH - M  # 756
+COL_DATE = LEFT + 2  # 38
 COL_DESC = 86
-AMT_R = RIGHT - 2               # 574 (right edge for tabular amounts)
-SUM_R = 322                     # right edge for summary-box amounts
+AMT_R = RIGHT - 2  # 574 (right edge for tabular amounts)
+SUM_R = 322  # right edge for summary-box amounts
 
 # ---- palette: grayscale-dominant + one restrained accent ----
-ACCENT = HexColor("#234E63")    # muted navy-teal
+ACCENT = HexColor("#234E63")  # muted navy-teal
 INK = HexColor("#1A1A1A")
 GRAY = HexColor("#5C5C5C")
 RULE = HexColor("#BEBEBE")
-SHADE = HexColor("#F2F4F5")     # light-gray alternating row shading
-WM = HexColor("#8C9398")        # watermark gray
+SHADE = HexColor("#F2F4F5")  # light-gray alternating row shading
+WM = HexColor("#8C9398")  # watermark gray
 
 
 # --------------------------------------------------------------------------------------------------
@@ -194,11 +199,13 @@ def page1(c):
     c.setLineWidth(0.7)
     c.roundRect(bx0, by0, bx1 - bx0, by1 - by0, 4, stroke=1, fill=0)
     text(c, bx0 + 10, by1 - 14, "ACCOUNT INFORMATION", SEMI, 8, ACCENT)
-    info = [("Account Number", S.ACCOUNT_NUMBER),
-            ("Account Type", S.ACCOUNT_TYPE),
-            ("Card Ending In", S.CARD_LAST4),
-            ("Statement Date", S.STATEMENT_DATE),
-            ("Statement Delivery", S.STATEMENT_DELIVERY)]
+    info = [
+        ("Account Number", S.ACCOUNT_NUMBER),
+        ("Account Type", S.ACCOUNT_TYPE),
+        ("Card Ending In", S.CARD_LAST4),
+        ("Statement Date", S.STATEMENT_DATE),
+        ("Statement Delivery", S.STATEMENT_DELIVERY),
+    ]
     ry = by1 - 30
     for label, val in info:
         text(c, bx0 + 10, ry, label, REG, 8, GRAY)
@@ -211,12 +218,14 @@ def page1(c):
     y -= 5
     hrule(c, y, x0=LEFT, x1=SUM_R, color=ACCENT, w=1.0)
     y -= 16
-    rows = [("Beginning Balance", S.money(S.BEGINNING_BALANCE), REG),
-            ("Deposits and Other Credits", "+" + S.money(S.TOTAL_CREDITS), REG),
-            ("Withdrawals and Other Subtractions", "-" + S.money(S.TOTAL_WITHDRAWALS), REG),
-            ("Checks", "-" + S.money(S.TOTAL_CHECKS), REG),
-            ("Service Fees", "-" + S.money(S.TOTAL_FEES), REG),
-            ("Ending Balance", S.money(S.ENDING_BALANCE), SEMI)]
+    rows = [
+        ("Beginning Balance", S.money(S.BEGINNING_BALANCE), REG),
+        ("Deposits and Other Credits", "+" + S.money(S.TOTAL_CREDITS), REG),
+        ("Withdrawals and Other Subtractions", "-" + S.money(S.TOTAL_WITHDRAWALS), REG),
+        ("Checks", "-" + S.money(S.TOTAL_CHECKS), REG),
+        ("Service Fees", "-" + S.money(S.TOTAL_FEES), REG),
+        ("Ending Balance", S.money(S.ENDING_BALANCE), SEMI),
+    ]
     for label, val, fnt in rows:
         if label == "Ending Balance":
             hrule(c, y + 9, x0=LEFT, x1=SUM_R, color=RULE, w=0.6)
@@ -226,8 +235,14 @@ def page1(c):
 
     # start of transaction detail: deposits & other credits
     y -= 14
-    txn_table(c, y, "Deposits and Other Credits", S.credits(),
-              "Total Deposits and Other Credits", S.TOTAL_CREDITS)
+    txn_table(
+        c,
+        y,
+        "Deposits and Other Credits",
+        S.credits(),
+        "Total Deposits and Other Credits",
+        S.TOTAL_CREDITS,
+    )
 
     page_furniture(c, 1)
 
@@ -283,8 +298,14 @@ def fees_block(c, y):
 
 def page2(c):
     y = continuation_header(c, 2)
-    y = txn_table(c, y, "Withdrawals and Other Subtractions", S.withdrawals(),
-                  "Total Withdrawals and Other Subtractions", S.TOTAL_WITHDRAWALS)
+    y = txn_table(
+        c,
+        y,
+        "Withdrawals and Other Subtractions",
+        S.withdrawals(),
+        "Total Withdrawals and Other Subtractions",
+        S.TOTAL_WITHDRAWALS,
+    )
     y -= 6
     y = checks_table(c, y)
     y -= 6
@@ -375,6 +396,7 @@ _HELV_PREAMBLE = re.compile(rb"BT\s*/F1\s+12\s+Tf\s+14\.4\s+TL\s*ET")
 
 def _strip_default_helvetica(writer) -> None:
     from pypdf.generic import DecodedStreamObject
+
     for page in writer.pages:
         res = page.get("/Resources")
         res = res.get_object() if res is not None else None
@@ -395,10 +417,15 @@ def _strip_default_helvetica(writer) -> None:
     # unembedded base-14 font reference survives in the output -- the acceptance suite asserts its
     # absence, since unembedded font references aren't allowed in the shipped PDF.
     from pypdf.generic import NullObject
+
     for idx, obj in enumerate(writer._objects):
         o = obj.get_object() if obj is not None else None
         try:
-            is_helv = o is not None and o.get("/Type") == "/Font" and "Helvetica" in str(o.get("/BaseFont", ""))
+            is_helv = (
+                o is not None
+                and o.get("/Type") == "/Font"
+                and "Helvetica" in str(o.get("/BaseFont", ""))
+            )
         except AttributeError:
             is_helv = False
         if is_helv:
@@ -413,15 +440,17 @@ def _finalize(pdf: bytes) -> bytes:
     writer = PdfWriter(clone_from=reader)
     _strip_default_helvetica(writer)
     creator = f"{S.BANK_NAME} Statement Services"
-    writer.add_metadata({
-        "/Title": f"Account Statement {S.PERIOD_LABEL}",
-        "/Author": S.BANK_NAME,
-        "/Subject": "Monthly Account Statement",
-        "/Creator": creator,
-        "/Producer": creator,
-        "/CreationDate": "D:20260601000000Z",
-        "/ModDate": "D:20260601000000Z",
-    })
+    writer.add_metadata(
+        {
+            "/Title": f"Account Statement {S.PERIOD_LABEL}",
+            "/Author": S.BANK_NAME,
+            "/Subject": "Monthly Account Statement",
+            "/Creator": creator,
+            "/Producer": creator,
+            "/CreationDate": "D:20260601000000Z",
+            "/ModDate": "D:20260601000000Z",
+        }
+    )
     fixed = ByteStringObject(b"SablebrookSampleStmtID01")  # fixed doc /ID => byte-stable output
     writer._ID = ArrayObject([fixed, fixed])
     out = io.BytesIO()

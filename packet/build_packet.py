@@ -10,6 +10,7 @@ pinned metadata + fixed document /ID -> byte-identical re-runs.
 
 Every character is printable ASCII.
 """
+
 from __future__ import annotations
 
 import io
@@ -18,17 +19,18 @@ import re
 from pathlib import Path
 
 from reportlab import rl_config
-rl_config.invariant = 1  # noqa: E402  (must precede save; fixes dates + font subset tags)
 
-from reportlab.pdfgen import canvas  # noqa: E402
+rl_config.invariant = 1
+
 from reportlab.lib.pagesizes import letter  # noqa: E402
+from reportlab.pdfgen import canvas  # noqa: E402
 
 from . import layout as L  # noqa: E402
 from . import occurrences as OCC  # noqa: E402
 from . import schema  # noqa: E402
-from .manifest import RecordingCanvas  # noqa: E402
+from .generators import ach, govid, t1040, urla_a, urla_b, veh, w2  # noqa: E402
 from .generators import stmt as STMT  # noqa: E402
-from .generators import urla_b, urla_a, t1040, ach, w2, govid, veh  # noqa: E402
+from .manifest import RecordingCanvas  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 OUT_PDF = REPO / "packet.pdf"
@@ -61,7 +63,7 @@ def _render_drawables(assembly, bases):
     buf = io.BytesIO()
     c = canvas.Canvas(buf, pagesize=letter, invariant=1, pageCompression=1)
     rc = RecordingCanvas(c, L.PW, L.PH)
-    for name, n, fn in assembly:
+    for name, _n, fn in assembly:
         if fn is None:
             continue
         fn(rc, bases[name])
@@ -76,6 +78,7 @@ _HELV_PREAMBLE = re.compile(rb"BT\s*/F1\s+12\s+Tf\s+14\.4\s+TL\s*ET")
 
 def _strip_default_helvetica(writer) -> None:
     from pypdf.generic import DecodedStreamObject, NullObject
+
     for page in writer.pages:
         res = page.get("/Resources")
         res = res.get_object() if res is not None else None
@@ -94,7 +97,11 @@ def _strip_default_helvetica(writer) -> None:
     for idx, obj in enumerate(writer._objects):
         o = obj.get_object() if obj is not None else None
         try:
-            is_helv = o is not None and o.get("/Type") == "/Font" and "Helvetica" in str(o.get("/BaseFont", ""))
+            is_helv = (
+                o is not None
+                and o.get("/Type") == "/Font"
+                and "Helvetica" in str(o.get("/BaseFont", ""))
+            )
         except AttributeError:
             is_helv = False
         if is_helv:
@@ -122,15 +129,17 @@ def _assemble(form_pdf: bytes, assembly, bases) -> bytes:
 
     _strip_default_helvetica(writer)
     creator = "Resecta Sample Packet Generator"
-    writer.add_metadata({
-        "/Title": "Hartwell Loan Application Packet (synthetic sample)",
-        "/Author": "Resecta",
-        "/Subject": "Synthetic PII-dense sample/test document packet",
-        "/Creator": creator,
-        "/Producer": creator,
-        "/CreationDate": "D:20260614000000Z",
-        "/ModDate": "D:20260614000000Z",
-    })
+    writer.add_metadata(
+        {
+            "/Title": "Hartwell Loan Application Packet (synthetic sample)",
+            "/Author": "Resecta",
+            "/Subject": "Synthetic PII-dense sample/test document packet",
+            "/Creator": creator,
+            "/Producer": creator,
+            "/CreationDate": "D:20260614000000Z",
+            "/ModDate": "D:20260614000000Z",
+        }
+    )
     fixed = ByteStringObject(b"ResectaHartwellPacketID01")  # fixed doc /ID -> byte-stable output
     writer._ID = ArrayObject([fixed, fixed])
     out = io.BytesIO()
@@ -154,8 +163,7 @@ def build(assembly=ASSEMBLY, *, write=True) -> dict:
         "page_count": total_pages,
         "bbox_origin": "bottom-left",
         "page_size_pt": [L.PW, L.PH],
-        "exhibits": [{"name": n, "base_page": bases[n], "pages": pc}
-                     for (n, pc, _fn) in assembly],
+        "exhibits": [{"name": n, "base_page": bases[n], "pages": pc} for (n, pc, _fn) in assembly],
         "occurrences": drawn,
         "carried_stmt": carried,
     }
@@ -170,7 +178,9 @@ def build(assembly=ASSEMBLY, *, write=True) -> dict:
     missing = expected_ids - drawn_ids
     extra = drawn_ids - expected_ids
     if missing or extra:
-        raise SystemExit(f"occurrence mismatch -- missing: {sorted(missing)} extra: {sorted(extra)}")
+        raise SystemExit(
+            f"occurrence mismatch -- missing: {sorted(missing)} extra: {sorted(extra)}"
+        )
     if len(drawn_ids) != len(drawn):
         raise SystemExit("duplicate drawn occurrence id")
     # every drawn occurrence sits on a page within its exhibit's range
@@ -186,14 +196,23 @@ def build(assembly=ASSEMBLY, *, write=True) -> dict:
     if write:
         OUT_PDF.write_bytes(pdf)
         OUT_JSON.write_text(json.dumps(gt, indent=2) + "\n", encoding="ascii")
-    return {"pdf": pdf, "ground_truth": gt, "pages": total_pages, "bases": bases,
-            "drawn": len(drawn), "carried": len(carried), "recording": rc}
+    return {
+        "pdf": pdf,
+        "ground_truth": gt,
+        "pages": total_pages,
+        "bases": bases,
+        "drawn": len(drawn),
+        "carried": len(carried),
+        "recording": rc,
+    }
 
 
 def main() -> None:
     r = build()
     print(f"wrote {OUT_PDF}  ({len(r['pdf']):,} bytes, {r['pages']} pages)")
-    print(f"wrote {OUT_JSON}  ({r['drawn']} drawn occurrences + {r['carried']} carried STMT classes)")
+    print(
+        f"wrote {OUT_JSON}  ({r['drawn']} drawn occurrences + {r['carried']} carried STMT classes)"
+    )
 
 
 if __name__ == "__main__":

@@ -13,3 +13,72 @@ dependencies = [
     "pymupdf>=1.24",   # packet variants: PDF -> raster (scan-sim / degrade ladder)
     "pillow>=10",      # packet variants: image degrade transforms
 ]
+
+[dependency-groups]
+dev = [
+    "mypy==1.20.2",
+    "ruff==0.15.12",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E",   # pycodestyle errors
+    "W",   # pycodestyle warnings
+    "F",   # pyflakes
+    "I",   # isort
+    "B",   # flake8-bugbear
+    "UP",  # pyupgrade
+    "SIM", # flake8-simplify
+    "PL",  # pylint subset
+    "RUF", # ruff-specific
+    "TID", # tidy imports
+    "PTH", # use pathlib
+    "S",   # flake8-bandit (security)
+    "A",   # flake8-builtins
+    "C4",  # flake8-comprehensions
+    "ISC", # implicit string concat
+    "T20", # no print
+    "RET", # flake8-return
+    "ERA", # eradicate commented-out code
+]
+ignore = [
+    "ISC001",  # conflicts with formatter
+    "E501",    # draw calls and data tables carry long trailing comments by design; the formatter governs code lines
+    "PLR2004", # layout coordinates and acceptance counts are literal by design
+    "PLR0913", # draw helpers take many geometry arguments
+    "PLR0912", # exhibit draw functions are long linear sequences
+    "PLR0915", # exhibit draw functions are long linear sequences
+    "PLC0415", # lazy imports keep the raster-only dependencies out of the packet build path
+    "TID252",  # package-relative imports are the packet's convention
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Entry points report to stdout by design.
+"generate_statement.py" = ["T20"]
+"prepare_fonts.py" = ["T20", "S603", "S108", "S310"]
+"verify.py" = ["T20", "S603", "S607"]
+"statement_data.py" = ["T20"]
+"packet/build_packet.py" = ["T20"]
+"packet/acceptance.py" = ["T20"]
+"packet/variants.py" = ["T20"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "lf"
+
+[tool.mypy]
+python_version = "3.12"
+warn_unused_ignores = true
+check_untyped_defs = false
+show_error_codes = true
+files = ["."]
+exclude = ["\\.venv/"]
+
+[[tool.mypy.overrides]]
+module = ["reportlab.*", "fitz.*", "pypdf.*", "fontTools.*", "PIL.*"]
+ignore_missing_imports = true

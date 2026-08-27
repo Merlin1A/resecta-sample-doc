@@ -77,10 +77,13 @@ packet/
 
 ## Ground truth
 
-`packet-ground-truth.json` carries one record per drawn occurrence, each with a
-normalized (0–1, bottom-left origin) bounding box that compares directly against
-the engine's detection rectangles. It is the labeled reference for measuring
-detection precision and recall.
+`packet-ground-truth.json` carries one record per drawn occurrence (the 106
+`occurrences`), each with a normalized (0–1, bottom-left origin) bounding box
+that compares directly against the engine's detection rectangles. The 20
+records carried over from the embedded statement (`carried_stmt`) ship with
+`bbox: null` and `measured_pending: true`: their geometry is not resolved, so
+they are checked by count, not by rectangle. It is the labeled reference for
+measuring detection precision and recall.
 
 ## License
 

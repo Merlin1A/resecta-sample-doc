@@ -14,6 +14,7 @@ coordinate space where applicable.
 
 Rasterization needs PyMuPDF (fitz). Run with: .venv/bin/python -m packet.variants
 """
+
 from __future__ import annotations
 
 import io
@@ -21,11 +22,12 @@ import json
 from pathlib import Path
 
 from reportlab import rl_config
-rl_config.invariant = 1  # noqa: E402
 
-from reportlab.pdfgen import canvas  # noqa: E402
+rl_config.invariant = 1
+
 from reportlab.lib.pagesizes import letter  # noqa: E402
 from reportlab.lib.utils import ImageReader  # noqa: E402
+from reportlab.pdfgen import canvas  # noqa: E402
 
 from . import build_packet as B  # noqa: E402
 from . import layout as L  # noqa: E402
@@ -38,6 +40,7 @@ PW, PH = letter
 def _have_fitz():
     try:
         import fitz  # noqa: F401
+
         return True
     except Exception:
         return False
@@ -49,11 +52,20 @@ def _have_fitz():
 def _finalize(pdf: bytes, title: str, doc_id: bytes) -> bytes:
     from pypdf import PdfReader, PdfWriter
     from pypdf.generic import ArrayObject, ByteStringObject
+
     r = PdfReader(io.BytesIO(pdf))
     w = PdfWriter(clone_from=r)
     creator = "Resecta Sample Packet Generator (variant)"
-    w.add_metadata({"/Title": title, "/Author": "Resecta", "/Creator": creator, "/Producer": creator,
-                    "/CreationDate": "D:20260614000000Z", "/ModDate": "D:20260614000000Z"})
+    w.add_metadata(
+        {
+            "/Title": title,
+            "/Author": "Resecta",
+            "/Creator": creator,
+            "/Producer": creator,
+            "/CreationDate": "D:20260614000000Z",
+            "/ModDate": "D:20260614000000Z",
+        }
+    )
     fid = ByteStringObject(doc_id.ljust(24, b"0")[:24])
     w._ID = ArrayObject([fid, fid])
     out = io.BytesIO()
@@ -69,8 +81,9 @@ def _images_to_pdf(images, title: str, doc_id: bytes) -> bytes:
         png = io.BytesIO()
         img.save(png, format="PNG", optimize=False)
         png.seek(0)
-        c.drawImage(ImageReader(png), 0, 0, width=PW, height=PH,
-                    preserveAspectRatio=False, mask=None)
+        c.drawImage(
+            ImageReader(png), 0, 0, width=PW, height=PH, preserveAspectRatio=False, mask=None
+        )
         c.showPage()
     c.save()
     return _finalize(buf.getvalue(), title, doc_id)
@@ -80,6 +93,7 @@ def _rasterize(pdf_bytes: bytes, dpi: int):
     """PDF bytes -> list of grayscale PIL page images at `dpi` (PyMuPDF render; deterministic)."""
     import fitz
     from PIL import Image
+
     doc = fitz.open(stream=pdf_bytes, filetype="pdf")
     mat = fitz.Matrix(dpi / 72.0, dpi / 72.0)
     out = []
@@ -95,12 +109,13 @@ def _rasterize(pdf_bytes: bytes, dpi: int):
 # --------------------------------------------------------------------------------------------------
 def scan_sim(packet_pdf: bytes, gt: dict, dpi: int = 150):
     images = _rasterize(packet_pdf, dpi)
-    pdf = _images_to_pdf(images, f"Hartwell Packet -- scan-sim {dpi} DPI (test-only)",
-                         b"ResectaPacketScanSim150")
-    vgt = json.loads(json.dumps(gt))   # deep copy; bboxes are resolution-independent
+    pdf = _images_to_pdf(
+        images, f"Hartwell Packet -- scan-sim {dpi} DPI (test-only)", b"ResectaPacketScanSim150"
+    )
+    vgt = json.loads(json.dumps(gt))  # deep copy; bboxes are resolution-independent
     vgt["variant"] = {"kind": "scan-sim", "dpi": dpi, "rasterized": True, "text_layer": False}
     for r in vgt["occurrences"]:
-        r["leg_applicability"] = ["ocr"]   # image-only -> OCR leg only
+        r["leg_applicability"] = ["ocr"]  # image-only -> OCR leg only
     return pdf, vgt
 
 
@@ -116,18 +131,25 @@ def _rotate_bbox_90(b):
 
 def rotate_trigger(packet_pdf: bytes, gt: dict, degrees: int = 90):
     from pypdf import PdfReader, PdfWriter
+
     r = PdfReader(io.BytesIO(packet_pdf))
     w = PdfWriter(clone_from=r)
     for page in w.pages:
         page.rotate(degrees)
     out = io.BytesIO()
     w.write(out)
-    pdf = _finalize(out.getvalue(), "Hartwell Packet -- rotate-trigger 90deg (test-only)",
-                    b"ResectaPacketRotate90")
+    pdf = _finalize(
+        out.getvalue(),
+        "Hartwell Packet -- rotate-trigger 90deg (test-only)",
+        b"ResectaPacketRotate90",
+    )
     vgt = json.loads(json.dumps(gt))
-    vgt["variant"] = {"kind": "rotate-trigger", "rotate_degrees": degrees,
-                      "note": "TRIGGER for the open rotated-coordinate P0; FAILS until the engine "
-                              "fix lands. bbox transformed (nx,ny)->(ny,1-nx)."}
+    vgt["variant"] = {
+        "kind": "rotate-trigger",
+        "rotate_degrees": degrees,
+        "note": "TRIGGER for the open rotated-coordinate P0; FAILS until the engine "
+        "fix lands. bbox transformed (nx,ny)->(ny,1-nx).",
+    }
     for rec in vgt["occurrences"]:
         rec["bbox"] = _rotate_bbox_90(rec["bbox"])
         for s in rec["spans"]:
@@ -140,21 +162,32 @@ def rotate_trigger(packet_pdf: bytes, gt: dict, degrees: int = 90):
 # --------------------------------------------------------------------------------------------------
 def degrade_ladder(packet_pdf: bytes):
     from PIL import Image
+
     base = _rasterize(packet_pdf, 150)
     rungs = {}
     # skew: small rotation, white fill (no random)
-    skew = [im.rotate(1.5, resample=Image.BILINEAR, expand=False, fillcolor=255) for im in base]
-    rungs["skew"] = _images_to_pdf(skew, "Hartwell Packet -- degrade skew 1.5deg (test-only)",
-                                   b"ResectaPacketDegSkew01")
+    skew = [
+        im.rotate(1.5, resample=Image.Resampling.BILINEAR, expand=False, fillcolor=255)
+        for im in base
+    ]
+    rungs["skew"] = _images_to_pdf(
+        skew, "Hartwell Packet -- degrade skew 1.5deg (test-only)", b"ResectaPacketDegSkew01"
+    )
     # blur: downscale 50% then back up (deterministic softening)
-    blur = [im.resize((im.width // 2, im.height // 2), Image.BILINEAR).resize(im.size, Image.BILINEAR)
-            for im in base]
-    rungs["blur"] = _images_to_pdf(blur, "Hartwell Packet -- degrade blur (test-only)",
-                                   b"ResectaPacketDegBlur01")
+    blur = [
+        im.resize((im.width // 2, im.height // 2), Image.Resampling.BILINEAR).resize(
+            im.size, Image.Resampling.BILINEAR
+        )
+        for im in base
+    ]
+    rungs["blur"] = _images_to_pdf(
+        blur, "Hartwell Packet -- degrade blur (test-only)", b"ResectaPacketDegBlur01"
+    )
     # low-DPI: re-rasterize the source at 100 DPI
     low = _rasterize(packet_pdf, 100)
-    rungs["lowdpi"] = _images_to_pdf(low, "Hartwell Packet -- degrade low-DPI 100 (test-only)",
-                                     b"ResectaPacketDegLow100")
+    rungs["lowdpi"] = _images_to_pdf(
+        low, "Hartwell Packet -- degrade low-DPI 100 (test-only)", b"ResectaPacketDegLow100"
+    )
     return rungs
 
 
@@ -197,11 +230,16 @@ def perf_filler(pages: int = 120) -> bytes:
             ln += 1
         c.setFont(L.REG, 6.5)
         c.setFillColor(L.FAINT)
-        c.drawString(margin, margin - 12, "Synthetic perf/jetsam filler -- not real; no PII; fictional.")
+        c.drawString(
+            margin, margin - 12, "Synthetic perf/jetsam filler -- not real; no PII; fictional."
+        )
         c.showPage()
     c.save()
-    return _finalize(buf.getvalue(), f"Hartwell Packet -- perf filler {pages}pp (test-only)",
-                     b"ResectaPacketPerfFill01")
+    return _finalize(
+        buf.getvalue(),
+        f"Hartwell Packet -- perf filler {pages}pp (test-only)",
+        b"ResectaPacketPerfFill01",
+    )
 
 
 # --------------------------------------------------------------------------------------------------
@@ -215,16 +253,22 @@ def build_all(perf_pages: int = 120, *, write=True) -> dict:
     rt_pdf, rt_gt = rotate_trigger(packet_pdf, gt)
     deg = degrade_ladder(packet_pdf)
     perf = perf_filler(perf_pages)
-    out = {"scan_sim": (ss_pdf, ss_gt), "rotate_trigger": (rt_pdf, rt_gt),
-           "degrade": deg, "perf": perf}
+    out = {
+        "scan_sim": (ss_pdf, ss_gt),
+        "rotate_trigger": (rt_pdf, rt_gt),
+        "degrade": deg,
+        "perf": perf,
+    }
     if write:
         OUTDIR.mkdir(exist_ok=True)
         (OUTDIR / "packet-scan-sim-150dpi.pdf").write_bytes(ss_pdf)
         (OUTDIR / "packet-scan-sim-150dpi-ground-truth.json").write_text(
-            json.dumps(ss_gt, indent=2) + "\n", encoding="ascii")
+            json.dumps(ss_gt, indent=2) + "\n", encoding="ascii"
+        )
         (OUTDIR / "packet-rotate-trigger.pdf").write_bytes(rt_pdf)
         (OUTDIR / "packet-rotate-trigger-ground-truth.json").write_text(
-            json.dumps(rt_gt, indent=2) + "\n", encoding="ascii")
+            json.dumps(rt_gt, indent=2) + "\n", encoding="ascii"
+        )
         for name, pdf in deg.items():
             (OUTDIR / f"packet-degrade-{name}.pdf").write_bytes(pdf)
         (OUTDIR / f"perf-filler-{perf_pages}pp.pdf").write_bytes(perf)

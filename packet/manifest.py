@@ -9,9 +9,10 @@ against a detection's normalizedRect with no transform.
 
 Every character is printable ASCII.
 """
+
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 from reportlab.pdfbase import pdfmetrics
 
@@ -30,11 +31,12 @@ TIER = {
 class Occurrence:
     """One manifest occurrence (everything EXCEPT the draw-time bbox/spans/page, which the generator
     fills in). Mirrors a row of the values manifest."""
+
     id: str
-    value: object                 # str, or tuple[str, ...] for multiline
-    category: str                 # one of the 17 PIIKind keys
-    exhibit: str                  # urla_b | urla_a | t1040 | ach | w2 | govid | veh | stmt
-    tier: str                     # MF | SF | W | MNF
+    value: object  # str, or tuple[str, ...] for multiline
+    category: str  # one of the 17 PIIKind keys
+    exhibit: str  # urla_b | urla_a | t1040 | ach | w2 | govid | veh | stmt
+    tier: str  # MF | SF | W | MNF
     label_context: str
     leg: tuple = ("text", "ocr")
     all_caps: bool = False
@@ -52,7 +54,7 @@ class Occurrence:
     def value_text(self) -> str:
         if isinstance(self.value, tuple):
             return " ".join(self.value)
-        return self.value
+        return str(self.value)
 
 
 class RecordingCanvas:
@@ -64,9 +66,9 @@ class RecordingCanvas:
         self.c = c
         self.PW = page_w
         self.PH = page_h
-        self.page = 0                       # current GLOBAL 0-indexed page in the final packet
-        self.draws: list[tuple] = []        # (page, baseline_y, x_left, text)
-        self.occurrences: list[dict] = []   # ground-truth records
+        self.page = 0  # current GLOBAL 0-indexed page in the final packet
+        self.draws: list[tuple] = []  # (page, baseline_y, x_left, text)
+        self.occurrences: list[dict] = []  # ground-truth records
 
     # ---- page control ----------------------------------------------------------------------------
     def begin_page(self, global_index: int) -> None:
@@ -107,7 +109,7 @@ class RecordingCanvas:
 
     # ---- bbox capture ----------------------------------------------------------------------------
     def _bbox(self, x, y, s, font, size):
-        asc, desc = pdfmetrics.getAscentDescent(font, size)   # desc is negative
+        asc, desc = pdfmetrics.getAscentDescent(font, size)  # desc is negative
         x0, x1 = x, x + pdfmetrics.stringWidth(s, font, size)
         y0, y1 = y + desc, y + asc
         return [x0 / self.PW, y0 / self.PH, x1 / self.PW, y1 / self.PH]
@@ -143,23 +145,31 @@ class RecordingCanvas:
         return yy
 
     def _emit(self, occ: Occurrence, bbox, spans):
-        self.occurrences.append({
-            "id": occ.id,
-            "value": occ.value_text,
-            "category": occ.category,
-            "page": self.page,
-            "bbox": [round(v, 6) for v in bbox],
-            "bbox_origin": "bottom-left",
-            "expectation": occ.expectation,
-            "leg_applicability": list(occ.leg),
-            "label_context": occ.label_context,
-            "render": {"all_caps": occ.all_caps, "masked": occ.masked, "multiline": occ.multiline},
-            "spans": [{"page": s["page"], "bbox": [round(v, 6) for v in s["bbox"]]} for s in spans],
-            "overlaps": list(occ.overlaps),
-            "justification": occ.justification,
-            "source_range": occ.source_range,
-            "schema_version": SCHEMA_VERSION,
-        })
+        self.occurrences.append(
+            {
+                "id": occ.id,
+                "value": occ.value_text,
+                "category": occ.category,
+                "page": self.page,
+                "bbox": [round(v, 6) for v in bbox],
+                "bbox_origin": "bottom-left",
+                "expectation": occ.expectation,
+                "leg_applicability": list(occ.leg),
+                "label_context": occ.label_context,
+                "render": {
+                    "all_caps": occ.all_caps,
+                    "masked": occ.masked,
+                    "multiline": occ.multiline,
+                },
+                "spans": [
+                    {"page": s["page"], "bbox": [round(v, 6) for v in s["bbox"]]} for s in spans
+                ],
+                "overlaps": list(occ.overlaps),
+                "justification": occ.justification,
+                "source_range": occ.source_range,
+                "schema_version": SCHEMA_VERSION,
+            }
+        )
 
     # ---- reading-order reconstruction (for the token/char-distance C-constraint checks) ----------
     def page_token_text(self, page: int) -> str:
@@ -172,7 +182,7 @@ class RecordingCanvas:
         rows.sort(key=lambda r: (-r[0], r[1]))
         out = []
         last_y = None
-        for by, x, s in rows:
+        for by, _x, s in rows:
             if last_y is None or abs(by - last_y) > 6.0:
                 out.append("\n")
                 last_y = by
