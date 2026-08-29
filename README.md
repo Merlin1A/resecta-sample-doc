@@ -82,14 +82,7 @@ packet/
 that compares directly against the engine's detection rectangles. The 20
 records carried over from the embedded statement (`carried_stmt`) ship with
 `bbox: null` and `measured_pending: true`: their geometry is not resolved, so
-they are checked by count, not by rectangle. It is the labeled reference for
-measuring detection precision and recall.
-
-## License
-
-Licensed under the Apache License, Version 2.0 — see [`LICENSE`](./LICENSE). The
-bundled Inter typeface is under the SIL Open Font License 1.1; see
-[`NOTICE`](./NOTICE).
+they are checked by count, not by rectangle.
 
 ## Build dependencies & licenses
 

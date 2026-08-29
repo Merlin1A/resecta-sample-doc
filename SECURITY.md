@@ -33,14 +33,14 @@ disclosure has been agreed upon.
 
 - The Resecta iOS app and the data pipeline — report those through their own
   repositories.
-- The bundled Inter font (SIL OFL 1.1) — report upstream at rsms/inter.
+- The bundled Inter font (SIL OFL 1.1) — report upstream at
+  [rsms/inter](https://github.com/rsms/inter).
 
 ## Synthetic-data posture
 
 Every value drawn into a generated document is fictional. Persons,
 organizations, account numbers, and identifiers are invented; e-mail addresses
-use the RFC 2606 reserved example domains. `packet-ground-truth.json` is the
-labeled ground truth for the corpus. No production or real-world document is
+use the RFC 2606 reserved example domains. No production or real-world document is
 included.
 
 Nothing in this policy is legal advice.
