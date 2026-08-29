@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 
 ### Changed
 
+- Documentation: shorter code of conduct; README/CONTRIBUTING/SECURITY trimmed and corrected.
 - ruff and mypy configuration with a `lint` CI job; `EMPLOYER_NAME` is the
   single source of the employer literal; the packet ground truth's watch-tier
   note is person-neutral; the README states which records carry measured

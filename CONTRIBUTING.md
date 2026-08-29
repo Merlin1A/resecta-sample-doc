@@ -7,7 +7,7 @@ packet and a sample bank statement, each paired with labeled ground truth.
 ## Setup
 
 Python 3.12 is required. The project is a [uv](https://docs.astral.sh/uv/)
-project, but uv is not required — a standard virtualenv works.
+project, but uv is optional — a standard virtualenv works.
 
 ```sh
 uv sync                        # or: python -m venv .venv && pip install -e .
@@ -46,4 +46,5 @@ git commit -s -m "add <thing>"
 
 ## Security
 
-Disclosure goes through [`SECURITY.md`](./SECURITY.md).
+Vulnerability disclosure goes through [`SECURITY.md`](./SECURITY.md), not the
+public issue tracker.
