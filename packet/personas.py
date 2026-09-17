@@ -147,130 +147,136 @@ VEH_PLATE_FIN = "6ABC123"  # plate on the FINANCIAL URLA-B page -> doctype-gated
 # 7. CAPTURE PACKET -- C2 mail / forms personas. Fresh per class:
 #    the Petrova household, Meridian ID. Minted once; never reused across classes.
 # ==================================================================================================
-NADIA_NAME = "Nadia Petrova"             # clean two-token Title-Case (NLTagger host probe: tagged)
-NADIA_NAME_CAPS = "NADIA PETROVA"        # USPS window-envelope surface (ALL-CAPS -> should-fire)
-NADIA_DOB = "06/02/1979"                 # numeric, label-anchored
-NADIA_SSN = "512-40-7781"                # area 512 (001-899, !=666), group 40, serial 7781 -> valid
-NADIA_DL = "W4471029"                    # 1L+7D -> CA ^[A-Z][0-9]{7}$ (and the permissive AK/WA rows)
+NADIA_NAME = "Nadia Petrova"  # clean two-token Title-Case (NLTagger host probe: tagged)
+NADIA_NAME_CAPS = "NADIA PETROVA"  # USPS window-envelope surface (ALL-CAPS -> should-fire)
+NADIA_DOB = "06/02/1979"  # numeric, label-anchored
+NADIA_SSN = "512-40-7781"  # area 512 (001-899, !=666), group 40, serial 7781 -> valid
+NADIA_DL = "W4471029"  # 1L+7D -> CA ^[A-Z][0-9]{7}$ (and the permissive AK/WA rows)
 NADIA_PHONE_HOME = "(208) 555-0134"
 NADIA_PHONE_CELL = "208-555-0136"
 NADIA_PHONE_WORK = "208.555.0138"
 NADIA_FAX = "(208) 555-0139"
-NADIA_EMAIL = "n.petrova@example.net"    # RFC-2606 reserved domain
-ADDR_NADIA = ("2210 Larkspur Drive Apt 4", "Meridian, ID 83646")          # Title-Case (regex arm)
-ADDR_NADIA_USPS = ("2210 LARKSPUR DR APT 4", "MERIDIAN ID 83646-2210")     # USPS Pub 28 ALL-CAPS
-NADIA_BENEFIT_ACCT = "551022840093"      # 12-digit benefit account (phone-immune, < 13-digit cc)
-NADIA_UTIL_ACCT = "773100442019"         # 12-digit utility account
-NADIA_CARD_MASKED = "**** 4421"          # autopay card on file (masked -> watch)
+NADIA_EMAIL = "n.petrova@example.net"  # RFC-2606 reserved domain
+ADDR_NADIA = ("2210 Larkspur Drive Apt 4", "Meridian, ID 83646")  # Title-Case (regex arm)
+ADDR_NADIA_USPS = ("2210 LARKSPUR DR APT 4", "MERIDIAN ID 83646-2210")  # USPS Pub 28 ALL-CAPS
+NADIA_BENEFIT_ACCT = "551022840093"  # 12-digit benefit account (phone-immune, < 13-digit cc)
+NADIA_UTIL_ACCT = "773100442019"  # 12-digit utility account
+NADIA_CARD_MASKED = "**** 4421"  # autopay card on file (masked -> watch)
 # C2 reviewer at the housing authority (a PERSON; fires as name)
 NAOMI_NAME = "Naomi Sandoval"
 NAOMI_PHONE = "(208) 555-0182"
 NAOMI_FAX = "(208) 555-0181"
-HOUSING_AUTHORITY = "Meridian Valley Housing Authority"       # org; never fires as a person
-UTILITY_NAME = "Boise River Electric Cooperative"            # org
-BENEFITS_OFFICE = "State Benefits Determination Office"      # org
+HOUSING_AUTHORITY = "Meridian Valley Housing Authority"  # org; never fires as a person
+UTILITY_NAME = "Boise River Electric Cooperative"  # org
+BENEFITS_OFFICE = "State Benefits Determination Office"  # org
 # C2 decoys (each engine-INVALID by construction: shape / gate / keyword)
-OFFICE_CODE = "0417-B"                   # no detector shape (other)
-LETTER_DATE = "08/11/2026"               # bare letter date on a .financial page -> suppressed
-CLAIM_REF_10 = "4471029386"              # 10-digit ref: phone NEGATIVE 'reference no' + no positive kw
-METER_NO = "48213077"                    # 8-digit meter: account regex candidate, NO acct kw -> base 0
-STMT_NO = "20260811-77"                  # statement no: 8-digit run, NO acct kw within +-5 -> base 0
-DUE_DATE = "09/05/2026"                  # bare due date -> suppressed (financial)
-APP_ID = "HA-2026-004471"                # application id: no contiguous 6-digit run, no 'No.' docket shape
-DATE_SIGNED_M3 = "08/14/2026"            # bare signature date -> suppressed (financial)
-FAX_REF = "TX-26-0447"                   # transmittal ref: no detector shape (other)
-FAX_ACCT_REF = "4471-0293"               # 'Account Ref' with NO contiguous 6-digit run -> no candidate
-FAX_SENT_DATE = "08/14/2026"             # bare date on a .generic page, no DOB label within +-80 chars
+OFFICE_CODE = "0417-B"  # no detector shape (other)
+LETTER_DATE = "08/11/2026"  # bare letter date on a .financial page -> suppressed
+CLAIM_REF_10 = "4471029386"  # 10-digit ref: phone NEGATIVE 'reference no' + no positive kw
+METER_NO = "48213077"  # 8-digit meter: account regex candidate, NO acct kw -> base 0
+STMT_NO = "20260811-77"  # statement no: 8-digit run, NO acct kw within +-5 -> base 0
+DUE_DATE = "09/05/2026"  # bare due date -> suppressed (financial)
+APP_ID = "HA-2026-004471"  # application id: no contiguous 6-digit run, no 'No.' docket shape
+DATE_SIGNED_M3 = "08/14/2026"  # bare signature date -> suppressed (financial)
+FAX_REF = "TX-26-0447"  # transmittal ref: no detector shape (other)
+FAX_ACCT_REF = "4471-0293"  # 'Account Ref' with NO contiguous 6-digit run -> no candidate
+FAX_SENT_DATE = "08/14/2026"  # bare date on a .generic page, no DOB label within +-80 chars
 
 # ==================================================================================================
 # 8. CAPTURE PACKET -- C3 court / FOIA personas. Parties, counsel, court staff, agency staff.
 # ==================================================================================================
-MARCUS_NAME = "Marcus Bellamy"           # plaintiff / deponent / judgment creditor
-MARCUS_NAME_CAPS = "MARCUS BELLAMY"      # pleading-caption surface (ALL-CAPS -> should-fire)
-MARCUS_DOB_TEXTUAL = "September 9, 1983" # textual DOB in testimony (full DOBDetector path)
-MARCUS_DOB = "09/09/1983"                # numeric DOB on the docket sheet
-MARCUS_SSN_LAST4 = "3308"                # last-four only: no 9-digit candidate (must-not-fire)
+MARCUS_NAME = "Marcus Bellamy"  # plaintiff / deponent / judgment creditor
+MARCUS_NAME_CAPS = "MARCUS BELLAMY"  # pleading-caption surface (ALL-CAPS -> should-fire)
+MARCUS_DOB_TEXTUAL = "September 9, 1983"  # textual DOB in testimony (full DOBDetector path)
+MARCUS_DOB = "09/09/1983"  # numeric DOB on the docket sheet
+MARCUS_SSN_LAST4 = "3308"  # last-four only: no 9-digit candidate (must-not-fire)
 MARCUS_PHONE_CELL = "208-555-0152"
 ADDR_MARCUS = ("4415 Camas Lane", "Boise, ID 83705")
-TERRENCE_NAME = "Terrence Whitfield"     # individual defendant / judgment debtor
+TERRENCE_NAME = "Terrence Whitfield"  # individual defendant / judgment debtor
 TERRENCE_NAME_CAPS = "TERRENCE WHITFIELD"
 ADDR_TERRENCE = ("9020 Overland Road, Suite 210", "Boise, ID 83709")
-DEFENDANT_ORG = "Holloway Logistics, Inc."                   # org co-defendant; never a person
-PRIYA_NAME = "Priya Ramaswamy"           # attorney for plaintiff
+DEFENDANT_ORG = "Holloway Logistics, Inc."  # org co-defendant; never a person
+PRIYA_NAME = "Priya Ramaswamy"  # attorney for plaintiff
 PRIYA_EMAIL = "p.ramaswamy@example.com"
-PRIYA_BAR = "284415"                     # Idaho bar no.: 6-digit run, NO acct kw -> account base 0
-FIRM_NAME = "Ramaswamy Law Group"                             # org
+PRIYA_BAR = "284415"  # Idaho bar no.: 6-digit run, NO acct kw -> account base 0
+FIRM_NAME = "Ramaswamy Law Group"  # org
 ADDR_FIRM = ("1100 Idaho Street, Suite 400", "Boise, ID 83702")
 FIRM_PHONE = "(208) 555-0140"
-JUDGE_NAME = "Beatrice Lindqvist"        # assigned judge (Judge prefix -> legal-prefix pass)
-CLERK_NAME = "Helen Marchetti"           # deputy clerk on the docket sheet
+JUDGE_NAME = "Beatrice Lindqvist"  # assigned judge (Judge prefix -> legal-prefix pass)
+CLERK_NAME = "Helen Marchetti"  # deputy clerk on the docket sheet
 CLERK_PHONE = "(208) 555-0110"
-CASE_NO = "26-CV-01842"                  # 'No. 26-CV-01842' -> court docket_number bonus; no PII shape
-FILED_DATE = "08/12/2026"                # bare date on .court, no DOB label within +-80 chars
-DEPO_DATE = "07/30/2026"                 # deposition date (same mechanism)
-BATES = "BELL-0000123"                   # Bates: MRN institution shape [A-Z]{2,5}-\d{6,10}; MRN gated OFF on .court
+CASE_NO = "26-CV-01842"  # 'No. 26-CV-01842' -> court docket_number bonus; no PII shape
+FILED_DATE = "08/12/2026"  # bare date on .court, no DOB label within +-80 chars
+DEPO_DATE = "07/30/2026"  # deposition date (same mechanism)
+BATES = "BELL-0000123"  # Bates: MRN institution shape [A-Z]{2,5}-\d{6,10}; MRN gated OFF on .court
 JUDGMENT_DATE = "08/20/2026"
-JUDGMENT_SUM = "$4,250.00"               # currency amount: no PII shape (other)
-GARN_ACCT = "590114873320"               # 12-digit garnishee account (account runs on .court, CND-10)
+JUDGMENT_SUM = "$4,250.00"  # currency amount: no PII shape (other)
+GARN_ACCT = "590114873320"  # 12-digit garnishee account (account runs on .court, CND-10)
 # FOIA release (K3)
-AGENCY_NAME = "Bureau of Records Administration"             # org (fictional)
+AGENCY_NAME = "Bureau of Records Administration"  # org (fictional)
 ADDR_AGENCY = ("2400 Wexford Avenue, Suite 300", "Arlington, VA 22201")
-FOIA_REQ_NO = "2026-01447"               # 'FOIA Request No. 2026-01447' -> foia_header bonus; no shape
-FOIA_DATE = "August 14, 2026"            # textual date, no DOB label within +-80 chars -> 0.05
-DANA_NAME = "Dana Whitcombe"             # government information specialist (signature block)
+FOIA_REQ_NO = "2026-01447"  # 'FOIA Request No. 2026-01447' -> foia_header bonus; no shape
+FOIA_DATE = "August 14, 2026"  # textual date, no DOB label within +-80 chars -> 0.05
+DANA_NAME = "Dana Whitcombe"  # government information specialist (signature block)
 DANA_PHONE = "(571) 555-0136"
-ROSTER_NPI = "1245602234"                # Luhn-80840 valid; NPI RUNS on .foia (provider rosters)
+ROSTER_NPI = "1245602234"  # Luhn-80840 valid; NPI RUNS on .foia (provider rosters)
 REDACTED_NAME_B6 = "Leonard Achterberg"  # under a (b)(6) bar: NEVER drawn as text
-REDACTED_NAME_B7C = "Corinne Vasquez"    # under a (b)(7)(C) bar: NEVER drawn as text
-REDACTED_SSN = "441-27-1911"             # under a (b)(6) bar: NEVER drawn as text
+REDACTED_NAME_B7C = "Corinne Vasquez"  # under a (b)(7)(C) bar: NEVER drawn as text
+REDACTED_SSN = "441-27-1911"  # under a (b)(6) bar: NEVER drawn as text
 EXEMPTION_B6 = "(b)(6)"
 EXEMPTION_B7C = "(b)(7)(C)"
 
 # ==================================================================================================
 # 9. CAPTURE PACKET -- C4 medical / HR personas: the Okafor household, Nampa ID; provider Thorne.
 # ==================================================================================================
-ROSALIND_NAME = "Rosalind Okafor"        # patient / employee
+ROSALIND_NAME = "Rosalind Okafor"  # patient / employee
 ROSALIND_DOB = "11/23/1988"
-ROSALIND_SSN = "487-62-1930"             # area 487, group 62, serial 1930 -> valid
-ROSALIND_DL = "K2093311"                 # 1L+7D -> CA pattern
-ROSALIND_PASSPORT = "C11402876"          # 1L+8D -> US ^[A-Z][0-9]{8}$
+ROSALIND_SSN = "487-62-1930"  # area 487, group 62, serial 1930 -> valid
+ROSALIND_DL = "K2093311"  # 1L+7D -> CA pattern
+ROSALIND_PASSPORT = "C11402876"  # 1L+8D -> US ^[A-Z][0-9]{8}$
 ROSALIND_PHONE = "(208) 555-0163"
 ROSALIND_EMAIL = "r.okafor@example.org"
 ADDR_ROSALIND = ("87 Juniper Court", "Nampa, ID 83651")
-ROSALIND_MRN = "40018827"                # 'MRN: 40018827' -> mrn.labeled; barcode payload on H2
-ROSALIND_PATIENT_ID = "P40018827"        # 'Patient ID: P40018827' -> mrn.patientID
-ROSALIND_PATIENT_ACCT = "4471029"        # 7-digit patient account (acct kw +-5 -> fires; medical runs account)
-INSURED_ID = "XKE44027191"               # [A-Z]{3}\d{8}: account regex candidate, NO acct kw -> base 0
-GROUP_NO = "GRP-2261"                    # no detector shape (other)
-SAMUEL_NAME = "Samuel Okafor"            # spouse / alternate contact
+ROSALIND_MRN = "40018827"  # 'MRN: 40018827' -> mrn.labeled; barcode payload on H2
+ROSALIND_PATIENT_ID = "P40018827"  # 'Patient ID: P40018827' -> mrn.patientID
+ROSALIND_PATIENT_ACCT = (
+    "4471029"  # 7-digit patient account (acct kw +-5 -> fires; medical runs account)
+)
+INSURED_ID = "XKE44027191"  # [A-Z]{3}\d{8}: account regex candidate, NO acct kw -> base 0
+GROUP_NO = "GRP-2261"  # no detector shape (other)
+SAMUEL_NAME = "Samuel Okafor"  # spouse / alternate contact
 SAMUEL_PHONE = "(208) 555-0165"
-EZRA_NAME = "Ezra Okafor"                # dependent
+EZRA_NAME = "Ezra Okafor"  # dependent
 EZRA_DOB = "04/09/2015"
-AMARA_NAME = "Amara Okafor"              # dependent
+AMARA_NAME = "Amara Okafor"  # dependent
 AMARA_DOB = "12/30/2018"
-THORNE_NAME = "Imani Thorne"             # rendering / attending provider ('Dr.' prefix)
-THORNE_NPI = "1497734081"                # Luhn-80840 valid (type 1)
-THORNE_DEA = "CT4471328"                 # C practitioner + T(horne); checksum (4+7+3)+2(4+1+2)=28 -> 8
-CLINIC_NAME = "Sawtooth Family Medicine"                      # org
-CLINIC_NPI = "1865047728"                # Luhn-80840 valid (type 2, billing)
+THORNE_NAME = "Imani Thorne"  # rendering / attending provider ('Dr.' prefix)
+THORNE_NPI = "1497734081"  # Luhn-80840 valid (type 1)
+THORNE_DEA = "CT4471328"  # C practitioner + T(horne); checksum (4+7+3)+2(4+1+2)=28 -> 8
+CLINIC_NAME = "Sawtooth Family Medicine"  # org
+CLINIC_NPI = "1865047728"  # Luhn-80840 valid (type 2, billing)
 CLINIC_PHONE = "(208) 555-0170"
 ADDR_CLINIC = ("1450 Birch Street, Suite 2", "Nampa, ID 83686")
-NPI_LUHN_FAIL = "1497734082"             # THORNE_NPI with the check digit off by one -> Luhn-80840 fails
-DEA_CHECKSUM_FAIL = "CT4471329"          # THORNE_DEA with the check digit off by one -> checksum fails
-ICD_CODE = "E11.9"                       # diagnosis code: no PII shape (other); medical icd bonus
+NPI_LUHN_FAIL = "1497734082"  # THORNE_NPI with the check digit off by one -> Luhn-80840 fails
+DEA_CHECKSUM_FAIL = "CT4471329"  # THORNE_DEA with the check digit off by one -> checksum fails
+ICD_CODE = "E11.9"  # diagnosis code: no PII shape (other); medical icd bonus
 ICD_CODE_2 = "I10"
-CLAIM_CONTROL = "HCF-2026041"            # MRN institution shape, NO MRN positive kw within +-5 -> 0.55
-ACCESSION_NO = "LAB-4471902"             # MRN institution shape, keyword-starved -> 0.55 < 0.60
-SERVICE_DATE = "08/11/2026"              # bare date on .medical, no DOB label within +-80 chars
-EMPLOYER_C4 = "Treasure Valley Distribution Co."              # org (HR file)
-EMPLOYEE_ID = "EMP-0048213"              # MRN institution shape; MRN gated OFF on .financial -> MNF
-EMPLOYEE_NO = "48213"                    # 5 digits: below the account regex minimum (6) -> no candidate
-COST_CENTER = "4410"                     # no detector shape (other)
-HIRE_DATE = "03/16/2020"                 # bare date on .financial -> suppressed
-PLAN_CODE = "MED-HDHP-2"                 # no detector shape (other)
-PAY_PERIOD_END = "08/15/2026"            # bare date on .financial -> suppressed
-ROSALIND_RTN = "124007112"               # prefix 12 valid, ABA mod-10 valid, group-00 SSN-invalid
-ROSALIND_ACCT_DD = "640081127735"        # 12-digit direct-deposit account
-ROSALIND_ACCT_MASKED = "XXXXXX7735"      # masked -> invisible (watch)
-ADDR_MARCUS_LINE = "4415 Camas Lane, Boise, ID 83705"      # single-line surface of ADDR_MARCUS (K1 body, K2 testimony)
-UTILITY_PHONE = "(208) 555-0195"          # the utility's billing line (an org phone; fires as phone all the same)
+CLAIM_CONTROL = "HCF-2026041"  # MRN institution shape, NO MRN positive kw within +-5 -> 0.55
+ACCESSION_NO = "LAB-4471902"  # MRN institution shape, keyword-starved -> 0.55 < 0.60
+SERVICE_DATE = "08/11/2026"  # bare date on .medical, no DOB label within +-80 chars
+EMPLOYER_C4 = "Treasure Valley Distribution Co."  # org (HR file)
+EMPLOYEE_ID = "EMP-0048213"  # MRN institution shape; MRN gated OFF on .financial -> MNF
+EMPLOYEE_NO = "48213"  # 5 digits: below the account regex minimum (6) -> no candidate
+COST_CENTER = "4410"  # no detector shape (other)
+HIRE_DATE = "03/16/2020"  # bare date on .financial -> suppressed
+PLAN_CODE = "MED-HDHP-2"  # no detector shape (other)
+PAY_PERIOD_END = "08/15/2026"  # bare date on .financial -> suppressed
+ROSALIND_RTN = "124007112"  # prefix 12 valid, ABA mod-10 valid, group-00 SSN-invalid
+ROSALIND_ACCT_DD = "640081127735"  # 12-digit direct-deposit account
+ROSALIND_ACCT_MASKED = "XXXXXX7735"  # masked -> invisible (watch)
+ADDR_MARCUS_LINE = (
+    "4415 Camas Lane, Boise, ID 83705"  # single-line surface of ADDR_MARCUS (K1 body, K2 testimony)
+)
+UTILITY_PHONE = (
+    "(208) 555-0195"  # the utility's billing line (an org phone; fires as phone all the same)
+)

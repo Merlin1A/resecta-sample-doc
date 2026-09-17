@@ -41,9 +41,15 @@ SD_ROOT = Path(__file__).resolve().parent.parent
 GT_DIR = SD_ROOT / "search-ground-truth"
 
 TOGGLES = [
-    "caseSensitive", "wholeWord", "includeOCR", "normalizeUnicode",
-    "exactMatch", "stripDigitSeparators", "normalizeSmartPunctuation",
-    "foldDiacritics", "multiTermConjunction",
+    "caseSensitive",
+    "wholeWord",
+    "includeOCR",
+    "normalizeUnicode",
+    "exactMatch",
+    "stripDigitSeparators",
+    "normalizeSmartPunctuation",
+    "foldDiacritics",
+    "multiTermConjunction",
 ]
 
 # ---------------------------------------------------------------------------
@@ -52,12 +58,22 @@ TOGGLES = [
 # ---------------------------------------------------------------------------
 
 LIGATURES = {
-    "ﬃ": "ffi", "ﬄ": "ffl", "ﬀ": "ff",
-    "ﬁ": "fi", "ﬂ": "fl",
+    "ﬃ": "ffi",
+    "ﬄ": "ffl",
+    "ﬀ": "ff",
+    "ﬁ": "fi",
+    "ﬂ": "fl",
 }
 SMART_PUNCT = {
-    "“": '"', "”": '"', "‘": "'", "’": "'",
-    "–": "-", "—": "-", "‒": "-", "‑": "-", "­": "-",
+    "“": '"',
+    "”": '"',
+    "‘": "'",
+    "’": "'",
+    "–": "-",
+    "—": "-",
+    "‒": "-",
+    "‑": "-",
+    "­": "-",
 }
 SEPARATORS = set("- ./,")
 
@@ -90,8 +106,7 @@ def strip_separators(text: str) -> tuple[str, list[int]]:
 def fold_diacritics(text: str) -> tuple[str, list[int]]:
     out, omap = [], []
     for i, c in enumerate(text):
-        kept = [s for s in unicodedata.normalize("NFD", c)
-                if unicodedata.category(s) != "Mn"]
+        kept = [s for s in unicodedata.normalize("NFD", c) if unicodedata.category(s) != "Mn"]
         if not kept:
             continue
         piece = unicodedata.normalize("NFC", "".join(kept))
@@ -137,12 +152,16 @@ def literal_matches(page_text: str, query: str, opt: dict) -> list[tuple[int, in
     in the post-smart base space (== the searched space when no length-
     changing extension is active). Non-overlapping left-to-right, matching
     the engine's searchStart = matchRange.upperBound walk."""
-    npage = normalize_for_search(page_text, opt["caseSensitive"]) \
-        if opt["normalizeUnicode"] else (
-            page_text if opt["caseSensitive"] else page_text.lower())
-    nquery = normalize_for_search(query, opt["caseSensitive"]) \
-        if opt["normalizeUnicode"] else (
-            query if opt["caseSensitive"] else query.lower())
+    npage = (
+        normalize_for_search(page_text, opt["caseSensitive"])
+        if opt["normalizeUnicode"]
+        else (page_text if opt["caseSensitive"] else page_text.lower())
+    )
+    nquery = (
+        normalize_for_search(query, opt["caseSensitive"])
+        if opt["normalizeUnicode"]
+        else (query if opt["caseSensitive"] else query.lower())
+    )
     if not nquery:
         return []
     spage, squery, base, omap = apply_extensions(npage, nquery, opt)
@@ -214,8 +233,9 @@ def cell_counts(pages: list[str], row: dict, opt: dict):
         per_page = [multiterm_page_counts(t, row["terms"], opt) for t in pages]
         if opt["multiTermConjunction"]:
             distinct = set(row["terms"])
-            return [sum(c.values()) if all(c.get(t, 0) > 0 for t in distinct) else 0
-                    for c in per_page], None
+            return [
+                sum(c.values()) if all(c.get(t, 0) > 0 for t in distinct) else 0 for c in per_page
+            ], None
         return [sum(c.values()) for c in per_page], None
     raise ValueError(mode)
 
@@ -223,6 +243,7 @@ def cell_counts(pages: list[str], row: dict, opt: dict):
 # ---------------------------------------------------------------------------
 # Extraction
 # ---------------------------------------------------------------------------
+
 
 def extract_pymupdf(pdf: Path) -> list[str]:
     doc = pymupdf.open(pdf)
@@ -232,11 +253,17 @@ def extract_pymupdf(pdf: Path) -> list[str]:
 def extract_pdftotext(pdf: Path) -> list[str]:
     out = subprocess.run(
         ["pdftotext", "-raw", "-enc", "UTF-8", "-nopgbrk", str(pdf), "-"],
-        capture_output=True, text=True, check=True).stdout
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout
     # -nopgbrk drops the \f page breaks; re-run WITH breaks for page split.
     out = subprocess.run(
         ["pdftotext", "-raw", "-enc", "UTF-8", str(pdf), "-"],
-        capture_output=True, text=True, check=True).stdout
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout
     pages = out.split("\f")
     if pages and pages[-1] == "":
         pages.pop()
@@ -273,6 +300,7 @@ def iou(a, b) -> float:
 # Shared loading
 # ---------------------------------------------------------------------------
 
+
 def load_bank():
     bank = json.loads((GT_DIR / "search-queries.json").read_text())
     vectors = {v["id"]: v["options"] for v in bank["vectors"]}
@@ -304,6 +332,7 @@ def product_page_counts(cell: dict, page_count: int) -> list[int]:
 # ---------------------------------------------------------------------------
 # Phase: expect
 # ---------------------------------------------------------------------------
+
 
 def phase_expect(args):
     bank, vectors, queries = load_bank()
@@ -353,6 +382,7 @@ def phase_expect(args):
 # phase `ocr` against the product's own Vision text.)
 # ---------------------------------------------------------------------------
 
+
 def phase_diff(args):
     bank, vectors, queries = load_bank()
     doc_id = args.doc
@@ -378,32 +408,39 @@ def phase_diff(args):
             cls = "product_diverges"
         classes[cls] += 1
         if cls != "match_both":
-            divergent.append({
-                "qid": cell["qid"], "vector_id": cell["vector_id"], "class": cls,
-                "product": got,
-                "pymupdf": exp["counts"]["pymupdf"],
-                "pdftotext_raw": exp["counts"]["pdftotext_raw"],
-                "note": exp.get("note"),
-            })
+            divergent.append(
+                {
+                    "qid": cell["qid"],
+                    "vector_id": cell["vector_id"],
+                    "class": cls,
+                    "product": got,
+                    "pymupdf": exp["counts"]["pymupdf"],
+                    "pdftotext_raw": exp["counts"]["pdftotext_raw"],
+                    "note": exp.get("note"),
+                }
+            )
         # Geometry audit: single-token literal text queries, agreed cells.
         q = queries[cell["qid"]]
-        if (q["mode"] == "text" and cls == "match_both" and cell["hits"]
-                and " " not in q["query"]):
+        if q["mode"] == "text" and cls == "match_both" and cell["hits"] and " " not in q["query"]:
             ious = []
             for h in cell["hits"]:
                 page_words = boxes[h["page"]]
-                cand = [iou(h["rect"], wb) for w, wb in page_words
-                        if q["query"].lower() in w.lower()]
+                cand = [
+                    iou(h["rect"], wb) for w, wb in page_words if q["query"].lower() in w.lower()
+                ]
                 if cand:
                     ious.append(max(cand))
             if ious:
                 ious.sort()
-                iou_audit.append({
-                    "qid": cell["qid"], "vector_id": cell["vector_id"],
-                    "n": len(ious),
-                    "median_iou": round(ious[len(ious) // 2], 4),
-                    "min_iou": round(ious[0], 4),
-                })
+                iou_audit.append(
+                    {
+                        "qid": cell["qid"],
+                        "vector_id": cell["vector_id"],
+                        "n": len(ious),
+                        "median_iou": round(ious[len(ious) // 2], 4),
+                        "min_iou": round(ious[0], 4),
+                    }
+                )
     med = sorted(a["median_iou"] for a in iou_audit)
     out = {
         "schema_version": 1,
@@ -418,13 +455,13 @@ def phase_diff(args):
         },
     }
     dump(out, Path(args.out) / f"diff-{doc_id}.json")
-    print(f"[diff] {doc_id}: {dict(classes)}; "
-          f"{len(out['iou_audit']['below_0_7'])} iou<0.7 cells")
+    print(f"[diff] {doc_id}: {dict(classes)}; {len(out['iou_audit']['below_0_7'])} iou<0.7 cells")
 
 
 # ---------------------------------------------------------------------------
 # Phase: metamorphic
 # ---------------------------------------------------------------------------
+
 
 def hit_multiset(cell, key=lambda h: (h["page"], tuple(h["rect"]))):
     return Counter(key(h) for h in cell["hits"])
@@ -435,14 +472,21 @@ def phase_metamorphic(args):
     results = []
 
     def add(relation, doc, qid, va, vb, ok, detail=""):
-        results.append({
-            "relation": relation, "doc": doc, "qid": qid,
-            "vectors": [va, vb], "ok": ok, "detail": detail})
+        results.append(
+            {
+                "relation": relation,
+                "doc": doc,
+                "qid": qid,
+                "vectors": [va, vb],
+                "ok": ok,
+                "detail": detail,
+            }
+        )
 
     hamming = []
     vids = sorted(vectors)
     for i, a in enumerate(vids):
-        for b in vids[i + 1:]:
+        for b in vids[i + 1 :]:
             d = [t for t in TOGGLES if vectors[a][t] != vectors[b][t]]
             if len(d) == 1:
                 hamming.append((a, b, d[0]))
@@ -458,8 +502,15 @@ def phase_metamorphic(args):
                 ms_on, ms_off = hit_multiset(ca), hit_multiset(cb)
                 if t == "caseSensitive" and q["mode"] in ("text", "multiTerm"):
                     ok = all(ms_on[k] <= ms_off[k] for k in ms_on)
-                    add("ci-superset-of-cs", doc_id, qid, off, on, ok,
-                        "" if ok else "case-sensitive produced hits the insensitive run lacks")
+                    add(
+                        "ci-superset-of-cs",
+                        doc_id,
+                        qid,
+                        off,
+                        on,
+                        ok,
+                        "" if ok else "case-sensitive produced hits the insensitive run lacks",
+                    )
                 if t == "wholeWord":
                     ok = all(ms_on[k] <= ms_off[k] for k in ms_on)
                     add("wholeword-subset", doc_id, qid, off, on, ok)
@@ -473,19 +524,31 @@ def phase_metamorphic(args):
                     add("and-pages-subset-of-or", doc_id, qid, off, on, ok)
                 # Inert-toggle invariance claims.
                 inert = (
-                    (t == "multiTermConjunction" and q["mode"] in ("text", "regex")) or
-                    (q["mode"] == "regex" and t in (
-                        "caseSensitive", "exactMatch", "stripDigitSeparators",
-                        "foldDiacritics")) or
-                    (doc_id == "packet" and t == "includeOCR") or
-                    (doc_id == "packet" and t in ("normalizeUnicode", "foldDiacritics")
-                     and q["mode"] in ("text", "multiTerm")
-                     and q["family"] != "smartpunct-probe")
+                    (t == "multiTermConjunction" and q["mode"] in ("text", "regex"))
+                    or (
+                        q["mode"] == "regex"
+                        and t
+                        in ("caseSensitive", "exactMatch", "stripDigitSeparators", "foldDiacritics")
+                    )
+                    or (doc_id == "packet" and t == "includeOCR")
+                    or (
+                        doc_id == "packet"
+                        and t in ("normalizeUnicode", "foldDiacritics")
+                        and q["mode"] in ("text", "multiTerm")
+                        and q["family"] != "smartpunct-probe"
+                    )
                 )
                 if inert:
                     ok = ms_on == ms_off
-                    add(f"inert-{t}", doc_id, qid, off, on, ok,
-                        "" if ok else f"{sum(ms_on.values())} vs {sum(ms_off.values())} hits")
+                    add(
+                        f"inert-{t}",
+                        doc_id,
+                        qid,
+                        off,
+                        on,
+                        ok,
+                        "" if ok else f"{sum(ms_on.values())} vs {sum(ms_off.values())} hits",
+                    )
 
         # exactMatch == wholeWord equivalence on text/multiTerm.
         for qid, q in queries.items():
@@ -494,13 +557,23 @@ def phase_metamorphic(args):
             ce = cells[(qid, "v05-flip-exactMatch")]
             cw = cells[(qid, "v02-flip-wholeWord")]
             ok = hit_multiset(ce) == hit_multiset(cw)
-            add("exactmatch-equiv-wholeword", doc_id, qid,
-                "v05-flip-exactMatch", "v02-flip-wholeWord", ok)
+            add(
+                "exactmatch-equiv-wholeword",
+                doc_id,
+                qid,
+                "v05-flip-exactMatch",
+                "v02-flip-wholeWord",
+                ok,
+            )
 
         # Literal/regex twins on caseSensitive vectors without strip/fold.
-        twin_vecs = [v for v in vids if vectors[v]["caseSensitive"]
-                     and not vectors[v]["stripDigitSeparators"]
-                     and not vectors[v]["foldDiacritics"]]
+        twin_vecs = [
+            v
+            for v in vids
+            if vectors[v]["caseSensitive"]
+            and not vectors[v]["stripDigitSeparators"]
+            and not vectors[v]["foldDiacritics"]
+        ]
         for lit, rx in bank["metamorphic"]["literal_regex_twins"]:
             for v in twin_vecs:
                 cl, cr = cells[(lit, v)], cells[(rx, v)]
@@ -536,12 +609,13 @@ def phase_metamorphic(args):
         "by_relation": dict(by_rel),
         "failures": failures,
         "failed_by_relation": dict(fail_rel),
-        "failures_non_burst": [r for r in failures
-                               if not r.get("burst_drop_suspect")],
+        "failures_non_burst": [r for r in failures if not r.get("burst_drop_suspect")],
     }
     dump(out, Path(args.out) / "metamorphic.json")
-    print(f"[metamorphic] {len(results)} checks, {len(failures)} failures "
-          f"{dict(fail_rel) if failures else ''}")
+    print(
+        f"[metamorphic] {len(results)} checks, {len(failures)} failures "
+        f"{dict(fail_rel) if failures else ''}"
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -549,8 +623,7 @@ def phase_metamorphic(args):
 # ---------------------------------------------------------------------------
 
 # OCRTextNormalizer re-implementation (confusable correction, from spec).
-DIGIT_MAP = {"O": "0", "o": "0", "I": "1", "l": "1", "B": "8", "S": "5",
-             "Z": "2", "G": "6"}
+DIGIT_MAP = {"O": "0", "o": "0", "I": "1", "l": "1", "B": "8", "S": "5", "Z": "2", "G": "6"}
 LETTER_MAP = {"0": "O", "1": "I", "5": "S", "8": "B"}
 AMBIG_LETTERS = set("OoIlBSZG")
 AMBIG_DIGITS = set("0158")
@@ -611,11 +684,10 @@ def phase_ocr(args):
     hits_dir = Path(args.hits)
     run = load_run(hits_dir, doc_id)
     lines_file = json.loads(
-        (hits_dir / doc_id / f"ocr-lines-run-{run['run_index']}.json").read_text())
-    norm_lines = {p["page"]: [l["normalized"] for l in p["lines"]]
-                  for p in lines_file["pages"]}
-    raw_lines = {p["page"]: [l["text"] for l in p["lines"]]
-                 for p in lines_file["pages"]}
+        (hits_dir / doc_id / f"ocr-lines-run-{run['run_index']}.json").read_text()
+    )
+    norm_lines = {p["page"]: [l["normalized"] for l in p["lines"]] for p in lines_file["pages"]}
+    raw_lines = {p["page"]: [l["text"] for l in p["lines"]] for p in lines_file["pages"]}
     n_pages = run["page_count"]
 
     # Confusable-normalizer cross-check (spec reimpl vs product output).
@@ -626,8 +698,8 @@ def phase_ocr(args):
             theirs = norm_lines[page][i]
             if mine != theirs:
                 confusable_diffs.append(
-                    {"page": page, "line": i, "raw": raw,
-                     "product": theirs, "reimpl": mine})
+                    {"page": page, "line": i, "raw": raw, "product": theirs, "reimpl": mine}
+                )
 
     # Correctness-vs-OCR-text: re-derive expected per-page counts from the
     # product's own Vision lines under the documented OCR-leg semantics.
@@ -647,16 +719,17 @@ def phase_ocr(args):
             for page in range(n_pages):
                 lines = norm_lines.get(page, [])
                 if q["mode"] == "text":
-                    want[page] = sum(
-                        ocr_literal_line_hits(l, q["query"], opt) for l in lines)
+                    want[page] = sum(ocr_literal_line_hits(l, q["query"], opt) for l in lines)
                 elif q["mode"] == "multiTerm":
-                    per_term = {t: sum(ocr_literal_line_hits(l, t, opt)
-                                       for l in lines)
-                                for t in q["terms"]}
+                    per_term = {
+                        t: sum(ocr_literal_line_hits(l, t, opt) for l in lines) for t in q["terms"]
+                    }
                     if opt["multiTermConjunction"]:
-                        want[page] = (sum(per_term.values())
-                                      if all(per_term[t] > 0 for t in set(q["terms"]))
-                                      else 0)
+                        want[page] = (
+                            sum(per_term.values())
+                            if all(per_term[t] > 0 for t in set(q["terms"]))
+                            else 0
+                        )
                     else:
                         want[page] = sum(per_term.values())
                 else:  # regex: joined lines, NEVER NFKC, page-side smart punct
@@ -669,8 +742,7 @@ def phase_ocr(args):
                         for m in rx.finditer(text):
                             if m.start() == m.end():
                                 continue
-                            if opt["wholeWord"] and not whole_word_ok(
-                                    text, m.start(), m.end()):
+                            if opt["wholeWord"] and not whole_word_ok(text, m.start(), m.end()):
                                 continue
                             n += 1
                         want[page] = n
@@ -679,15 +751,23 @@ def phase_ocr(args):
         if None in want:
             continue
         if cell["qid"] in safety_rejected:
-            rejected_cells.append({
-                "qid": cell["qid"], "vector_id": cell["vector_id"],
-                "product_zero": sum(got) == 0,
-            })
+            rejected_cells.append(
+                {
+                    "qid": cell["qid"],
+                    "vector_id": cell["vector_id"],
+                    "product_zero": sum(got) == 0,
+                }
+            )
             continue
-        cell_results.append({
-            "qid": cell["qid"], "vector_id": cell["vector_id"],
-            "match": got == want, "product": got, "reimpl": want,
-        })
+        cell_results.append(
+            {
+                "qid": cell["qid"],
+                "vector_id": cell["vector_id"],
+                "match": got == want,
+                "product": got,
+                "reimpl": want,
+            }
+        )
     matched = sum(1 for c in cell_results if c["match"])
     mismatches = [c for c in cell_results if not c["match"]]
 
@@ -704,13 +784,16 @@ def phase_ocr(args):
         found_pages = {h["page"] for h in scan_cells[(qid, "v00-default")]["hits"]}
         if not truth_pages:
             continue
-        findability.append({
-            "qid": qid, "query": q["query"],
-            "truth_pages": sorted(truth_pages),
-            "found_pages": sorted(found_pages),
-            "found_frac": round(len(truth_pages & found_pages) / len(truth_pages), 4),
-            "spurious_pages": sorted(found_pages - truth_pages),
-        })
+        findability.append(
+            {
+                "qid": qid,
+                "query": q["query"],
+                "truth_pages": sorted(truth_pages),
+                "found_pages": sorted(found_pages),
+                "found_frac": round(len(truth_pages & found_pages) / len(truth_pages), 4),
+                "spurious_pages": sorted(found_pages - truth_pages),
+            }
+        )
     fracs = sorted(f["found_frac"] for f in findability)
     out = {
         "schema_version": 1,
@@ -736,14 +819,17 @@ def phase_ocr(args):
         },
     }
     dump(out, Path(args.out) / f"ocr-report-{doc_id}.json")
-    print(f"[ocr] correctness {matched}/{len(cell_results)}; "
-          f"findability mean {out['findability_vs_packet_text']['mean_found_frac']}; "
-          f"confusable diffs {len(confusable_diffs)}")
+    print(
+        f"[ocr] correctness {matched}/{len(cell_results)}; "
+        f"findability mean {out['findability_vs_packet_text']['mean_found_frac']}; "
+        f"confusable diffs {len(confusable_diffs)}"
+    )
 
 
 # ---------------------------------------------------------------------------
 # Phase: freeze
 # ---------------------------------------------------------------------------
+
 
 def phase_freeze(args):
     bank, vectors, queries = load_bank()
@@ -751,8 +837,9 @@ def phase_freeze(args):
     run = load_run(Path(args.hits), doc_id)
     run2 = load_run(Path(args.hits), doc_id, run=2)
     cells2 = {(c["qid"], c["vector_id"]): c for c in run2["cells"]}
-    adjudication = json.loads(Path(args.adjudication).read_text()) \
-        if args.adjudication else {"rows": []}
+    adjudication = (
+        json.loads(Path(args.adjudication).read_text()) if args.adjudication else {"rows": []}
+    )
     adj_by_key = {}
     for row in adjudication["rows"]:
         if row.get("doc") in (doc_id, "*"):
@@ -768,8 +855,7 @@ def phase_freeze(args):
     unadjudicated_nondet = []
     for cell in run["cells"]:
         key = f"{cell['qid']}|{cell['vector_id']}"
-        adj = adj_by_key.get((cell["qid"], cell["vector_id"])) \
-            or adj_by_key.get((cell["qid"], "*"))
+        adj = adj_by_key.get((cell["qid"], cell["vector_id"])) or adj_by_key.get((cell["qid"], "*"))
         source_note = None
         c2 = cells2.get((cell["qid"], cell["vector_id"]))
         # Cross-run reconciliation. Text leg: a run difference is legal only
@@ -786,15 +872,19 @@ def phase_freeze(args):
             elif not adj:
                 unadjudicated_nondet.append(key)
         expected_hits = [
-            {"page": h["page"], "start": h.get("start"), "end": h.get("end"),
-             "text": h["text"], "bbox": h["rect"]}
+            {
+                "page": h["page"],
+                "start": h.get("start"),
+                "end": h.get("end"),
+                "text": h["text"],
+                "bbox": h["rect"],
+            }
             for h in cell["hits"]
         ]
         entry = {
             "expected_n": len(expected_hits),
             "hits": expected_hits,
-            "source": source_note or (
-                "regenerated-ocr" if ocr_leg else "adjudicated-product"),
+            "source": source_note or ("regenerated-ocr" if ocr_leg else "adjudicated-product"),
         }
         if adj:
             entry["adjudication"] = {
@@ -806,8 +896,10 @@ def phase_freeze(args):
                     entry["adjudication"][k] = adj[k]
         cells_out[key] = entry
     if unadjudicated_nondet:
-        sys.exit(f"[freeze] REFUSED: non-burst cross-run differences need "
-                 f"adjudication: {unadjudicated_nondet}")
+        sys.exit(
+            f"[freeze] REFUSED: non-burst cross-run differences need "
+            f"adjudication: {unadjudicated_nondet}"
+        )
     out = {
         "schema_version": 1,
         "generated_by": "search_oracle.py freeze",
@@ -821,20 +913,22 @@ def phase_freeze(args):
         "cells": cells_out,
     }
     dump(out, GT_DIR / f"{doc_id}.search-gt.json")
-    print(f"[freeze] {doc_id}: {len(cells_out)} cells frozen "
-          f"({'OCR-regenerated' if ocr_leg else 'adjudicated text leg'}; "
-          f"{len(adj_by_key)} adjudication rows; "
-          f"{len(burst_max_cells)} burst-max cells)")
+    print(
+        f"[freeze] {doc_id}: {len(cells_out)} cells frozen "
+        f"({'OCR-regenerated' if ocr_leg else 'adjudicated text leg'}; "
+        f"{len(adj_by_key)} adjudication rows; "
+        f"{len(burst_max_cells)} burst-max cells)"
+    )
 
 
 # ---------------------------------------------------------------------------
 # Phase: score  (M12-13)
 # ---------------------------------------------------------------------------
 
+
 def phase_score(args):
     bank, vectors, queries = load_bank()
-    rows = defaultdict(lambda: {"tp": 0, "fp": 0, "fn": 0, "cells": 0,
-                                "exact_cells": 0})
+    rows = defaultdict(lambda: {"tp": 0, "fp": 0, "fn": 0, "cells": 0, "exact_cells": 0})
     for doc_id in args.docs.split(","):
         gt = json.loads((GT_DIR / f"{doc_id}.search-gt.json").read_text())
         run = load_run(Path(args.hits), doc_id, run=int(args.run))
@@ -856,12 +950,20 @@ def phase_score(args):
     for (leg, mode, vid), r in sorted(rows.items()):
         p = r["tp"] / (r["tp"] + r["fp"]) if r["tp"] + r["fp"] else 1.0
         rec = r["tp"] / (r["tp"] + r["fn"]) if r["tp"] + r["fn"] else 1.0
-        table.append({
-            "leg": leg, "mode": mode, "vector_id": vid,
-            "tp": r["tp"], "fp": r["fp"], "fn": r["fn"],
-            "precision": round(p, 6), "recall": round(rec, 6),
-            "cells": r["cells"], "exact_cells": r["exact_cells"],
-        })
+        table.append(
+            {
+                "leg": leg,
+                "mode": mode,
+                "vector_id": vid,
+                "tp": r["tp"],
+                "fp": r["fp"],
+                "fn": r["fn"],
+                "precision": round(p, 6),
+                "recall": round(rec, 6),
+                "cells": r["cells"],
+                "exact_cells": r["exact_cells"],
+            }
+        )
     out = {
         "schema_version": 1,
         "generated_by": "search_oracle.py score",
@@ -870,11 +972,11 @@ def phase_score(args):
     }
     dump(out, Path(args.out) / "score.json")
     imperfect = [t for t in table if t["precision"] < 1 or t["recall"] < 1]
-    print(f"[score] {len(table)} (leg,mode,vector) rows; "
-          f"{len(imperfect)} below 1.0")
+    print(f"[score] {len(table)} (leg,mode,vector) rows; {len(imperfect)} below 1.0")
 
 
 # ---------------------------------------------------------------------------
+
 
 def main():
     ap = argparse.ArgumentParser(description=__doc__)
@@ -901,8 +1003,11 @@ def main():
     p.add_argument("--doc", required=True)
     p.add_argument("--hits", required=True)
     p.add_argument("--out", required=True)
-    p.add_argument("--safety-rejected", default=None,
-                   help="comma qids the product safety-rejects (graded as product-zero rows)")
+    p.add_argument(
+        "--safety-rejected",
+        default=None,
+        help="comma qids the product safety-rejects (graded as product-zero rows)",
+    )
     p.set_defaults(fn=phase_ocr)
 
     p = sub.add_parser("freeze")

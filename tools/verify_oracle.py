@@ -56,6 +56,7 @@ Usage:
 Runs with the sd worktree venv (pymupdf + numpy + cv2 present); external tools per the D12-20
 inventory (qpdf, mutool, poppler, tesseract, exiftool). Every run records tool versions.
 """
+
 from __future__ import annotations
 
 import argparse
@@ -70,15 +71,22 @@ from pathlib import Path
 from xml.etree import ElementTree
 
 SCHEMA_VERSION = 1
-FILL_MAX_DEV = 13          # ≈5% of 255 — JPEG-artifact allowance inside a solid fill
-NEAR_BLACK = 60            # component threshold for the placement mask
+FILL_MAX_DEV = 13  # ≈5% of 255 — JPEG-artifact allowance inside a solid fill
+NEAR_BLACK = 60  # component threshold for the placement mask
 ERODE_PX = 2
-FUZZY_MAX = 0.15           # normalized Levenshtein ceiling for OCR fuzzy matches
-IN_REGION_COVERAGE = 0.5   # fraction of a hit box inside a region to count as in-region
+FUZZY_MAX = 0.15  # normalized Levenshtein ceiling for OCR fuzzy matches
+IN_REGION_COVERAGE = 0.5  # fraction of a hit box inside a region to count as in-region
 
 STRUCTURE_KEYS = [
-    "/JavaScript", "/OpenAction", "/AA", "/EmbeddedFiles", "/AcroForm",
-    "/Metadata", "/Thumb", "/Outlines", "/OCProperties",
+    "/JavaScript",
+    "/OpenAction",
+    "/AA",
+    "/EmbeddedFiles",
+    "/AcroForm",
+    "/Metadata",
+    "/Thumb",
+    "/Outlines",
+    "/OCProperties",
 ]
 BENIGN_INFO = {"format", "encryption", "producer", "creationDate", "modDate", "creator"}
 
@@ -86,7 +94,11 @@ BENIGN_INFO = {"format", "encryption", "producer", "creationDate", "modDate", "c
 def run(cmd: list[str], timeout: int = 300) -> tuple[int, str, str]:
     try:
         p = subprocess.run(cmd, capture_output=True, timeout=timeout)
-        return p.returncode, p.stdout.decode("utf-8", "replace"), p.stderr.decode("utf-8", "replace")
+        return (
+            p.returncode,
+            p.stdout.decode("utf-8", "replace"),
+            p.stderr.decode("utf-8", "replace"),
+        )
     except FileNotFoundError:
         return 127, "", f"not found: {cmd[0]}"
     except subprocess.TimeoutExpired:
@@ -124,7 +136,7 @@ def levenshtein(a: str, b: str) -> int:
 
 def trigrams(s: str) -> set[str]:
     t = fold_nospace(s)
-    return {t[i:i + 3] for i in range(len(t) - 2)} if len(t) >= 3 else {t} if t else set()
+    return {t[i : i + 3] for i in range(len(t) - 2)} if len(t) >= 3 else {t} if t else set()
 
 
 def fuzzy_find(term: str, text: str) -> bool:
@@ -141,7 +153,7 @@ def fuzzy_find(term: str, text: str) -> bool:
     k = max(1, len(ft.split()))
     for width in (k, k + 1):
         for i in range(0, max(0, len(words) - width) + 1):
-            window = " ".join(words[i:i + width])
+            window = " ".join(words[i : i + width])
             if abs(len(window) - len(ft)) > max(2, int(len(ft) * 0.4)):
                 continue
             if levenshtein(window, ft) / max(len(ft), len(window)) <= FUZZY_MAX:
@@ -151,10 +163,12 @@ def fuzzy_find(term: str, text: str) -> bool:
 
 def sh256(path: Path) -> str:
     import hashlib
+
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
 # ---------------------------------------------------------------- geometry
+
 
 def region_to_px(rect: list[float], page_w_px: int, page_h_px: int) -> tuple[int, int, int, int]:
     """Normalized bottom-left [x,y,w,h] -> raster (left, top, right, bottom) px."""
@@ -166,14 +180,17 @@ def region_to_px(rect: list[float], page_w_px: int, page_h_px: int) -> tuple[int
     return left, top, right, bottom
 
 
-def region_to_pt(rect: list[float], page_w: float, page_h: float) -> tuple[float, float, float, float]:
+def region_to_pt(
+    rect: list[float], page_w: float, page_h: float
+) -> tuple[float, float, float, float]:
     """Normalized bottom-left [x,y,w,h] -> top-left-origin points (l, t, r, b)."""
     x, y, w, h = rect
     return x * page_w, (1.0 - y - h) * page_h, (x + w) * page_w, (1.0 - y) * page_h
 
 
-def box_coverage(box: tuple[float, float, float, float],
-                 region: tuple[float, float, float, float]) -> float:
+def box_coverage(
+    box: tuple[float, float, float, float], region: tuple[float, float, float, float]
+) -> float:
     l = max(box[0], region[0])
     t = max(box[1], region[1])
     r = min(box[2], region[2])
@@ -185,6 +202,7 @@ def box_coverage(box: tuple[float, float, float, float],
 
 
 # ---------------------------------------------------------------- cell model
+
 
 class Cell:
     def __init__(self, cell_dir: Path):
@@ -218,6 +236,7 @@ def discover_cells(cells_dir: Path) -> list[Cell]:
 
 # ---------------------------------------------------------------- term scope
 
+
 def compute_term_scope(cell: Cell, docs_root: Path | None) -> dict[str, str]:
     """unique | ambient per term (module docstring rules)."""
     scope: dict[str, str] = {}
@@ -249,8 +268,10 @@ def compute_term_scope(cell: Cell, docs_root: Path | None) -> dict[str, str]:
                 src = docs_root / row["path"]
                 if src.exists():
                     source_text = fold(
-                        run_bytes(["pdftotext", "-raw", "-enc", "UTF-8", "-nopgbrk",
-                                   str(src), "-"]).decode("utf-8", "replace"))
+                        run_bytes(
+                            ["pdftotext", "-raw", "-enc", "UTF-8", "-nopgbrk", str(src), "-"]
+                        ).decode("utf-8", "replace")
+                    )
                 break
 
     ambient_folded = {fold(v) for v in ambient_values}
@@ -265,6 +286,7 @@ def compute_term_scope(cell: Cell, docs_root: Path | None) -> dict[str, str]:
 
 
 # ---------------------------------------------------------------- O0 / O4
+
 
 def walk_json_keys(node: object, found: set[str]) -> None:
     if isinstance(node, dict):
@@ -300,6 +322,7 @@ def o0_structure(cell: Cell, workdir: Path) -> dict:
         acroform_has_v = bool(re.search(rb"/V\s*[(<\[/]", qdf_bytes))
 
     import pymupdf
+
     info_extra: dict[str, str] = {}
     annots_pages: list[int] = []
     try:
@@ -317,7 +340,8 @@ def o0_structure(cell: Cell, workdir: Path) -> dict:
     return {
         "qpdf_check_ok": rc_check == 0,
         "qpdf_check_tail": (out_check + err_check).strip().splitlines()[-1:]
-        if (out_check or err_check) else [],
+        if (out_check or err_check)
+        else [],
         "revisions": revisions,
         "structure_keys_json": sorted(json_keys),
         "structure_keys_bytes": sorted(byte_keys),
@@ -351,7 +375,10 @@ def o4_census(cell: Cell) -> dict:
 
 # ---------------------------------------------------------------- O1
 
-def stext_pages(output: Path) -> list[tuple[float, float, list[tuple[str, tuple[float, float, float, float]]]]]:
+
+def stext_pages(
+    output: Path,
+) -> list[tuple[float, float, list[tuple[str, tuple[float, float, float, float]]]]]:
     """Per page: (width, height, [(char, (l,t,r,b))...]) from mutool stext."""
     xml = run_bytes(["mutool", "draw", "-q", "-F", "stext", "-o", "-", str(output)])
     pages = []
@@ -382,14 +409,17 @@ def stext_pages(output: Path) -> list[tuple[float, float, list[tuple[str, tuple[
 
 def o1_text_layer(cell: Cell, scope: dict[str, str]) -> tuple[list[dict], dict]:
     hits: list[dict] = []
-    pdftotext_layout = run_bytes(["pdftotext", "-layout", "-enc", "UTF-8", "-nopgbrk",
-                                  str(cell.output), "-"]).decode("utf-8", "replace")
-    pdftotext_raw = run_bytes(["pdftotext", "-raw", "-enc", "UTF-8", "-nopgbrk",
-                               str(cell.output), "-"]).decode("utf-8", "replace")
+    pdftotext_layout = run_bytes(
+        ["pdftotext", "-layout", "-enc", "UTF-8", "-nopgbrk", str(cell.output), "-"]
+    ).decode("utf-8", "replace")
+    pdftotext_raw = run_bytes(
+        ["pdftotext", "-raw", "-enc", "UTF-8", "-nopgbrk", str(cell.output), "-"]
+    ).decode("utf-8", "replace")
     pages = stext_pages(cell.output)
     burned = cell.burned_by_page()
 
     import pymupdf
+
     rawdict_flags: dict[int, dict[str, int]] = {}
     rawdict_text: dict[int, str] = {}
     try:
@@ -437,37 +467,42 @@ def o1_text_layer(cell: Cell, scope: dict[str, str]) -> tuple[list[dict], dict]:
             joined = "".join(fold_nospace(c) for c, _ in flat)
             start = joined.find(needle)
             while start != -1:
-                seg = flat[start:start + len(needle)]
+                seg = flat[start : start + len(needle)]
                 if seg:
                     l = min(b[0] for _, b in seg)
                     t = min(b[1] for _, b in seg)
                     r = max(b[2] for _, b in seg)
                     bt = max(b[3] for _, b in seg)
                     in_region = any(
-                        box_coverage((l, t, r, bt), region_to_pt(reg, w, h))
-                        >= IN_REGION_COVERAGE
-                        for reg in burned.get(pageno, []))
+                        box_coverage((l, t, r, bt), region_to_pt(reg, w, h)) >= IN_REGION_COVERAGE
+                        for reg in burned.get(pageno, [])
+                    )
                     localized.append({"page": pageno, "in_region": in_region})
                 start = joined.find(needle, start + 1)
         if found_in or localized:
             in_region_hits = [x for x in localized if x["in_region"]]
-            is_leak = bool(in_region_hits) or (scope.get(term) == "unique"
-                                               and (found_in or localized))
-            hits.append({
-                "surface": "text_layer",
-                "term": term,
-                "scope": scope.get(term, "unique"),
-                "extractors": found_in,
-                "localized": localized,
-                "leak": is_leak,
-                "detail": "in-region text-layer content" if in_region_hits
-                else "term present in output text layer",
-            })
+            is_leak = bool(in_region_hits) or (
+                scope.get(term) == "unique" and (found_in or localized)
+            )
+            hits.append(
+                {
+                    "surface": "text_layer",
+                    "term": term,
+                    "scope": scope.get(term, "unique"),
+                    "extractors": found_in,
+                    "localized": localized,
+                    "leak": is_leak,
+                    "detail": "in-region text-layer content"
+                    if in_region_hits
+                    else "term present in output text layer",
+                }
+            )
     diag = {"rawdict_char_flags": rawdict_flags}
     return hits, diag
 
 
 # ---------------------------------------------------------------- O2
+
 
 def octal_escape(term: str) -> bytes:
     return "".join(f"\\{ord(c):03o}" for c in term).encode()
@@ -482,8 +517,7 @@ def tj_reassembled(qdf_bytes: bytes) -> str:
     text_parts: list[str] = []
     for m in re.finditer(rb"\(((?:[^()\\]|\\.)*)\)", qdf_bytes):
         raw = m.group(1)
-        raw = re.sub(rb"\\([0-7]{1,3})",
-                     lambda g: bytes([int(g.group(1), 8) & 0xFF]), raw)
+        raw = re.sub(rb"\\([0-7]{1,3})", lambda g: bytes([int(g.group(1), 8) & 0xFF]), raw)
         raw = raw.replace(b"\\(", b"(").replace(b"\\)", b")").replace(b"\\\\", b"\\")
         text_parts.append(raw.decode("latin-1", "replace"))
     return "".join(text_parts)
@@ -504,39 +538,47 @@ def o2_bytes(cell: Cell, o0: dict, scope: dict[str, str], workdir: Path) -> list
             slice_path = workdir / f"rev{i}.pdf"
             slice_path.write_bytes(raw[:off])
             rev_qdf = workdir / f"rev{i}-qdf.pdf"
-            rc, _, _ = run(["qpdf", "--qdf", "--object-streams=disable",
-                            str(slice_path), str(rev_qdf)])
-            corpora[f"revision-{i}"] = (rev_qdf.read_bytes() if rc == 0 and rev_qdf.exists()
-                                        else raw[:off])
-    tj_texts = {name: fold_nospace(tj_reassembled(data))
-                for name, data in corpora.items() if name != "raw"}
+            rc, _, _ = run(
+                ["qpdf", "--qdf", "--object-streams=disable", str(slice_path), str(rev_qdf)]
+            )
+            corpora[f"revision-{i}"] = (
+                rev_qdf.read_bytes() if rc == 0 and rev_qdf.exists() else raw[:off]
+            )
+    tj_texts = {
+        name: fold_nospace(tj_reassembled(data)) for name, data in corpora.items() if name != "raw"
+    }
 
     for term in cell.terms:
         found: list[str] = []
         variants = {term, term.upper(), term.lower()}
         for name, data in corpora.items():
             for v in variants:
-                if (v.encode("utf-8") in data
-                        or v.encode("utf-16-be") in data
-                        or (b"\xfe\xff" + v.encode("utf-16-be")) in data
-                        or hex_string(v) in data or hex_string(v).upper() in data
-                        or octal_escape(v) in data):
+                if (
+                    v.encode("utf-8") in data
+                    or v.encode("utf-16-be") in data
+                    or (b"\xfe\xff" + v.encode("utf-16-be")) in data
+                    or hex_string(v) in data
+                    or hex_string(v).upper() in data
+                    or octal_escape(v) in data
+                ):
                     found.append(name)
                     break
         for name, text in tj_texts.items():
             if fold_nospace(term) and fold_nospace(term) in text:
                 found.append(f"{name}-tj")
         if found:
-            hits.append({
-                "surface": "decompressed_bytes",
-                "term": term,
-                "scope": scope.get(term, "unique"),
-                "corpora": sorted(set(found)),
-                # Byte legs have no geometry: ambient terms legitimately
-                # remain in the bytes; only unique terms are leak evidence.
-                "leak": scope.get(term) == "unique",
-                "detail": "term recoverable from output bytes",
-            })
+            hits.append(
+                {
+                    "surface": "decompressed_bytes",
+                    "term": term,
+                    "scope": scope.get(term, "unique"),
+                    "corpora": sorted(set(found)),
+                    # Byte legs have no geometry: ambient terms legitimately
+                    # remain in the bytes; only unique terms are leak evidence.
+                    "leak": scope.get(term) == "unique",
+                    "detail": "term recoverable from output bytes",
+                }
+            )
 
     # EXIF via extracted images (JPEG passthrough keeps APP1).
     imgdir = workdir / "imgs"
@@ -553,29 +595,35 @@ def o2_bytes(cell: Cell, o0: dict, scope: dict[str, str], workdir: Path) -> list
             for meta in metas:
                 gps = {k: v for k, v in meta.items() if k.startswith("GPS")}
                 if gps:
-                    hits.append({
-                        "surface": "image",
-                        "term": None,
-                        "scope": "unique",
-                        "leak": True,
-                        "detail": f"GPS EXIF survives in extracted image "
-                                  f"{Path(meta.get('SourceFile', '?')).name}: "
-                                  f"{sorted(gps)[:4]}",
-                    })
-                term_hits = [t for t in cell.terms
-                             if any(fold(t) in fold(str(v)) for v in meta.values())]
+                    hits.append(
+                        {
+                            "surface": "image",
+                            "term": None,
+                            "scope": "unique",
+                            "leak": True,
+                            "detail": f"GPS EXIF survives in extracted image "
+                            f"{Path(meta.get('SourceFile', '?')).name}: "
+                            f"{sorted(gps)[:4]}",
+                        }
+                    )
+                term_hits = [
+                    t for t in cell.terms if any(fold(t) in fold(str(v)) for v in meta.values())
+                ]
                 for t in term_hits:
-                    hits.append({
-                        "surface": "image",
-                        "term": t,
-                        "scope": scope.get(t, "unique"),
-                        "leak": scope.get(t) == "unique",
-                        "detail": "term in extracted-image metadata",
-                    })
+                    hits.append(
+                        {
+                            "surface": "image",
+                            "term": t,
+                            "scope": scope.get(t, "unique"),
+                            "leak": scope.get(t) == "unique",
+                            "detail": "term in extracted-image metadata",
+                        }
+                    )
     return hits
 
 
 # ---------------------------------------------------------------- O3
+
 
 def o3_tesseract(cell: Cell, render_dir: Path) -> dict:
     """Per page: union text over PSM 6/11/12 + PSM-6 TSV word boxes."""
@@ -587,20 +635,47 @@ def o3_tesseract(cell: Cell, render_dir: Path) -> dict:
         pageno = int(m.group(1)) - 1
         texts = []
         for psm in ("6", "11", "12"):
-            _, out, _ = run(["tesseract", str(png), "stdout", "--oem", "1",
-                             "--psm", psm, "-c", "preserve_interword_spaces=1"],
-                            timeout=600)
+            _, out, _ = run(
+                [
+                    "tesseract",
+                    str(png),
+                    "stdout",
+                    "--oem",
+                    "1",
+                    "--psm",
+                    psm,
+                    "-c",
+                    "preserve_interword_spaces=1",
+                ],
+                timeout=600,
+            )
             texts.append(out)
-        _, tsv, _ = run(["tesseract", str(png), "stdout", "--oem", "1",
-                         "--psm", "6", "-c", "preserve_interword_spaces=1", "tsv"],
-                        timeout=600)
+        _, tsv, _ = run(
+            [
+                "tesseract",
+                str(png),
+                "stdout",
+                "--oem",
+                "1",
+                "--psm",
+                "6",
+                "-c",
+                "preserve_interword_spaces=1",
+                "tsv",
+            ],
+            timeout=600,
+        )
         words: list[tuple[str, tuple[float, float, float, float]]] = []
         for line in tsv.splitlines()[1:]:
             cols = line.split("\t")
             if len(cols) >= 12 and cols[11].strip():
                 try:
-                    left, top, w, h = (float(cols[6]), float(cols[7]),
-                                       float(cols[8]), float(cols[9]))
+                    left, top, w, h = (
+                        float(cols[6]),
+                        float(cols[7]),
+                        float(cols[8]),
+                        float(cols[9]),
+                    )
                 except ValueError:
                     continue
                 words.append((cols[11], (left, top, left + w, top + h)))
@@ -608,9 +683,12 @@ def o3_tesseract(cell: Cell, render_dir: Path) -> dict:
     return pages
 
 
-def ocr_hits_for_engine(cell: Cell, page_texts: dict[int, str],
-                        page_words: dict[int, list[tuple[str, tuple[float, float, float, float]]]],
-                        px_dims: dict[int, tuple[int, int]]) -> dict[str, list[dict]]:
+def ocr_hits_for_engine(
+    cell: Cell,
+    page_texts: dict[int, str],
+    page_words: dict[int, list[tuple[str, tuple[float, float, float, float]]]],
+    px_dims: dict[int, tuple[int, int]],
+) -> dict[str, list[dict]]:
     burned = cell.burned_by_page()
     out: dict[str, list[dict]] = {}
     for term in cell.terms:
@@ -624,18 +702,22 @@ def ocr_hits_for_engine(cell: Cell, page_texts: dict[int, str],
             if words and dims:
                 k = max(1, len(fold(term).split()))
                 for i in range(0, max(0, len(words) - k) + 1):
-                    seg = words[i:i + k]
+                    seg = words[i : i + k]
                     window = " ".join(w for w, _ in seg)
-                    if levenshtein(fold(window), fold(term)) / max(
-                            len(fold(term)), len(fold(window)), 1) <= FUZZY_MAX:
+                    if (
+                        levenshtein(fold(window), fold(term))
+                        / max(len(fold(term)), len(fold(window)), 1)
+                        <= FUZZY_MAX
+                    ):
                         l = min(b[0] for _, b in seg)
                         t = min(b[1] for _, b in seg)
                         r = max(b[2] for _, b in seg)
                         bt = max(b[3] for _, b in seg)
                         for reg in burned.get(pageno, []):
-                            if box_coverage((l, t, r, bt),
-                                            region_to_px(reg, dims[0], dims[1])) \
-                                    >= IN_REGION_COVERAGE:
+                            if (
+                                box_coverage((l, t, r, bt), region_to_px(reg, dims[0], dims[1]))
+                                >= IN_REGION_COVERAGE
+                            ):
                                 in_region = True
                                 break
                     if in_region:
@@ -648,15 +730,23 @@ def ocr_hits_for_engine(cell: Cell, page_texts: dict[int, str],
 
 # ---------------------------------------------------------------- O5
 
+
 def o5_pixels(cell: Cell, render_dir: Path, workdir: Path) -> dict:
     import cv2
     import numpy as np
+
     result = {"regions": 0, "fill_fail": [], "iou": [], "max_dev_pp": 0, "max_dev_mu": 0}
     burned = cell.burned_by_page()
-    pp = {int(re.search(r"pp-0*(\d+)", p.name).group(1)) - 1: p
-          for p in render_dir.glob("pp-*.png") if re.search(r"pp-0*(\d+)", p.name)}
-    mu = {int(re.search(r"mu-0*(\d+)", p.name).group(1)) - 1: p
-          for p in render_dir.glob("mu-*.png") if re.search(r"mu-0*(\d+)", p.name)}
+    pp = {
+        int(re.search(r"pp-0*(\d+)", p.name).group(1)) - 1: p
+        for p in render_dir.glob("pp-*.png")
+        if re.search(r"pp-0*(\d+)", p.name)
+    }
+    mu = {
+        int(re.search(r"mu-0*(\d+)", p.name).group(1)) - 1: p
+        for p in render_dir.glob("mu-*.png")
+        if re.search(r"mu-0*(\d+)", p.name)
+    }
     for pageno, regions in burned.items():
         img_pp = cv2.imread(str(pp[pageno]), cv2.IMREAD_GRAYSCALE) if pageno in pp else None
         img_mu = cv2.imread(str(mu[pageno]), cv2.IMREAD_GRAYSCALE) if pageno in mu else None
@@ -676,7 +766,7 @@ def o5_pixels(cell: Cell, render_dir: Path, workdir: Path) -> dict:
                 ri, bi = r - ERODE_PX, b - ERODE_PX
                 if ri - li < 2 or bi - ti < 2:
                     continue
-                crop = img[max(0, ti):max(0, bi), max(0, li):max(0, ri)]
+                crop = img[max(0, ti) : max(0, bi), max(0, li) : max(0, ri)]
                 if crop.size == 0:
                     continue
                 dev = int(crop.max())  # deviation from black fill = the value itself
@@ -684,10 +774,15 @@ def o5_pixels(cell: Cell, render_dir: Path, workdir: Path) -> dict:
                 if dev > FILL_MAX_DEV:
                     crop_path = workdir / f"fillfail-p{pageno}-r{idx}-{tag}.png"
                     cv2.imwrite(str(crop_path), crop)
-                    result["fill_fail"].append({
-                        "page": pageno, "region_index": idx, "renderer": tag,
-                        "max_dev": dev, "crop": crop_path.name,
-                    })
+                    result["fill_fail"].append(
+                        {
+                            "page": pageno,
+                            "region_index": idx,
+                            "renderer": tag,
+                            "max_dev": dev,
+                            "crop": crop_path.name,
+                        }
+                    )
             # Placement IoU on the pdftoppm render.
             l, t, r, b = region_to_px(reg, w_pp, h_pp)
             l, t = max(0, l), max(0, t)
@@ -705,14 +800,18 @@ def o5_pixels(cell: Cell, render_dir: Path, workdir: Path) -> dict:
             cb = ct + int(stats[comp, cv2.CC_STAT_HEIGHT])
             inter = max(0, min(r, cr) - max(l, cl)) * max(0, min(b, cb) - max(t, ct))
             union = (r - l) * (b - t) + (cr - cl) * (cb - ct) - inter
-            result["iou"].append({
-                "page": pageno, "region_index": idx,
-                "iou": round(inter / union, 4) if union else 0.0,
-            })
+            result["iou"].append(
+                {
+                    "page": pageno,
+                    "region_index": idx,
+                    "iou": round(inter / union, 4) if union else 0.0,
+                }
+            )
     return result
 
 
 # ---------------------------------------------------------------- O6
+
 
 def utf7(term: str) -> bytes:
     try:
@@ -738,29 +837,33 @@ def o6_adversarial(cell: Cell, scope: dict[str, str]) -> list[dict]:
         # utf-8 presence duplicates O1/O2 literal searches; keep the exotic ones.
         exotic = [f for f in found if f not in ("utf-8",)]
         if exotic:
-            hits.append({
-                "surface": "decompressed_bytes",
-                "term": term,
-                "scope": scope.get(term, "unique"),
-                "encodings": exotic,
-                "leak": scope.get(term) == "unique",
-                "detail": "adversarial-encoding byte probe hit",
-            })
+            hits.append(
+                {
+                    "surface": "decompressed_bytes",
+                    "term": term,
+                    "scope": scope.get(term, "unique"),
+                    "encodings": exotic,
+                    "leak": scope.get(term) == "unique",
+                    "detail": "adversarial-encoding byte probe hit",
+                }
+            )
     return hits
 
 
 # ---------------------------------------------------------------- versions
 
+
 def tool_versions() -> dict[str, str]:
     import pymupdf
+
     vs: dict[str, str] = {"python": sys.version.split()[0], "pymupdf": pymupdf.__version__}
     for name, cmd, use_err in (
-            ("pdftotext", ["pdftotext", "-v"], True),
-            ("pdftoppm", ["pdftoppm", "-v"], True),
-            ("qpdf", ["qpdf", "--version"], False),
-            ("mutool", ["mutool", "-v"], True),
-            ("tesseract", ["tesseract", "--version"], True),
-            ("exiftool", ["exiftool", "-ver"], False),
+        ("pdftotext", ["pdftotext", "-v"], True),
+        ("pdftoppm", ["pdftoppm", "-v"], True),
+        ("qpdf", ["qpdf", "--version"], False),
+        ("mutool", ["mutool", "-v"], True),
+        ("tesseract", ["tesseract", "--version"], True),
+        ("exiftool", ["exiftool", "-ver"], False),
     ):
         _, out, err = run(cmd, timeout=30)
         line = (err if use_err else out).strip().splitlines()
@@ -769,6 +872,7 @@ def tool_versions() -> dict[str, str]:
 
 
 # ---------------------------------------------------------------- phases
+
 
 def phase_scan(cells_dir: Path, docs_root: Path | None, dpi: int) -> None:
     cells = discover_cells(cells_dir)
@@ -784,11 +888,24 @@ def phase_scan(cells_dir: Path, docs_root: Path | None, dpi: int) -> None:
         render = cell.dir / "render"
         render.mkdir(exist_ok=True)
         if not list(render.glob("pp-*.png")):
-            run(["pdftoppm", "-r", str(dpi), "-gray", "-png",
-                 str(cell.output), str(render / "pp")], timeout=900)
+            run(
+                ["pdftoppm", "-r", str(dpi), "-gray", "-png", str(cell.output), str(render / "pp")],
+                timeout=900,
+            )
         if not list(render.glob("mu-*.png")):
-            run(["mutool", "draw", "-q", "-r", "300", "-o",
-                 str(render / "mu-%d.png"), str(cell.output)], timeout=900)
+            run(
+                [
+                    "mutool",
+                    "draw",
+                    "-q",
+                    "-r",
+                    "300",
+                    "-o",
+                    str(render / "mu-%d.png"),
+                    str(cell.output),
+                ],
+                timeout=900,
+            )
         for png in sorted(render.glob("pp-*.png")):
             link = vision_in / f"{cell.key}__{png.name}"
             if not link.exists():
@@ -800,10 +917,12 @@ def phase_scan(cells_dir: Path, docs_root: Path | None, dpi: int) -> None:
         o2_hits = o2_bytes(cell, o0, scope, workdir)
         tess = o3_tesseract(cell, render)
         import pymupdf
+
         # px dims for OCR localization (tesseract ran on the pdftoppm renders)
         px_dims: dict[int, tuple[int, int]] = {}
         try:
             import cv2
+
             for png in render.glob("pp-*.png"):
                 m = re.search(r"pp-0*(\d+)", png.name)
                 if m:
@@ -813,8 +932,11 @@ def phase_scan(cells_dir: Path, docs_root: Path | None, dpi: int) -> None:
         except Exception:  # noqa: BLE001
             pass
         tess_hits = ocr_hits_for_engine(
-            cell, {p: d["text"] for p, d in tess.items()},
-            {p: d["words"] for p, d in tess.items()}, px_dims)
+            cell,
+            {p: d["text"] for p, d in tess.items()},
+            {p: d["words"] for p, d in tess.items()},
+            px_dims,
+        )
         o4 = o4_census(cell)
         o5 = o5_pixels(cell, render, workdir)
         o6_hits = o6_adversarial(cell, scope)
@@ -835,8 +957,7 @@ def phase_scan(cells_dir: Path, docs_root: Path | None, dpi: int) -> None:
             "versions": versions,
             "dpi": dpi,
         }
-        (cell.dir / "oracle-partial.json").write_text(
-            json.dumps(partial, indent=1, sort_keys=True))
+        (cell.dir / "oracle-partial.json").write_text(json.dumps(partial, indent=1, sort_keys=True))
         print(f"[oracle] scanned {cell.key}")
     print(
         "[oracle] scan done. Run the Vision leg from the iOS worktree "
@@ -849,7 +970,10 @@ def phase_scan(cells_dir: Path, docs_root: Path | None, dpi: int) -> None:
 
 
 TERM_PRESENCE_LAYERS = {
-    "Text Extraction", "OCR Check", "Binary String Search", "Operator Re-Extraction",
+    "Text Extraction",
+    "OCR Check",
+    "Binary String Search",
+    "Operator Re-Extraction",
 }
 TERM_SURFACES = ("text_layer", "decompressed_bytes", "ocr")
 
@@ -872,8 +996,9 @@ def classify(cell: Cell, leak_hits: list[dict], review: list[dict]) -> tuple[str
                 attributed = layer["name"]
                 break
     term_presence = leaked or any(
-        r.get("surface") in TERM_SURFACES and r.get("term") for r in review)
-    corroborated = (term_presence if attributed in TERM_PRESENCE_LAYERS else leaked)
+        r.get("surface") in TERM_SURFACES and r.get("term") for r in review
+    )
+    corroborated = term_presence if attributed in TERM_PRESENCE_LAYERS else leaked
     if overall in ("pass", "info", "warn"):
         cls = "false_pass" if leaked else "true_pass"
     elif overall == "attention":
@@ -919,8 +1044,7 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
                 w_px, h_px = dims
                 for l in rep.get("lines", []):
                     bx, by, bw, bh = l["bbox"]  # normalized bottom-left
-                    box = (bx * w_px, (1 - by - bh) * h_px,
-                           (bx + bw) * w_px, (1 - by) * h_px)
+                    box = (bx * w_px, (1 - by - bh) * h_px, (bx + bw) * w_px, (1 - by) * h_px)
                     words.append((l["text"], box))
             vision_words[pageno] = words
         vision_hits = ocr_hits_for_engine(cell, vision_texts, vision_words, px_dims)
@@ -938,25 +1062,31 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
                 in_region = t_pages[pageno]["in_region"] or v_pages[pageno]["in_region"]
                 is_leak = in_region  # out-of-region OCR falls to review (docstring)
                 entry = {
-                    "surface": "ocr", "term": term, "page": pageno,
+                    "surface": "ocr",
+                    "term": term,
+                    "page": pageno,
                     "scope": scope.get(term, "unique"),
                     "engines": ["tesseract", "vision"],
-                    "in_region": in_region, "leak": is_leak,
+                    "in_region": in_region,
+                    "leak": is_leak,
                     "detail": "OCR quorum recovery"
-                              + (" inside a burned region" if in_region else
-                                 " outside every burned region"),
+                    + (" inside a burned region" if in_region else " outside every burned region"),
                 }
                 (ocr_leaks if is_leak else review).append(entry)
             for pageno in single_pages:
                 src = "tesseract" if pageno in t_pages else "vision"
-                review.append({
-                    "surface": "ocr", "term": term, "page": pageno,
-                    "scope": scope.get(term, "unique"), "engines": [src],
-                    "leak": False,
-                    "detail": f"single-engine OCR sighting ({src})"
-                              + ("" if vision_present else
-                                 "; Vision leg absent — quorum unreachable"),
-                })
+                review.append(
+                    {
+                        "surface": "ocr",
+                        "term": term,
+                        "page": pageno,
+                        "scope": scope.get(term, "unique"),
+                        "engines": [src],
+                        "leak": False,
+                        "detail": f"single-engine OCR sighting ({src})"
+                        + ("" if vision_present else "; Vision leg absent — quorum unreachable"),
+                    }
+                )
 
         # Structure hits (content-bearing keys only).
         o0 = partial["o0"]
@@ -964,43 +1094,75 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
         content_keys = set(o0["structure_keys_json"])
         for key in sorted(content_keys):
             if key == "/AcroForm" and not o0["acroform_has_v"]:
-                review.append({"surface": "structure", "key": key, "leak": False,
-                               "detail": "AcroForm present without field values"})
+                review.append(
+                    {
+                        "surface": "structure",
+                        "key": key,
+                        "leak": False,
+                        "detail": "AcroForm present without field values",
+                    }
+                )
                 continue
-            structure_hits.append({
-                "surface": "structure", "key": key, "leak": True,
-                "detail": f"content-bearing key {key} survives in the output",
-            })
+            structure_hits.append(
+                {
+                    "surface": "structure",
+                    "key": key,
+                    "leak": True,
+                    "detail": f"content-bearing key {key} survives in the output",
+                }
+            )
         byte_only = sorted(set(o0["structure_keys_bytes"]) - content_keys)
         for key in byte_only:
-            review.append({"surface": "structure", "key": key, "leak": False,
-                           "detail": "key token in bytes but not in the qpdf object tree"})
+            review.append(
+                {
+                    "surface": "structure",
+                    "key": key,
+                    "leak": False,
+                    "detail": "key token in bytes but not in the qpdf object tree",
+                }
+            )
         if o0["revisions"] > 1:
-            structure_hits.append({
-                "surface": "structure", "key": "revisions", "leak": True,
-                "detail": f"output carries {o0['revisions']} %%EOF revisions",
-            })
+            structure_hits.append(
+                {
+                    "surface": "structure",
+                    "key": "revisions",
+                    "leak": True,
+                    "detail": f"output carries {o0['revisions']} %%EOF revisions",
+                }
+            )
         if o0["info_extra_keys"]:
             vals = " ".join(str(v) for v in o0["info_extra_keys"].values())
             term_hit = any(fold(t) in fold(vals) for t in cell.terms)
-            structure_hits.append({
-                "surface": "structure", "key": "/Info", "leak": True,
-                "detail": "non-benign Info keys "
-                          f"{sorted(o0['info_extra_keys'])}"
-                          + (" INCLUDING a sensitive term" if term_hit else ""),
-            })
+            structure_hits.append(
+                {
+                    "surface": "structure",
+                    "key": "/Info",
+                    "leak": True,
+                    "detail": "non-benign Info keys "
+                    f"{sorted(o0['info_extra_keys'])}"
+                    + (" INCLUDING a sensitive term" if term_hit else ""),
+                }
+            )
         if o0["annots_pages"]:
-            structure_hits.append({
-                "surface": "structure", "key": "/Annots", "leak": True,
-                "detail": f"annotations survive on pages {o0['annots_pages']}",
-            })
+            structure_hits.append(
+                {
+                    "surface": "structure",
+                    "key": "/Annots",
+                    "leak": True,
+                    "detail": f"annotations survive on pages {o0['annots_pages']}",
+                }
+            )
 
-        pixel_hits = [{
-            "surface": "pixel", "leak": True,
-            "detail": f"fill deviation {f['max_dev']} > {FILL_MAX_DEV} "
-                      f"({f['renderer']}) page {f['page']} region {f['region_index']}",
-            **f,
-        } for f in partial["o5"]["fill_fail"]]
+        pixel_hits = [
+            {
+                "surface": "pixel",
+                "leak": True,
+                "detail": f"fill deviation {f['max_dev']} > {FILL_MAX_DEV} "
+                f"({f['renderer']}) page {f['page']} region {f['region_index']}",
+                **f,
+            }
+            for f in partial["o5"]["fill_fail"]
+        ]
 
         text_leaks = [h for h in partial["o1_hits"] if h["leak"]]
         text_review = [h for h in partial["o1_hits"] if not h["leak"]]
@@ -1009,8 +1171,7 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
         image_leaks = [h for h in byte_leaks if h["surface"] == "image"]
         byte_leaks = [h for h in byte_leaks if h["surface"] != "image"]
 
-        leak_hits = (text_leaks + byte_leaks + image_leaks + ocr_leaks
-                     + structure_hits + pixel_hits)
+        leak_hits = text_leaks + byte_leaks + image_leaks + ocr_leaks + structure_hits + pixel_hits
         review += text_review + byte_review
         cls, attributed = classify(cell, leak_hits, review)
 
@@ -1049,23 +1210,26 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
             for p in work.glob("*"):
                 if p.name.startswith(("qdf", "mu-clean", "rev")) or p.is_dir():
                     shutil.rmtree(p, ignore_errors=True) if p.is_dir() else p.unlink()
-        print(f"[oracle] {cell.key}: {cls}"
-              + (f" (attributed: {attributed})" if attributed else ""))
+        print(
+            f"[oracle] {cell.key}: {cls}" + (f" (attributed: {attributed})" if attributed else "")
+        )
 
     # ------- summary (feeds M12-07..10) -------
     by_class: dict[str, int] = {}
     false_fail_by_layer: dict[str, int] = {}
     false_pass_cells: list[str] = []
-    surface_recovery: dict[str, set] = {s: set() for s in (
-        "text_layer", "decompressed_bytes", "ocr", "image", "structure")}
+    surface_recovery: dict[str, set] = {
+        s: set() for s in ("text_layer", "decompressed_bytes", "ocr", "image", "structure")
+    }
     burned_items = 0
     ious_all: list[float] = []
     fill_fail_total = 0
     for cell, oracle in zip(cells, summary_cells, strict=False):
         by_class[oracle["classification"]] = by_class.get(oracle["classification"], 0) + 1
         if oracle["classification"] == "false_fail":
-            false_fail_by_layer[oracle["attributed_layer"] or "?"] = \
+            false_fail_by_layer[oracle["attributed_layer"] or "?"] = (
                 false_fail_by_layer.get(oracle["attributed_layer"] or "?", 0) + 1
+            )
         if oracle["classification"] == "false_pass":
             false_pass_cells.append(oracle["cell"])
         valued = {r["gt_id"] for r in cell.burned if r.get("value") and r.get("gt_id")}
@@ -1092,8 +1256,11 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
         "false_pass_cells": false_pass_cells,
         "false_fail_by_attributed_layer": false_fail_by_layer,
         "residual_leak_by_surface": {
-            s: {"recovered_items": len(v), "burned_items_total": burned_items,
-                "rate": round(len(v) / burned_items, 6) if burned_items else None}
+            s: {
+                "recovered_items": len(v),
+                "burned_items_total": burned_items,
+                "rate": round(len(v) / burned_items, 6) if burned_items else None,
+            }
             for s, v in surface_recovery.items()
         },
         "placement_iou": {
@@ -1106,16 +1273,28 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
         "review_flag_cells": {
             o["cell"]: len(o["review_flags"]) for o in summary_cells if o["review_flags"]
         },
-        "vision_leg_present_everywhere": all(
-            o["vision_leg_present"] for o in summary_cells) if summary_cells else False,
+        "vision_leg_present_everywhere": all(o["vision_leg_present"] for o in summary_cells)
+        if summary_cells
+        else False,
     }
-    (cells_dir / "oracle-summary.json").write_text(
-        json.dumps(summary, indent=1, sort_keys=True))
-    print(f"[oracle] finalize done: {len(summary_cells)} cells -> "
-          f"{cells_dir / 'oracle-summary.json'}")
-    print(json.dumps({k: summary[k] for k in (
-        "classification_counts", "false_fail_by_attributed_layer",
-        "fill_fail_regions", "placement_iou")}, indent=1))
+    (cells_dir / "oracle-summary.json").write_text(json.dumps(summary, indent=1, sort_keys=True))
+    print(
+        f"[oracle] finalize done: {len(summary_cells)} cells -> {cells_dir / 'oracle-summary.json'}"
+    )
+    print(
+        json.dumps(
+            {
+                k: summary[k]
+                for k in (
+                    "classification_counts",
+                    "false_fail_by_attributed_layer",
+                    "fill_fail_regions",
+                    "placement_iou",
+                )
+            },
+            indent=1,
+        )
+    )
 
 
 # ---------------------------------------------------------------- calibration (T2.2, M12-12)
@@ -1189,8 +1368,10 @@ def phase_calibrate(planted_dir: Path, out: Path, dpi: int) -> None:
         render = cell.dir / "render"
         render.mkdir(exist_ok=True)
         if not list(render.glob("pp-*.png")):
-            run(["pdftoppm", "-r", str(dpi), "-gray", "-png",
-                 str(cell.output), str(render / "pp")], timeout=900)
+            run(
+                ["pdftoppm", "-r", str(dpi), "-gray", "-png", str(cell.output), str(render / "pp")],
+                timeout=900,
+            )
         for png in sorted(render.glob("pp-*.png")):
             link = vision_in / f"{cell.key}__{png.name}"
             if not link.exists():
@@ -1203,6 +1384,7 @@ def phase_calibrate(planted_dir: Path, out: Path, dpi: int) -> None:
         px_dims: dict[int, tuple[int, int]] = {}
         try:
             import cv2
+
             for png in render.glob("pp-*.png"):
                 m = re.search(r"pp-0*(\d+)", png.name)
                 if m:
@@ -1212,8 +1394,11 @@ def phase_calibrate(planted_dir: Path, out: Path, dpi: int) -> None:
         except Exception:  # noqa: BLE001
             pass
         tess_hits = ocr_hits_for_engine(
-            cell, {p: d["text"] for p, d in tess.items()},
-            {p: d["words"] for p, d in tess.items()}, px_dims)
+            cell,
+            {p: d["text"] for p, d in tess.items()},
+            {p: d["words"] for p, d in tess.items()},
+            px_dims,
+        )
         o4 = o4_census(cell)
         o6_hits = o6_adversarial(cell, scope)
         partial = {
@@ -1231,7 +1416,8 @@ def phase_calibrate(planted_dir: Path, out: Path, dpi: int) -> None:
             "dpi": dpi,
         }
         (cell.dir / "calibrate-partial.json").write_text(
-            json.dumps(partial, indent=1, sort_keys=True))
+            json.dumps(partial, indent=1, sort_keys=True)
+        )
         print(f"[calibrate] scanned {cell.key}")
     print(
         "[calibrate] scan done. Run the Vision leg, then calibrate-finalize:\n"
@@ -1252,8 +1438,9 @@ def _structure_signal_fired(surface: str, o0: dict) -> bool:
     if sig == "annots":
         return bool(o0["annots_pages"])
     if sig == "/AcroForm":
-        return ("/AcroForm" in set(o0["structure_keys_json"]) | set(o0["structure_keys_bytes"])) \
-            and o0["acroform_has_v"]
+        return (
+            "/AcroForm" in set(o0["structure_keys_json"]) | set(o0["structure_keys_bytes"])
+        ) and o0["acroform_has_v"]
     return sig in set(o0["structure_keys_json"]) | set(o0["structure_keys_bytes"])
 
 
@@ -1280,17 +1467,24 @@ def phase_calibrate_finalize(planted_dir: Path, out: Path) -> None:
                     continue
                 pageno = int(m.group(1)) - 1
                 rep = json.loads(vp.read_text())
-                vision_texts[pageno] = "\n".join(
-                    l["text"] for l in rep.get("lines", []))
+                vision_texts[pageno] = "\n".join(l["text"] for l in rep.get("lines", []))
                 words = []
                 dims = px_dims.get(pageno)
                 if dims:
                     w_px, h_px = dims
                     for l in rep.get("lines", []):
                         bx, by, bw, bh = l["bbox"]
-                        words.append((l["text"],
-                                      (bx * w_px, (1 - by - bh) * h_px,
-                                       (bx + bw) * w_px, (1 - by) * h_px)))
+                        words.append(
+                            (
+                                l["text"],
+                                (
+                                    bx * w_px,
+                                    (1 - by - bh) * h_px,
+                                    (bx + bw) * w_px,
+                                    (1 - by) * h_px,
+                                ),
+                            )
+                        )
                 vision_words[pageno] = words
         vision_hits = ocr_hits_for_engine(cell, vision_texts, vision_words, px_dims)
         tess_hits = partial["o3_tesseract_hits"]
@@ -1330,20 +1524,23 @@ def phase_calibrate_finalize(planted_dir: Path, out: Path) -> None:
                     or (e == "o2" and any(l.startswith("o2") for l in legs))
                     or (e == "o3" and any(l.startswith("o3") for l in legs))
                     or (e == "o6" and "o6" in legs)
-                    for e in plant["expected_legs"])
-                plant_results.append({
-                    "fixture": cell.key,
-                    "surface": surface,
-                    "hidden_class": plant.get("hidden_class"),
-                    "term": term,
-                    "expected_legs": plant["expected_legs"],
-                    "legs_found": legs,
-                    "structure_signal_fired": structure_fired,
-                    "term_recovered": term_recovered,
-                    "found": found,
-                    "found_by_expected_leg": expected_found,
-                    "vision_leg_present": vp,
-                })
+                    for e in plant["expected_legs"]
+                )
+                plant_results.append(
+                    {
+                        "fixture": cell.key,
+                        "surface": surface,
+                        "hidden_class": plant.get("hidden_class"),
+                        "term": term,
+                        "expected_legs": plant["expected_legs"],
+                        "legs_found": legs,
+                        "structure_signal_fired": structure_fired,
+                        "term_recovered": term_recovered,
+                        "found": found,
+                        "found_by_expected_leg": expected_found,
+                        "vision_leg_present": vp,
+                    }
+                )
         else:
             spurious_terms = []
             for t in cell.terms:
@@ -1352,20 +1549,25 @@ def phase_calibrate_finalize(planted_dir: Path, out: Path) -> None:
                     spurious_terms.append({"term": t, "legs": legs})
             o0 = partial["o0"]
             content_keys = sorted(set(o0["structure_keys_json"]))
-            clean_results.append({
-                "fixture": cell.key,
-                "spurious_term_hits": spurious_terms,
-                "content_structure_keys": content_keys,
-                "info_extra_keys": sorted(o0["info_extra_keys"]),
-                "revisions": o0["revisions"],
-                "false_fail": bool(spurious_terms) or bool(content_keys)
-                or o0["revisions"] > 1 or bool(o0["info_extra_keys"]),
-            })
+            clean_results.append(
+                {
+                    "fixture": cell.key,
+                    "spurious_term_hits": spurious_terms,
+                    "content_structure_keys": content_keys,
+                    "info_extra_keys": sorted(o0["info_extra_keys"]),
+                    "revisions": o0["revisions"],
+                    "false_fail": bool(spurious_terms)
+                    or bool(content_keys)
+                    or o0["revisions"] > 1
+                    or bool(o0["info_extra_keys"]),
+                }
+            )
 
     by_surface: dict[str, dict] = {}
     for r in plant_results:
-        d = by_surface.setdefault(r["surface"], {"n": 0, "found": 0, "expected": 0,
-                                                 "term_recovered": 0})
+        d = by_surface.setdefault(
+            r["surface"], {"n": 0, "found": 0, "expected": 0, "term_recovered": 0}
+        )
         d["n"] += 1
         d["found"] += int(r["found"])
         d["expected"] += int(r["found_by_expected_leg"])
@@ -1385,29 +1587,37 @@ def phase_calibrate_finalize(planted_dir: Path, out: Path) -> None:
         "plants": len(plant_results),
         "plants_found_any": sum(r["found"] for r in plant_results),
         "recall_by_surface": {
-            s: {"n": d["n"], "found_any": d["found"],
+            s: {
+                "n": d["n"],
+                "found_any": d["found"],
                 "found_by_expected_leg": d["expected"],
                 "term_recovered": d["term_recovered"],
-                "recall": round(d["found"] / d["n"], 4) if d["n"] else None}
-            for s, d in sorted(by_surface.items())},
+                "recall": round(d["found"] / d["n"], 4) if d["n"] else None,
+            }
+            for s, d in sorted(by_surface.items())
+        },
         "leg_matrix": {s: dict(sorted(v.items())) for s, v in sorted(leg_matrix.items())},
         "misses": misses,
         "clean_docs": len(clean_results),
         "clean_false_fails": sum(r["false_fail"] for r in clean_results),
         "clean_detail": clean_results,
         "skipped_stretch_rows": manifest.get("skipped", []),
-        "vision_leg_present_everywhere": all(
-            r["vision_leg_present"] for r in plant_results) if plant_results else False,
+        "vision_leg_present_everywhere": all(r["vision_leg_present"] for r in plant_results)
+        if plant_results
+        else False,
     }
     (out / "calibration-summary.json").write_text(
-        json.dumps({"plant_results": plant_results, **summary}, indent=1, sort_keys=False))
-    print(f"[calibrate] {summary['plants_found_any']}/{summary['plants']} plants found; "
-          f"clean false-FAILs {summary['clean_false_fails']}/{summary['clean_docs']}")
-    print(json.dumps({k: summary[k] for k in ("recall_by_surface", "clean_false_fails")},
-                     indent=1))
+        json.dumps({"plant_results": plant_results, **summary}, indent=1, sort_keys=False)
+    )
+    print(
+        f"[calibrate] {summary['plants_found_any']}/{summary['plants']} plants found; "
+        f"clean false-FAILs {summary['clean_false_fails']}/{summary['clean_docs']}"
+    )
+    print(json.dumps({k: summary[k] for k in ("recall_by_surface", "clean_false_fails")}, indent=1))
 
 
 # ---------------------------------------------------------------- PB-86 (M12-11)
+
 
 def phase_pb86(cells_dir: Path) -> None:
     plants_path = cells_dir / "pb86-plants.json"
@@ -1427,10 +1637,12 @@ def phase_pb86(cells_dir: Path) -> None:
         fn = fold_nospace(term)
         text_legs: list[str] = []
         for name, cmd in (
-                ("pdftotext-layout", ["pdftotext", "-layout", "-enc", "UTF-8",
-                                      "-nopgbrk", str(output), "-"]),
-                ("pdftotext-raw", ["pdftotext", "-raw", "-enc", "UTF-8",
-                                   "-nopgbrk", str(output), "-"])):
+            (
+                "pdftotext-layout",
+                ["pdftotext", "-layout", "-enc", "UTF-8", "-nopgbrk", str(output), "-"],
+            ),
+            ("pdftotext-raw", ["pdftotext", "-raw", "-enc", "UTF-8", "-nopgbrk", str(output), "-"]),
+        ):
             if ft in fold(run_bytes(cmd).decode("utf-8", "replace")):
                 text_legs.append(name)
         stext = "".join(c for _w, _h, chars in stext_pages(output) for c, _b in chars)
@@ -1438,6 +1650,7 @@ def phase_pb86(cells_dir: Path) -> None:
             text_legs.append("mutool-stext")
         try:
             import pymupdf
+
             doc = pymupdf.open(output)
             rd = "".join(pg.get_text() for pg in doc)
             doc.close()
@@ -1453,25 +1666,36 @@ def phase_pb86(cells_dir: Path) -> None:
             run(["qpdf", "--qdf", "--object-streams=disable", str(output), str(qdf_file)])
             qdf_cache[key] = qdf_file.read_bytes() if qdf_file.exists() else b""
         qdf = qdf_cache[key]
-        byte_hit = (term.encode() in qdf or hex_string(term) in qdf
-                    or hex_string(term).upper() in qdf or octal_escape(term) in qdf
-                    or fn in fold_nospace(tj_reassembled(qdf)))
+        byte_hit = (
+            term.encode() in qdf
+            or hex_string(term) in qdf
+            or hex_string(term).upper() in qdf
+            or octal_escape(term) in qdf
+            or fn in fold_nospace(tj_reassembled(qdf))
+        )
         cell_meta = {}
         cj = cell_dir / "cell.json"
         if cj.exists():
             c = json.loads(cj.read_text())
-            cell_meta = {"per_page_modes": c.get("per_page_modes"),
-                         "verdict": (c.get("overall_per_sweep") or [None])[0]}
-        results.append({**row, "status": "measured",
-                        "text_layer_legs": text_legs,
-                        "re_exposed_text_layer": bool(text_legs),
-                        "bytes_hit": bool(byte_hit), **cell_meta})
+            cell_meta = {
+                "per_page_modes": c.get("per_page_modes"),
+                "verdict": (c.get("overall_per_sweep") or [None])[0],
+            }
+        results.append(
+            {
+                **row,
+                "status": "measured",
+                "text_layer_legs": text_legs,
+                "re_exposed_text_layer": bool(text_legs),
+                "bytes_hit": bool(byte_hit),
+                **cell_meta,
+            }
+        )
 
     def rate(rows: list[dict]) -> dict:
         n = len(rows)
         re_exp = sum(r["re_exposed_text_layer"] for r in rows)
-        return {"n": n, "re_exposed": re_exp,
-                "rate": round(re_exp / n, 4) if n else None}
+        return {"n": n, "re_exposed": re_exp, "rate": round(re_exp / n, 4) if n else None}
 
     classes = sorted({r["hidden_class"] for r in results})
     summary = {
@@ -1481,15 +1705,28 @@ def phase_pb86(cells_dir: Path) -> None:
         "missing_cells": [r["cell"] for r in results if r["status"] == "cell-missing"],
         "re_exposure_by_class": {
             cls: {
-                "uncovered": rate([r for r in results if r["hidden_class"] == cls
-                                   and not r["covered"] and r["status"] == "measured"]),
-                "covered_residual": rate([r for r in results if r["hidden_class"] == cls
-                                          and r["covered"] and r["status"] == "measured"]),
-            } for cls in classes},
+                "uncovered": rate(
+                    [
+                        r
+                        for r in results
+                        if r["hidden_class"] == cls
+                        and not r["covered"]
+                        and r["status"] == "measured"
+                    ]
+                ),
+                "covered_residual": rate(
+                    [
+                        r
+                        for r in results
+                        if r["hidden_class"] == cls and r["covered"] and r["status"] == "measured"
+                    ]
+                ),
+            }
+            for cls in classes
+        },
         "rows": results,
     }
-    (cells_dir / "pb86-summary.json").write_text(
-        json.dumps(summary, indent=1, sort_keys=False))
+    (cells_dir / "pb86-summary.json").write_text(json.dumps(summary, indent=1, sort_keys=False))
     print(json.dumps(summary["re_exposure_by_class"], indent=1))
     print(f"[pb86] {summary['measured']} plant-cells -> {cells_dir / 'pb86-summary.json'}")
 

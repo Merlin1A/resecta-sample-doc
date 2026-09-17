@@ -84,11 +84,11 @@ def pairs_of(bits: tuple):
 SEMANTIC_DUALS = [
     ("caseSensitive", "wholeWord"),
     ("exactMatch", "wholeWord"),
-    ("foldDiacritics", "stripDigitSeparators"),   # composed offset maps
-    ("wholeWord", "stripDigitSeparators"),        # boundary check in base coords
+    ("foldDiacritics", "stripDigitSeparators"),  # composed offset maps
+    ("wholeWord", "stripDigitSeparators"),  # boundary check in base coords
     ("normalizeUnicode", "normalizeSmartPunctuation"),  # q24 interaction
     ("caseSensitive", "normalizeUnicode"),
-    ("includeOCR", "stripDigitSeparators"),       # OCR-leg extension path
+    ("includeOCR", "stripDigitSeparators"),  # OCR-leg extension path
     ("wholeWord", "normalizeSmartPunctuation"),
 ]
 
@@ -182,29 +182,45 @@ def build_pairwise_vectors() -> list[dict]:
 # case-sensitive raw-text count, verified at build time. None = not checked.
 # ---------------------------------------------------------------------------
 
+
 def build_queries() -> list[dict]:
     q = []
 
     def text(qid, query, family, notes, occ=None):
-        q.append({
-            "qid": qid, "mode": "text", "query": query,
-            "family": family, "notes": notes,
-            "expect_packet_occurrences": occ,
-        })
+        q.append(
+            {
+                "qid": qid,
+                "mode": "text",
+                "query": query,
+                "family": family,
+                "notes": notes,
+                "expect_packet_occurrences": occ,
+            }
+        )
 
     def regex(qid, pattern, family, notes):
-        q.append({
-            "qid": qid, "mode": "regex", "pattern": pattern,
-            "family": family, "notes": notes,
-            "expect_packet_occurrences": None,
-        })
+        q.append(
+            {
+                "qid": qid,
+                "mode": "regex",
+                "pattern": pattern,
+                "family": family,
+                "notes": notes,
+                "expect_packet_occurrences": None,
+            }
+        )
 
     def multi(qid, terms, family, notes):
-        q.append({
-            "qid": qid, "mode": "multiTerm", "terms": terms,
-            "family": family, "notes": notes,
-            "expect_packet_occurrences": None,
-        })
+        q.append(
+            {
+                "qid": qid,
+                "mode": "multiTerm",
+                "terms": terms,
+                "family": family,
+                "notes": notes,
+                "expect_packet_occurrences": None,
+            }
+        )
 
     # --- literal text: names -------------------------------------------------
     text("q01", "Hartwell", "gt-value", "surname token, multi-page", 14)
@@ -221,104 +237,212 @@ def build_queries() -> list[dict]:
 
     # --- literal text: ids / numbers ----------------------------------------
     text("q08", "502-19-7438", "gt-value", "primary SSN, dashed", 3)
-    text("q09", "502197438", "separator-variant",
-         "SSN digits only — matches q08's value only with stripDigitSeparators", 0)
+    text(
+        "q09",
+        "502197438",
+        "separator-variant",
+        "SSN digits only — matches q08's value only with stripDigitSeparators",
+        0,
+    )
     text("q10", "XXX-XX-7438", "gt-value", "masked SSN render", 2)
     text("q11", "970-72 5518", "gt-value", "ITIN with mixed dash/space separators", 1)
     text("q12", "970725518", "separator-variant", "ITIN digits only (strip probe)", 0)
     text("q31", "36-4419872", "gt-value", "EIN, dashed", 2)
     text("q32", "1364419872", "gt-value", "10-digit EIN-shaped value present verbatim", None)
-    text("q33", "364419872", "separator-variant",
-         "EIN digits only — strip-on matches 36-4419872; ALSO a verbatim substring "
-         "of the distinct value 1364419872 (strip-off still hits that suffix)", None)
+    text(
+        "q33",
+        "364419872",
+        "separator-variant",
+        "EIN digits only — strip-on matches 36-4419872; ALSO a verbatim substring "
+        "of the distinct value 1364419872 (strip-off still hits that suffix)",
+        None,
+    )
     text("q17", "4111 1111 1111 1111", "gt-value", "credit card, space-grouped", 1)
     text("q18", "4111111111111111", "separator-variant", "card digits only (strip probe)", 0)
-    text("q19", "620000", "separator-variant",
-         "SO-01 comma+decimal probe: matches '6,200.00' only with strip on "
-         "(comma and period are both in the separator set)", 0)
+    text(
+        "q19",
+        "620000",
+        "separator-variant",
+        "SO-01 comma+decimal probe: matches '6,200.00' only with strip on "
+        "(comma and period are both in the separator set)",
+        0,
+    )
     text("q29", "N42851960", "gt-value", "passport value", 1)
     text("q30", "88KJ2", "gt-value", "short plate value", 1)
     text("q22", "6ABC123", "gt-value", "plate decoy value (search is category-blind)", 1)
-    text("q27", "19", "substring",
-         "two-digit token: whole-word matches INSIDE 502-19-7438 (dashes are "
-         "non-alnum boundaries) — boundary-rule pin", None)
+    text(
+        "q27",
+        "19",
+        "substring",
+        "two-digit token: whole-word matches INSIDE 502-19-7438 (dashes are "
+        "non-alnum boundaries) — boundary-rule pin",
+        None,
+    )
 
     # --- literal text: contact / address ------------------------------------
     text("q13", "(208) 555-0147", "gt-value", "phone, parenthesized", 1)
-    text("q14", "2085550147", "separator-variant",
-         "phone digits only — parens are NOT in the separator set, so strip-on "
-         "must still MISS (208) 555-0147; separator-set boundary pin", 0)
+    text(
+        "q14",
+        "2085550147",
+        "separator-variant",
+        "phone digits only — parens are NOT in the separator set, so strip-on "
+        "must still MISS (208) 555-0147; separator-set boundary pin",
+        0,
+    )
     text("q15", "208.555.0119", "gt-value", "phone, dot-separated", 1)
-    text("q16", "2085550119", "separator-variant",
-         "phone digits only — strip-on matches 208.555.0119 (dots strip)", 0)
+    text(
+        "q16",
+        "2085550119",
+        "separator-variant",
+        "phone digits only — strip-on matches 208.555.0119 (dots strip)",
+        0,
+    )
     text("q37", "d.hartwell@example.net", "gt-value", "email with dots", 2)
     text("q20", "4127 Wrenfield Place", "gt-value", "street fragment", None)
     text("q21", "Boise, ID 83702", "gt-value", "city-state-zip fragment", None)
-    text("q26", "ID", "substring",
-         "state code — collides with substrings only at alnum boundaries "
-         "(wholeWord discriminator across many pages)", None)
-    text("q38", "PO Box 2215", "separator-variant",
-         "unpunctuated twin of 'P.O. Box 2215' — matches only with strip on "
-         "(periods+spaces strip from both sides)", 0)
+    text(
+        "q26",
+        "ID",
+        "substring",
+        "state code — collides with substrings only at alnum boundaries "
+        "(wholeWord discriminator across many pages)",
+        None,
+    )
+    text(
+        "q38",
+        "PO Box 2215",
+        "separator-variant",
+        "unpunctuated twin of 'P.O. Box 2215' — matches only with strip on "
+        "(periods+spaces strip from both sides)",
+        0,
+    )
     text("q39", "P.O. Box 2215", "gt-value", "boxed mailing address", 1)
 
     # --- smart-punctuation query-side probes ---------------------------------
-    text("q24", "502‑19‑7438", "smartpunct-probe",
-         "NON-BREAKING HYPHEN query: NFKC(U+2011)=U+2010 which the smart-punct "
-         "map does NOT fold — expected to match ONLY when normalizeUnicode is "
-         "OFF and normalizeSmartPunctuation is ON (interaction pin)", 0)
-    text("q25", "502–19–7438", "smartpunct-probe",
-         "EN DASH query: U+2013 survives NFKC and the map folds it to '-' — "
-         "matches whenever normalizeSmartPunctuation is ON", 0)
-    text("q28", "Hartwell,", "separator-variant",
-         "trailing comma: strip-on removes the comma from the QUERY too, "
-         "degenerating to plain 'Hartwell' (separator strip is not "
-         "digit-scoped) — semantics pin", None)
+    text(
+        "q24",
+        "502‑19‑7438",
+        "smartpunct-probe",
+        "NON-BREAKING HYPHEN query: NFKC(U+2011)=U+2010 which the smart-punct "
+        "map does NOT fold — expected to match ONLY when normalizeUnicode is "
+        "OFF and normalizeSmartPunctuation is ON (interaction pin)",
+        0,
+    )
+    text(
+        "q25",
+        "502–19–7438",
+        "smartpunct-probe",
+        "EN DASH query: U+2013 survives NFKC and the map folds it to '-' — "
+        "matches whenever normalizeSmartPunctuation is ON",
+        0,
+    )
+    text(
+        "q28",
+        "Hartwell,",
+        "separator-variant",
+        "trailing comma: strip-on removes the comma from the QUERY too, "
+        "degenerating to plain 'Hartwell' (separator strip is not "
+        "digit-scoped) — semantics pin",
+        None,
+    )
 
     # --- absent controls ------------------------------------------------------
     text("q23", "ZEBRA-QUARTZ-9911", "absent-control", "never present, all modes", 0)
     text("q41", "Loan", "gt-value", "common document word (dense-hit row)", None)
 
     # --- regex ---------------------------------------------------------------
-    regex("r01", "\\d{3}-\\d{2}-\\d{4}", "regex-shape",
-          "SSN/ITIN dashed shape (masked XXX rows must NOT hit)")
+    regex(
+        "r01",
+        "\\d{3}-\\d{2}-\\d{4}",
+        "regex-shape",
+        "SSN/ITIN dashed shape (masked XXX rows must NOT hit)",
+    )
     regex("r02", "Hartwell", "regex-twin", "literal-as-regex twin of q01")
-    regex("r03", "502-19-7438", "regex-twin",
-          "escaped twin of q08 (no metacharacters — identical string)")
-    regex("r04", "\\d{3}[-.]\\d{3}[-.]\\d{4}", "regex-shape",
-          "US phone with dash or dot groups")
-    regex("r05", "(\\d{3}\\) \\d{3}-\\d{4}", "regex-invalid",
-          "unbalanced parenthesis — must not compile; empty stream")
+    regex(
+        "r03",
+        "502-19-7438",
+        "regex-twin",
+        "escaped twin of q08 (no metacharacters — identical string)",
+    )
+    regex("r04", "\\d{3}[-.]\\d{3}[-.]\\d{4}", "regex-shape", "US phone with dash or dot groups")
+    regex(
+        "r05",
+        "(\\d{3}\\) \\d{3}-\\d{4}",
+        "regex-invalid",
+        "unbalanced parenthesis — must not compile; empty stream",
+    )
     regex("r06", "\\d+", "regex-shape", "digit runs (dense-hit / cap probe)")
-    regex("r07", "(?i)hartwell", "regex-shape",
-          "inline case-insensitivity flag (engine passes pattern verbatim)")
-    regex("r08", "Delia\\s+R\\.\\s+Hartwell", "regex-shape",
-          "whitespace-class name (newline-crossing probe)")
-    regex("r09", "\\bID\\b", "regex-shape",
-          "\\b word-boundary twin of q26+wholeWord (near-equivalence relation)")
-    regex("r10", "4111(\\s?\\d{4}){3}", "regex-shape",
-          "credit card with optional space groups (bounded quantifier)")
+    regex(
+        "r07",
+        "(?i)hartwell",
+        "regex-shape",
+        "inline case-insensitivity flag (engine passes pattern verbatim)",
+    )
+    regex(
+        "r08",
+        "Delia\\s+R\\.\\s+Hartwell",
+        "regex-shape",
+        "whitespace-class name (newline-crossing probe)",
+    )
+    regex(
+        "r09",
+        "\\bID\\b",
+        "regex-shape",
+        "\\b word-boundary twin of q26+wholeWord (near-equivalence relation)",
+    )
+    regex(
+        "r10",
+        "4111(\\s?\\d{4}){3}",
+        "regex-shape",
+        "credit card with optional space groups (bounded quantifier)",
+    )
     regex("r11", "\\d{2}/\\d{2}/\\d{4}", "regex-shape", "mm/dd/yyyy dates")
-    regex("r12", "(a+)+b", "regex-pathological",
-          "classic ReDoS shape — precheck-rejected; empty stream (H3.4 tie-in)")
+    regex(
+        "r12",
+        "(a+)+b",
+        "regex-pathological",
+        "classic ReDoS shape — precheck-rejected; empty stream (H3.4 tie-in)",
+    )
 
     # --- multiTerm -----------------------------------------------------------
-    multi("m01", ["Hartwell", "Boise"], "multiterm",
-          "overlapping page sets: AND = intersection pages, OR = union")
-    multi("m02", ["Delgado", "Modesto"], "multiterm",
-          "disjoint page sets (Delgado p1, Modesto p0): AND must be empty")
-    multi("m03", ["Hartwell", "ZEBRA-QUARTZ-9911"], "multiterm",
-          "absent conjunct: AND empty everywhere, OR = Hartwell hits")
-    multi("m04", ["502-19-7438", "970-72-5518", "078-05-1120"], "multiterm",
-          "three dashed ids (co-page probe)")
-    multi("m05", ["Boise", "Meridian", "Modesto"], "multiterm",
-          "three cities, partially overlapping pages")
-    multi("m06", ["Hart", "well"], "multiterm",
-          "substring terms x wholeWord interplay")
-    multi("m07", ["Hartwell", ""], "multiterm",
-          "empty term in the list (filtering semantics pin)")
-    multi("m08", ["DELIA HARTWELL", "d.hartwell@example.net"], "multiterm",
-          "case-variant + email pair (caseSensitive interplay)")
+    multi(
+        "m01",
+        ["Hartwell", "Boise"],
+        "multiterm",
+        "overlapping page sets: AND = intersection pages, OR = union",
+    )
+    multi(
+        "m02",
+        ["Delgado", "Modesto"],
+        "multiterm",
+        "disjoint page sets (Delgado p1, Modesto p0): AND must be empty",
+    )
+    multi(
+        "m03",
+        ["Hartwell", "ZEBRA-QUARTZ-9911"],
+        "multiterm",
+        "absent conjunct: AND empty everywhere, OR = Hartwell hits",
+    )
+    multi(
+        "m04",
+        ["502-19-7438", "970-72-5518", "078-05-1120"],
+        "multiterm",
+        "three dashed ids (co-page probe)",
+    )
+    multi(
+        "m05",
+        ["Boise", "Meridian", "Modesto"],
+        "multiterm",
+        "three cities, partially overlapping pages",
+    )
+    multi("m06", ["Hart", "well"], "multiterm", "substring terms x wholeWord interplay")
+    multi("m07", ["Hartwell", ""], "multiterm", "empty term in the list (filtering semantics pin)")
+    multi(
+        "m08",
+        ["DELIA HARTWELL", "d.hartwell@example.net"],
+        "multiterm",
+        "case-variant + email pair (caseSensitive interplay)",
+    )
 
     return q
 
@@ -327,7 +451,10 @@ METAMORPHIC = {
     "literal_regex_twins": [["q01", "r02"], ["q08", "r03"]],
     "case_variant_sets": [["q02", "q04", "q05"], ["q35", "q36"]],
     "strip_pairs": [
-        ["q09", "q08"], ["q12", "q11"], ["q16", "q15"], ["q18", "q17"],
+        ["q09", "q08"],
+        ["q12", "q11"],
+        ["q16", "q15"],
+        ["q18", "q17"],
     ],
     "wholeword_regex_near_twin": [["q26", "r09"]],
     "relations": [
@@ -341,14 +468,19 @@ METAMORPHIC = {
     "expected_inert": {
         "packet_text_leg": ["normalizeUnicode", "foldDiacritics", "includeOCR"],
         "packet_text_leg_note": "packet text is pure ASCII and all pages are rich; "
-            "NFKC, diacritic fold and the OCR toggle must not change hit sets — "
-            "EXCEPT queries carrying non-ASCII characters (q24/q25), where "
-            "normalizeUnicode participates by design.",
-        "regex_mode": ["caseSensitive", "exactMatch", "stripDigitSeparators",
-                        "foldDiacritics", "multiTermConjunction"],
+        "NFKC, diacritic fold and the OCR toggle must not change hit sets — "
+        "EXCEPT queries carrying non-ASCII characters (q24/q25), where "
+        "normalizeUnicode participates by design.",
+        "regex_mode": [
+            "caseSensitive",
+            "exactMatch",
+            "stripDigitSeparators",
+            "foldDiacritics",
+            "multiTermConjunction",
+        ],
         "regex_mode_note": "the regex path never case-folds, never applies the "
-            "length-changing extensions, ignores exactMatch, and conjunction "
-            "only affects multiTerm.",
+        "length-changing extensions, ignores exactMatch, and conjunction "
+        "only affects multiTerm.",
         "text_regex_single_mode": ["multiTermConjunction"],
     },
 }
@@ -366,8 +498,9 @@ def verify_counts(queries: list[dict]) -> None:
         if got != expected:
             failures.append(f"{row['qid']}: expected {expected} verbatim, counted {got}")
     if failures:
-        sys.exit("build_search_queries: verbatim-count verification FAILED:\n  "
-                 + "\n  ".join(failures))
+        sys.exit(
+            "build_search_queries: verbatim-count verification FAILED:\n  " + "\n  ".join(failures)
+        )
 
 
 def main() -> None:
@@ -377,7 +510,8 @@ def main() -> None:
 
     packet_sha = hashlib.sha256((ROOT / "packet.pdf").read_bytes()).hexdigest()
     scan_sha = hashlib.sha256(
-        (ROOT / "variants" / "packet-scan-sim-150dpi.pdf").read_bytes()).hexdigest()
+        (ROOT / "variants" / "packet-scan-sim-150dpi.pdf").read_bytes()
+    ).hexdigest()
 
     out = {
         "schema_version": 1,
@@ -389,20 +523,23 @@ def main() -> None:
         "docs": {
             "packet": {"path": "packet.pdf", "sha256": packet_sha},
             "packet-scan-sim-150dpi": {
-                "path": "variants/packet-scan-sim-150dpi.pdf", "sha256": scan_sha},
+                "path": "variants/packet-scan-sim-150dpi.pdf",
+                "sha256": scan_sha,
+            },
         },
         "queries": queries,
         "metamorphic": METAMORPHIC,
     }
 
     OUT_DIR.mkdir(exist_ok=True)
-    OUT_PATH.write_text(
-        json.dumps(out, indent=1, sort_keys=True, ensure_ascii=True) + "\n")
+    OUT_PATH.write_text(json.dumps(out, indent=1, sort_keys=True, ensure_ascii=True) + "\n")
     n_by_mode = {}
     for row in queries:
         n_by_mode[row["mode"]] = n_by_mode.get(row["mode"], 0) + 1
-    print(f"wrote {OUT_PATH.relative_to(ROOT)}: {len(vectors)} vectors "
-          f"(pairs {pairs_covered}/{pairs_total}), {len(queries)} queries {n_by_mode}")
+    print(
+        f"wrote {OUT_PATH.relative_to(ROOT)}: {len(vectors)} vectors "
+        f"(pairs {pairs_covered}/{pairs_total}), {len(queries)} queries {n_by_mode}"
+    )
 
 
 if __name__ == "__main__":

@@ -136,7 +136,9 @@ def table_header(rc, y, cols, *, size=7.5, color=None, rule=True):
 
 def cell(rc, x, y, s, *, font=None, size=8.5, color=None):
     """One plain (non-PII) table cell."""
-    return rc.text(x, y, s, L.REG if font is None else font, size, L.INK if color is None else color)
+    return rc.text(
+        x, y, s, L.REG if font is None else font, size, L.INK if color is None else color
+    )
 
 
 def numbered_margin(rc, top_y, bottom_y, n=28, x_num=None, x_rule=None):
@@ -181,8 +183,10 @@ def barcode_code128(rc, occ, x, y, *, bar_height=28, bar_width=0.9):
     """Draw a REAL Code 128 symbol (vector bars, no human-readable line) encoding `occ.value` and
     emit an `image`-leg ground-truth region for it. Returns the symbol width in points."""
     from reportlab.graphics.barcode import code128
-    bc = code128.Code128(occ.value_text, barHeight=bar_height, barWidth=bar_width,
-                         humanReadable=False, quiet=True)
+
+    bc = code128.Code128(
+        occ.value_text, barHeight=bar_height, barWidth=bar_width, humanReadable=False, quiet=True
+    )
     bc.drawOn(rc.c, x, y)
     rc.region_value(occ, x, y, x + bc.width, y + bar_height)
     return bc.width

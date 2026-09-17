@@ -148,11 +148,11 @@ def _rotate_bbox(b, degrees: int):
 _ROTATE_NOTES = {
     # The 90deg wording is FROZEN (byte-stable committed GT + the T1.4 manifest pin).
     90: "TRIGGER for the open rotated-coordinate P0; FAILS until the engine "
-        "fix lands. bbox transformed (nx,ny)->(ny,1-nx).",
+    "fix lands. bbox transformed (nx,ny)->(ny,1-nx).",
     180: "IM-08 rotation leg. /Rotate 180 keeps the axes (no width/height swap); "
-         "bbox transformed (nx,ny)->(1-nx,1-ny). Measures only -- F12-04 stays parked.",
+    "bbox transformed (nx,ny)->(1-nx,1-ny). Measures only -- F12-04 stays parked.",
     270: "IM-08 rotation leg. /Rotate 270 swaps the axes like 90; "
-         "bbox transformed (nx,ny)->(1-ny,nx). Measures only -- F12-04 stays parked.",
+    "bbox transformed (nx,ny)->(1-ny,nx). Measures only -- F12-04 stays parked.",
 }
 
 
@@ -200,6 +200,7 @@ def _skew_bbox_hull(b, degrees=_SKEW_DEGREES):
     quad -- polygons arrive with the E1 factory; this stays APPROXIMATE.
     """
     import math
+
     cx, cy = PW / 2.0, PH / 2.0
     th = math.radians(degrees)
     cos_t, sin_t = math.cos(th), math.sin(th)
@@ -215,15 +216,21 @@ def _skew_bbox_hull(b, degrees=_SKEW_DEGREES):
 
 def _degrade_gt(gt: dict, rung: str, note: str, skewed: bool) -> dict:
     """Ground truth for one degrade rung: leg ["ocr"], geometry per rung."""
-    vgt = json.loads(json.dumps(gt))   # deep copy; bboxes are resolution-independent
+    vgt = json.loads(json.dumps(gt))  # deep copy; bboxes are resolution-independent
     vgt["variant"] = {
-        "kind": "degrade", "rung": rung, "rasterized": True, "text_layer": False,
-        "gt_geometry": ("axis-aligned hull of the %.1fdeg-rotated box (approximate)"
-                        % _SKEW_DEGREES) if skewed else "inherited (unchanged)",
+        "kind": "degrade",
+        "rung": rung,
+        "rasterized": True,
+        "text_layer": False,
+        "gt_geometry": (
+            "axis-aligned hull of the %.1fdeg-rotated box (approximate)" % _SKEW_DEGREES
+        )
+        if skewed
+        else "inherited (unchanged)",
         "note": note,
     }
     for r in vgt["occurrences"]:
-        r["leg_applicability"] = ["ocr"]   # image-only -> OCR leg only
+        r["leg_applicability"] = ["ocr"]  # image-only -> OCR leg only
         if skewed:
             r["bbox"] = _skew_bbox_hull(r["bbox"])
             for s in r["spans"]:
@@ -257,7 +264,9 @@ def degrade_ladder(packet_pdf: bytes, gt: dict):
         for im in base
     ]
     rungs["blur"] = (
-        _images_to_pdf(blur, "Hartwell Packet -- degrade blur (test-only)", b"ResectaPacketDegBlur01"),
+        _images_to_pdf(
+            blur, "Hartwell Packet -- degrade blur (test-only)", b"ResectaPacketDegBlur01"
+        ),
         _degrade_gt(gt, "blur", "150 DPI raster softened by a 50% down/up resample.", skewed=False),
     )
     # low-DPI: re-rasterize the source at 100 DPI
@@ -380,13 +389,15 @@ def marker_quads(page_number: int, page_w: float, page_h: float) -> dict:
     """
     return {
         mid: [x0, y0, x0 + _MARK_SIDE, y0 + _MARK_SIDE]
-        for mid, (x0, y0) in zip(marker_ids(page_number),
-                                 _mark_positions(page_w, page_h), strict=True)
+        for mid, (x0, y0) in zip(
+            marker_ids(page_number), _mark_positions(page_w, page_h), strict=True
+        )
     }
 
 
-def print_master(pdf_bytes: bytes, *, set_id: str = CAPTURE_SET_ID,
-                 doc_id: bytes = b"ResectaCaptureMaster01") -> dict:
+def print_master(
+    pdf_bytes: bytes, *, set_id: str = CAPTURE_SET_ID, doc_id: bytes = b"ResectaCaptureMaster01"
+) -> dict:
     """Add capture marks to every page of ``pdf_bytes`` without disturbing its content.
 
     Each page gains four ArUco corner fiducials (ids ``4*(page-1) .. 4*(page-1)+3``) and a
@@ -404,7 +415,8 @@ def print_master(pdf_bytes: bytes, *, set_id: str = CAPTURE_SET_ID,
     if total * _MARKS_PER_PAGE > A.COUNT:
         raise SystemExit(
             f"{total} pages need {total * _MARKS_PER_PAGE} marker ids but "
-            f"{A.DICT_NAME} holds {A.COUNT}")
+            f"{A.DICT_NAME} holds {A.COUNT}"
+        )
 
     L.register_fonts()
     marks = []
@@ -415,20 +427,23 @@ def print_master(pdf_bytes: bytes, *, set_id: str = CAPTURE_SET_ID,
         page_w, page_h = float(box.width), float(box.height)
         overlay.setPageSize((page_w, page_h))
         page_number = index + 1
-        for mid, (x0, y0) in zip(marker_ids(page_number),
-                                 _mark_positions(page_w, page_h), strict=True):
+        for mid, (x0, y0) in zip(
+            marker_ids(page_number), _mark_positions(page_w, page_h), strict=True
+        ):
             _draw_marker(overlay, mid, x0, y0, _MARK_SIDE)
         footer = f"{set_id} | page {page_number:02d}/{total:02d} | synthetic - no real data"
         overlay.setFillColor(L.INK)
         overlay.setFont(L.REG, _FOOTER_SIZE)
         overlay.drawCentredString(page_w / 2.0, _FOOTER_BASELINE, footer)
         overlay.showPage()
-        marks.append({
-            "page": index,
-            "page_size_pt": [page_w, page_h],
-            "markers": marker_quads(page_number, page_w, page_h),
-            "footer": footer,
-        })
+        marks.append(
+            {
+                "page": index,
+                "page_size_pt": [page_w, page_h],
+                "markers": marker_quads(page_number, page_w, page_h),
+                "footer": footer,
+            }
+        )
     overlay.save()
 
     stamped = PdfReader(io.BytesIO(overlay_buf.getvalue()))
@@ -471,7 +486,8 @@ def build_all(perf_pages: int = 120, *, write=True) -> dict:
         for name, (pdf, dgt) in deg.items():
             (OUTDIR / f"packet-degrade-{name}.pdf").write_bytes(pdf)
             (OUTDIR / f"packet-degrade-{name}-ground-truth.json").write_text(
-                json.dumps(dgt, indent=2) + "\n", encoding="ascii")
+                json.dumps(dgt, indent=2) + "\n", encoding="ascii"
+            )
         (OUTDIR / f"perf-filler-{perf_pages}pp.pdf").write_bytes(perf)
     return out
 
@@ -520,9 +536,15 @@ def _burn_region(x: float) -> list:
 def _hidden_ops(cls: str, term: str, x: float, y: float) -> bytes:
     def esc(s: str) -> bytes:
         return s.replace("\\", r"\\").replace("(", r"\(").replace(")", r"\)").encode("latin-1")
+
     tj = b"BT %s/%s %d Tf %d %d Td (%s) Tj ET\n" % (
         b"3 Tr " if cls == "tr3_invisible" else b"",
-        _HIDDEN_FONT.encode(), _PLANT_SIZE, int(x), int(y), esc(term))
+        _HIDDEN_FONT.encode(),
+        _PLANT_SIZE,
+        int(x),
+        int(y),
+        esc(term),
+    )
     if cls == "white_on_white":
         return b"1 g\n" + tj + b"0 g\n"
     if cls == "tr3_invisible":
@@ -537,6 +559,7 @@ def _hidden_ops(cls: str, term: str, x: float, y: float) -> bytes:
 def _assert_band_free(pdf_bytes: bytes, page_index: int) -> None:
     """Both margin bands must be char-free on the target page (fitz, top-down y)."""
     import fitz
+
     doc = fitz.open(stream=pdf_bytes, filetype="pdf")
     words = doc[page_index].get_text("words")
     doc.close()
@@ -546,23 +569,34 @@ def _assert_band_free(pdf_bytes: bytes, page_index: int) -> None:
             raise AssertionError(f"margin band occupied on page {page_index}: {w[:5]}")
 
 
-def _packet_with_hidden(packet_pdf: bytes, specs: list[dict], *, ocg: bool,
-                        title: str, doc_id: bytes) -> bytes:
+def _packet_with_hidden(
+    packet_pdf: bytes, specs: list[dict], *, ocg: bool, title: str, doc_id: bytes
+) -> bytes:
     import io as _io
     from pypdf import PdfReader, PdfWriter
-    from pypdf.generic import (ArrayObject, DecodedStreamObject, DictionaryObject,
-                               NameObject, TextStringObject)
+    from pypdf.generic import (
+        ArrayObject,
+        DecodedStreamObject,
+        DictionaryObject,
+        NameObject,
+        TextStringObject,
+    )
+
     _assert_band_free(packet_pdf, 0)
     reader = PdfReader(_io.BytesIO(packet_pdf))
     writer = PdfWriter(clone_from=reader)
     page = writer.pages[0]
 
-    font_ref = writer._add_object(DictionaryObject({
-        NameObject("/Type"): NameObject("/Font"),
-        NameObject("/Subtype"): NameObject("/Type1"),
-        NameObject("/BaseFont"): NameObject("/Helvetica"),
-        NameObject("/Encoding"): NameObject("/WinAnsiEncoding"),
-    }))
+    font_ref = writer._add_object(
+        DictionaryObject(
+            {
+                NameObject("/Type"): NameObject("/Font"),
+                NameObject("/Subtype"): NameObject("/Type1"),
+                NameObject("/BaseFont"): NameObject("/Helvetica"),
+                NameObject("/Encoding"): NameObject("/WinAnsiEncoding"),
+            }
+        )
+    )
     resources = page["/Resources"]
     resources = resources.get_object()
     fonts = resources.get("/Font")
@@ -573,16 +607,24 @@ def _packet_with_hidden(packet_pdf: bytes, specs: list[dict], *, ocg: bool,
     fonts[NameObject("/" + _HIDDEN_FONT)] = font_ref
 
     if ocg:
-        ocg_ref = writer._add_object(DictionaryObject({
-            NameObject("/Type"): NameObject("/OCG"),
-            NameObject("/Name"): TextStringObject("Planted Hidden Layer"),
-        }))
-        writer._root_object[NameObject("/OCProperties")] = DictionaryObject({
-            NameObject("/OCGs"): ArrayObject([ocg_ref]),
-            NameObject("/D"): DictionaryObject({
-                NameObject("/OFF"): ArrayObject([ocg_ref]),
-            }),
-        })
+        ocg_ref = writer._add_object(
+            DictionaryObject(
+                {
+                    NameObject("/Type"): NameObject("/OCG"),
+                    NameObject("/Name"): TextStringObject("Planted Hidden Layer"),
+                }
+            )
+        )
+        writer._root_object[NameObject("/OCProperties")] = DictionaryObject(
+            {
+                NameObject("/OCGs"): ArrayObject([ocg_ref]),
+                NameObject("/D"): DictionaryObject(
+                    {
+                        NameObject("/OFF"): ArrayObject([ocg_ref]),
+                    }
+                ),
+            }
+        )
         props = resources.get("/Properties")
         props = props.get_object() if props is not None else None
         if props is None:
@@ -619,33 +661,52 @@ def hidden_text(packet_pdf: bytes):
     for i, t in enumerate(trio):
         for role, y, nn in (("covered", _BAND_A_Y, "01"), ("uncovered", _BAND_B_Y, "02")):
             term = f"PLANT-{t['term_stem']}-{nn}"
-            spec = {"hidden_class": t["hidden_class"], "term": term,
-                    "x": _SLOT_X[i], "y": y}
+            spec = {"hidden_class": t["hidden_class"], "term": term, "x": _SLOT_X[i], "y": y}
             specs.append(spec)
-            rows.append({
-                "file": "packet-hidden-text.pdf", "page": 0,
-                "hidden_class": t["hidden_class"], "term": term, "role": role,
-                "bbox": _plant_bbox(_SLOT_X[i], y),
-                "burn_region": _burn_region(_SLOT_X[i]) if role == "covered" else None,
-            })
-    ht = _packet_with_hidden(packet_pdf, specs, ocg=False,
-                             title="Hartwell Packet -- hidden-text variant (test-only)",
-                             doc_id=b"ResectaPacketHiddenTx1")
+            rows.append(
+                {
+                    "file": "packet-hidden-text.pdf",
+                    "page": 0,
+                    "hidden_class": t["hidden_class"],
+                    "term": term,
+                    "role": role,
+                    "bbox": _plant_bbox(_SLOT_X[i], y),
+                    "burn_region": _burn_region(_SLOT_X[i]) if role == "covered" else None,
+                }
+            )
+    ht = _packet_with_hidden(
+        packet_pdf,
+        specs,
+        ocg=False,
+        title="Hartwell Packet -- hidden-text variant (test-only)",
+        doc_id=b"ResectaPacketHiddenTx1",
+    )
 
     ocg_specs, ocg_rows = [], []
-    for role, x, y, nn in (("covered", _SLOT_X[0], _BAND_A_Y, "01"),
-                           ("uncovered", _SLOT_X[1], _BAND_B_Y, "02")):
+    for role, x, y, nn in (
+        ("covered", _SLOT_X[0], _BAND_A_Y, "01"),
+        ("uncovered", _SLOT_X[1], _BAND_B_Y, "02"),
+    ):
         term = f"PLANT-PKTOCG-{nn}"
         ocg_specs.append({"hidden_class": "ocg_off", "term": term, "x": x, "y": y})
-        ocg_rows.append({
-            "file": "packet-hidden-ocg.pdf", "page": 0,
-            "hidden_class": "ocg_off", "term": term, "role": role,
-            "bbox": _plant_bbox(x, y),
-            "burn_region": _burn_region(x) if role == "covered" else None,
-        })
-    ho = _packet_with_hidden(packet_pdf, ocg_specs, ocg=True,
-                             title="Hartwell Packet -- hidden-OCG variant (test-only)",
-                             doc_id=b"ResectaPacketHiddenOc1")
+        ocg_rows.append(
+            {
+                "file": "packet-hidden-ocg.pdf",
+                "page": 0,
+                "hidden_class": "ocg_off",
+                "term": term,
+                "role": role,
+                "bbox": _plant_bbox(x, y),
+                "burn_region": _burn_region(x) if role == "covered" else None,
+            }
+        )
+    ho = _packet_with_hidden(
+        packet_pdf,
+        ocg_specs,
+        ocg=True,
+        title="Hartwell Packet -- hidden-OCG variant (test-only)",
+        doc_id=b"ResectaPacketHiddenOc1",
+    )
 
     sidecar = {
         "schema_version": 1,
@@ -666,5 +727,6 @@ def build_hidden(write: bool = True) -> dict:
         (OUTDIR / "packet-hidden-text.pdf").write_bytes(ht)
         (OUTDIR / "packet-hidden-ocg.pdf").write_bytes(ho)
         (OUTDIR / "packet-hidden-plants.json").write_text(
-            json.dumps(sidecar, indent=2) + "\n", encoding="ascii")
+            json.dumps(sidecar, indent=2) + "\n", encoding="ascii"
+        )
     return {"hidden_text": ht, "hidden_ocg": ho, "sidecar": sidecar}

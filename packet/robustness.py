@@ -25,6 +25,7 @@ documents.manifest.json (T1.4 stays byte-stable -- the PB-86 DOCS_ROOT-direct pr
 
 Run with: .venv/bin/python -m packet.robustness
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -98,8 +99,11 @@ def huge_page(packet_pdf: bytes, gt: dict, long_side_pt: float = 4999.0):
     doc.close()
     src.close()
     tag = str(int(long_side_pt))
-    pdf = V._finalize(raw, f"Hartwell Packet -- huge page {tag}pt (test-only)",
-                      b"ResectaPacketHuge" + tag.encode("ascii"))
+    pdf = V._finalize(
+        raw,
+        f"Hartwell Packet -- huge page {tag}pt (test-only)",
+        b"ResectaPacketHuge" + tag.encode("ascii"),
+    )
 
     if long_side_pt > 5000:
         return pdf, None
@@ -107,13 +111,19 @@ def huge_page(packet_pdf: bytes, gt: dict, long_side_pt: float = 4999.0):
     vgt["page_count"] = 1
     vgt["page_size_pt"] = [round(w, 3), round(h, 3)]
     vgt["variant"] = {
-        "kind": "huge_page", "long_side_pt": long_side_pt, "source_page": 0,
+        "kind": "huge_page",
+        "long_side_pt": long_side_pt,
+        "source_page": 0,
         "gt_geometry": "inherited (full-bleed aspect-true scale; normalized boxes unchanged)",
     }
     vgt["occurrences"] = [
-        o for o in vgt["occurrences"]
-        if (o.get("page") == 0 if o.get("spans") is None
-            else all(s["page"] == 0 for s in o["spans"]))
+        o
+        for o in vgt["occurrences"]
+        if (
+            o.get("page") == 0
+            if o.get("spans") is None
+            else all(s["page"] == 0 for s in o["spans"])
+        )
     ]
     vgt.pop("carried_stmt", None)
     for o in vgt["occurrences"]:
@@ -145,21 +155,25 @@ def packet_repeat(packet_pdf: bytes, gt: dict, pages: int = 500):
         del writer.pages[len(writer.pages) - 1]
     buf = io.BytesIO()
     writer.write(buf)
-    pdf = V._finalize(buf.getvalue(), f"Hartwell Packet -- repeat {pages}pp (test-only)",
-                      b"ResectaPacketRepeat500")
+    pdf = V._finalize(
+        buf.getvalue(),
+        f"Hartwell Packet -- repeat {pages}pp (test-only)",
+        b"ResectaPacketRepeat500",
+    )
 
     vgt = json.loads(json.dumps(gt))
     vgt["page_count"] = pages
     vgt["variant"] = {
-        "kind": "packet_repeat", "pages": pages, "copies": copies,
+        "kind": "packet_repeat",
+        "pages": pages,
+        "copies": copies,
         "gt_geometry": "inherited per copy; page indices offset by 12 x copy",
     }
     out_occ = []
     for k in range(copies):
         off = k * src_pages
         for o in gt["occurrences"]:
-            span_pages = ([s["page"] for s in o["spans"]] if o.get("spans")
-                          else [o["page"]])
+            span_pages = [s["page"] for s in o["spans"]] if o.get("spans") else [o["page"]]
             if any(p + off >= pages for p in span_pages):
                 continue
             c = json.loads(json.dumps(o))
@@ -189,17 +203,21 @@ def encrypted(packet_pdf: bytes, algo: str, user_pw: str = "", owner_pw: str = "
     writer = PdfWriter(clone_from=reader)
     creator = "Resecta Sample Packet Generator (variant)"
     label = "locked" if user_pw else algo
-    writer.add_metadata({
-        "/Title": f"Hartwell Packet -- encrypted {label} (test-only)",
-        "/Author": "Resecta", "/Creator": creator, "/Producer": creator,
-        "/CreationDate": "D:20260614000000Z", "/ModDate": "D:20260614000000Z",
-    })
+    writer.add_metadata(
+        {
+            "/Title": f"Hartwell Packet -- encrypted {label} (test-only)",
+            "/Author": "Resecta",
+            "/Creator": creator,
+            "/Producer": creator,
+            "/CreationDate": "D:20260614000000Z",
+            "/ModDate": "D:20260614000000Z",
+        }
+    )
     fid = ByteStringObject(f"ResectaPacketEnc{label}".encode("ascii").ljust(24, b"0")[:24])
     writer._ID = ArrayObject([fid, fid])
     seed = int.from_bytes(hashlib.sha256(f"resecta-f4-{label}".encode()).digest()[:8], "big")
     with _pinned_encryption_rng(seed):
-        writer.encrypt(user_password=user_pw, owner_password=owner_pw,
-                       algorithm=_ALGOS[algo])
+        writer.encrypt(user_password=user_pw, owner_password=owner_pw, algorithm=_ALGOS[algo])
         buf = io.BytesIO()
         writer.write(buf)
     return buf.getvalue()
@@ -229,7 +247,7 @@ def build_family4(write: bool = True) -> dict:
         raise SystemExit("family-4 fixtures require PyMuPDF (fitz)")
     res = B.build(write=False)
     packet_pdf, gt = res["pdf"], res["ground_truth"]
-    probe = gt["occurrences"][0]["value"]          # "Delia R. Hartwell", page 0
+    probe = gt["occurrences"][0]["value"]  # "Delia R. Hartwell", page 0
 
     h4999, h4999_gt = huge_page(packet_pdf, gt, 4999.0)
     h5001, _ = huge_page(packet_pdf, gt, 5001.0)
@@ -243,47 +261,103 @@ def build_family4(write: bool = True) -> dict:
     _self_check("repeat-500pp", rep500, 500, probe)
     _self_check("filler-501pp", fil501, 501, None)
     for a, b_ in enc.items():
-        _self_check(f"encrypted-{a}", b_, 12, probe)   # fitz opens empty-user-pw transparently
+        _self_check(f"encrypted-{a}", b_, 12, probe)  # fitz opens empty-user-pw transparently
 
     rows = [
-        {"id": "packet-huge-4999", "path": "robustness/packet-huge-4999.pdf", "pages": 1,
-         "gt": "robustness/packet-huge-4999-ground-truth.json",
-         "expected": {"import": "open", "import_error": None, "scan": True,
-                      "redact": "open", "redact_error": None},
-         "notes": "long side 4,999 pt -- inside both the import dimension cap and the "
-                  "validatePage 5,000 pt pre-flight; text leg only."},
-        {"id": "packet-huge-5001", "path": "robustness/packet-huge-5001.pdf", "pages": 1,
-         "gt": None,
-         "expected": {"import": "reject", "import_error": "invalidPageDimensions",
-                      "scan": False, "redact": "skip", "redact_error": None},
-         "notes": "long side 5,001 pt -- import per-page dimension guard must reject."},
-        {"id": "packet-repeat-500pp", "path": "robustness/packet-repeat-500pp.pdf", "pages": 500,
-         "gt": "robustness/packet-repeat-500pp-ground-truth.json",
-         "expected": {"import": "open", "import_error": None, "scan": True,
-                      "redact": "skip_v0", "redact_error": None},
-         "notes": "exactly AT the 500-page import cap (must open). v0 runs import+scan; "
-                  "the 500-pp redact/verify leg rides the perf track (H4.1 device / IM-18)."},
-        {"id": "perf-filler-501pp", "path": "robustness/perf-filler-501pp.pdf", "pages": 501,
-         "gt": None,
-         "expected": {"import": "reject", "import_error": "tooLarge",
-                      "scan": False, "redact": "skip", "redact_error": None},
-         "notes": "one past the page-count cap -- import must reject tooLarge."},
+        {
+            "id": "packet-huge-4999",
+            "path": "robustness/packet-huge-4999.pdf",
+            "pages": 1,
+            "gt": "robustness/packet-huge-4999-ground-truth.json",
+            "expected": {
+                "import": "open",
+                "import_error": None,
+                "scan": True,
+                "redact": "open",
+                "redact_error": None,
+            },
+            "notes": "long side 4,999 pt -- inside both the import dimension cap and the "
+            "validatePage 5,000 pt pre-flight; text leg only.",
+        },
+        {
+            "id": "packet-huge-5001",
+            "path": "robustness/packet-huge-5001.pdf",
+            "pages": 1,
+            "gt": None,
+            "expected": {
+                "import": "reject",
+                "import_error": "invalidPageDimensions",
+                "scan": False,
+                "redact": "skip",
+                "redact_error": None,
+            },
+            "notes": "long side 5,001 pt -- import per-page dimension guard must reject.",
+        },
+        {
+            "id": "packet-repeat-500pp",
+            "path": "robustness/packet-repeat-500pp.pdf",
+            "pages": 500,
+            "gt": "robustness/packet-repeat-500pp-ground-truth.json",
+            "expected": {
+                "import": "open",
+                "import_error": None,
+                "scan": True,
+                "redact": "skip_v0",
+                "redact_error": None,
+            },
+            "notes": "exactly AT the 500-page import cap (must open). v0 runs import+scan; "
+            "the 500-pp redact/verify leg rides the perf track (H4.1 device / IM-18).",
+        },
+        {
+            "id": "perf-filler-501pp",
+            "path": "robustness/perf-filler-501pp.pdf",
+            "pages": 501,
+            "gt": None,
+            "expected": {
+                "import": "reject",
+                "import_error": "tooLarge",
+                "scan": False,
+                "redact": "skip",
+                "redact_error": None,
+            },
+            "notes": "one past the page-count cap -- import must reject tooLarge.",
+        },
     ]
     for a in _ALGOS:
-        rows.append({
-            "id": f"packet-encrypted-{a}", "path": f"robustness/packet-encrypted-{a}.pdf",
-            "pages": 12, "gt": None,
-            "expected": {"import": "open", "import_error": None, "scan": True,
-                         "redact": "open", "redact_error": None},
-            "notes": f"{_ALGOS[a]}, empty user password -- PDFKit opens unlocked "
-                     "(isLocked false); content identical to packet post-decrypt."})
-    rows.append({
-        "id": "packet-encrypted-locked", "path": "robustness/packet-encrypted-locked.pdf",
-        "pages": 12, "gt": None,
-        "expected": {"import": "reject", "import_error": "passwordProtected",
-                     "scan": False, "redact": "skip", "redact_error": None},
-        "notes": f"AES-256 with a user password set (fixture password: {_LOCKED_USER_PW}) "
-                 "-- import must reject passwordProtected."})
+        rows.append(
+            {
+                "id": f"packet-encrypted-{a}",
+                "path": f"robustness/packet-encrypted-{a}.pdf",
+                "pages": 12,
+                "gt": None,
+                "expected": {
+                    "import": "open",
+                    "import_error": None,
+                    "scan": True,
+                    "redact": "open",
+                    "redact_error": None,
+                },
+                "notes": f"{_ALGOS[a]}, empty user password -- PDFKit opens unlocked "
+                "(isLocked false); content identical to packet post-decrypt.",
+            }
+        )
+    rows.append(
+        {
+            "id": "packet-encrypted-locked",
+            "path": "robustness/packet-encrypted-locked.pdf",
+            "pages": 12,
+            "gt": None,
+            "expected": {
+                "import": "reject",
+                "import_error": "passwordProtected",
+                "scan": False,
+                "redact": "skip",
+                "redact_error": None,
+            },
+            "notes": f"AES-256 with a user password set (fixture password: {_LOCKED_USER_PW}) "
+            "-- import must reject passwordProtected.",
+        }
+    )
 
     blobs = {
         "robustness/packet-huge-4999.pdf": h4999,
@@ -310,13 +384,19 @@ def build_family4(write: bool = True) -> dict:
         for rel, data in blobs.items():
             (REPO / rel).write_bytes(data)
         (OUTDIR / "packet-huge-4999-ground-truth.json").write_text(
-            json.dumps(h4999_gt, indent=2) + "\n", encoding="ascii")
+            json.dumps(h4999_gt, indent=2) + "\n", encoding="ascii"
+        )
         (OUTDIR / "packet-repeat-500pp-ground-truth.json").write_text(
-            json.dumps(rep500_gt, indent=2) + "\n", encoding="ascii")
+            json.dumps(rep500_gt, indent=2) + "\n", encoding="ascii"
+        )
         (OUTDIR / "robustness-fixtures.json").write_text(
-            json.dumps(manifest, indent=2) + "\n", encoding="ascii")
-    return {"blobs": blobs, "manifest": manifest,
-            "gt": {"huge4999": h4999_gt, "repeat500": rep500_gt}}
+            json.dumps(manifest, indent=2) + "\n", encoding="ascii"
+        )
+    return {
+        "blobs": blobs,
+        "manifest": manifest,
+        "gt": {"huge4999": h4999_gt, "repeat500": rep500_gt},
+    }
 
 
 def main() -> None:

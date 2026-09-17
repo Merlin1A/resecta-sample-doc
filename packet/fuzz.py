@@ -29,6 +29,7 @@ which would silently drop rows it does not own. documents.manifest.json is untou
 
 Run with: .venv/bin/python -m packet.fuzz [<dp build/fuzz dir>]
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -96,22 +97,24 @@ def build_fuzz_set(src: Path, *, write: bool = True) -> dict:
         rel = f"robustness/fuzz/{m['id']}.pdf"
         blobs[rel] = data
         rejects = m["expected"] == "reject"
-        rows.append({
-            "id": m["id"],
-            "path": rel,
-            "kind": m["kind"],
-            "pages": None if rejects else 12,
-            "gt": None,
-            "expected": {
-                "import": m["expected"],
-                "import_error": _REJECT_CLASS if rejects else None,
-                "scan": not rejects,
-                "redact": "skip" if rejects else "skip_v0",
-                "redact_error": None,
-            },
-            "notes": m["notes"],
-            "sha256": m["sha256"],
-        })
+        rows.append(
+            {
+                "id": m["id"],
+                "path": rel,
+                "kind": m["kind"],
+                "pages": None if rejects else 12,
+                "gt": None,
+                "expected": {
+                    "import": m["expected"],
+                    "import_error": _REJECT_CLASS if rejects else None,
+                    "scan": not rejects,
+                    "redact": "skip" if rejects else "skip_v0",
+                    "redact_error": None,
+                },
+                "notes": m["notes"],
+                "sha256": m["sha256"],
+            }
+        )
 
     manifest = {
         "schema_version": 1,

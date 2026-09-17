@@ -29,6 +29,7 @@ Run with: .venv/bin/python -m packet.build_capture
 
 Every character is printable ASCII.
 """
+
 from __future__ import annotations
 
 import hashlib
@@ -126,15 +127,17 @@ def _assemble(form_pdf: bytes, packet_pdf: bytes) -> bytes:
 
     B._strip_default_helvetica(writer)
     creator = "Resecta Sample Packet Generator (capture master)"
-    writer.add_metadata({
-        "/Title": f"{V.CAPTURE_SET_ID} capture masters (synthetic sample)",
-        "/Author": "Resecta",
-        "/Subject": "Synthetic PII-dense capture masters for print-and-scan measurement",
-        "/Creator": creator,
-        "/Producer": creator,
-        "/CreationDate": "D:20260614000000Z",
-        "/ModDate": "D:20260614000000Z",
-    })
+    writer.add_metadata(
+        {
+            "/Title": f"{V.CAPTURE_SET_ID} capture masters (synthetic sample)",
+            "/Author": "Resecta",
+            "/Subject": "Synthetic PII-dense capture masters for print-and-scan measurement",
+            "/Creator": creator,
+            "/Producer": creator,
+            "/CreationDate": "D:20260614000000Z",
+            "/ModDate": "D:20260614000000Z",
+        }
+    )
     fixed = ByteStringObject(_PRE_DOC_ID)
     writer._ID = ArrayObject([fixed, fixed])
     out = io.BytesIO()
@@ -159,14 +162,17 @@ def _carry_packet_ground_truth(packet_gt: dict) -> tuple[list, dict]:
         if page not in remap:
             dropped += 1
             continue
-        r = json.loads(json.dumps(row))          # deep copy; never mutate the packet's own GT
+        r = json.loads(json.dumps(row))  # deep copy; never mutate the packet's own GT
         r["page"] = remap[page]
         for span in r.get("spans") or []:
             span["page"] = remap[page]
         r["carried_from"] = {"document": "packet.pdf", "page": page}
         carried.append(r)
-    return carried, {"carried": len(carried), "dropped_other_pages": dropped,
-                     "unresolved_stmt_rows": unresolved}
+    return carried, {
+        "carried": len(carried),
+        "dropped_other_pages": dropped,
+        "unresolved_stmt_rows": unresolved,
+    }
 
 
 def _marks_sidecar(marks: list, master_sha: str, carry_stats: dict, bases: dict) -> dict:
@@ -174,6 +180,7 @@ def _marks_sidecar(marks: list, master_sha: str, carry_stats: dict, bases: dict)
     a SECOND file, never rows appended to documents.manifest.json, so T1.4 stays byte-stable and the
     K0 manifest rows can DEFER to the capture session for a single re-pin, L-25)."""
     from . import aruco as A
+
     return {
         "schema_version": 1,
         "family": "capture-masters",
@@ -182,19 +189,31 @@ def _marks_sidecar(marks: list, master_sha: str, carry_stats: dict, bases: dict)
         "sha256": master_sha,
         "ground_truth": OUT_JSON.name,
         "page_count": len(marks),
-        "dictionary": {"name": A.DICT_NAME, "count": A.COUNT,
-                       "markers_per_page": len(marks[0]["markers"]) if marks else 0,
-                       "marker_side_pt": 24.0, "margin_band_pt": [18.0, 42.0],
-                       "id_rule": "4*(page_number-1) .. +3, page_number 1-indexed"},
+        "dictionary": {
+            "name": A.DICT_NAME,
+            "count": A.COUNT,
+            "markers_per_page": len(marks[0]["markers"]) if marks else 0,
+            "marker_side_pt": 24.0,
+            "margin_band_pt": [18.0, 42.0],
+            "id_rule": "4*(page_number-1) .. +3, page_number 1-indexed",
+        },
         "imported_pages": [
-            {"master_page": i, "packet_page": p, "source": "packet.pdf",
-             "exhibit": PACKET_SLICE_LABEL[p],
-             "ground_truth": "carried forward verbatim, page index remapped"}
+            {
+                "master_page": i,
+                "packet_page": p,
+                "source": "packet.pdf",
+                "exhibit": PACKET_SLICE_LABEL[p],
+                "ground_truth": "carried forward verbatim, page index remapped",
+            }
             for i, p in enumerate(PACKET_SLICE)
         ],
         "drawn_pages": [
-            {"master_page": bases[name], "exhibit": name,
-             "class": OCC.EXHIBIT_CLASS[name], "designed_doctype": OCC.EXHIBIT_DOCTYPE[name]}
+            {
+                "master_page": bases[name],
+                "exhibit": name,
+                "class": OCC.EXHIBIT_CLASS[name],
+                "designed_doctype": OCC.EXHIBIT_DOCTYPE[name],
+            }
             for name, _fn in CAPTURE_ASSEMBLY
         ],
         "carried_ground_truth": carry_stats,
@@ -232,12 +251,20 @@ def build(*, write=True) -> dict:
         "page_count": total_pages,
         "bbox_origin": "bottom-left",
         "page_size_pt": [L.PW, L.PH],
-        "imported": [{"master_page": i, "packet_page": p, "exhibit": PACKET_SLICE_LABEL[p]}
-                     for i, p in enumerate(PACKET_SLICE)],
-        "exhibits": [{"name": name, "base_page": bases[name], "pages": 1,
-                      "class": OCC.EXHIBIT_CLASS[name],
-                      "designed_doctype": OCC.EXHIBIT_DOCTYPE[name]}
-                     for name, _fn in CAPTURE_ASSEMBLY],
+        "imported": [
+            {"master_page": i, "packet_page": p, "exhibit": PACKET_SLICE_LABEL[p]}
+            for i, p in enumerate(PACKET_SLICE)
+        ],
+        "exhibits": [
+            {
+                "name": name,
+                "base_page": bases[name],
+                "pages": 1,
+                "class": OCC.EXHIBIT_CLASS[name],
+                "designed_doctype": OCC.EXHIBIT_DOCTYPE[name],
+            }
+            for name, _fn in CAPTURE_ASSEMBLY
+        ],
         "occurrences": drawn,
         "carried_packet": carried,
     }
@@ -251,8 +278,9 @@ def build(*, write=True) -> dict:
     drawn_ids = {r["id"] for r in drawn}
     missing, extra = expected_ids - drawn_ids, drawn_ids - expected_ids
     if missing or extra:
-        raise SystemExit(f"capture occurrence mismatch -- missing: {sorted(missing)} "
-                         f"extra: {sorted(extra)}")
+        raise SystemExit(
+            f"capture occurrence mismatch -- missing: {sorted(missing)} extra: {sorted(extra)}"
+        )
     if len(drawn_ids) != len(drawn):
         raise SystemExit("duplicate drawn capture occurrence id")
     for name, _fn in CAPTURE_ASSEMBLY:
@@ -262,6 +290,7 @@ def build(*, write=True) -> dict:
             if rec["page"] != want:
                 raise SystemExit(f"{o.id} on page {rec['page']}, expected {want} ({name})")
     from pypdf import PdfReader
+
     got_pages = len(PdfReader(io.BytesIO(pdf)).pages)
     if got_pages != total_pages:
         raise SystemExit(f"capture master has {got_pages} pages, expected {total_pages}")
@@ -272,7 +301,8 @@ def build(*, write=True) -> dict:
     if disk_sha != PACKET_SHA256 or mem_sha != PACKET_SHA256:
         raise SystemExit(
             "D12-40 TRIPWIRE: packet.pdf is no longer the frozen artifact.\n"
-            f"  expected {PACKET_SHA256}\n  on disk  {disk_sha}\n  rebuilt  {mem_sha}")
+            f"  expected {PACKET_SHA256}\n  on disk  {disk_sha}\n  rebuilt  {mem_sha}"
+        )
 
     master_sha = hashlib.sha256(pdf).hexdigest()
     sidecar = _marks_sidecar(marks, master_sha, carry_stats, bases)
@@ -281,18 +311,31 @@ def build(*, write=True) -> dict:
         OUT_PDF.write_bytes(pdf)
         OUT_JSON.write_text(json.dumps(gt, indent=2) + "\n", encoding="ascii")
         OUT_MARKS.write_text(json.dumps(sidecar, indent=2) + "\n", encoding="ascii")
-    return {"pdf": pdf, "ground_truth": gt, "marks": marks, "sidecar": sidecar,
-            "pages": total_pages, "bases": bases, "drawn": len(drawn),
-            "carried": len(carried), "sha256": master_sha, "recording": rc}
+    return {
+        "pdf": pdf,
+        "ground_truth": gt,
+        "marks": marks,
+        "sidecar": sidecar,
+        "pages": total_pages,
+        "bases": bases,
+        "drawn": len(drawn),
+        "carried": len(carried),
+        "sha256": master_sha,
+        "recording": rc,
+    }
 
 
 def main() -> None:
     r = build()
     print(f"wrote {OUT_PDF}  ({len(r['pdf']):,} bytes, {r['pages']} pages)")
     print(f"     sha256 {r['sha256']}")
-    print(f"wrote {OUT_JSON}  ({r['drawn']} drawn occurrences + {r['carried']} carried packet rows)")
-    print(f"wrote {OUT_MARKS}  ({r['pages']} pages x "
-          f"{r['sidecar']['dictionary']['markers_per_page']} fiducials)")
+    print(
+        f"wrote {OUT_JSON}  ({r['drawn']} drawn occurrences + {r['carried']} carried packet rows)"
+    )
+    print(
+        f"wrote {OUT_MARKS}  ({r['pages']} pages x "
+        f"{r['sidecar']['dictionary']['markers_per_page']} fiducials)"
+    )
     print(f"packet.pdf byte-unchanged at {PACKET_SHA256} (D12-40 tripwire held)")
 
 

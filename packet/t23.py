@@ -22,6 +22,7 @@ the plants sidecar `t23/packet-t23-plants.json`.
 
 Run: .venv/bin/python -m packet.t23
 """
+
 from __future__ import annotations
 
 import io
@@ -55,6 +56,7 @@ T23_FONT = "/T23F"  # added to the touched pages' /Resources /Font
 # --------------------------------------------------------------------------------------------------
 def _helvetica(w):
     from pypdf.generic import DictionaryObject, NameObject
+
     font = DictionaryObject()
     font[NameObject("/Type")] = NameObject("/Font")
     font[NameObject("/Subtype")] = NameObject("/Type1")
@@ -65,14 +67,15 @@ def _helvetica(w):
 
 def _ap_form(w, font_ref, text: str, wpt: float, hpt: float, size: float = 9.0):
     """Uncompressed /AP normal-appearance form XObject drawing `text`."""
-    from pypdf.generic import (ArrayObject, DictionaryObject, FloatObject, NameObject,
-                               StreamObject)
+    from pypdf.generic import ArrayObject, DictionaryObject, FloatObject, NameObject, StreamObject
+
     content = f"BT {T23_FONT} {size} Tf 3 {hpt / 2 - size / 2 + 1:.1f} Td ({text}) Tj ET"
     ap = StreamObject()
     ap[NameObject("/Type")] = NameObject("/XObject")
     ap[NameObject("/Subtype")] = NameObject("/Form")
     ap[NameObject("/BBox")] = ArrayObject(
-        [FloatObject(0), FloatObject(0), FloatObject(wpt), FloatObject(hpt)])
+        [FloatObject(0), FloatObject(0), FloatObject(wpt), FloatObject(hpt)]
+    )
     res = DictionaryObject()
     fnt = DictionaryObject()
     fnt[NameObject(T23_FONT)] = font_ref
@@ -82,10 +85,26 @@ def _ap_form(w, font_ref, text: str, wpt: float, hpt: float, size: float = 9.0):
     return w._add_object(ap)
 
 
-def _annot(w, page, subtype: str, rect, *, contents: str | None = None, ap_ref=None,
-           name: str | None = None, parent_ref=None):
-    from pypdf.generic import (ArrayObject, DictionaryObject, FloatObject, NameObject,
-                               NumberObject, TextStringObject)
+def _annot(
+    w,
+    page,
+    subtype: str,
+    rect,
+    *,
+    contents: str | None = None,
+    ap_ref=None,
+    name: str | None = None,
+    parent_ref=None,
+):
+    from pypdf.generic import (
+        ArrayObject,
+        DictionaryObject,
+        FloatObject,
+        NameObject,
+        NumberObject,
+        TextStringObject,
+    )
+
     a = DictionaryObject()
     a[NameObject("/Type")] = NameObject("/Annot")
     a[NameObject("/Subtype")] = NameObject(subtype)
@@ -117,6 +136,7 @@ def annotated(packet_pdf: bytes):
     covering no GT box."""
     from pypdf import PdfReader, PdfWriter
     from pypdf.generic import NameObject
+
     r = PdfReader(io.BytesIO(packet_pdf))
     w = PdfWriter(clone_from=r)
     font_ref = _helvetica(w)
@@ -127,27 +147,48 @@ def annotated(packet_pdf: bytes):
         x0, y0, x1, y1 = rect
         pw = float(w.pages[page_idx].mediabox.width)
         ph = float(w.pages[page_idx].mediabox.height)
-        return [round(x0 / pw, 4), round(y0 / ph, 4),
-                round((x1 - x0) / pw, 4), round((y1 - y0) / ph, 4)]
+        return [
+            round(x0 / pw, 4),
+            round(y0 / ph, 4),
+            round((x1 - x0) / pw, 4),
+            round((y1 - y0) / ph, 4),
+        ]
 
     # p0 FreeText -- value drawn by /AP AND present in /Contents.
     rect = [320.0, 16.0, 566.0, 40.0]
     ap = _ap_form(w, font_ref, FT_TEXT, rect[2] - rect[0], rect[3] - rect[1])
     _annot(w, w.pages[0], "/FreeText", rect, contents=FT_TEXT, ap_ref=ap)
-    plants.append({"file": "packet-annotated.pdf", "page": 0, "subtype": "FreeText",
-                   "surface": "annotation_ap_and_contents", "term": FT_TERM, "shape": "ssn",
-                   "rect": nrect(rect, 0),
-                   "notes": "value drawn by the /AP normal appearance AND stored in /Contents"})
+    plants.append(
+        {
+            "file": "packet-annotated.pdf",
+            "page": 0,
+            "subtype": "FreeText",
+            "surface": "annotation_ap_and_contents",
+            "term": FT_TERM,
+            "shape": "ssn",
+            "rect": nrect(rect, 0),
+            "notes": "value drawn by the /AP normal appearance AND stored in /Contents",
+        }
+    )
 
     # p2 Stamp -- value ONLY in the /AP stream (contents benign).
     rect = [340.0, 16.0, 566.0, 44.0]
     ap = _ap_form(w, font_ref, STAMP_AP_TEXT, rect[2] - rect[0], rect[3] - rect[1], size=10.0)
-    _annot(w, w.pages[2], "/Stamp", rect, contents="synthetic routing stamp", ap_ref=ap,
-           name="/Draft")
-    plants.append({"file": "packet-annotated.pdf", "page": 2, "subtype": "Stamp",
-                   "surface": "annotation_ap", "term": STAMP_TERM, "shape": "phone",
-                   "rect": nrect(rect, 2),
-                   "notes": "value only in the custom /AP appearance; /Contents is benign"})
+    _annot(
+        w, w.pages[2], "/Stamp", rect, contents="synthetic routing stamp", ap_ref=ap, name="/Draft"
+    )
+    plants.append(
+        {
+            "file": "packet-annotated.pdf",
+            "page": 2,
+            "subtype": "Stamp",
+            "surface": "annotation_ap",
+            "term": STAMP_TERM,
+            "shape": "phone",
+            "rect": nrect(rect, 2),
+            "notes": "value only in the custom /AP appearance; /Contents is benign",
+        }
+    )
 
     # p4 Square + Popup -- value ONLY in the parent /Contents (popup text; no /AP).
     rect = [320.0, 16.0, 560.0, 42.0]
@@ -156,15 +197,26 @@ def annotated(packet_pdf: bytes):
     popup = _annot(w, w.pages[4], "/Popup", popup_rect, parent_ref=parent)
     pa = parent.get_object()
     pa[NameObject("/Popup")] = popup
-    plants.append({"file": "packet-annotated.pdf", "page": 4, "subtype": "Square+Popup",
-                   "surface": "annotation_contents", "term": POPUP_TERM, "shape": "name",
-                   "rect": nrect(rect, 4),
-                   "notes": "value only in the markup /Contents mirrored by its /Popup; no /AP"})
+    plants.append(
+        {
+            "file": "packet-annotated.pdf",
+            "page": 4,
+            "subtype": "Square+Popup",
+            "surface": "annotation_contents",
+            "term": POPUP_TERM,
+            "shape": "name",
+            "rect": nrect(rect, 4),
+            "notes": "value only in the markup /Contents mirrored by its /Popup; no /AP",
+        }
+    )
 
     out = io.BytesIO()
     w.write(out)
-    pdf = V._finalize(out.getvalue(), "Hartwell Packet -- annotated (IM-14, test-only)",
-                      b"ResectaPacketAnnotated1")
+    pdf = V._finalize(
+        out.getvalue(),
+        "Hartwell Packet -- annotated (IM-14, test-only)",
+        b"ResectaPacketAnnotated1",
+    )
     return pdf, plants
 
 
@@ -176,7 +228,7 @@ def incremental(packet_pdf: bytes):
     revision 2 = classic appended update section replacing that overlay object (plant removed).
     The prior revision's bytes remain in the file -- the [R01] §1.5 leak class."""
     from pypdf import PdfReader, PdfWriter
-    from pypdf.generic import (ArrayObject, DictionaryObject, NameObject, StreamObject)
+    from pypdf.generic import ArrayObject, DictionaryObject, NameObject, StreamObject
 
     r = PdfReader(io.BytesIO(packet_pdf))
     w = PdfWriter(clone_from=r)
@@ -192,15 +244,17 @@ def incremental(packet_pdf: bytes):
     overlay_ref = w._add_object(overlay)
     contents_raw = page.raw_get("/Contents")
     if isinstance(contents_raw.get_object(), ArrayObject):
-        page[NameObject("/Contents")] = ArrayObject(
-            list(contents_raw.get_object()) + [overlay_ref])
+        page[NameObject("/Contents")] = ArrayObject(list(contents_raw.get_object()) + [overlay_ref])
     else:
         page[NameObject("/Contents")] = ArrayObject([contents_raw, overlay_ref])
 
     out = io.BytesIO()
     w.write(out)
-    rev1 = V._finalize(out.getvalue(), "Hartwell Packet -- incremental (IM-23, test-only)",
-                       b"ResectaPacketIncremen1")
+    rev1 = V._finalize(
+        out.getvalue(),
+        "Hartwell Packet -- incremental (IM-23, test-only)",
+        b"ResectaPacketIncremen1",
+    )
 
     # Locate the overlay object + trailer facts in the FINALIZED revision-1 bytes.
     fr = PdfReader(io.BytesIO(rev1))
@@ -216,22 +270,27 @@ def incremental(packet_pdf: bytes):
     info_num = trailer.raw_get("/Info").idnum if "/Info" in trailer else None
     fid = trailer["/ID"][0].original_bytes
 
-    tail = rev1[rev1.rfind(b"startxref"):]
+    tail = rev1[rev1.rfind(b"startxref") :]
     rev1_xref_off = int(tail.split()[1])
 
     v2_stream = f"BT {T23_FONT} 8 Tf 322 20 Td ({PREV_LINE_V2}) Tj ET".encode("ascii")
     upd = b"\n"
     obj_off = len(rev1) + len(upd)
-    upd += (b"%d 0 obj\n<< /Length %d >>\nstream\n" % (overlay_num, len(v2_stream))
-            + v2_stream + b"\nendstream\nendobj\n")
+    upd += (
+        b"%d 0 obj\n<< /Length %d >>\nstream\n" % (overlay_num, len(v2_stream))
+        + v2_stream
+        + b"\nendstream\nendobj\n"
+    )
     xref2_off = len(rev1) + len(upd)
     fid_hex = fid.hex().upper().encode("ascii")
     trailer_bits = b"/Size %d /Root %d 0 R" % (size, root_num)
     if info_num is not None:
         trailer_bits += b" /Info %d 0 R" % info_num
     trailer_bits += b" /Prev %d /ID [<%s><%s>]" % (rev1_xref_off, fid_hex, fid_hex)
-    upd += (b"xref\n0 1\n0000000000 65535 f \n%d 1\n%010d 00000 n \n" % (overlay_num, obj_off)
-            + b"trailer\n<< %s >>\nstartxref\n%d\n%%%%EOF\n" % (trailer_bits, xref2_off))
+    upd += b"xref\n0 1\n0000000000 65535 f \n%d 1\n%010d 00000 n \n" % (
+        overlay_num,
+        obj_off,
+    ) + b"trailer\n<< %s >>\nstartxref\n%d\n%%%%EOF\n" % (trailer_bits, xref2_off)
     return rev1 + upd
 
 
@@ -263,8 +322,7 @@ def _self_check(out: dict) -> None:
     pdf, plants = out["annotated"]
     d = fitz.open(stream=pdf, filetype="pdf")
     apr = PdfReader(io.BytesIO(pdf))
-    subtypes = [str(a.get_object()["/Subtype"]) for pg in apr.pages
-                for a in pg.get("/Annots", [])]
+    subtypes = [str(a.get_object()["/Subtype"]) for pg in apr.pages for a in pg.get("/Annots", [])]
     for want in ("/FreeText", "/Stamp", "/Square", "/Popup"):
         assert want in subtypes, f"missing annot {want}: {subtypes}"
     mupdf_text = "".join(p.get_text() for p in d)
@@ -319,40 +377,83 @@ def build_t23(write: bool = True) -> dict:
             (OUTDIR / f"packet-rotate-{deg}.pdf").write_bytes(pdf)
             gt_name = f"packet-rotate-{deg}-ground-truth.json"
             (OUTDIR / gt_name).write_text(json.dumps(vgt, indent=2) + "\n", encoding="ascii")
-            rows.append({"id": f"packet-rotate-{deg}", "path": f"t23/packet-rotate-{deg}.pdf",
-                         "pages": 12, "gt": f"t23/{gt_name}", "sha256": _sha256(pdf),
-                         "notes": f"IM-08 /Rotate {deg} leg, degrees-aware display-space GT "
-                                  "(C12-72). Measures only -- F12-04 stays parked."})
+            rows.append(
+                {
+                    "id": f"packet-rotate-{deg}",
+                    "path": f"t23/packet-rotate-{deg}.pdf",
+                    "pages": 12,
+                    "gt": f"t23/{gt_name}",
+                    "sha256": _sha256(pdf),
+                    "notes": f"IM-08 /Rotate {deg} leg, degrees-aware display-space GT "
+                    "(C12-72). Measures only -- F12-04 stays parked.",
+                }
+            )
         pdf, plants = out["annotated"]
         (OUTDIR / "packet-annotated.pdf").write_bytes(pdf)
-        rows.append({"id": "packet-annotated", "path": "t23/packet-annotated.pdf",
-                     "pages": 12, "gt": "t23/packet-t23-plants.json",
-                     "sha256": _sha256(pdf),
-                     "notes": "IM-14 annotation realism leg: FreeText(/AP+/Contents) - "
-                              "Stamp(/AP only) - Square+Popup(/Contents only)."})
+        rows.append(
+            {
+                "id": "packet-annotated",
+                "path": "t23/packet-annotated.pdf",
+                "pages": 12,
+                "gt": "t23/packet-t23-plants.json",
+                "sha256": _sha256(pdf),
+                "notes": "IM-14 annotation realism leg: FreeText(/AP+/Contents) - "
+                "Stamp(/AP only) - Square+Popup(/Contents only).",
+            }
+        )
         inc = out["incremental"]
         (OUTDIR / "packet-incremental.pdf").write_bytes(inc)
-        rows.append({"id": "packet-incremental", "path": "t23/packet-incremental.pdf",
-                     "pages": 12, "gt": "t23/packet-t23-plants.json",
-                     "sha256": _sha256(inc),
-                     "notes": "IM-23 REAL /Prev two-revision packet: rev-1 overlay carries the "
-                              "plant, rev-2 replaces it; prior bytes remain ([R01] 1.5)."})
+        rows.append(
+            {
+                "id": "packet-incremental",
+                "path": "t23/packet-incremental.pdf",
+                "pages": 12,
+                "gt": "t23/packet-t23-plants.json",
+                "sha256": _sha256(inc),
+                "notes": "IM-23 REAL /Prev two-revision packet: rev-1 overlay carries the "
+                "plant, rev-2 replaces it; prior bytes remain ([R01] 1.5).",
+            }
+        )
         plants_all = plants + [
-            {"file": "packet-incremental.pdf", "page": 0, "subtype": None,
-             "surface": "prior_revision", "term": PREV_TERM, "shape": "ssn", "rect": None,
-             "notes": "rev-1 overlay line carries the term; the rev-2 current view is "
-                      "term-free. Original-byte scanning is the designed detector."}]
-        (OUTDIR / "packet-t23-plants.json").write_text(json.dumps({
-            "schema_version": 1,
-            "generated_by": "packet.t23 (IM-14 / IM-23, P1.7)",
-            "coordinates": "rect = normalized bottom-left [x, y, w, h] (y-up); null = whole-file",
-            "plants": plants_all}, indent=2) + "\n", encoding="ascii")
-        (OUTDIR / "t23-fixtures.json").write_text(json.dumps({
-            "schema_version": 1,
-            "generator": "packet/t23.py (T2.3, P1.7)",
-            "notes": "DOCS_ROOT-direct family (T1.4 manifest untouched); deterministic "
-                     "byte-for-byte; plants sidecar = packet-t23-plants.json",
-            "fixtures": rows}, indent=2) + "\n", encoding="ascii")
+            {
+                "file": "packet-incremental.pdf",
+                "page": 0,
+                "subtype": None,
+                "surface": "prior_revision",
+                "term": PREV_TERM,
+                "shape": "ssn",
+                "rect": None,
+                "notes": "rev-1 overlay line carries the term; the rev-2 current view is "
+                "term-free. Original-byte scanning is the designed detector.",
+            }
+        ]
+        (OUTDIR / "packet-t23-plants.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "generated_by": "packet.t23 (IM-14 / IM-23, P1.7)",
+                    "coordinates": "rect = normalized bottom-left [x, y, w, h] (y-up); null = whole-file",
+                    "plants": plants_all,
+                },
+                indent=2,
+            )
+            + "\n",
+            encoding="ascii",
+        )
+        (OUTDIR / "t23-fixtures.json").write_text(
+            json.dumps(
+                {
+                    "schema_version": 1,
+                    "generator": "packet/t23.py (T2.3, P1.7)",
+                    "notes": "DOCS_ROOT-direct family (T1.4 manifest untouched); deterministic "
+                    "byte-for-byte; plants sidecar = packet-t23-plants.json",
+                    "fixtures": rows,
+                },
+                indent=2,
+            )
+            + "\n",
+            encoding="ascii",
+        )
     return out
 
 
