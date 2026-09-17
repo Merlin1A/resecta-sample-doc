@@ -69,6 +69,7 @@ import subprocess
 import sys
 import unicodedata
 from pathlib import Path
+from typing import Any
 from xml.etree import ElementTree
 
 SCHEMA_VERSION = 1
@@ -299,7 +300,7 @@ def walk_json_keys(node: object, found: set[str]) -> None:
             walk_json_keys(v, found)
 
 
-def o0_structure(cell: Cell, workdir: Path) -> dict:
+def o0_structure(cell: Cell | CalCell, workdir: Path) -> dict:
     raw = cell.output.read_bytes()
     revisions = raw.count(b"%%EOF")
     rc_check, out_check, err_check = run(["qpdf", "--check", str(cell.output)])
@@ -328,7 +329,7 @@ def o0_structure(cell: Cell, workdir: Path) -> dict:
         for k, v in (doc.metadata or {}).items():
             if v and k not in BENIGN_INFO:
                 info_extra[k] = str(v)
-        for i, page in enumerate(doc):
+        for i, page in enumerate(doc.pages()):
             if list(page.annots() or []):
                 annots_pages.append(i)
         doc.close()
@@ -351,7 +352,7 @@ def o0_structure(cell: Cell, workdir: Path) -> dict:
     }
 
 
-def o4_census(cell: Cell) -> dict:
+def o4_census(cell: Cell | CalCell) -> dict:
     _, fonts_out, _ = run(["pdffonts", str(cell.output)])
     font_rows = fonts_out.splitlines()[2:]
     type3 = [r for r in font_rows if " Type 3 " in f" {r} "]
@@ -409,7 +410,7 @@ def stext_pages(
     return pages
 
 
-def o1_text_layer(cell: Cell, scope: dict[str, str]) -> tuple[list[dict], dict]:
+def o1_text_layer(cell: Cell | CalCell, scope: dict[str, str]) -> tuple[list[dict], dict]:
     hits: list[dict] = []
     pdftotext_layout = run_bytes(
         ["pdftotext", "-layout", "-enc", "UTF-8", "-nopgbrk", str(cell.output), "-"]
@@ -426,7 +427,7 @@ def o1_text_layer(cell: Cell, scope: dict[str, str]) -> tuple[list[dict], dict]:
     rawdict_text: dict[int, str] = {}
     with contextlib.suppress(Exception):
         doc = pymupdf.open(cell.output)
-        for i, page in enumerate(doc):
+        for i, page in enumerate(doc.pages()):
             rd = page.get_text("rawdict")
             buf: list[str] = []
             flag_hist: dict[str, int] = {}
@@ -524,7 +525,7 @@ def tj_reassembled(qdf_bytes: bytes) -> str:
     return "".join(text_parts)
 
 
-def o2_bytes(cell: Cell, o0: dict, scope: dict[str, str], workdir: Path) -> list[dict]:
+def o2_bytes(cell: Cell | CalCell, o0: dict, scope: dict[str, str], workdir: Path) -> list[dict]:
     hits: list[dict] = []
     raw = cell.output.read_bytes()
     corpora: dict[str, bytes] = {"raw": raw}
@@ -626,7 +627,7 @@ def o2_bytes(cell: Cell, o0: dict, scope: dict[str, str], workdir: Path) -> list
 # ---------------------------------------------------------------- O3
 
 
-def o3_tesseract(cell: Cell, render_dir: Path) -> dict:
+def o3_tesseract(cell: Cell | CalCell, render_dir: Path) -> dict:
     """Per page: union text over PSM 6/11/12 + PSM-6 TSV word boxes."""
     pages: dict[int, dict] = {}
     for png in sorted(render_dir.glob("pp-*.png")):
@@ -685,7 +686,7 @@ def o3_tesseract(cell: Cell, render_dir: Path) -> dict:
 
 
 def ocr_hits_for_engine(
-    cell: Cell,
+    cell: Cell | CalCell,
     page_texts: dict[int, str],
     page_words: dict[int, list[tuple[str, tuple[float, float, float, float]]]],
     px_dims: dict[int, tuple[int, int]],
@@ -736,18 +737,24 @@ def o5_pixels(cell: Cell, render_dir: Path, workdir: Path) -> dict:
     import cv2
     import numpy as np
 
-    result = {"regions": 0, "fill_fail": [], "iou": [], "max_dev_pp": 0, "max_dev_mu": 0}
+    result: dict[str, Any] = {
+        "regions": 0,
+        "fill_fail": [],
+        "iou": [],
+        "max_dev_pp": 0,
+        "max_dev_mu": 0,
+    }
     burned = cell.burned_by_page()
-    pp = {
-        int(re.search(r"pp-0*(\d+)", p.name).group(1)) - 1: p
-        for p in render_dir.glob("pp-*.png")
-        if re.search(r"pp-0*(\d+)", p.name)
-    }
-    mu = {
-        int(re.search(r"mu-0*(\d+)", p.name).group(1)) - 1: p
-        for p in render_dir.glob("mu-*.png")
-        if re.search(r"mu-0*(\d+)", p.name)
-    }
+    pp = {}
+    for p in render_dir.glob("pp-*.png"):
+        m = re.search(r"pp-0*(\d+)", p.name)
+        if m is not None:
+            pp[int(m.group(1)) - 1] = p
+    mu = {}
+    for p in render_dir.glob("mu-*.png"):
+        m = re.search(r"mu-0*(\d+)", p.name)
+        if m is not None:
+            mu[int(m.group(1)) - 1] = p
     for pageno, regions in burned.items():
         img_pp = cv2.imread(str(pp[pageno]), cv2.IMREAD_GRAYSCALE) if pageno in pp else None
         img_mu = cv2.imread(str(mu[pageno]), cv2.IMREAD_GRAYSCALE) if pageno in mu else None
@@ -821,7 +828,7 @@ def utf7(term: str) -> bytes:
         return b""
 
 
-def o6_adversarial(cell: Cell, scope: dict[str, str]) -> list[dict]:
+def o6_adversarial(cell: Cell | CalCell, scope: dict[str, str]) -> list[dict]:
     raw = cell.output.read_bytes()
     hits = []
     for term in cell.terms:
@@ -1324,8 +1331,8 @@ class CalCell:
         self.region_set = "planted"
         self.key = fixture
         self.terms = terms
-        self.expected_visible = set()
-        self.burned = []
+        self.expected_visible: set[str] = set()
+        self.burned: list[Any] = []
 
     def burned_by_page(self) -> dict:
         return {}
@@ -1514,7 +1521,7 @@ def phase_calibrate_finalize(planted_dir: Path, out: Path) -> None:
             for plant in row["plants"]:
                 term = plant["term"]
                 surface = plant["surface"]
-                legs, vp = term_legs(term)
+                legs, vision_leg_present = term_legs(term)
                 structure_fired = _structure_signal_fired(surface, partial["o0"])
                 term_recovered = bool(legs)
                 structure_only_expected = plant["expected_legs"] == ["structure"]
@@ -1539,7 +1546,7 @@ def phase_calibrate_finalize(planted_dir: Path, out: Path) -> None:
                         "term_recovered": term_recovered,
                         "found": found,
                         "found_by_expected_leg": expected_found,
-                        "vision_leg_present": vp,
+                        "vision_leg_present": vision_leg_present,
                     }
                 )
         else:
@@ -1653,7 +1660,7 @@ def phase_pb86(cells_dir: Path) -> None:
             import pymupdf
 
             doc = pymupdf.open(output)
-            rd = "".join(pg.get_text() for pg in doc)
+            rd = "".join(pg.get_text() for pg in doc.pages())
             doc.close()
             if ft in fold(rd):
                 text_legs.append("pymupdf")

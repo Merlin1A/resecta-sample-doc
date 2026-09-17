@@ -29,6 +29,7 @@ import hashlib
 import io
 import json
 from pathlib import Path
+from typing import cast
 
 from . import build_packet as B
 from . import variants as V
@@ -228,15 +229,15 @@ def incremental(packet_pdf: bytes):
     revision 2 = classic appended update section replacing that overlay object (plant removed).
     The prior revision's bytes remain in the file -- the [R01] §1.5 leak class."""
     from pypdf import PdfReader, PdfWriter
-    from pypdf.generic import ArrayObject, NameObject, StreamObject
+    from pypdf.generic import ArrayObject, DictionaryObject, NameObject, StreamObject
 
     r = PdfReader(io.BytesIO(packet_pdf))
     w = PdfWriter(clone_from=r)
     font_ref = _helvetica(w)
 
     page = w.pages[0]
-    res = page["/Resources"].get_object()
-    fonts = res["/Font"].get_object()
+    res = cast(DictionaryObject, page["/Resources"].get_object())
+    fonts = cast(DictionaryObject, res["/Font"].get_object())
     fonts[NameObject(T23_FONT)] = font_ref
 
     overlay = StreamObject()
@@ -258,17 +259,17 @@ def incremental(packet_pdf: bytes):
 
     # Locate the overlay object + trailer facts in the FINALIZED revision-1 bytes.
     fr = PdfReader(io.BytesIO(rev1))
-    cont = fr.pages[0]["/Contents"].get_object()
+    cont = cast(ArrayObject, fr.pages[0]["/Contents"].get_object())
     assert isinstance(cont, ArrayObject) and len(cont) >= 2, "overlay array lost in finalize"
     overlay_num = cont[-1].idnum
-    probe = fr.get_object(cont[-1]).get_data()
+    probe = cast(StreamObject, fr.get_object(cont[-1])).get_data()
     assert PREV_TERM.encode() in probe, "overlay stream is not the last /Contents element"
 
     trailer = fr.trailer
-    size = int(trailer["/Size"])
+    size = int(cast(int, trailer["/Size"]))
     root_num = trailer.raw_get("/Root").idnum
     info_num = trailer.raw_get("/Info").idnum if "/Info" in trailer else None
-    fid = trailer["/ID"][0].original_bytes
+    fid = cast(ArrayObject, trailer["/ID"])[0].original_bytes
 
     tail = rev1[rev1.rfind(b"startxref") :]
     rev1_xref_off = int(tail.split()[1])
@@ -302,6 +303,7 @@ def _sha256(b: bytes) -> str:
 def _self_check(out: dict) -> None:
     import fitz
     from pypdf import PdfReader
+    from pypdf.generic import ArrayObject
 
     base = out["_base_packet"]
     base_doc = fitz.open(stream=base, filetype="pdf")
@@ -346,7 +348,8 @@ def _self_check(out: dict) -> None:
     assert PREV_TERM.encode("ascii") in pdf, "prior-revision bytes missing"
     pr = PdfReader(io.BytesIO(pdf))
     assert len(pr.pages) == len(base_doc)
-    assert PREV_TERM.encode() not in pr.pages[0]["/Contents"].get_object()[-1].get_data()
+    last = cast(ArrayObject, pr.pages[0]["/Contents"].get_object())[-1]
+    assert PREV_TERM.encode() not in last.get_data()
 
 
 def build_t23(write: bool = True) -> dict:

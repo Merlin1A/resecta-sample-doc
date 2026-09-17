@@ -32,6 +32,7 @@ import json
 import subprocess
 import zlib
 from pathlib import Path
+from typing import Any
 
 REPO = Path(__file__).resolve().parent.parent
 OUTDIR = REPO / "planted"
@@ -978,7 +979,7 @@ def main() -> None:
     fx_text_outlines_probe()
     clean_docs()
 
-    manifest = {
+    manifest: dict[str, Any] = {
         "schema_version": 1,
         "generated_by": "tools/build_planted_corpus.py",
         "term_convention": "PLANT-<SURFACE>-<nn>; every term unique corpus-wide",

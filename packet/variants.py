@@ -23,6 +23,7 @@ from __future__ import annotations
 import io
 import json
 from pathlib import Path
+from typing import cast
 
 from reportlab import rl_config
 
@@ -598,10 +599,9 @@ def _packet_with_hidden(
             }
         )
     )
-    resources = page["/Resources"]
-    resources = resources.get_object()
-    fonts = resources.get("/Font")
-    fonts = fonts.get_object() if fonts is not None else None
+    resources = cast(DictionaryObject, page["/Resources"].get_object())
+    fonts_raw = resources.get("/Font")
+    fonts = cast(DictionaryObject, fonts_raw.get_object()) if fonts_raw is not None else None
     if fonts is None:
         fonts = DictionaryObject()
         resources[NameObject("/Font")] = fonts
@@ -626,8 +626,8 @@ def _packet_with_hidden(
                 ),
             }
         )
-        props = resources.get("/Properties")
-        props = props.get_object() if props is not None else None
+        props_raw = resources.get("/Properties")
+        props = cast(DictionaryObject, props_raw.get_object()) if props_raw is not None else None
         if props is None:
             props = DictionaryObject()
             resources[NameObject("/Properties")] = props

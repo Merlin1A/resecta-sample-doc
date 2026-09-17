@@ -1367,7 +1367,7 @@ H4 = [
 # ==================================================================================================
 CAPTURE_ALL = M1 + M2 + M3 + M4 + K1 + K2 + K3 + K4 + H1 + H2 + H3 + H4
 CAPTURE_BY_ID = {o.id: o for o in CAPTURE_ALL}
-CAPTURE_BY_EXHIBIT = {}
+CAPTURE_BY_EXHIBIT: dict[str, list[O]] = {}
 for _o in CAPTURE_ALL:
     CAPTURE_BY_EXHIBIT.setdefault(_o.exhibit, []).append(_o)
 

@@ -51,6 +51,7 @@ import sys
 from collections import Counter
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 import numpy as np
 
@@ -71,7 +72,7 @@ PAGE_HINT_RE = re.compile(r"(?:^|[^0-9])p(\d{2})(?:[^0-9]|$)")
 
 # Leg name -> the manifest's capture axis (K0..K4, `30-` row "Capture"), the nominal DPI (None =
 # derive it from the homography) and the structural-feature tag the leg exercises.
-LEGS = {
+LEGS: dict[str, dict[str, Any]] = {
     "scan150": {"kind": "K1", "dpi": 150, "features": ["F0"]},
     "scan300": {"kind": "K2", "dpi": 300, "features": ["F0"]},
     "photo": {"kind": "K3", "dpi": None, "features": ["F0"]},
@@ -154,7 +155,7 @@ def git_describe(repo: Path) -> str:
         return "unknown"
 
 
-def leg_spec(leg: str) -> dict:
+def leg_spec(leg: str) -> dict[str, Any]:
     """Leg name -> {kind, dpi, features, synthetic}. `synth<dpi>[-...]` legs are the pypdfium2 rasters."""
     if leg in LEGS:
         return {**LEGS[leg], "synthetic": False}
@@ -544,7 +545,12 @@ def draw_overlay(
         )
 
     for r in rows:
-        color = EXPECTATION_BGR.get(r.get("expectation"), (128, 128, 128))
+        expectation = r.get("expectation")
+        color = (
+            EXPECTATION_BGR.get(expectation, (128, 128, 128))
+            if isinstance(expectation, str)
+            else (128, 128, 128)
+        )
         poly = np.array(r["polygon_px"], np.float64).reshape(-1, 2)
         cv2.polylines(bgr, [pts(poly)], True, color, t)
     for mid, quad in reg.get("markers", {}).items():
@@ -576,7 +582,7 @@ def draw_overlay(
 def load_image(cv2, path: Path, stage_dir: Path) -> tuple[np.ndarray, Path, dict]:
     from PIL import Image, ImageOps
 
-    meta = {
+    meta: dict[str, Any] = {
         "source": str(path),
         "source_sha256": sha256_path(path),
         "exif_orientation": None,
@@ -706,7 +712,7 @@ def cmd_register(args) -> int:
         "min_perimeter_rate": args.min_perimeter_rate,
         "restrict": not args.no_restrict,
     }
-    index = {
+    index: dict[str, Any] = {
         "tool": TOOL,
         "version": TOOL_VERSION,
         "sd_sha": git_describe(REPO),
@@ -773,6 +779,8 @@ def cmd_register(args) -> int:
                 None if hint is None or reg.get("page") is None else hint == reg["page"]
             )
             if reg["page_hint_agrees"] is False:
+                if hint is None:  # page_hint_agrees is False only when hint was set (line 779)
+                    raise AssertionError("page_hint_agrees False implies hint is not None")
                 print(
                     f"  ! {f.name}: filename says page {hint + 1:02d}, fiducials say {reg['page'] + 1:02d} "
                     f"(fiducials win)"
@@ -888,6 +896,10 @@ def cmd_register(args) -> int:
                     )
                     if dpi_x is None:
                         dpi_x, dpi_y = (float(v) for v in r["dpi_effective_xy"])
+                    if (
+                        dpi_x is None or dpi_y is None
+                    ):  # unreachable: the branch above always sets both
+                        raise AssertionError("dpi_x/dpi_y must be resolved by this point")
                     page_w_pt = r["width_px"] * 72.0 / dpi_x
                     page_h_pt = r["height_px"] * 72.0 / dpi_y
                     pages_spec.append(

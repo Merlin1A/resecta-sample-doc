@@ -33,6 +33,7 @@ import io
 import json
 from contextlib import contextmanager
 from pathlib import Path
+from typing import Any
 
 from . import build_packet as B
 from . import variants as V
@@ -52,7 +53,9 @@ class _DetTokenBytes:
     def __init__(self, seed: int):
         self._state = seed & 0xFFFFFFFFFFFFFFFF
 
-    def __call__(self, n: int) -> bytes:
+    def __call__(self, n: int | None = None) -> bytes:
+        if n is None:  # secrets.token_bytes' own default
+            n = 32
         out = bytearray()
         while len(out) < n:
             self._state = (self._state + 0x9E3779B97F4A7C15) & 0xFFFFFFFFFFFFFFFF
@@ -68,7 +71,12 @@ def _pinned_encryption_rng(seed: int):
     import secrets
 
     orig = secrets.token_bytes
-    secrets.token_bytes = _DetTokenBytes(seed)
+    det = _DetTokenBytes(seed)
+
+    def _token_bytes(nbytes: int | None = None) -> bytes:
+        return det(nbytes)
+
+    secrets.token_bytes = _token_bytes
     try:
         yield
     finally:
@@ -265,7 +273,7 @@ def build_family4(write: bool = True) -> dict:
     for a, b_ in enc.items():
         _self_check(f"encrypted-{a}", b_, 12, probe)  # fitz opens empty-user-pw transparently
 
-    rows = [
+    rows: list[dict[str, Any]] = [
         {
             "id": "packet-huge-4999",
             "path": "robustness/packet-huge-4999.pdf",

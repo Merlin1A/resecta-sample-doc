@@ -245,7 +245,7 @@ def cell_counts(pages: list[str], row: dict, opt: dict):
 
 def extract_pymupdf(pdf: Path) -> list[str]:
     doc = pymupdf.open(pdf)
-    return [p.get_text() for p in doc]
+    return [p.get_text() for p in doc.pages()]
 
 
 def extract_pdftotext(pdf: Path) -> list[str]:
@@ -273,7 +273,7 @@ def word_boxes(pdf: Path) -> list[list[tuple[str, tuple[float, float, float, flo
     (the SearchResult.normalizedRect convention)."""
     doc = pymupdf.open(pdf)
     pages = []
-    for p in doc:
+    for p in doc.pages():
         W, H = p.rect.width, p.rect.height
         rows = []
         for x0, y0, x1, y1, word, *_ in p.get_text("words"):
@@ -645,7 +645,7 @@ def _tendency(chars):
 def confusable_normalize(line: str) -> str:
     line_t = _tendency([c for c in line if c.isalnum()])
     out = []
-    token = []
+    token: list[str] = []
 
     def flush():
         if not token:

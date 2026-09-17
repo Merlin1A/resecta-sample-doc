@@ -93,7 +93,7 @@ SEMANTIC_DUALS = [
 ]
 
 
-def build_pairwise_vectors() -> list[dict]:
+def build_pairwise_vectors() -> tuple[list[dict], int, int]:
     """Deterministic greedy all-pairs set, seeded with default + one-flips."""
     seed_rows = [dict(DEFAULTS)]
     for t in TOGGLES:
@@ -123,7 +123,7 @@ def build_pairwise_vectors() -> list[dict]:
         universe.append(bits)
 
     while covered != all_pairs:
-        best_bits = None
+        best_bits: tuple[bool, ...] | None = None
         best_gain = -1
         for bits in universe:
             gain = len(set(pairs_of(bits)) - covered)
@@ -132,6 +132,8 @@ def build_pairwise_vectors() -> list[dict]:
                 best_bits = bits
         if best_gain <= 0:
             break
+        if best_bits is None:
+            raise RuntimeError("unreachable: best_gain > 0 implies best_bits was set")
         covered.update(pairs_of(best_bits))
         chosen.append({t: best_bits[i] for i, t in enumerate(TOGGLES)})
 
@@ -488,7 +490,7 @@ METAMORPHIC = {
 
 def verify_counts(queries: list[dict]) -> None:
     doc = pymupdf.open(ROOT / "packet.pdf")
-    pages = [p.get_text() for p in doc]
+    pages = [p.get_text() for p in doc.pages()]
     failures = []
     for row in queries:
         expected = row.get("expect_packet_occurrences")
@@ -533,7 +535,7 @@ def main() -> None:
 
     OUT_DIR.mkdir(exist_ok=True)
     OUT_PATH.write_text(json.dumps(out, indent=1, sort_keys=True, ensure_ascii=True) + "\n")
-    n_by_mode = {}
+    n_by_mode: dict[str, int] = {}
     for row in queries:
         n_by_mode[row["mode"]] = n_by_mode.get(row["mode"], 0) + 1
     print(
