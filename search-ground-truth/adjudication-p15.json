@@ -1,0 +1,40 @@
+{
+ "schema_version": 1,
+ "generated_by": "P1.5 adjudication (lead), Resecta 1.2 Phase 1",
+ "note": "Adjudication of every H3.1-vs-H3.2 divergence class on the first official run. Disagreement rows freeze only through a row here (T3.1 doctrine). Register ids referenced here are minted in the planning estate (41-FINDINGS / 20-CANDIDATES), not in this repo.",
+ "rows": [
+  {
+   "doc": "*",
+   "qid": "r10",
+   "vector_id": "*",
+   "decision": "accept-product",
+   "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log.",
+   "f12": "F12-07"
+  },
+  {
+   "doc": "*",
+   "qid": "r12",
+   "vector_id": "*",
+   "decision": "accept-product",
+   "rationale": "'(a+)+b' is the canonical ReDoS shape; rejection (empty stream) is the ratified sentinel/precheck design working as intended. The oracle's pure-regex matches ('ab' substrings inside ordinary words) are unreachable by design. No finding."
+  },
+  {
+   "doc": "*",
+   "qid": "r06",
+   "vector_id": "*",
+   "decision": "burst-max-of-runs",
+   "rationale": "Dense-hit cells (>100 matches on one page) nondeterministically lose early-yielded hits: the search stream's AsyncStream bufferingNewest(100) policy evicts the oldest buffered results when the consumer lags a burst (measured host: scan-sim run-1 v01 dropped 11 of 141 page-5 hits while run-2 and the vector twin kept all; final-cache re-derivation confirms 141 is the true count). Freeze takes the higher-yield run per cell (drops only lose hits); the drop mechanism is F12-08. Applies mechanically to any burst cell the freeze phase reconciles, not only r06.",
+   "f12": "F12-08"
+  }
+ ],
+ "observations": [
+  {
+   "id": "obs-q24",
+   "note": "q24 (U+2011 non-breaking-hyphen query) matches ONLY when normalizeUnicode is OFF and normalizeSmartPunctuation is ON: NFKC maps U+2011 to U+2010 HYPHEN, which the smart-punctuation fold map does not contain, so the default-options pipeline never folds it to ASCII '-'. Product and oracle agree (both implement the documented order); surfaced by bank design, not by the diff. Candidate C12-81 (add U+2010 to the map / fold before NFKC)."
+  },
+  {
+   "id": "obs-m07",
+   "note": "multiTerm with an empty term in the list: OR mode ignores the empty term; AND mode returns nothing on every page (the empty term never attributes a hit, so no page satisfies the conjunction). Live preview additionally FILTERS empty terms and never applies the AND page filter at all, so preview counts and full-search results diverge on AND-mode and degenerate inputs. Candidate C12-82."
+  }
+ ]
+}

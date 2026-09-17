@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "generator": "packet/robustness.py (T4.1/T4.2/T4.4, P1.6)",
+  "taxonomy": "engine PipelineError.ImportError case names; redact classes as measured",
+  "fixtures": [
+    {
+      "id": "packet-huge-4999",
+      "path": "robustness/packet-huge-4999.pdf",
+      "pages": 1,
+      "gt": "robustness/packet-huge-4999-ground-truth.json",
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "open",
+        "redact_error": null
+      },
+      "notes": "long side 4,999 pt -- inside both the import dimension cap and the validatePage 5,000 pt pre-flight; text leg only.",
+      "sha256": "76c6e22aa21e580f1277d0a5626652f94dcff04935d6b603bce656d44b925629"
+    },
+    {
+      "id": "packet-huge-5001",
+      "path": "robustness/packet-huge-5001.pdf",
+      "pages": 1,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "invalidPageDimensions",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "long side 5,001 pt -- import per-page dimension guard must reject.",
+      "sha256": "878aa13bf868cfbb41adfd72647c77ecc8e6c0af9b81974ef8cdca678cc852e1"
+    },
+    {
+      "id": "packet-repeat-500pp",
+      "path": "robustness/packet-repeat-500pp.pdf",
+      "pages": 500,
+      "gt": "robustness/packet-repeat-500pp-ground-truth.json",
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "skip_v0",
+        "redact_error": null
+      },
+      "notes": "exactly AT the 500-page import cap (must open). v0 runs import+scan; the 500-pp redact/verify leg rides the perf track (H4.1 device / IM-18).",
+      "sha256": "5443653d7488b5f1779e815592844a55d507e2d237f638d66e338787ba4b6b08"
+    },
+    {
+      "id": "perf-filler-501pp",
+      "path": "robustness/perf-filler-501pp.pdf",
+      "pages": 501,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "tooLarge",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "one past the page-count cap -- import must reject tooLarge.",
+      "sha256": "feef9b3fd20dea926297841df306ea8ca685b1096a25d6d9683ca2ffc27e695d"
+    },
+    {
+      "id": "packet-encrypted-rc4",
+      "path": "robustness/packet-encrypted-rc4.pdf",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "open",
+        "redact_error": null
+      },
+      "notes": "RC4-128, empty user password -- PDFKit opens unlocked (isLocked false); content identical to packet post-decrypt.",
+      "sha256": "cb1d9324d0072d841569c2db3cce6a672b22783fdb747e6da2b67b5734b740c1"
+    },
+    {
+      "id": "packet-encrypted-aes128",
+      "path": "robustness/packet-encrypted-aes128.pdf",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "open",
+        "redact_error": null
+      },
+      "notes": "AES-128, empty user password -- PDFKit opens unlocked (isLocked false); content identical to packet post-decrypt.",
+      "sha256": "abd9cc483126475f6070371bc013d9f20521f1148bee1a392966802d9ff6eed6"
+    },
+    {
+      "id": "packet-encrypted-aes256",
+      "path": "robustness/packet-encrypted-aes256.pdf",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "open",
+        "import_error": null,
+        "scan": true,
+        "redact": "open",
+        "redact_error": null
+      },
+      "notes": "AES-256, empty user password -- PDFKit opens unlocked (isLocked false); content identical to packet post-decrypt.",
+      "sha256": "826cd02e55745e8da7be6d5267c8ebc5a6fcb6665a1782fc3adc59eedfe29188"
+    },
+    {
+      "id": "packet-encrypted-locked",
+      "path": "robustness/packet-encrypted-locked.pdf",
+      "pages": 12,
+      "gt": null,
+      "expected": {
+        "import": "reject",
+        "import_error": "passwordProtected",
+        "scan": false,
+        "redact": "skip",
+        "redact_error": null
+      },
+      "notes": "AES-256 with a user password set (fixture password: resecta-locked-2026) -- import must reject passwordProtected.",
+      "sha256": "1471dae7ba5115cd12bce7f5c052ae136f5aafb30718effbf43d17da597fe719"
+    }
+  ]
+}

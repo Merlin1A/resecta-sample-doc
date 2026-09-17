@@ -1,0 +1,625 @@
+{
+  "schema_version": 1,
+  "generated_by": "tools/build_planted_corpus.py",
+  "term_convention": "PLANT-<SURFACE>-<nn>; every term unique corpus-wide",
+  "rows": [
+    {
+      "fixture": "planted-visible",
+      "path": "planted/planted-visible.pdf",
+      "sha256": "e312aa2074900b0fbf5091a77b37a0841fd3878969cd509bfc381bf21bec3720",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "visible_text",
+          "term": "PLANT-VISIBLE-01",
+          "hidden_class": null,
+          "expect_visible_in_output": true,
+          "expected_legs": [
+            "o1"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.5,
+            0.4902,
+            0.0278
+          ],
+          "notes": ""
+        }
+      ],
+      "notes": "control row: the term is plainly visible born-digital text",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-hidden-wow",
+      "path": "planted/planted-hidden-wow.pdf",
+      "sha256": "f561a3162684e967c47cc5515ed131c662488dc326bccf8ec34b6ee33dff1bcb",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "hidden_text",
+          "term": "PLANT-WOW-01",
+          "hidden_class": "white_on_white",
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o1"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.5,
+            0.3105,
+            0.0278
+          ],
+          "notes": "1 g fill -- white glyphs on the white page"
+        }
+      ],
+      "notes": "extractors see white text; the eye does not",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-hidden-tr3",
+      "path": "planted/planted-hidden-tr3.pdf",
+      "sha256": "8a131b62ed827694366f85dcde1c10843b27b7d2666511bf8389dbf944420cf8",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "hidden_text",
+          "term": "PLANT-TRTHREE-01",
+          "hidden_class": "tr3_invisible",
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o1"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.5,
+            0.3431,
+            0.0278
+          ],
+          "notes": "3 Tr text rendering mode (invisible)"
+        }
+      ],
+      "notes": "rawdict char flags should label the run invisible",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-hidden-box",
+      "path": "planted/planted-hidden-box.pdf",
+      "sha256": "19d6c56037136f58d47e86f69b69905ad9fcdb3d94a3da62ed5054c4f3587cf0",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "hidden_text",
+          "term": "PLANT-BOX-01",
+          "hidden_class": "opaque_box",
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o1"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.5,
+            0.3105,
+            0.0278
+          ],
+          "notes": "content-stream `re f` painted AFTER the glyphs (the [R01] SS1.1 construct)"
+        }
+      ],
+      "notes": "text under a painted rect, NOT an annotation cover",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-hidden-ocg",
+      "path": "planted/planted-hidden-ocg.pdf",
+      "sha256": "808f9b75ebe367670ce758581bd753f2d12aaadac3029e84aa600325ea582772",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "hidden_text",
+          "term": "PLANT-OCGOFF-01",
+          "hidden_class": "ocg_off",
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.5,
+            0.3268,
+            0.0278
+          ],
+          "notes": "optional-content group default /OFF; /OCProperties is itself a census key. MEASURED at build: ALL THREE O1 extractors (pdftotext, mutool stext, pymupdf rawdict) respect /OFF and skip this text -- the byte leg is the oracle's detector, while PDFKit-class page.string (the PRODUCT extractor) reads /OFF layers"
+        }
+      ],
+      "notes": "O1-blind by renderer policy; O2 + /OCProperties census carry the surface",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-hex-string",
+      "path": "planted/planted-hex-string.pdf",
+      "sha256": "eed37dd16a3321e458617c48537897bb80d65a8673c147b2054b051144b83201",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "hex_string",
+          "term": "PLANT-HEXSTR-01",
+          "hidden_class": null,
+          "expect_visible_in_output": true,
+          "expected_legs": [
+            "o1",
+            "o2"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.5,
+            0.3268,
+            0.0278
+          ],
+          "notes": "term appears only as a hex string operand in the raw bytes"
+        }
+      ],
+      "notes": "visible when rendered; raw bytes carry hex, not the literal",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-flate-content",
+      "path": "planted/planted-flate-content.pdf",
+      "sha256": "e26e9db9b6b2e68622b073e5e50d6581fced8d2bc4a3545859e531c5c4017434",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "flate_stream",
+          "term": "PLANT-FLATE-01",
+          "hidden_class": null,
+          "expect_visible_in_output": true,
+          "expected_legs": [
+            "o1",
+            "o2"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.5,
+            0.5392,
+            0.0278
+          ],
+          "notes": "page content stream is FlateDecode; the literal term is absent from the raw bytes"
+        }
+      ],
+      "notes": "tests the decompression legs; extractors inflate transparently",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-objstm",
+      "path": "planted/planted-objstm.pdf",
+      "sha256": "40af575ea0a9ec2f1040a2c85f09894fa84b7eac2d19ccdd4f13f49fc90a3663",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "object_stream",
+          "term": "PLANT-OBJSTM-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": null,
+          "notes": "/Info /Subject packed inside a FlateDecode ObjStm behind an xref stream; raw bytes carry neither the literal nor a hex form"
+        }
+      ],
+      "notes": "the qpdf --object-streams=disable QDF leg is the designed detector",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-inline-image",
+      "path": "planted/planted-inline-image.pdf",
+      "sha256": "8da26f2678d2d8c4ad456a1890e077b337eac1c529fa8c13288bd90a455b2d82",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "inline_image",
+          "term": "PLANT-INLINEIMG-01",
+          "hidden_class": null,
+          "expect_visible_in_output": true,
+          "expected_legs": [
+            "o3"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1324,
+            0.4798,
+            0.7353,
+            0.0947
+          ],
+          "notes": "term exists only as rendered pixels inside a BI/ID/EI inline image (ASCIIHex); pdfimages does not list inline images ([R04])"
+        }
+      ],
+      "notes": "OCR is the only text-shaped recovery path",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-annot-ap",
+      "path": "planted/planted-annot-ap.pdf",
+      "sha256": "3daa2417d1b14fcd23db5a2ddf09ecaab95270e6ce4a8464b4258a2fb111bd23",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "annotation_ap",
+          "term": "PLANT-ANNOTAP-01",
+          "hidden_class": null,
+          "expect_visible_in_output": true,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.4798,
+            0.4902,
+            0.0455
+          ],
+          "notes": "term drawn by the /AP normal-appearance form XObject; page text extractors generally skip annotation appearances"
+        }
+      ],
+      "notes": "renders on screen; /Annots is a census key",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-annot-contents",
+      "path": "planted/planted-annot-contents.pdf",
+      "sha256": "7d12c12aa578e90adcf58eca09de53d3d51a0e5455e21a00ec35df6767222970",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "annotation_contents",
+          "term": "PLANT-ANNOTC-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.4798,
+            0.3268,
+            0.0505
+          ],
+          "notes": "term only in the annotation /Contents value (popup text)"
+        }
+      ],
+      "notes": "not rendered on the page surface",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-xmp",
+      "path": "planted/planted-xmp.pdf",
+      "sha256": "4187fc78d2b3b44eb4e0cb5bc1c55e51e953cf48179aff8c59961a09aa170dba",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "xmp_metadata",
+          "term": "PLANT-XMP-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": null,
+          "notes": "dc:description in the catalog XMP packet"
+        }
+      ],
+      "notes": "/Metadata is a census key; term recoverable from the stream bytes",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-info",
+      "path": "planted/planted-info.pdf",
+      "sha256": "54e0fbdbb8fa970da94d620f1709813d98b19ca60b4221ab3058b88e88b96686",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "info_dict",
+          "term": "PLANT-INFO-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": null,
+          "notes": "/Info /Subject; non-benign keys are census-flagged"
+        }
+      ],
+      "notes": "the classic metadata surface",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-exif",
+      "path": "planted/planted-exif.pdf",
+      "sha256": "552761a3c87113320c74190d2e9b831b40776df9150ea0d174bd1b9edfa7ce03",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "exif",
+          "term": "PLANT-EXIF-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1732,
+            0.3788,
+            0.6536,
+            0.3788
+          ],
+          "notes": "EXIF APP1 ImageDescription inside the embedded JPEG; pdfimages -all + exiftool is the designed detector"
+        }
+      ],
+      "notes": "image pixels are benign; the term rides the EXIF container",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-acroform-v",
+      "path": "planted/planted-acroform-v.pdf",
+      "sha256": "74220647a877175e6264404097d94b4e6a3d95d2073bf4167899023428064501",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "acroform_v",
+          "term": "PLANT-ACROV-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.4798,
+            0.4902,
+            0.0379
+          ],
+          "notes": "unrendered field value ([R01] SS1.9); NeedAppearances true, no /AP"
+        }
+      ],
+      "notes": "/AcroForm with /V is the census signal",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-outlines",
+      "path": "planted/planted-outlines.pdf",
+      "sha256": "4d2d4ade2e56dbb897950980ace5f7ddc78f2e39e2b03c48056fe570ceae71d5",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "outlines",
+          "term": "PLANT-OUTLINE-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": null,
+          "notes": "bookmark /Title ([R01] SS1.8, the EU-AstraZeneca class)"
+        }
+      ],
+      "notes": "never rendered on the page",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-thumb",
+      "path": "planted/planted-thumb.pdf",
+      "sha256": "aa31364211a1c838cba323ac410362f5529205bfd836211290390a0ef69779aa",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "thumb",
+          "term": "PLANT-THUMB-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "structure"
+          ],
+          "page": 0,
+          "bbox": null,
+          "notes": "term exists only as thumbnail PIXELS; v0's page-render OCR never sees /Thumb -- the /Thumb census key is the designed signal ([R01] SS1.7)"
+        }
+      ],
+      "notes": "known partial surface: presence is detectable, pixel content is not (v0)",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-prior-revision",
+      "path": "planted/planted-prior-revision.pdf",
+      "sha256": "cafd9f31cb9e463636fbabe316c06fc3dde451e38402b670f7939d6e1fc3699a",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "prior_revision",
+          "term": "PLANT-PREVREV-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": null,
+          "notes": "rev-1 content stream carries the term; rev-2 replaces obj 4 via a REAL /Prev-linked incremental update (current view is term-free)"
+        }
+      ],
+      "notes": "per-revision original-byte scanning is the designed detector (QDF drops priors)",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-embedded-file",
+      "path": "planted/planted-embedded-file.pdf",
+      "sha256": "10cbf9dbeb5d9f59d58b10749285736056fa3e547a30d9035dc57a4abf36e11b",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "embedded_file",
+          "term": "PLANT-EMBED-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": null,
+          "notes": "term inside the embedded file stream"
+        }
+      ],
+      "notes": "/EmbeddedFiles is a census key; mutool extract reaches the payload",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-javascript",
+      "path": "planted/planted-javascript.pdf",
+      "sha256": "a65caa67f84ce4fea17778c343058e31f1e45c96ef62837f66ccf5f27e9f6db1",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "javascript",
+          "term": "PLANT-JS-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": null,
+          "notes": "term inside the /JS script string"
+        }
+      ],
+      "notes": "/JavaScript is a census key",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    }
+  ],
+  "clean": [
+    {
+      "fixture": "clean-letter",
+      "path": "planted/clean/clean-letter.pdf",
+      "sha256": "c83d466c9f75631cd27999caa85607e0908902e44cbad4ee0d49cda49d5ee5df",
+      "clean": true,
+      "plants": [],
+      "notes": "benign visible text only; no metadata beyond the skeleton",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "clean-table",
+      "path": "planted/clean/clean-table.pdf",
+      "sha256": "f44cb79fefb53753571c19d6be2fbf18ef4a496fa0fee33ab2a975b9ab0cbc86",
+      "clean": true,
+      "plants": [],
+      "notes": "benign table + BENIGN-ONLY /Info (Producer/Creator) -- the allowlist probe",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "clean-image",
+      "path": "planted/clean/clean-image.pdf",
+      "sha256": "907fa6aa577f7fdb6d6c7b9dcaea10d74af1835a57217c1f346dfc91d3e824d1",
+      "clean": true,
+      "plants": [],
+      "notes": "benign JPEG page, EXIF-free",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "fixture": "planted-text-outlines",
+      "surface": "text_as_outlines",
+      "reason": "vectorize probe unverified on this rig (mutool convert text=path did not strip fonts/text); rides IM-19 in P1.5+"
+    }
+  ]
+}

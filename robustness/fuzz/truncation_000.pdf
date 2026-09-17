@@ -1,0 +1,190 @@
+%PDF-1.4
+%‚„œ”
+1 0 obj
+<<
+/Producer (Resecta Sample Packet Generator)
+/Title (Hartwell Loan Application Packet \050synthetic sample\051)
+/Author (Resecta)
+/Subject (Synthetic PII\055dense sample\057test document packet)
+/Creator (Resecta Sample Packet Generator)
+/CreationDate (D\07220260614000000Z)
+/ModDate (D\07220260614000000Z)
+>>
+endobj
+2 0 obj
+<<
+/Type /Pages
+/Count 12
+/Kids [ 4 0 R 24 0 R 26 0 R 28 0 R 47 0 R 49 0 R 51 0 R 53 0 R 55 0 R 57 0 R 59 0 R 61 0 R ]
+>>
+endobj
+3 0 obj
+<<
+/Type /Catalog
+/Pages 2 0 R
+>>
+endobj
+4 0 obj
+<<
+/Contents 5 0 R
+/MediaBox [ 0 0 612 792 ]
+/Resources <<
+/Font 6 0 R
+/ProcSet [ /PDF /Text /ImageB /ImageC /ImageI ]
+>>
+/Rotate 0
+/Trans <<
+>>
+/Type /Page
+/Parent 2 0 R
+>>
+endobj
+5 0 obj
+<<
+/Length 9190
+>>
+stream
+1 0 0 1 0 0 cm  
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 736 Tm /F2+0 15 Tf 18 TL (Uniform Residential Loan Application) Tj T* ET
+.541176 .541176 .541176 rg
+BT 1 0 0 1 391.5469 737 Tm /F3+0 8 Tf 9.6 TL (Freddie Mac Form 65 / Fannie Mae Form 1003) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 723 Tm /F4+0 8.5 Tf 10.2 TL (Section 1: Borrower Information. Complete and sign before submitting.) Tj T* ET
+.168627 .227451 .333333 RG
+1.2 w
+n 42 716 m 570 716 l S
+.933333 .945098 .956863 rg
+n 42 687 528 16 re f*
+.168627 .227451 .333333 rg
+BT 1 0 0 1 47 690.5 Tm /F5+0 9.5 Tf 11.4 TL (Section 1a. Personal Information) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 676 Tm /F3+0 8 Tf 9.6 TL (Name \(First, Middle, Last, Suffix\):) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 173.2344 676 Tm /F4+0 9 Tf 10.8 TL (Delia R. Hartwell) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 661 Tm /F3+0 8 Tf 9.6 TL (Social Security Number:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 138.0742 661 Tm /F4+0 9 Tf 10.8 TL (502-19-7438) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 646 Tm /F3+0 8 Tf 9.6 TL (Date of Birth \(mm/dd/yyyy\):) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 152.7695 646 Tm /F4+0 9 Tf 10.8 TL (03/14/1985) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 631 Tm /F3+0 8 Tf 9.6 TL (Citizenship:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 90.83594 631 Tm /F4+0 9 Tf 10.8 TL (U.S. Citizen) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 615 Tm /F5+0 9.5 Tf 11.4 TL (Contact Information) Tj T* ET
+.72549 .72549 .72549 RG
+.6 w
+n 42 611 m 570 611 l S
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 599 Tm /F3+0 8 Tf 9.6 TL (Home Phone:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 97.17969 599 Tm /F4+0 9 Tf 10.8 TL (\(208\) 555-0147) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 584 Tm /F3+0 8 Tf 9.6 TL (Cell Phone:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 89.18359 584 Tm /F4+0 9 Tf 10.8 TL (916-555-0182) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 569 Tm /F3+0 8 Tf 9.6 TL (Work Phone:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 95.00781 569 Tm /F4+0 9 Tf 10.8 TL (208.555.0119) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 554 Tm /F3+0 8 Tf 9.6 TL (Email:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 68.65234 554 Tm /F4+0 9 Tf 10.8 TL (d.hartwell@example.net) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 538 Tm /F3+0 8 Tf 9.6 TL (Current Address:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 526 Tm /F4+0 9 Tf 10.8 TL (4127 Wrenfield Place) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 514 Tm /F4+0 9 Tf 10.8 TL (Boise, ID 83702) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 496 Tm /F3+0 8 Tf 9.6 TL (Former Address:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 484 Tm /F4+0 9 Tf 10.8 TL (812 Aldergrove Avenue) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 472 Tm /F4+0 9 Tf 10.8 TL (Modesto, CA 95354) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 454 Tm /F3+0 8 Tf 9.6 TL (Mailing Address \(if different\):) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 158.5859 454 Tm /F4+0 9 Tf 10.8 TL (P.O. Box 2215, Boise, ID 83701) Tj T* ET
+.933333 .945098 .956863 rg
+n 42 423 528 16 re f*
+.168627 .227451 .333333 rg
+BT 1 0 0 1 47 426.5 Tm /F5+0 9.5 Tf 11.4 TL (Section 1b. Current Employment and Income) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 412 Tm /F3+0 8 Tf 9.6 TL (Employer or Business Name:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 155.5547 412 Tm /F4+0 9 Tf 10.8 TL (Tannersworth Freight Systems, Inc.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 398 Tm /F3+0 8 Tf 9.6 TL (Employer Address:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 118.3867 398 Tm /F4+0 9 Tf 10.8 TL (2900 Commerce Park Drive, Meridian, ID 83642) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 384 Tm /F3+0 8 Tf 9.6 TL (Position or Title:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 107.7188 384 Tm /F4+0 9 Tf 10.8 TL (Logistics Operations Coordinator) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 342 384 Tm /F3+0 8 Tf 9.6 TL (Gross Monthly Income:) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 434.3125 384 Tm /F4+0 9 Tf 10.8 TL ($6,200.00) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 366 Tm /F4+0 7 Tf 8.4 TL (Provide the borrower's current employer and the gross monthly income before deductions. If the borrower has additional employment, attach a continuation) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 356.8 Tm /F4+0 7 Tf 8.4 TL (with the same fields. Income shown on this sample is fictional and provided only so software can be checked end to end.) Tj T* ET
+.086275 .086275 .086275 rg
+BT 1 0 0 1 42 338.6 Tm /F5+0 9.5 Tf 11.4 TL (Disclosures and Authorizations) Tj T* ET
+.72549 .72549 .72549 RG
+.6 w
+n 42 334.6 m 570 334.6 l S
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 322.6 Tm /F4+0 6.6 Tf 7.92 TL (Privacy and Information Use. The information collected on this application is used) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 314.2 Tm /F4+0 6.6 Tf 7.92 TL (to evaluate the request, to verify the statements made, and to service the) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 305.8 Tm /F4+0 6.6 Tf 7.92 TL (resulting relationship. Every applicant authorizes the named parties to obtain and) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 297.4 Tm /F4+0 6.6 Tf 7.92 TL (exchange the information needed to complete and service the request, and to) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 289 Tm /F4+0 6.6 Tf 7.92 TL (retain a copy of this application whether or not it is approved.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 277.6 Tm /F4+0 6.6 Tf 7.92 TL (Electronic Records Consent. By signing, the applicant consents to receive) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 269.2 Tm /F4+0 6.6 Tf 7.92 TL (disclosures and statements electronically at the electronic address provided, and) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 260.8 Tm /F4+0 6.6 Tf 7.92 TL (confirms the ability to open and retain documents in electronic form. Consent may) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 252.4 Tm /F4+0 6.6 Tf 7.92 TL (be withdrawn by written notice, after which paper copies are provided at no) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 244 Tm /F4+0 6.6 Tf 7.92 TL (added cost to the applicant.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 232.6 Tm /F4+0 6.6 Tf 7.92 TL (Accuracy of Statements. Every applicant represents that the statements made are) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 224.2 Tm /F4+0 6.6 Tf 7.92 TL (true and complete and understands that an intentional misstatement may delay or) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 215.8 Tm /F4+0 6.6 Tf 7.92 TL (end consideration of the request. The applicant agrees to notify the named parties) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 42 207.4 Tm /F4+0 6.6 Tf 7.92 TL (promptly of any material change before the request is final.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 322.6 Tm /F4+0 6.6 Tf 7.92 TL (Servicing and Assignment. The relationship resulting from an approved request) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 314.2 Tm /F4+0 6.6 Tf 7.92 TL (may be serviced by the named party or by a successor. The applicant will be) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 305.8 Tm /F4+0 6.6 Tf 7.92 TL (notified of any change in the party that collects payments and maintains the) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 297.4 Tm /F4+0 6.6 Tf 7.92 TL (account, and the posted terms will not change solely because servicing is) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 289 Tm /F4+0 6.6 Tf 7.92 TL (reassigned.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 277.6 Tm /F4+0 6.6 Tf 7.92 TL (Fees and Charges. A schedule of fees that may apply is provided separately. Fees) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 269.2 Tm /F4+0 6.6 Tf 7.92 TL (are assessed only as described in that schedule and in the agreement that) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 260.8 Tm /F4+0 6.6 Tf 7.92 TL (governs the account. Questions about a specific fee may be directed to the) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1 314 252.4 Tm /F4+0 6.6 Tf 7.92 TL (servicing contact named in the most recent statement.) Tj T* ET
+.337255 .337255 .337255 rg
+BT 1 0 0 1

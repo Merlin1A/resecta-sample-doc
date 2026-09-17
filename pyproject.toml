@@ -19,6 +19,16 @@ dev = [
     "mypy==1.20.2",
     "ruff==0.15.12",
 ]
+# Harness tooling for the oracle / registration legs (tools/verify_oracle.py scan, tools/register_capture.py);
+# opt in with `uv sync --group harness`. Not needed to build or verify the packet itself.
+harness = [
+    "opencv-python-headless>=5,<6",
+    "numpy>=2",
+    "augraphy==8.2.6",
+    "albumentations==2.0.8",
+    "pdfplumber",
+    "pypdfium2",
+]
 
 [tool.ruff]
 line-length = 100
@@ -65,6 +75,17 @@ ignore = [
 "packet/build_packet.py" = ["T20"]
 "packet/acceptance.py" = ["T20"]
 "packet/variants.py" = ["T20"]
+"packet/aruco.py" = ["T20"]
+"packet/build_capture.py" = ["T20"]
+"packet/fuzz.py" = ["T20"]
+"packet/robustness.py" = ["T20"]
+# t23's fixture self-checks are asserts by design (a failed premise aborts the family build).
+"packet/t23.py" = ["T20", "S101"]
+"tools/build_planted_corpus.py" = ["T20", "S603", "S607"]
+"tools/build_search_queries.py" = ["T20"]
+"tools/register_capture.py" = ["T20", "S603", "S607"]
+"tools/search_oracle.py" = ["T20", "S603", "S607"]
+"tools/verify_oracle.py" = ["T20", "S603", "S607"]
 
 [tool.ruff.format]
 quote-style = "double"
@@ -80,5 +101,5 @@ files = ["."]
 exclude = ["\\.venv/"]
 
 [[tool.mypy.overrides]]
-module = ["reportlab.*", "fitz.*", "pypdf.*", "fontTools.*", "PIL.*"]
+module = ["reportlab.*", "fitz.*", "pypdf.*", "fontTools.*", "PIL.*", "pypdfium2.*", "cv2.*"]
 ignore_missing_imports = true

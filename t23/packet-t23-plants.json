@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "generated_by": "packet.t23 (IM-14 / IM-23, P1.7)",
+  "coordinates": "rect = normalized bottom-left [x, y, w, h] (y-up); null = whole-file",
+  "plants": [
+    {
+      "file": "packet-annotated.pdf",
+      "page": 0,
+      "subtype": "FreeText",
+      "surface": "annotation_ap_and_contents",
+      "term": "987-65-4310",
+      "shape": "ssn",
+      "rect": [
+        0.5229,
+        0.0202,
+        0.402,
+        0.0303
+      ],
+      "notes": "value drawn by the /AP normal appearance AND stored in /Contents"
+    },
+    {
+      "file": "packet-annotated.pdf",
+      "page": 2,
+      "subtype": "Stamp",
+      "surface": "annotation_ap",
+      "term": "(208) 555-0163",
+      "shape": "phone",
+      "rect": [
+        0.5556,
+        0.0202,
+        0.3693,
+        0.0354
+      ],
+      "notes": "value only in the custom /AP appearance; /Contents is benign"
+    },
+    {
+      "file": "packet-annotated.pdf",
+      "page": 4,
+      "subtype": "Square+Popup",
+      "surface": "annotation_contents",
+      "term": "Margery Hollowell",
+      "shape": "name",
+      "rect": [
+        0.5229,
+        0.0202,
+        0.3922,
+        0.0328
+      ],
+      "notes": "value only in the markup /Contents mirrored by its /Popup; no /AP"
+    },
+    {
+      "file": "packet-incremental.pdf",
+      "page": 0,
+      "subtype": null,
+      "surface": "prior_revision",
+      "term": "987-65-4351",
+      "shape": "ssn",
+      "rect": null,
+      "notes": "rev-1 overlay line carries the term; the rev-2 current view is term-free. Original-byte scanning is the designed detector."
+    }
+  ]
+}
