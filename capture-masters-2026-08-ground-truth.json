@@ -6747,7 +6747,7 @@
       "count": 3,
       "measured_pending": true,
       "justification": "Reg E, context-boosted 0.80.",
-      "source_range": "frozen statement; geometry resolved at draw time",
+      "source_range": "frozen statement; geometry not resolved (measured_pending)",
       "schema_version": 1,
       "carried_from": {
         "document": "packet.pdf",
@@ -6776,7 +6776,7 @@
       "count": 1,
       "measured_pending": true,
       "justification": "OCR-concatenated date -> false account.",
-      "source_range": "frozen statement; geometry resolved at draw time",
+      "source_range": "frozen statement; geometry not resolved (measured_pending)",
       "schema_version": 1,
       "carried_from": {
         "document": "packet.pdf",

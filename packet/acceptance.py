@@ -795,6 +795,7 @@ def _capture_checks():
         print("SKIP  14. capture masters (pypdf not available)")
         return
 
+    gt_before = BC.OUT_JSON.read_bytes() if BC.OUT_JSON.exists() else b""
     res = BC.build(write=True)
     rc = res["recording"]
     gt = res["ground_truth"]
@@ -994,6 +995,14 @@ def _capture_checks():
     import hashlib as _h
     disk = _h.sha256(BC.PACKET_PDF.read_bytes()).hexdigest()
     check(disk == BC.PACKET_SHA256, "14u. D12-40 tripwire: packet.pdf byte-unchanged", disk)
+
+    # ---- 14v. the committed capture ground truth reproduces byte-for-byte on rebuild ----
+    # (the committed JSON drifted once when the carried-statement label changed upstream while the
+    # masters PDF held; a rebuild must never leave this file modified in a clean tree)
+    import json as _j
+    gt_after = (_j.dumps(gt, indent=2) + "\n").encode("ascii")
+    check(gt_before == gt_after, "14v. capture ground truth byte-unchanged on rebuild",
+          f"{len(gt_before)}/{len(gt_after)} bytes")
 
 
 def _label_kw(label_context):
