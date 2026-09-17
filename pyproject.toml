@@ -19,6 +19,16 @@ dev = [
     "mypy==1.20.2",
     "ruff==0.15.12",
 ]
+# Harness tooling for the oracle / registration legs (tools/verify_oracle.py scan, tools/register_capture.py);
+# opt in with `uv sync --group harness`. Not needed to build or verify the packet itself.
+harness = [
+    "opencv-python-headless>=5,<6",
+    "numpy>=2",
+    "augraphy==8.2.6",
+    "albumentations==2.0.8",
+    "pdfplumber",
+    "pypdfium2",
+]
 
 [tool.ruff]
 line-length = 100
