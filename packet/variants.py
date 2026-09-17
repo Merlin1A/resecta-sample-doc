@@ -32,8 +32,8 @@ from reportlab.lib.pagesizes import letter  # noqa: E402
 from reportlab.lib.utils import ImageReader  # noqa: E402
 from reportlab.pdfgen import canvas  # noqa: E402
 
-from . import build_packet as B  # noqa: E402
 from . import aruco as A  # noqa: E402
+from . import build_packet as B  # noqa: E402
 from . import layout as L  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
@@ -223,7 +223,7 @@ def _degrade_gt(gt: dict, rung: str, note: str, skewed: bool) -> dict:
         "rasterized": True,
         "text_layer": False,
         "gt_geometry": (
-            "axis-aligned hull of the %.1fdeg-rotated box (approximate)" % _SKEW_DEGREES
+            f"axis-aligned hull of the {_SKEW_DEGREES:.1f}deg-rotated box (approximate)"
         )
         if skewed
         else "inherited (unchanged)",
@@ -564,7 +564,7 @@ def _assert_band_free(pdf_bytes: bytes, page_index: int) -> None:
     words = doc[page_index].get_text("words")
     doc.close()
     for w in words:
-        top, bottom = w[1], w[3]
+        bottom = w[3]
         if bottom > PH - 40:  # anything below user-space y=40
             raise AssertionError(f"margin band occupied on page {page_index}: {w[:5]}")
 
@@ -573,6 +573,7 @@ def _packet_with_hidden(
     packet_pdf: bytes, specs: list[dict], *, ocg: bool, title: str, doc_id: bytes
 ) -> bytes:
     import io as _io
+
     from pypdf import PdfReader, PdfWriter
     from pypdf.generic import (
         ArrayObject,
@@ -639,7 +640,7 @@ def _packet_with_hidden(
     raw_contents = page.raw_get("/Contents")
     existing = raw_contents.get_object()
     if isinstance(existing, ArrayObject):
-        arr = ArrayObject(list(existing) + [stream_ref])
+        arr = ArrayObject([*existing, stream_ref])
     else:
         arr = ArrayObject([raw_contents, stream_ref])
     page[NameObject("/Contents")] = arr

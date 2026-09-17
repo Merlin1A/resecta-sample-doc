@@ -25,9 +25,9 @@ Run: .venv/bin/python -m packet.t23
 
 from __future__ import annotations
 
+import hashlib
 import io
 import json
-import hashlib
 from pathlib import Path
 
 from . import build_packet as B
@@ -228,7 +228,7 @@ def incremental(packet_pdf: bytes):
     revision 2 = classic appended update section replacing that overlay object (plant removed).
     The prior revision's bytes remain in the file -- the [R01] §1.5 leak class."""
     from pypdf import PdfReader, PdfWriter
-    from pypdf.generic import ArrayObject, DictionaryObject, NameObject, StreamObject
+    from pypdf.generic import ArrayObject, NameObject, StreamObject
 
     r = PdfReader(io.BytesIO(packet_pdf))
     w = PdfWriter(clone_from=r)
@@ -244,7 +244,7 @@ def incremental(packet_pdf: bytes):
     overlay_ref = w._add_object(overlay)
     contents_raw = page.raw_get("/Contents")
     if isinstance(contents_raw.get_object(), ArrayObject):
-        page[NameObject("/Contents")] = ArrayObject(list(contents_raw.get_object()) + [overlay_ref])
+        page[NameObject("/Contents")] = ArrayObject([*contents_raw.get_object(), overlay_ref])
     else:
         page[NameObject("/Contents")] = ArrayObject([contents_raw, overlay_ref])
 
@@ -319,7 +319,7 @@ def _self_check(out: dict) -> None:
             assert 0 <= x0 < x1 <= 1 and 0 <= y0 < y1 <= 1, f"degenerate bbox at {deg}"
 
     # annotated: annot census; terms in raw bytes; terms NOT in page text; unique vs the base.
-    pdf, plants = out["annotated"]
+    pdf, _plants = out["annotated"]
     d = fitz.open(stream=pdf, filetype="pdf")
     apr = PdfReader(io.BytesIO(pdf))
     subtypes = [str(a.get_object()["/Subtype"]) for pg in apr.pages for a in pg.get("/Annots", [])]
@@ -414,7 +414,8 @@ def build_t23(write: bool = True) -> dict:
                 "plant, rev-2 replaces it; prior bytes remain ([R01] 1.5).",
             }
         )
-        plants_all = plants + [
+        plants_all = [
+            *plants,
             {
                 "file": "packet-incremental.pdf",
                 "page": 0,
@@ -425,7 +426,7 @@ def build_t23(write: bool = True) -> dict:
                 "rect": None,
                 "notes": "rev-1 overlay line carries the term; the rev-2 current view is "
                 "term-free. Original-byte scanning is the designed detector.",
-            }
+            },
         ]
         (OUTDIR / "packet-t23-plants.json").write_text(
             json.dumps(

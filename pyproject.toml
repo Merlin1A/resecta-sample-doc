@@ -65,6 +65,17 @@ ignore = [
 "packet/build_packet.py" = ["T20"]
 "packet/acceptance.py" = ["T20"]
 "packet/variants.py" = ["T20"]
+"packet/aruco.py" = ["T20"]
+"packet/build_capture.py" = ["T20"]
+"packet/fuzz.py" = ["T20"]
+"packet/robustness.py" = ["T20"]
+# t23's fixture self-checks are asserts by design (a failed premise aborts the family build).
+"packet/t23.py" = ["T20", "S101"]
+"tools/build_planted_corpus.py" = ["T20", "S603", "S607"]
+"tools/build_search_queries.py" = ["T20"]
+"tools/register_capture.py" = ["T20", "S603", "S607"]
+"tools/search_oracle.py" = ["T20", "S603", "S607"]
+"tools/verify_oracle.py" = ["T20", "S603", "S607"]
 
 [tool.ruff.format]
 quote-style = "double"

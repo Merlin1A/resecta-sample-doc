@@ -177,7 +177,7 @@ def draw_k2(rc, base_page: int) -> None:
     y -= 22
 
     # numbered transcript lines (testimony). Names / DOB / address / phone / SSN-last-4 are rows.
-    leading, ys = C.numbered_margin(rc, y, L.BOTTOM + 60, n=22, x_rule=L.LEFT + 20)
+    _leading, ys = C.numbered_margin(rc, y, L.BOTTOM + 60, n=22, x_rule=L.LEFT + 20)
     tx = L.LEFT + 30
 
     def q(i, s):

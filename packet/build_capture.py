@@ -39,7 +39,7 @@ from pathlib import Path
 
 from reportlab import rl_config
 
-rl_config.invariant = 1  # noqa: E402  (must precede save; fixes dates + font subset tags)
+rl_config.invariant = 1  # must precede save; fixes dates + font subset tags
 
 from reportlab.lib.pagesizes import letter  # noqa: E402
 from reportlab.pdfgen import canvas  # noqa: E402

@@ -58,7 +58,7 @@ def draw_m3(rc, base_page: int) -> None:
 
     # ---- Zone C: identity verification (clean DOB surface) ----
     y = L.section_bar(rc, y, "Section 3. Identity Verification (reviewer use)")
-    lx = rc.text(
+    rc.text(
         L.LEFT,
         y,
         "Photo identification presented and matched to the applicant.",

@@ -105,7 +105,7 @@ def sha256_bytes(data: bytes) -> str:
 
 def need_cv2():
     try:
-        import cv2
+        import cv2  # optional tooling, imported only when checking
     except ImportError:
         sys.exit(
             "register_capture needs opencv-python in the sd venv (admitted tooling, D12-36): "
@@ -150,7 +150,7 @@ def git_describe(repo: Path) -> str:
             check=True,
         ).stdout.strip()
         return sha + (" (dirty)" if dirty else "")
-    except Exception:  # noqa: BLE001 -- provenance only
+    except Exception:  # provenance only
         return "unknown"
 
 
@@ -333,7 +333,7 @@ def choose_candidates(
     return chosen, sorted(dups)
 
 
-def register_image(
+def register_image(  # noqa: PLR0911 -- each early return is a distinct registration verdict
     cv2,
     masters: Masters,
     gray: np.ndarray,
@@ -375,7 +375,7 @@ def register_image(
         out["reason"] = "no fiducials detected (full-dictionary pass)"
         return out
     votes = Counter(i // MARKERS_PER_PAGE for i in found_full)
-    page, n_votes = votes.most_common(1)[0]
+    page, _n_votes = votes.most_common(1)[0]
     out["page"] = int(page)
     out["page_votes"] = {str(k): v for k, v in sorted(votes.items())}
     out["page_ambiguous"] = len(votes) > 1
@@ -442,7 +442,7 @@ def register_image(
     out["homography_error_mean_px"] = round(float(resid.mean()), 4)
     out["homography_error_max_px"] = round(float(resid.max()), 4)
     out["ransac_inliers"] = int(mask.sum()) if mask is not None else None
-    out["corner_count"] = int(len(resid))
+    out["corner_count"] = len(resid)
     out["reprojected_corners"] = {
         str(mid): proj[4 * k : 4 * k + 4].round(3).tolist() for k, mid in enumerate(sorted(chosen))
     }
@@ -464,7 +464,7 @@ def register_image(
     v = tr - tl  # the page's top edge, left -> right, in image pixels
     angle = math.degrees(math.atan2(float(v[1]), float(v[0])))
     out["rotation_deg"] = round(angle, 2)
-    out["rotation_quadrant"] = int(round(angle / 90.0)) % 4 * 90
+    out["rotation_quadrant"] = round(angle / 90.0) % 4 * 90
     lin = np.array(H[:2, :2], np.float64)
     out["mirrored"] = bool(np.linalg.det(lin) < 0)
     out["error_px_at300"] = (
@@ -535,15 +535,13 @@ def draw_overlay(
     scale = min(1.0, max_px / float(max(W, Hpx)))
     bgr = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
     if scale < 1.0:
-        bgr = cv2.resize(
-            bgr, (int(round(W * scale)), int(round(Hpx * scale))), interpolation=cv2.INTER_AREA
-        )
-    t = max(1, int(round(bgr.shape[1] / 900.0)))
+        bgr = cv2.resize(bgr, (round(W * scale), round(Hpx * scale)), interpolation=cv2.INTER_AREA)
+    t = max(1, round(bgr.shape[1] / 900.0))
 
     def pts(seq):
-        return np.array(
-            [[int(round(x * scale)), int(round(y * scale))] for x, y in seq], np.int32
-        ).reshape(-1, 1, 2)
+        return np.array([[round(x * scale), round(y * scale)] for x, y in seq], np.int32).reshape(
+            -1, 1, 2
+        )
 
     for r in rows:
         color = EXPECTATION_BGR.get(r.get("expectation"), (128, 128, 128))
@@ -563,9 +561,7 @@ def draw_overlay(
         )
     for _mid, quad in reg.get("reprojected_corners", {}).items():
         for x, y in quad:
-            cv2.circle(
-                bgr, (int(round(x * scale)), int(round(y * scale))), 2 * t + 1, (0, 0, 255), -1
-            )
+            cv2.circle(bgr, (round(x * scale), round(y * scale)), 2 * t + 1, (0, 0, 255), -1)
     cv2.rectangle(bgr, (0, 0), (bgr.shape[1], 22 * t + 10), (255, 255, 255), -1)
     cv2.putText(
         bgr, label, (6, 18 * t + 4), cv2.FONT_HERSHEY_SIMPLEX, 0.6 * max(1, t), (0, 0, 0), t
@@ -621,7 +617,7 @@ def assemble_pdf(pages: list[dict], title: str, doc_id: bytes) -> bytes:
     the `variants._finalize` pinned metadata / document ID."""
     from reportlab import rl_config
 
-    rl_config.invariant = 1
+    rl_config.invariant = 1  # must precede save; fixes dates + font subset tags
     from reportlab.pdfgen import canvas
 
     from packet.variants import _finalize
@@ -1068,7 +1064,7 @@ def cmd_register(args) -> int:
         index["legs"][leg] = leg_summary
         for r in rows_out:
             summary_lines.append(
-                f"| {leg} | {r['file']} | {('p%02d' % (r['page'] + 1)) if r.get('page') is not None else '-'} | "
+                f"| {leg} | {r['file']} | {f'p{r["page"] + 1:02d}' if r.get('page') is not None else '-'} | "
                 f"{r.get('markers_detected', 0)}/4 | "
                 f"{r['homography_error_px'] if r.get('homography_error_px') is not None else '-'} | "
                 f"{r['homography_error_max_px'] if r.get('homography_error_max_px') is not None else '-'} | "
@@ -1189,7 +1185,7 @@ def cmd_synthetic(args) -> int:
             bitmap = page.render(scale=dpi / 72.0, grayscale=True)
             arr = np.array(bitmap.to_pil().convert("L"))
             if args.clip_left_pt:
-                x = int(round(args.clip_left_pt * dpi / 72.0))
+                x = round(args.clip_left_pt * dpi / 72.0)
                 arr[:, :x] = 255
             if args.rotate:
                 arr = np.ascontiguousarray(np.rot90(arr, args.rotate // 90))

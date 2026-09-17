@@ -67,12 +67,12 @@ LIGATURES = {
 SMART_PUNCT = {
     "“": '"',
     "”": '"',
-    "‘": "'",
-    "’": "'",
-    "–": "-",
+    "‘": "'",  # noqa: RUF001 -- deliberate Unicode variant under test
+    "’": "'",  # noqa: RUF001 -- deliberate Unicode variant under test
+    "–": "-",  # noqa: RUF001 -- deliberate Unicode variant under test
     "—": "-",
-    "‒": "-",
-    "‑": "-",
+    "‒": "-",  # noqa: RUF001 -- deliberate Unicode variant under test
+    "‑": "-",  # noqa: RUF001 -- deliberate Unicode variant under test
     "­": "-",
 }
 SEPARATORS = set("- ./,")
@@ -142,9 +142,7 @@ def is_word_char(c: str) -> bool:
 def whole_word_ok(chars: str, start: int, end_exclusive: int) -> bool:
     if start > 0 and is_word_char(chars[start - 1]):
         return False
-    if end_exclusive < len(chars) and is_word_char(chars[end_exclusive]):
-        return False
-    return True
+    return not (end_exclusive < len(chars) and is_word_char(chars[end_exclusive]))
 
 
 def literal_matches(page_text: str, query: str, opt: dict) -> list[tuple[int, int]]:
@@ -330,7 +328,7 @@ def product_page_counts(cell: dict, page_count: int) -> list[int]:
 
 
 # ---------------------------------------------------------------------------
-# Phase: expect
+# Phase "expect"
 # ---------------------------------------------------------------------------
 
 
@@ -338,7 +336,8 @@ def phase_expect(args):
     bank, vectors, queries = load_bank()
     doc_id = args.doc
     pdf = SD_ROOT / bank["docs"][doc_id]["path"]
-    assert sha256(pdf) == bank["docs"][doc_id]["sha256"], "doc drift vs bank pin"
+    if not sha256(pdf) == bank["docs"][doc_id]["sha256"]:
+        raise AssertionError("doc drift vs bank pin")
     texts = {
         "pymupdf": extract_pymupdf(pdf),
         "pdftotext_raw": extract_pdftotext(pdf),
@@ -384,7 +383,7 @@ def phase_expect(args):
 
 
 def phase_diff(args):
-    bank, vectors, queries = load_bank()
+    bank, _vectors, queries = load_bank()
     doc_id = args.doc
     expect = json.loads((Path(args.out) / f"oracle-expect-{doc_id}.json").read_text())
     run = load_run(Path(args.hits), doc_id)
@@ -459,7 +458,7 @@ def phase_diff(args):
 
 
 # ---------------------------------------------------------------------------
-# Phase: metamorphic
+# Phase "metamorphic"
 # ---------------------------------------------------------------------------
 
 
@@ -679,15 +678,17 @@ def ocr_literal_line_hits(norm_line: str, query: str, opt: dict) -> int:
 
 
 def phase_ocr(args):
-    bank, vectors, queries = load_bank()
+    _bank, vectors, queries = load_bank()
     doc_id = args.doc
     hits_dir = Path(args.hits)
     run = load_run(hits_dir, doc_id)
     lines_file = json.loads(
         (hits_dir / doc_id / f"ocr-lines-run-{run['run_index']}.json").read_text()
     )
-    norm_lines = {p["page"]: [l["normalized"] for l in p["lines"]] for p in lines_file["pages"]}
-    raw_lines = {p["page"]: [l["text"] for l in p["lines"]] for p in lines_file["pages"]}
+    norm_lines = {
+        p["page"]: [line["normalized"] for line in p["lines"]] for p in lines_file["pages"]
+    }
+    raw_lines = {p["page"]: [line["text"] for line in p["lines"]] for p in lines_file["pages"]}
     n_pages = run["page_count"]
 
     # Confusable-normalizer cross-check (spec reimpl vs product output).
@@ -719,10 +720,11 @@ def phase_ocr(args):
             for page in range(n_pages):
                 lines = norm_lines.get(page, [])
                 if q["mode"] == "text":
-                    want[page] = sum(ocr_literal_line_hits(l, q["query"], opt) for l in lines)
+                    want[page] = sum(ocr_literal_line_hits(line, q["query"], opt) for line in lines)
                 elif q["mode"] == "multiTerm":
                     per_term = {
-                        t: sum(ocr_literal_line_hits(l, t, opt) for l in lines) for t in q["terms"]
+                        t: sum(ocr_literal_line_hits(line, t, opt) for line in lines)
+                        for t in q["terms"]
                     }
                     if opt["multiTermConjunction"]:
                         want[page] = (
@@ -827,12 +829,12 @@ def phase_ocr(args):
 
 
 # ---------------------------------------------------------------------------
-# Phase: freeze
+# Phase "freeze"
 # ---------------------------------------------------------------------------
 
 
 def phase_freeze(args):
-    bank, vectors, queries = load_bank()
+    _bank, _vectors, _queries = load_bank()
     doc_id = args.doc
     run = load_run(Path(args.hits), doc_id)
     run2 = load_run(Path(args.hits), doc_id, run=2)
@@ -863,10 +865,11 @@ def phase_freeze(args):
         # run (drops only LOSE hits; max-of-runs is a lower bound on truth).
         # OCR leg: run 2 is an independent Vision pass — variance expected;
         # GT regenerates from run 1 by definition.
+        cell_row = cell
         if not ocr_leg and c2 is not None and cell["hits"] != c2["hits"]:
             if is_burst(cell) or is_burst(c2):
                 if c2["yielded"] > cell["yielded"]:
-                    cell = c2
+                    cell_row = c2
                 burst_max_cells.append(key)
                 source_note = "burst-max-of-runs"
             elif not adj:
@@ -879,7 +882,7 @@ def phase_freeze(args):
                 "text": h["text"],
                 "bbox": h["rect"],
             }
-            for h in cell["hits"]
+            for h in cell_row["hits"]
         ]
         entry = {
             "expected_n": len(expected_hits),
@@ -922,12 +925,12 @@ def phase_freeze(args):
 
 
 # ---------------------------------------------------------------------------
-# Phase: score  (M12-13)
+# Phase "score" (M12-13)
 # ---------------------------------------------------------------------------
 
 
 def phase_score(args):
-    bank, vectors, queries = load_bank()
+    _bank, _vectors, queries = load_bank()
     rows = defaultdict(lambda: {"tp": 0, "fp": 0, "fn": 0, "cells": 0, "exact_cells": 0})
     for doc_id in args.docs.split(","):
         gt = json.loads((GT_DIR / f"{doc_id}.search-gt.json").read_text())

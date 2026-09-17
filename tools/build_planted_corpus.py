@@ -146,9 +146,7 @@ def exif_app1(description: str) -> bytes:
     # IFD0 at offset 8: count=1, one 12-byte entry, next=0 -> value area at 8+2+12+4=26
     entry = (
         b"\x0e\x01"  # tag 0x010E ImageDescription
-        + b"\x02\x00"  # type ASCII
-        + len(desc).to_bytes(4, "little")
-        + (26).to_bytes(4, "little")
+        b"\x02\x00" + len(desc).to_bytes(4, "little") + (26).to_bytes(4, "little")  # type ASCII
     )
     tiff = (
         b"II*\x00"
@@ -165,6 +163,7 @@ def exif_app1(description: str) -> bytes:
 def jpeg_with_exif(term: str, w: int = 400, h: int = 300, benign_text: str = "") -> bytes:
     """Deterministic-enough JPEG (hash-recorded): PIL encode, then hand-splice APP1 after SOI."""
     import io
+
     from PIL import Image, ImageDraw, ImageFont
 
     img = Image.new("L", (w, h), 235)
@@ -174,7 +173,8 @@ def jpeg_with_exif(term: str, w: int = 400, h: int = 300, benign_text: str = "")
     buf = io.BytesIO()
     img.save(buf, format="JPEG", quality=85)
     raw = buf.getvalue()
-    assert raw[:2] == b"\xff\xd8"
+    if raw[:2] != b"\xff\xd8":
+        raise AssertionError("JPEG SOI marker missing")
     return raw[:2] + (exif_app1(term) if term else b"") + raw[2:]
 
 
@@ -842,15 +842,17 @@ def fx_text_outlines_probe() -> str:
     out = OUTDIR / "planted-text-outlines.pdf"
     for args in (["mutool", "convert", "-O", "text=path", "-o", str(out), str(src)],):
         try:
-            r = subprocess.run(args, capture_output=True, timeout=120)
+            r = subprocess.run(args, capture_output=True, timeout=120, check=False)
         except (FileNotFoundError, subprocess.TimeoutExpired):
             continue
         if r.returncode != 0 or not out.exists():
             out.unlink(missing_ok=True)
             continue
-        fonts = subprocess.run(["pdffonts", str(out)], capture_output=True, timeout=60)
+        fonts = subprocess.run(["pdffonts", str(out)], capture_output=True, timeout=60, check=False)
         font_rows = len(fonts.stdout.decode().splitlines()) - 2
-        text = subprocess.run(["pdftotext", str(out), "-"], capture_output=True, timeout=60)
+        text = subprocess.run(
+            ["pdftotext", str(out), "-"], capture_output=True, timeout=60, check=False
+        )
         if font_rows <= 0 and b"PLANT-VISIBLE-01" not in text.stdout:
             pdf = out.read_bytes()
             emit(

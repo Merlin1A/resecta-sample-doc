@@ -168,7 +168,7 @@ def verify_against_cv2() -> str:
     declared dependency of this repo.
     """
     try:
-        import cv2  # noqa: PLC0415 -- optional tooling, imported only when checking
+        import cv2  # optional tooling, imported only when checking
     except ImportError:
         return f"{DICT_NAME}: cv2 not importable; baked table not cross-checked"
 

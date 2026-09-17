@@ -1371,7 +1371,8 @@ CAPTURE_BY_EXHIBIT = {}
 for _o in CAPTURE_ALL:
     CAPTURE_BY_EXHIBIT.setdefault(_o.exhibit, []).append(_o)
 
-assert len(CAPTURE_BY_ID) == len(CAPTURE_ALL), "duplicate occurrence id in the capture registry"
+if len(CAPTURE_BY_ID) != len(CAPTURE_ALL):
+    raise ValueError("duplicate occurrence id in the capture registry")
 
 # the exhibit -> `31-` SSC.1 page class map (C2 mail/forms, C3 court/FOIA, C4 medical/HR)
 EXHIBIT_CLASS = {

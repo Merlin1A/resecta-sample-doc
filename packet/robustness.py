@@ -235,10 +235,12 @@ def _self_check(name: str, pdf: bytes, pages: int, must_contain: str | None):
     import fitz
 
     doc = fitz.open(stream=pdf, filetype="pdf")
-    assert doc.page_count == pages, f"{name}: {doc.page_count} pages, expected {pages}"
+    if doc.page_count != pages:
+        raise AssertionError(f"{name}: {doc.page_count} pages, expected {pages}")
     if must_contain is not None:
         text = doc[0].get_text()
-        assert must_contain in text, f"{name}: page-0 text layer missing {must_contain!r}"
+        if must_contain not in text:
+            raise AssertionError(f"{name}: page-0 text layer missing {must_contain!r}")
     doc.close()
 
 
@@ -323,7 +325,7 @@ def build_family4(write: bool = True) -> dict:
             "notes": "one past the page-count cap -- import must reject tooLarge.",
         },
     ]
-    for a in _ALGOS:
+    for a, algo_name in _ALGOS.items():
         rows.append(
             {
                 "id": f"packet-encrypted-{a}",
@@ -337,7 +339,7 @@ def build_family4(write: bool = True) -> dict:
                     "redact": "open",
                     "redact_error": None,
                 },
-                "notes": f"{_ALGOS[a]}, empty user password -- PDFKit opens unlocked "
+                "notes": f"{algo_name}, empty user password -- PDFKit opens unlocked "
                 "(isLocked false); content identical to packet post-decrypt.",
             }
         )

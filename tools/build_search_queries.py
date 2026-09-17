@@ -321,7 +321,7 @@ def build_queries() -> list[dict]:
     # --- smart-punctuation query-side probes ---------------------------------
     text(
         "q24",
-        "502‑19‑7438",
+        "502‑19‑7438",  # noqa: RUF001 -- deliberate U+2011 probe
         "smartpunct-probe",
         "NON-BREAKING HYPHEN query: NFKC(U+2011)=U+2010 which the smart-punct "
         "map does NOT fold — expected to match ONLY when normalizeUnicode is "
@@ -330,7 +330,7 @@ def build_queries() -> list[dict]:
     )
     text(
         "q25",
-        "502–19–7438",
+        "502–19–7438",  # noqa: RUF001 -- deliberate U+2013 probe
         "smartpunct-probe",
         "EN DASH query: U+2013 survives NFKC and the map folds it to '-' — "
         "matches whenever normalizeSmartPunctuation is ON",

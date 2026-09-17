@@ -689,11 +689,12 @@ def run():
         sk_gt = o["degrade"]["skew"][1]
         sk_prob = schema.validate_ground_truth(sk_gt["occurrences"])
         sk_moved = any(
-            r["bbox"] != g["bbox"] for r, g in zip(sk_gt["occurrences"], gt["occurrences"])
+            r["bbox"] != g["bbox"]
+            for r, g in zip(sk_gt["occurrences"], gt["occurrences"], strict=False)
         )
         bl_same = all(
             r["bbox"] == g["bbox"]
-            for r, g in zip(o["degrade"]["blur"][1]["occurrences"], gt["occurrences"])
+            for r, g in zip(o["degrade"]["blur"][1]["occurrences"], gt["occurrences"], strict=False)
         )
         check(
             not sk_prob and sk_moved and bl_same,
