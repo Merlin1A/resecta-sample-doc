@@ -73,6 +73,7 @@ SMART_PUNCT = {
     "—": "-",
     "‒": "-",  # noqa: RUF001 -- deliberate Unicode variant under test
     "‑": "-",  # noqa: RUF001 -- deliberate Unicode variant under test
+    "‐": "-",  # noqa: RUF001 -- U+2010 HYPHEN, also NFKC's image of U+2011
     "­": "-",
 }
 SEPARATORS = set("- ./,")
@@ -210,8 +211,15 @@ def regex_matches(page_text: str, pattern: str, opt: dict):
     return hits, None
 
 
+def live_terms(terms: list[str]) -> list[str]:
+    """The product drops empty and whitespace-only entries of a multi-term
+    list at entry (both the OR stream and the AND conjunction read the
+    filtered list); the expectation models the same list."""
+    return [t for t in terms if t.strip()]
+
+
 def multiterm_page_counts(page_text: str, terms: list[str], opt: dict) -> dict[str, int]:
-    return {t: len(literal_matches(page_text, t, opt)) for t in terms}
+    return {t: len(literal_matches(page_text, t, opt)) for t in live_terms(terms)}
 
 
 def cell_counts(pages: list[str], row: dict, opt: dict):
@@ -230,7 +238,7 @@ def cell_counts(pages: list[str], row: dict, opt: dict):
     if mode == "multiTerm":
         per_page = [multiterm_page_counts(t, row["terms"], opt) for t in pages]
         if opt["multiTermConjunction"]:
-            distinct = set(row["terms"])
+            distinct = set(live_terms(row["terms"]))
             return [
                 sum(c.values()) if all(c.get(t, 0) > 0 for t in distinct) else 0 for c in per_page
             ], None
@@ -621,11 +629,15 @@ def phase_metamorphic(args):
 # Phase: ocr  (M12-14 — correctness-vs-OCR-text + end-to-end findability)
 # ---------------------------------------------------------------------------
 
-# OCRTextNormalizer re-implementation (confusable correction, from spec).
+# OCRTextNormalizer re-implementation (confusable correction, from spec):
+# token level first, then the digit-run level (tokens without a clear letter,
+# linked through "- . / ( )" or whitespace, share digit context when any of
+# them carries a clear digit), then the line-level fallback.
 DIGIT_MAP = {"O": "0", "o": "0", "I": "1", "l": "1", "B": "8", "S": "5", "Z": "2", "G": "6"}
 LETTER_MAP = {"0": "O", "1": "I", "5": "S", "8": "B"}
 AMBIG_LETTERS = set("OoIlBSZG")
 AMBIG_DIGITS = set("0158")
+RUN_SEPARATORS = set("-./()")
 
 
 def _tendency(chars):
@@ -642,17 +654,86 @@ def _tendency(chars):
     return "pass"
 
 
+def _digit_run_marks(line: str) -> list[bool]:
+    """One flag per alphanumeric token (in line order): True when the token
+    belongs to a run that carries a clear-digit token. A token with a clear
+    letter never joins a run and ends the one before it; any character other
+    than a run separator or whitespace between two tokens ends the run."""
+    classes: list[str] = []
+    linked: list[bool] = []
+    state = {"in_token": False, "clear_d": 0, "clear_l": 0, "links": True}
+
+    def close_token():
+        if state["clear_l"] > 0:
+            classes.append("L")
+        elif state["clear_d"] > 0:
+            classes.append("D")
+        else:
+            classes.append("A")
+        state["in_token"] = False
+        state["links"] = True
+
+    for c in line:
+        if c.isalnum():
+            if not state["in_token"]:
+                state["in_token"] = True
+                state["clear_d"] = 0
+                state["clear_l"] = 0
+                linked.append(bool(state["links"]) and bool(classes))
+            if c.isdigit() and c not in AMBIG_DIGITS:
+                state["clear_d"] += 1
+            elif c.isalpha() and c not in AMBIG_LETTERS:
+                state["clear_l"] += 1
+        else:
+            if state["in_token"]:
+                close_token()
+            if not (c in RUN_SEPARATORS or c.isspace()):
+                state["links"] = False
+    if state["in_token"]:
+        close_token()
+
+    marks = [False] * len(classes)
+    run_start = 0
+    run_has_digit = False
+    for i, cls in enumerate(classes):
+        if cls == "L":
+            if run_has_digit:
+                for j in range(run_start, i):
+                    marks[j] = True
+            run_has_digit = False
+            run_start = i + 1
+            continue
+        if i > run_start and not linked[i]:
+            if run_has_digit:
+                for j in range(run_start, i):
+                    marks[j] = True
+            run_has_digit = False
+            run_start = i
+        if cls == "D":
+            run_has_digit = True
+    if run_has_digit:
+        for j in range(run_start, len(classes)):
+            marks[j] = True
+    return marks
+
+
 def confusable_normalize(line: str) -> str:
     line_t = _tendency([c for c in line if c.isalnum()])
+    marks = _digit_run_marks(line)
     out = []
     token: list[str] = []
+    token_index = [0]
 
     def flush():
         if not token:
             return
         t = _tendency(token)
         if t == "pass":
-            t = line_t
+            # The digit run's clear-digit neighbour decides before the
+            # line-level fallback.
+            in_run = token_index[0] < len(marks) and marks[token_index[0]]
+            t = "digit" if in_run else line_t
+        token_index[0] += 1
         for c in token:
             if t == "digit":
                 out.append(DIGIT_MAP.get(c, c))
@@ -724,12 +805,12 @@ def phase_ocr(args):
                 elif q["mode"] == "multiTerm":
                     per_term = {
                         t: sum(ocr_literal_line_hits(line, t, opt) for line in lines)
-                        for t in q["terms"]
+                        for t in live_terms(q["terms"])
                     }
                     if opt["multiTermConjunction"]:
                         want[page] = (
                             sum(per_term.values())
-                            if all(per_term[t] > 0 for t in set(q["terms"]))
+                            if per_term and all(n > 0 for n in per_term.values())
                             else 0
                         )
                     else:
