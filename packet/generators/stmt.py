@@ -15,6 +15,8 @@ from __future__ import annotations
 import hashlib
 from pathlib import Path
 
+from ..schema import SCHEMA_VERSION
+
 _REPO = Path(__file__).resolve().parent.parent.parent
 # The local repo copy is byte-identical to the FROZEN engine resource
 # ~/resecta/Resources/SampleDocument.pdf (verified SHA, 2026-06-14).
@@ -263,6 +265,9 @@ def carried_records() -> list[dict]:
                 "expectation": TIER[tier],
                 "leg_applicability": list(legs),
                 "label_context": "",
+                "context_class": "none",
+                "caption_clearance_pt": None,
+                "caption_text": None,
                 "render": {"all_caps": False, "masked": value.startswith("X"), "multiline": False},
                 "spans": [],
                 "overlaps": [],
@@ -270,7 +275,7 @@ def carried_records() -> list[dict]:
                 "measured_pending": True,
                 "justification": note,
                 "source_range": "frozen statement; geometry not resolved (measured_pending)",
-                "schema_version": 1,
+                "schema_version": SCHEMA_VERSION,
             }
         )
     return out

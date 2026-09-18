@@ -8,10 +8,12 @@ coordinate space where applicable.
   rotate-trigger every page /Rotate 90 -- a deliberate TRIGGER for the open rotated-coordinate P0
                  (a trigger, NOT a guard): ground truth is transformed to the rotated display space,
                  so it FAILS against the current engine until that fix lands.
-  degrade        a 3-rung quality ladder (skew / blur / low-DPI) off the scan-sim raster.
-                 Each rung re-emits ground truth narrowed to leg ["ocr"] (blur/low-DPI keep the
-                 scan-sim geometry unchanged; skew boxes are the axis-aligned hull of the
-                 1.5deg-rotated box -- APPROXIMATE by construction).
+  degrade        a declarative quality ladder (`_RUNGS`) off the 150-DPI raster, built for BOTH
+                 masters (the 12-page packet and the 16-page capture masters): skew 1.5deg / blur /
+                 low-DPI 100 / low-DPI 75 / JPEG QF 85 / JPEG QF 70 / seeded noise / bleed-through
+                 / fax 204x98 / fax 204x196. Each rung re-emits ground truth narrowed to leg
+                 ["ocr"] with a `polygon` beside every bbox (the skew rung's rotated quad; the
+                 bbox is its axis-aligned hull; photometric rungs inherit the geometry).
   perf-filler    a 50-200 pp dense born-digital filler (no firing PII) targeting the apply-phase
                  memory cliff.
 
@@ -94,13 +96,14 @@ def _images_to_pdf(images, title: str, doc_id: bytes) -> bytes:
     return _finalize(buf.getvalue(), title, doc_id)
 
 
-def _rasterize(pdf_bytes: bytes, dpi: int):
-    """PDF bytes -> list of grayscale PIL page images at `dpi` (PyMuPDF render; deterministic)."""
+def _rasterize(pdf_bytes: bytes, dpi: int, dpi_y: int | None = None):
+    """PDF bytes -> list of grayscale PIL page images at `dpi` (PyMuPDF render; deterministic).
+    `dpi_y` makes the raster anisotropic (the fax rungs: 204 x 98 / 204 x 196)."""
     import fitz
     from PIL import Image
 
     doc = fitz.open(stream=pdf_bytes, filetype="pdf")
-    mat = fitz.Matrix(dpi / 72.0, dpi / 72.0)
+    mat = fitz.Matrix(dpi / 72.0, (dpi if dpi_y is None else dpi_y) / 72.0)
     out = []
     for page in doc:
         pix = page.get_pixmap(matrix=mat, colorspace=fitz.csGRAY, alpha=False)
@@ -112,14 +115,31 @@ def _rasterize(pdf_bytes: bytes, dpi: int):
 # --------------------------------------------------------------------------------------------------
 # scan-sim (150 DPI, OCR leg)
 # --------------------------------------------------------------------------------------------------
-def scan_sim(packet_pdf: bytes, gt: dict, dpi: int = 150):
+# the row lists of a ground-truth file that carry draw-time geometry (the packet's carried_stmt
+# rows have none and are left as the master states them)
+_GEOMETRY_LISTS = ("occurrences", "carried_packet")
+
+
+def _rows_with_geometry(vgt: dict):
+    for key in _GEOMETRY_LISTS:
+        yield from vgt.get(key) or []
+
+
+def scan_sim(
+    packet_pdf: bytes,
+    gt: dict,
+    dpi: int = 150,
+    *,
+    title: str | None = None,
+    doc_id: bytes = b"ResectaPacketScanSim150",
+):
     images = _rasterize(packet_pdf, dpi)
     pdf = _images_to_pdf(
-        images, f"Hartwell Packet -- scan-sim {dpi} DPI (test-only)", b"ResectaPacketScanSim150"
+        images, title or f"Hartwell Packet -- scan-sim {dpi} DPI (test-only)", doc_id
     )
     vgt = json.loads(json.dumps(gt))  # deep copy; bboxes are resolution-independent
     vgt["variant"] = {"kind": "scan-sim", "dpi": dpi, "rasterized": True, "text_layer": False}
-    for r in vgt["occurrences"]:
+    for r in _rows_with_geometry(vgt):
         r["leg_applicability"] = ["ocr"]  # image-only -> OCR leg only
     return pdf, vgt
 
@@ -185,20 +205,34 @@ def rotate_trigger(packet_pdf: bytes, gt: dict, degrees: int = 90):
 
 
 # --------------------------------------------------------------------------------------------------
-# degrade ladder (skew / blur / low-DPI), off the 150-DPI raster -- deterministic transforms
+# degrade ladder -- a declarative rung table off the 150-DPI raster (E1 stage 1)
+#
+# Every rung is a pure function of (the master's bytes, the rung's seed): the photometric rungs draw
+# their only entropy from an integer SplitMix64 stream (the robustness.py pattern; bit-exact on every
+# platform), the geometric rung is a fixed rotation, and the fax rungs are anisotropic renders.
+# Parameters are chosen inside the ranges the document-image degradation literature states (the
+# return gives no grayscale-noise or bleed-through row) and are NOT calibrated against real captures:
+# the synthetic-vs-real gap measured at 150/300 DPI sat inside +-4 pts, so the ladder stands as a
+# conservative lower bound and stays as written.
 # --------------------------------------------------------------------------------------------------
 _SKEW_DEGREES = 1.5
+_JPEG_QUALITY = {"jpeg85": 85, "jpeg70": 70}
+_NOISE_SIGMA = 12.0  # gray levels of 255, additive Gaussian at 150 DPI
+_NOISE_SALT_PEPPER = 0.005  # fraction of pixels forced to 0 or 255
+_BLEED_ALPHA = 0.18  # how much of the verso's ink shows through
+_BLEED_CONTRAST = (40, 225)  # black / white end points after contrast loss
+_FAX_DPI = {"fax98": (204, 98), "fax196": (204, 196)}  # CCITT standard / fine
+_FAX_THRESHOLD = 128
 
 
-def _skew_bbox_hull(b, degrees=_SKEW_DEGREES):
-    """Axis-aligned hull of a normalized bbox after the skew-rung rotation.
+def _rotate_corners(b, degrees=_SKEW_DEGREES):
+    """The four corners (TL, TR, BR, BL) of a normalized bbox after the skew-rung rotation, in
+    normalized bottom-left coordinates.
 
-    PIL's ``Image.rotate(degrees)`` turns the page content ``degrees``
-    counter-clockwise (as viewed) about the image center; the full-page raster
-    makes that the page center. The rotation is isotropic in POINT space, not
-    in normalized units (letter pages are not square), so the corners are
-    rotated in points and re-normalized. The hull over-covers the true rotated
-    quad -- polygons arrive with the E1 factory; this stays APPROXIMATE.
+    PIL's ``Image.rotate(degrees)`` turns the page content ``degrees`` counter-clockwise (as
+    viewed) about the image center; the full-page raster makes that the page center. The rotation
+    is isotropic in POINT space, not in normalized units (letter pages are not square), so the
+    corners are rotated in points and re-normalized.
     """
     import math
 
@@ -206,78 +240,317 @@ def _skew_bbox_hull(b, degrees=_SKEW_DEGREES):
     th = math.radians(degrees)
     cos_t, sin_t = math.cos(th), math.sin(th)
     x0, y0, x1, y1 = b[0] * PW, b[1] * PH, b[2] * PW, b[3] * PH
-    xs, ys = [], []
-    for px, py in ((x0, y0), (x1, y0), (x0, y1), (x1, y1)):
+    out = []
+    for px, py in ((x0, y1), (x1, y1), (x1, y0), (x0, y0)):
         dx, dy = px - cx, py - cy
-        xs.append(cx + dx * cos_t - dy * sin_t)
-        ys.append(cy + dx * sin_t + dy * cos_t)
-    hull = [min(xs) / PW, min(ys) / PH, max(xs) / PW, max(ys) / PH]
+        out.append(((cx + dx * cos_t - dy * sin_t) / PW, (cy + dx * sin_t + dy * cos_t) / PH))
+    return out
+
+
+def _skew_polygon(b, degrees=_SKEW_DEGREES):
+    """The rotated quad of a normalized bbox: the polygon-primary ground truth of the skew rung
+    (``tools/register_capture.py``'s shape -- [[x, y], ...] TL, TR, BR, BL, bottom-left origin)."""
+    return [[round(x, 6), round(y, 6)] for x, y in _rotate_corners(b, degrees)]
+
+
+def _skew_bbox_hull(b, degrees=_SKEW_DEGREES):
+    """Axis-aligned hull of the rotated quad -- the bbox consumers that need a box read."""
+    corners = _rotate_corners(b, degrees)
+    xs = [x for x, _y in corners]
+    ys = [y for _x, y in corners]
+    hull = [min(xs), min(ys), max(xs), max(ys)]
     return [round(max(0.0, min(1.0, v)), 6) for v in hull]
 
 
-def _degrade_gt(gt: dict, rung: str, note: str, skewed: bool) -> dict:
-    """Ground truth for one degrade rung: leg ["ocr"], geometry per rung."""
+def _bbox_polygon(b):
+    """A bbox as its own quad (TL, TR, BR, BL) -- the polygon column of a rung that keeps the
+    master's geometry, so every rung row is polygon-primary."""
+    x0, y0, x1, y1 = b
+    return [[x0, y1], [x1, y1], [x1, y0], [x0, y0]]
+
+
+def _degrade_gt(gt: dict, rung, source: str) -> dict:
+    """Ground truth for one degrade rung: leg ["ocr"], a polygon beside every box, geometry per
+    rung (the skew rung rotates; every other rung inherits the master's boxes)."""
     vgt = json.loads(json.dumps(gt))  # deep copy; bboxes are resolution-independent
     vgt["variant"] = {
         "kind": "degrade",
-        "rung": rung,
+        "rung": rung.name,
+        "source": source,
         "rasterized": True,
         "text_layer": False,
         "gt_geometry": (
-            f"axis-aligned hull of the {_SKEW_DEGREES:.1f}deg-rotated box (approximate)"
+            f"polygon = the box rotated {_SKEW_DEGREES:.1f}deg about the page center; "
+            "bbox = its axis-aligned hull"
         )
-        if skewed
-        else "inherited (unchanged)",
-        "note": note,
+        if rung.skewed
+        else "inherited (unchanged); polygon = the box's own corners",
+        "seed": rung.seed,
+        "note": rung.note,
     }
-    for r in vgt["occurrences"]:
+    for r in _rows_with_geometry(vgt):
         r["leg_applicability"] = ["ocr"]  # image-only -> OCR leg only
-        if skewed:
+        if r.get("bbox") is None:
+            continue
+        if rung.skewed:
+            r["polygon"] = _skew_polygon(r["bbox"])
             r["bbox"] = _skew_bbox_hull(r["bbox"])
-            for s in r["spans"]:
-                s["bbox"] = _skew_bbox_hull(s["bbox"])
+            for sp in r["spans"]:
+                sp["polygon"] = _skew_polygon(sp["bbox"])
+                sp["bbox"] = _skew_bbox_hull(sp["bbox"])
+        else:
+            r["polygon"] = _bbox_polygon(r["bbox"])
+            for sp in r["spans"]:
+                sp["polygon"] = _bbox_polygon(sp["bbox"])
     return vgt
 
 
-def degrade_ladder(packet_pdf: bytes, gt: dict):
+def _splitmix64_bytes(seed: int, n: int):
+    """``n`` deterministic bytes from a SplitMix64 stream seeded with ``seed`` (integer arithmetic
+    only; the same bytes on every platform). The robustness.py pattern, vectorized."""
+    import numpy as np
+
+    words = (n + 7) // 8
+    k = np.arange(1, words + 1, dtype=np.uint64)
+    with np.errstate(over="ignore"):
+        z = np.uint64(seed & 0xFFFFFFFFFFFFFFFF) + k * np.uint64(0x9E3779B97F4A7C15)
+        z = (z ^ (z >> np.uint64(30))) * np.uint64(0xBF58476D1CE4E5B9)
+        z = (z ^ (z >> np.uint64(27))) * np.uint64(0x94D049BB133111EB)
+        z = z ^ (z >> np.uint64(31))
+    return z.view(np.uint8)[:n]
+
+
+class _Master:
+    """One source document of the ladder: its bytes, its ground truth, and the 150-DPI raster the
+    photometric rungs start from (rendered once)."""
+
+    def __init__(self, name: str, pdf: bytes, gt: dict, *, title_prefix: str, id_prefix: bytes):
+        self.name = name
+        self.pdf = pdf
+        self.gt = gt
+        self.title_prefix = title_prefix
+        self.id_prefix = id_prefix
+        self._base = None
+
+    @property
+    def base150(self):
+        if self._base is None:
+            self._base = _rasterize(self.pdf, 150)
+        return self._base
+
+
+def _rung_skew(m: _Master, _seed):
     from PIL import Image
 
-    base = _rasterize(packet_pdf, 150)
-    rungs = {}
-    # skew: small rotation, white fill (no random)
-    skew = [
+    # small rotation, white fill (no random)
+    return [
         im.rotate(_SKEW_DEGREES, resample=Image.Resampling.BILINEAR, expand=False, fillcolor=255)
-        for im in base
+        for im in m.base150
     ]
-    rungs["skew"] = (
-        _images_to_pdf(
-            skew, "Hartwell Packet -- degrade skew 1.5deg (test-only)", b"ResectaPacketDegSkew01"
-        ),
-        _degrade_gt(
-            gt, "skew", "150 DPI raster rotated 1.5deg CCW about the page center.", skewed=True
-        ),
-    )
-    # blur: downscale 50% then back up (deterministic softening)
-    blur = [
+
+
+def _rung_blur(m: _Master, _seed):
+    from PIL import Image
+
+    # downscale 50% then back up (deterministic softening)
+    return [
         im.resize((im.width // 2, im.height // 2), Image.Resampling.BILINEAR).resize(
             im.size, Image.Resampling.BILINEAR
         )
-        for im in base
+        for im in m.base150
     ]
-    rungs["blur"] = (
-        _images_to_pdf(
-            blur, "Hartwell Packet -- degrade blur (test-only)", b"ResectaPacketDegBlur01"
-        ),
-        _degrade_gt(gt, "blur", "150 DPI raster softened by a 50% down/up resample.", skewed=False),
+
+
+def _rung_lowdpi(dpi: int):
+    def fn(m: _Master, _seed):
+        return _rasterize(m.pdf, dpi)  # re-rasterize the source at the lower DPI
+
+    return fn
+
+
+def _rung_jpeg(quality: int):
+    def fn(m: _Master, _seed):
+        from PIL import Image
+
+        out = []
+        for im in m.base150:
+            buf = io.BytesIO()
+            im.save(buf, format="JPEG", quality=quality, optimize=False)
+            buf.seek(0)
+            out.append(Image.open(buf).convert("L"))
+        return out
+
+    return fn
+
+
+def _rung_noise(m: _Master, seed: int):
+    """Additive Gaussian noise (sigma _NOISE_SIGMA) + salt-and-pepper (_NOISE_SALT_PEPPER), both
+    drawn from the seeded integer stream: the Gaussian term is the sum of four uniform bytes
+    (Irwin-Hall, sigma 147.8 gray levels) rescaled, so no libm call enters the bytes."""
+    import numpy as np
+    from PIL import Image
+
+    out = []
+    scale = _NOISE_SIGMA / 147.8
+    sp_lo = round(_NOISE_SALT_PEPPER / 2.0 * 65536)
+    for index, im in enumerate(m.base150):
+        arr = np.asarray(im, dtype=np.int16)
+        n = arr.size
+        page_seed = seed + 0x1000 * (index + 1)
+        u = _splitmix64_bytes(page_seed, 4 * n).reshape(n, 4).astype(np.int16)
+        gauss = np.rint((u.sum(axis=1) - 510) * scale).astype(np.int16).reshape(arr.shape)
+        noisy = np.clip(arr + gauss, 0, 255)
+        u16 = _splitmix64_bytes(page_seed ^ 0xA5A5, 2 * n).view(np.uint16).reshape(arr.shape)
+        noisy = np.where(u16 < sp_lo, 0, noisy)
+        noisy = np.where(u16 >= 65536 - sp_lo, 255, noisy)
+        out.append(Image.fromarray(noisy.astype(np.uint8), mode="L"))
+    return out
+
+
+def _rung_bleed(m: _Master, _seed):
+    """Duplex show-through: the verso (page i ^ 1, mirrored) darkens the recto by _BLEED_ALPHA of
+    its ink, then the whole page loses contrast to _BLEED_CONTRAST. Pure lookup tables."""
+    from PIL import ImageChops, ImageOps
+
+    base = m.base150
+    show = [round(255 - _BLEED_ALPHA * (255 - v)) for v in range(256)]
+    lo, hi = _BLEED_CONTRAST
+    squash = [round(lo + v * (hi - lo) / 255.0) for v in range(256)]
+    out = []
+    for index, im in enumerate(base):
+        verso = index ^ 1
+        page = im
+        if verso < len(base):
+            page = ImageChops.darker(im, ImageOps.mirror(base[verso]).point(show))
+        out.append(page.point(squash))
+    return out
+
+
+def _rung_fax(dpi_x: int, dpi_y: int):
+    def fn(m: _Master, _seed):
+        # anisotropic render, fixed threshold -> 1-bit content (kept in an 8-bit container), then
+        # _images_to_pdf stretches the page back to letter as a fax printout would
+        return [
+            im.point(lambda v: 255 if v >= _FAX_THRESHOLD else 0)
+            for im in _rasterize(m.pdf, dpi_x, dpi_y)
+        ]
+
+    return fn
+
+
+class Rung:
+    """One row of the ladder: name, title fragment, /ID stem (<= 10 ASCII chars), the image
+    function, the ground-truth note, the seed (None = the transform draws no entropy)."""
+
+    def __init__(self, name, part, id_stem, image_fn, note, *, seed=None, skewed=False):
+        self.name = name
+        self.part = part
+        self.id_stem = id_stem
+        self.image_fn = image_fn
+        self.note = note
+        self.seed = seed
+        self.skewed = skewed
+
+
+_RUNGS = (
+    Rung(
+        "skew",
+        "degrade skew 1.5deg",
+        "DegSkew01",
+        _rung_skew,
+        "150 DPI raster rotated 1.5deg CCW about the page center.",
+        skewed=True,
+    ),
+    Rung(
+        "blur",
+        "degrade blur",
+        "DegBlur01",
+        _rung_blur,
+        "150 DPI raster softened by a 50% down/up resample.",
+    ),
+    Rung(
+        "lowdpi",
+        "degrade low-DPI 100",
+        "DegLow100",
+        _rung_lowdpi(100),
+        "Source re-rasterized at 100 DPI.",
+    ),
+    Rung(
+        "lowdpi75",
+        "degrade low-DPI 75",
+        "DegLow075",
+        _rung_lowdpi(75),
+        "Source re-rasterized at 75 DPI.",
+    ),
+    Rung(
+        "jpeg85",
+        "degrade JPEG QF 85",
+        "DegJpg085",
+        _rung_jpeg(85),
+        "150 DPI raster JPEG-encoded at quality 85 and decoded (scanner-software class).",
+    ),
+    Rung(
+        "jpeg70",
+        "degrade JPEG QF 70",
+        "DegJpg070",
+        _rung_jpeg(70),
+        "150 DPI raster JPEG-encoded at quality 70 and decoded (phone-camera floor).",
+    ),
+    Rung(
+        "noise",
+        "degrade noise",
+        "DegNoise1",
+        _rung_noise,
+        "150 DPI raster + seeded additive Gaussian noise (sigma 12/255) + 0.5% salt-and-pepper "
+        "(SplitMix64 stream; integer arithmetic only).",
+        seed=0x5E1D_2026_0917,
+    ),
+    Rung(
+        "bleed",
+        "degrade bleed-through",
+        "DegBleed1",
+        _rung_bleed,
+        "150 DPI raster with the duplex verso (page i^1) mirrored and shown through at 18% of "
+        "its ink, then contrast compressed to [40, 225].",
+    ),
+    Rung(
+        "fax98",
+        "degrade fax 204x98",
+        "DegFax098",
+        _rung_fax(204, 98),
+        "Source rendered at 204x98 DPI (CCITT standard), thresholded at 50% to 1-bit content, "
+        "stretched back to the page.",
+    ),
+    Rung(
+        "fax196",
+        "degrade fax 204x196",
+        "DegFax196",
+        _rung_fax(204, 196),
+        "Source rendered at 204x196 DPI (CCITT fine), thresholded at 50% to 1-bit content, "
+        "stretched back to the page.",
+    ),
+)
+RUNG_NAMES = tuple(r.name for r in _RUNGS)
+
+
+def degrade_ladder(packet_pdf: bytes, gt: dict, *, master: _Master | None = None):
+    """Every `_RUNGS` row over one master -> {rung name: (pdf bytes, ground truth)}.
+
+    The default master is the Hartwell packet (the historical signature); `master` names another
+    source (the capture masters) with its own title prefix and /ID prefix.
+    """
+    m = master or _Master(
+        "packet", packet_pdf, gt, title_prefix="Hartwell Packet", id_prefix=b"ResectaPacket"
     )
-    # low-DPI: re-rasterize the source at 100 DPI
-    low = _rasterize(packet_pdf, 100)
-    rungs["lowdpi"] = (
-        _images_to_pdf(
-            low, "Hartwell Packet -- degrade low-DPI 100 (test-only)", b"ResectaPacketDegLow100"
-        ),
-        _degrade_gt(gt, "lowdpi", "Source re-rasterized at 100 DPI.", skewed=False),
-    )
+    rungs = {}
+    for rung in _RUNGS:
+        images = rung.image_fn(m, rung.seed)
+        pdf = _images_to_pdf(
+            images,
+            f"{m.title_prefix} -- {rung.part} (test-only)",
+            m.id_prefix + rung.id_stem.encode(),
+        )
+        rungs[rung.name] = (pdf, _degrade_gt(m.gt, rung, m.name))
     return rungs
 
 
@@ -458,6 +731,32 @@ def print_master(
 
 
 # --------------------------------------------------------------------------------------------------
+def _capture_master() -> _Master:
+    """The frozen capture masters, rebuilt in memory and asserted against their pin -- the ladder
+    rasters exactly the bytes the device captures were printed from."""
+    import hashlib
+
+    from . import build_capture as BC
+
+    cap = BC.build(write=False)
+    got = hashlib.sha256(cap["pdf"]).hexdigest()
+    if got != BC.MASTERS_SHA256:
+        raise SystemExit(
+            "MASTERS TRIPWIRE: the capture masters no longer match their pin.\n"
+            f"  expected {BC.MASTERS_SHA256}\n  rebuilt  {got}"
+        )
+    return _Master(
+        "capture-masters-2026-08",
+        cap["pdf"],
+        cap["ground_truth"],
+        title_prefix=CAPTURE_SET_ID,
+        id_prefix=b"ResectaCapture",
+    )
+
+
+CAPTURE_STEM = "capture-masters-2026-08"
+
+
 def build_all(perf_pages: int = 120, *, write=True) -> dict:
     if not _have_fitz():
         raise SystemExit("variants require PyMuPDF (fitz): pip install pymupdf  (or uv sync)")
@@ -468,11 +767,21 @@ def build_all(perf_pages: int = 120, *, write=True) -> dict:
     rt_pdf, rt_gt = rotate_trigger(packet_pdf, gt)
     deg = degrade_ladder(packet_pdf, gt)
     perf = perf_filler(perf_pages)
+    cap = _capture_master()
+    cap_ss = scan_sim(
+        cap.pdf,
+        cap.gt,
+        title=f"{CAPTURE_SET_ID} -- scan-sim 150 DPI (test-only)",
+        doc_id=b"ResectaCaptureScanSim1",
+    )
+    cap_deg = degrade_ladder(cap.pdf, cap.gt, master=cap)
     out = {
         "scan_sim": (ss_pdf, ss_gt),
         "rotate_trigger": (rt_pdf, rt_gt),
         "degrade": deg,
         "perf": perf,
+        "capture_scan_sim": cap_ss,
+        "capture_degrade": cap_deg,
     }
     if write:
         OUTDIR.mkdir(exist_ok=True)
@@ -490,6 +799,15 @@ def build_all(perf_pages: int = 120, *, write=True) -> dict:
                 json.dumps(dgt, indent=2) + "\n", encoding="ascii"
             )
         (OUTDIR / f"perf-filler-{perf_pages}pp.pdf").write_bytes(perf)
+        (OUTDIR / f"{CAPTURE_STEM}-scan-sim-150dpi.pdf").write_bytes(cap_ss[0])
+        (OUTDIR / f"{CAPTURE_STEM}-scan-sim-150dpi-ground-truth.json").write_text(
+            json.dumps(cap_ss[1], indent=2) + "\n", encoding="ascii"
+        )
+        for name, (pdf, dgt) in cap_deg.items():
+            (OUTDIR / f"{CAPTURE_STEM}-degrade-{name}.pdf").write_bytes(pdf)
+            (OUTDIR / f"{CAPTURE_STEM}-degrade-{name}-ground-truth.json").write_text(
+                json.dumps(dgt, indent=2) + "\n", encoding="ascii"
+            )
     return out
 
 
@@ -498,8 +816,11 @@ def main() -> None:
     print(f"scan-sim:       {len(out['scan_sim'][0]):,} bytes (image-only, OCR leg)")
     print(f"rotate-trigger: {len(out['rotate_trigger'][0]):,} bytes (/Rotate 90; transformed GT)")
     for name, (pdf, _dgt) in out["degrade"].items():
-        print(f"degrade/{name:7s} {len(pdf):,} bytes (+ transformed ground truth)")
+        print(f"degrade/{name:8s} {len(pdf):,} bytes (+ transformed ground truth)")
     print(f"perf-filler:    {len(out['perf']):,} bytes")
+    print(f"capture scan-sim: {len(out['capture_scan_sim'][0]):,} bytes (16 pp, OCR leg)")
+    for name, (pdf, _dgt) in out["capture_degrade"].items():
+        print(f"capture degrade/{name:8s} {len(pdf):,} bytes (+ transformed ground truth)")
     print(f"-> {OUTDIR}")
 
 

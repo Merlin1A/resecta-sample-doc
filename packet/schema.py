@@ -33,6 +33,24 @@ EXPECTATIONS = {"must_fire", "should_fire", "watch", "must_not_fire"}
 # "image": Vision-side detectors (barcode / signature heuristic) -- not a Scan text/OCR leg; the
 # H1.2 text and OCR runs skip such rows (leg filter), device Site-A measures them (P1.8, T1.3(a)).
 LEGS = {"text", "ocr", "image"}
+SCHEMA_VERSION = 2
+# The G8 corpus's name-context vocabulary, mirrored so the paper twin (the capture rows drawn in
+# those shapes) and the text corpus share ONE label set. "none" = no name-context class applies
+# (every non-name row; form-field labels, which are a context of their own outside this set).
+CONTEXT_CLASSES = {
+    "caption_left",
+    "caption_right",
+    "role_label",
+    "title_label",
+    "closing_line",
+    "salutation",
+    "subject_line",
+    "document_initial",
+    "body_prose",
+    "table_cell",
+    "header",
+    "none",
+}
 
 
 def _bbox_problems(bbox, where):
@@ -53,6 +71,24 @@ def _bbox_problems(bbox, where):
     return out
 
 
+def _polygon_problems(poly, where):
+    """An OPTIONAL polygon beside a bbox: >= 3 [x, y] points, normalized 0-1, bottom-left origin
+    (the variants' rotated quads; the bbox stays the polygon's axis-aligned hull)."""
+    if not (isinstance(poly, list) and len(poly) >= 3):
+        return [f"{where}: polygon must be a list of >= 3 points, got {poly!r}"]
+    out = []
+    for i, pt in enumerate(poly):
+        if not (isinstance(pt, (list, tuple)) and len(pt) == 2):
+            out.append(f"{where}: polygon[{i}] must be [x, y]")
+            continue
+        for v in pt:
+            if not isinstance(v, (int, float)):
+                out.append(f"{where}: polygon[{i}] component not numeric: {v!r}")
+            elif not (-0.0001 <= v <= 1.0001):
+                out.append(f"{where}: polygon[{i}] component out of 0-1: {v}")
+    return out
+
+
 def validate_record(r: dict) -> list[str]:
     p = []
     rid = r.get("id", "<no-id>")
@@ -66,6 +102,9 @@ def validate_record(r: dict) -> list[str]:
         "expectation",
         "leg_applicability",
         "label_context",
+        "context_class",
+        "caption_clearance_pt",
+        "caption_text",
         "render",
         "spans",
         "overlaps",
@@ -96,6 +135,17 @@ def validate_record(r: dict) -> list[str]:
         p.append(f"{rid}: leg_applicability must be a non-empty subset of {sorted(LEGS)}")
     if not isinstance(r["label_context"], str):
         p.append(f"{rid}: label_context must be a string")
+    if r["context_class"] not in CONTEXT_CLASSES:
+        p.append(f"{rid}: context_class {r['context_class']!r} not in the G8 vocabulary")
+    clearance = r["caption_clearance_pt"]
+    if clearance is not None and (
+        isinstance(clearance, bool) or not isinstance(clearance, (int, float))
+    ):
+        p.append(f"{rid}: caption_clearance_pt must be a number or null")
+    if r["caption_text"] is not None and not isinstance(r["caption_text"], str):
+        p.append(f"{rid}: caption_text must be a string or null")
+    if (clearance is None) != (r["caption_text"] is None):
+        p.append(f"{rid}: caption_clearance_pt and caption_text must be null together")
     render = r["render"]
     if not (
         isinstance(render, dict)
@@ -105,8 +155,8 @@ def validate_record(r: dict) -> list[str]:
         p.append(f"{rid}: render must be {{all_caps,masked,multiline}} booleans")
     if not isinstance(r["overlaps"], list):
         p.append(f"{rid}: overlaps must be a list")
-    if r["schema_version"] != 1:
-        p.append(f"{rid}: schema_version must be 1")
+    if r["schema_version"] != SCHEMA_VERSION:
+        p.append(f"{rid}: schema_version must be {SCHEMA_VERSION}")
 
     if measured:
         # geometry deferred (carried rows): page may be null, bbox null, spans empty
@@ -121,6 +171,8 @@ def validate_record(r: dict) -> list[str]:
     if not (isinstance(r["page"], int) and r["page"] >= 0):
         p.append(f"{rid}: page must be a non-negative int (0-indexed pageIndex)")
     p += _bbox_problems(r["bbox"], rid)
+    if "polygon" in r:
+        p += _polygon_problems(r["polygon"], rid)
     spans = r["spans"]
     if not (isinstance(spans, list) and spans):
         p.append(f"{rid}: spans must be a non-empty list")
@@ -130,6 +182,8 @@ def validate_record(r: dict) -> list[str]:
                 p.append(f"{rid}: span[{i}] must have page+bbox")
                 continue
             p += _bbox_problems(s["bbox"], f"{rid} span[{i}]")
+            if "polygon" in s:
+                p += _polygon_problems(s["polygon"], f"{rid} span[{i}]")
     if render.get("multiline") and len(spans) < 2:
         p.append(f"{rid}: render.multiline=true but <2 spans")
     return p

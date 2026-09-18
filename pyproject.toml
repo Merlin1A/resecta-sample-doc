@@ -12,6 +12,7 @@ dependencies = [
     "reportlab==4.2.5",
     "pymupdf>=1.24",   # packet variants: PDF -> raster (scan-sim / degrade ladder)
     "pillow>=10",      # packet variants: image degrade transforms
+    "numpy>=2",        # packet variants: the seeded noise rung (an integer SplitMix64 stream)
 ]
 
 [dependency-groups]

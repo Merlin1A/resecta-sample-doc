@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "packet": "hartwell-loan-packet",
   "generator": "resecta-sample-doc/packet",
   "page_count": 1,
@@ -68,6 +68,9 @@
         "text"
       ],
       "label_context": "Name (First, Middle, Last, Suffix):",
+      "context_class": "none",
+      "caption_clearance_pt": 3.49,
+      "caption_text": "Section 1a. Personal Information",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -87,7 +90,7 @@
       "overlaps": [],
       "justification": "middle initial breaks the NLTagger span -> tracked recall miss.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_urlab_09",
@@ -106,6 +109,9 @@
         "text"
       ],
       "label_context": "Social Security Number:",
+      "context_class": "none",
+      "caption_clearance_pt": 4.35,
+      "caption_text": "Name (First, Middle, Last, Suffix):",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -125,7 +131,7 @@
       "overlaps": [],
       "justification": "area 502 (001-899, !=666), group 19, serial 7438; valid -> 0.95 with label.",
       "source_range": "synthetic + manifest (no provable never-issued SSN space post-2011)",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_urlab_04",
@@ -144,6 +150,9 @@
         "text"
       ],
       "label_context": "Date of Birth (mm/dd/yyyy):",
+      "context_class": "none",
+      "caption_clearance_pt": 19.35,
+      "caption_text": "Name (First, Middle, Last, Suffix):",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -163,7 +172,7 @@
       "overlaps": [],
       "justification": "numeric, label-anchored. Text-leg miss (numeric DOB on .financial not detected; OCR leg mislabels as phone) -> should_fire.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_urlab_10",
@@ -182,6 +191,9 @@
         "text"
       ],
       "label_context": "Home Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": 4.99,
+      "caption_text": "Contact Information",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -201,7 +213,7 @@
       "overlaps": [],
       "justification": "NANPA 555-0147; phone kw within +-80 -> 0.80 >= 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_urlab_11",
@@ -220,6 +232,9 @@
         "text"
       ],
       "label_context": "Cell Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": 4.35,
+      "caption_text": "Home Phone:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -239,7 +254,7 @@
       "overlaps": [],
       "justification": "format-zoo (CA 916 area, kept post-relocation); 555-0182 -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_urlab_12",
@@ -258,6 +273,9 @@
         "text"
       ],
       "label_context": "Work Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -277,7 +295,7 @@
       "overlaps": [],
       "justification": "format-zoo (dotted); 555-0119 -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_urlab_13",
@@ -296,6 +314,9 @@
         "text"
       ],
       "label_context": "Email:",
+      "context_class": "none",
+      "caption_clearance_pt": 4.35,
+      "caption_text": "Work Phone:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -315,7 +336,7 @@
       "overlaps": [],
       "justification": "RFC-2606 -> 0.90 >= 0.83.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_urlab_06",
@@ -334,6 +355,9 @@
         "text"
       ],
       "label_context": "Current Address:",
+      "context_class": "none",
+      "caption_clearance_pt": 1.35,
+      "caption_text": "Current Address:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -362,7 +386,7 @@
       "overlaps": [],
       "justification": "shared residence; 2 spans (street; city/ST/ZIP); 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_urlab_06b",
@@ -381,6 +405,9 @@
         "text"
       ],
       "label_context": "Former Address:",
+      "context_class": "none",
+      "caption_clearance_pt": 1.35,
+      "caption_text": "Former Address:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -409,7 +436,7 @@
       "overlaps": [],
       "justification": "CA-DL/ID-residence reconciliation; 2 spans.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_urlab_07",
@@ -428,6 +455,9 @@
         "text"
       ],
       "label_context": "Mailing Address (if different):",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -447,7 +477,7 @@
       "overlaps": [],
       "justification": "P.O. Box arm.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_urlab_08",
@@ -466,6 +496,9 @@
         "text"
       ],
       "label_context": "Employer Address:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.11,
+      "caption_text": "Tannersworth Freight Systems, Inc.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -485,7 +518,7 @@
       "overlaps": [],
       "justification": "employer (Tannersworth) address.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     }
   ],
   "variant": {

@@ -401,6 +401,7 @@ K1 = [
         "",
         all_caps=True,
         justification="caption party in ALL-CAPS: NLTagger pass-1 miss; strict shadow pass needs bloom hits (unverified); 'Plaintiff' follows the name so the legal-prefix pass finds nothing after it -> should_fire.",
+        context_class="caption_left",
     ),
     O(
         "occ_k1_02",
@@ -411,6 +412,7 @@ K1 = [
         "",
         all_caps=True,
         justification="caption defendant in ALL-CAPS, same mechanism -> should_fire.",
+        context_class="caption_right",
     ),
     O(
         "occ_k1_03",
@@ -420,6 +422,7 @@ K1 = [
         "MF",
         "Attorney for Plaintiff:",
         justification="NLTagger host probe tags 'Attorney for Plaintiff: Priya Ramaswamy' (0.70); the 'Plaintiff' legal-prefix pass also yields it at 0.65.",
+        context_class="role_label",
     ),
     O(
         "occ_k1_04",
@@ -484,6 +487,7 @@ K1 = [
         "MF",
         "Plaintiff",
         justification="body line 'Plaintiff Marcus Bellamy resides at ...': the legal-prefix pass takes the Title-Case words after 'Plaintiff' until a lowercase token ('resides') -> 0.65 >= 0.60; the NLTagger host probe also tags it (0.70).",
+        context_class="role_label",
     ),
     O(
         "occ_k1_11",
@@ -502,6 +506,7 @@ K1 = [
         "MF",
         "Assigned to: Judge",
         justification="'Judge' legal prefix -> 0.65; NLTagger host probe tags 'Assigned to: Judge Beatrice Lindqvist' (0.70).",
+        context_class="title_label",
     ),
     O(
         "occ_k1_13",
@@ -511,6 +516,7 @@ K1 = [
         "MF",
         "Defendant",
         justification="body line 'Defendant Terrence Whitfield is an individual who ...': the legal-prefix pass takes the Title-Case words after 'Defendant' until a lowercase token ('is') -> 0.65 >= 0.60; the NLTagger host re-probe of 2026-08-25 also tags the sentence (0.70). The same two-arm mechanism as occ_k1_10 on the plaintiff line.",
+        context_class="role_label",
     ),
 ]
 
@@ -526,6 +532,7 @@ K2 = [
         "MF",
         "Deponent:",
         justification="NLTagger host probe tags 'Deponent: Marcus Bellamy' -> 0.70.",
+        context_class="role_label",
     ),
     O(
         "occ_k2_02",
@@ -535,6 +542,7 @@ K2 = [
         "MF",
         "A. My name is",
         justification="testimony sentence; NLTagger host probe tags 'My name is Marcus Bellamy.' -> 0.70.",
+        context_class="body_prose",
     ),
     O(
         "occ_k2_03",
@@ -580,6 +588,7 @@ K2 = [
         "MF",
         "my supervisor,",
         justification="NLTagger host probe tags 'my supervisor, Terrence Whitfield, told me' -> 0.70.",
+        context_class="body_prose",
     ),
     O(
         "occ_k2_08",
@@ -661,6 +670,7 @@ K3 = [
         "MF",
         "Sincerely,",
         justification="signature block; NLTagger host probe tags 'Sincerely, Dana Whitcombe' -> 0.70.",
+        context_class="closing_line",
     ),
     O(
         "occ_k3_06",
@@ -731,6 +741,7 @@ K4 = [
         "MF",
         "Plaintiff / Creditor:",
         justification="'Plaintiff' legal prefix -> the Title-Case words after it -> 0.65 >= 0.60 (the probe does not tag 'Judgment Creditor:' forms, so the label leads with the prefix word).",
+        context_class="role_label",
     ),
     O(
         "occ_k4_02",
@@ -740,6 +751,7 @@ K4 = [
         "MF",
         "Defendant / Debtor:",
         justification="'Defendant' legal prefix -> 0.65; NLTagger host probe also tags 'Judgment Debtor: Terrence Whitfield' (0.70).",
+        context_class="role_label",
     ),
     O(
         "occ_k4_03",
@@ -837,6 +849,7 @@ H1 = [
         "MF",
         "Patient:",
         justification="'Patient' legal-prefix pass -> 0.65 (a lowercase token follows the name so the box stays clean); NLTagger host probe tags 'Patient: Rosalind Okafor (self)' (0.70).",
+        context_class="role_label",
     ),
     O(
         "occ_h1_02",
@@ -919,6 +932,7 @@ H1 = [
         "MF",
         "Rendering Provider: Dr.",
         justification="'Dr.' legal prefix -> 0.65; NLTagger host probe tags 'Rendering Provider: Dr. Imani Thorne (MD)' (0.70). Parenthesised credential keeps the prefix pass from absorbing it.",
+        context_class="title_label",
     ),
     O(
         "occ_h1_11",
@@ -971,6 +985,7 @@ H2 = [
         "MF",
         "Patient:",
         justification="'Patient' legal-prefix pass -> 0.65; NLTagger host probe tags it (0.70).",
+        context_class="role_label",
     ),
     O(
         "occ_h2_02",
@@ -1043,6 +1058,7 @@ H2 = [
         "MF",
         "Attending: Dr.",
         justification="'Dr.' legal prefix -> 0.65 (the host probe does NOT tag 'Attending: Dr. Imani Thorne' on its own, so the prefix pass is the mechanism).",
+        context_class="title_label",
     ),
     O(
         "occ_h2_10",

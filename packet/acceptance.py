@@ -644,6 +644,27 @@ def run():
         == ["urla_b", "urla_a", "stmt", "t1040", "ach", "w2", "govid", "veh"],
         "11b. exhibit assembly order",
     )
+    # schema 2: every row carries a context class (the packet draws no G8 name-context slot --
+    # its names sit under form-field labels, which are outside that vocabulary -> "none") and the
+    # caption-clearance pair; the W-2 cells e/f overprint their values (the overprint class the capture scans showed), so the
+    # column must read NEGATIVE there
+    by_id = {r["id"]: r for r in drawn}
+    check(
+        gt["schema_version"] == 2
+        and all(r["context_class"] == "none" for r in drawn + gt["carried_stmt"])
+        and all(
+            "caption_clearance_pt" in r and "caption_text" in r for r in drawn + gt["carried_stmt"]
+        ),
+        "11c. schema 2: context_class + caption clearance columns on every packet row",
+    )
+    w2_over = {k: by_id[k]["caption_clearance_pt"] for k in ("occ_w2_03", "occ_w2_05")}
+    w2_clear = {k: by_id[k]["caption_clearance_pt"] for k in ("occ_w2_01", "occ_w2_02")}
+    check(
+        all(v is not None and v < 0 for v in w2_over.values())
+        and all(v is not None and v > 0 for v in w2_clear.values()),
+        "11d. caption clearance: W-2 cells e/f overprint (negative), cells a/b clear (positive)",
+        f"{w2_over} {w2_clear}",
+    )
 
     # ---- 12. variants (test-only) + perf/jetsam filler -- requires PyMuPDF ----
     try:
@@ -674,11 +695,13 @@ def run():
         check(rrots == {90}, "12c. rotate-trigger /Rotate 90 on all pages", str(rrots))
         rprob = schema.validate_ground_truth(rt_gt["occurrences"])
         check(not rprob, "12d. rotate-trigger transformed ground truth valid", f"{rprob[:2]}")
-        # degrade ladder: 3 rungs of (pdf, ground truth), non-trivial
+        # degrade ladder: every _RUNGS row over the packet -> (pdf, ground truth), non-trivial
         check(
-            set(o["degrade"]) == {"skew", "blur", "lowdpi"}
+            set(o["degrade"]) == set(V.RUNG_NAMES)
+            and len(V.RUNG_NAMES) == 10
             and all(len(pdf) > 1000 for pdf, _ in o["degrade"].values()),
-            "12e. degrade ladder: skew/blur/low-DPI rungs generate",
+            "12e. degrade ladder: the ten _RUNGS rows generate over the packet",
+            str(sorted(o["degrade"])),
         )
         # degrade ground truth: leg ocr on every rung; skew hull transformed + valid
         dgt_ok = all(
@@ -701,9 +724,80 @@ def run():
             "12e3. skew ground truth hull-transformed + valid; blur geometry inherited",
             f"{sk_prob[:2]}",
         )
+
+        # polygon-primary rung ground truth: every row of every rung carries a 4-point polygon
+        # whose axis-aligned hull is the row's bbox; the skew rung's quad is genuinely rotated
+        def _hull(poly):
+            xs = [pt[0] for pt in poly]
+            ys = [pt[1] for pt in poly]
+            return [min(xs), min(ys), max(xs), max(ys)]
+
+        def _poly_rows(rungs):
+            for _, dgt in rungs.values():
+                for lst in ("occurrences", "carried_packet"):
+                    for r in dgt.get(lst) or []:
+                        if r.get("bbox") is not None:
+                            yield r
+
+        poly_bad = [
+            r["id"]
+            for r in _poly_rows(o["degrade"])
+            if len(r.get("polygon") or []) != 4
+            or any(abs(a - b) > 2e-6 for a, b in zip(_hull(r["polygon"]), r["bbox"], strict=True))
+            or any(len(sp.get("polygon") or []) != 4 for sp in r["spans"])
+        ]
+        sk_rot = sum(
+            1
+            for r in sk_gt["occurrences"]
+            if r["polygon"][0][1] != r["polygon"][1][1]  # the top edge is no longer level
+        )
+        check(
+            not poly_bad and sk_rot == len(sk_gt["occurrences"]),
+            "12e4. every rung row carries a quad polygon whose hull is its bbox; skew quads rotated",
+            f"bad={poly_bad[:3]} rotated={sk_rot}/{len(sk_gt['occurrences'])}",
+        )
+        # the seeded rung records its seed; entropy-free rungs record null
+        seeds = {name: dgt["variant"]["seed"] for name, (_, dgt) in o["degrade"].items()}
+        check(
+            seeds["noise"] is not None and all(v is None for k, v in seeds.items() if k != "noise"),
+            "12e5. rung ground truth records the seed (noise) / null (entropy-free rungs)",
+            str(seeds),
+        )
         # perf filler: page count in 50-200
         pf = PdfReader(_io.BytesIO(o["perf"]))
         check(50 <= len(pf.pages) <= 200, "12f. perf filler 50-200 pp", f"{len(pf.pages)}pp")
+        # the capture ladder: the same _RUNGS over the frozen 16-page masters (+ its scan-sim base)
+        cap_ss_pdf, cap_ss_gt = o["capture_scan_sim"]
+        cdoc = fitz.open(stream=cap_ss_pdf, filetype="pdf")
+        ctext = "".join(cdoc[i].get_text() for i in range(cdoc.page_count)).strip()
+        cap_pages = {
+            name: fitz.open(stream=pdf, filetype="pdf").page_count
+            for name, (pdf, _) in o["capture_degrade"].items()
+        }
+        cap_legs = all(
+            r["leg_applicability"] == ["ocr"]
+            for _, dgt in o["capture_degrade"].values()
+            for lst in ("occurrences", "carried_packet")
+            for r in dgt[lst]
+        )
+        check(
+            cdoc.page_count == 16
+            and not ctext
+            and set(o["capture_degrade"]) == set(V.RUNG_NAMES)
+            and set(cap_pages.values()) == {16}
+            and cap_legs
+            and cap_ss_gt["variant"]["kind"] == "scan-sim"
+            and all(
+                dgt["variant"]["source"] == "capture-masters-2026-08"
+                for _, dgt in o["capture_degrade"].values()
+            ),
+            "12f2. capture ladder: scan-sim + the ten rungs, 16 pp each, image-only, OCR leg",
+            f"{cdoc.page_count}pp/{len(ctext)} chars; {cap_pages}",
+        )
+        cap_poly_bad = [
+            r["id"] for r in _poly_rows(o["capture_degrade"]) if len(r.get("polygon") or []) != 4
+        ]
+        check(not cap_poly_bad, "12f3. capture rung rows polygon-primary", f"{cap_poly_bad[:3]}")
         # variant determinism
         o2 = V.build_all(write=False)
         det = (
@@ -711,8 +805,12 @@ def run():
             and o["rotate_trigger"][0] == o2["rotate_trigger"][0]
             and o["perf"] == o2["perf"]
             and all(o["degrade"][k] == o2["degrade"][k] for k in o["degrade"])
+            and o["capture_scan_sim"] == o2["capture_scan_sim"]
+            and all(
+                o["capture_degrade"][k] == o2["capture_degrade"][k] for k in o["capture_degrade"]
+            )
         )
-        check(det, "12g. variants byte-deterministic (regenerate twice)")
+        check(det, "12g. variants byte-deterministic (regenerate twice; both ladders)")
         # variant GT ASCII
         import json as _j
 
@@ -720,6 +818,8 @@ def run():
             _j.dumps(ss_gt)
             + _j.dumps(rt_gt)
             + "".join(_j.dumps(d) for _, d in o["degrade"].values())
+            + _j.dumps(cap_ss_gt)
+            + "".join(_j.dumps(d) for _, d in o["capture_degrade"].values())
         )
         check(all(ord(c) <= 126 for c in vj), "12h. variant ground truth printable ASCII")
     except ImportError:
@@ -1060,6 +1160,40 @@ def _capture_checks():
 
     disk = _h.sha256(BC.PACKET_PDF.read_bytes()).hexdigest()
     check(disk == BC.PACKET_SHA256, "14u. D12-40 tripwire: packet.pdf byte-unchanged", disk)
+    # the paper twin: the capture rows drawn in a G8 name-context shape carry that class; every
+    # other row (form-field labels, the window block, all non-name rows) is "none"
+    twin = {
+        "occ_k1_01": "caption_left",
+        "occ_k1_02": "caption_right",
+        "occ_k1_03": "role_label",
+        "occ_k1_10": "role_label",
+        "occ_k1_13": "role_label",
+        "occ_k2_01": "role_label",
+        "occ_k4_01": "role_label",
+        "occ_k4_02": "role_label",
+        "occ_h1_01": "role_label",
+        "occ_h2_01": "role_label",
+        "occ_k1_12": "title_label",
+        "occ_h1_10": "title_label",
+        "occ_h2_09": "title_label",
+        "occ_k3_05": "closing_line",
+        "occ_k2_02": "body_prose",
+        "occ_k2_07": "body_prose",
+    }
+    twin_bad = [r["id"] for r in drawn if r["context_class"] != twin.get(r["id"], "none")] + [
+        r["id"] for r in carried if r["context_class"] != "none"
+    ]
+    check(
+        not twin_bad and all(r["category"] == "name" for r in drawn if r["id"] in twin),
+        "14w. paper twin: the 16 G8 context classes as ruled; every other row 'none'",
+        f"{twin_bad[:4]}",
+    )
+    clearance_neg = [r["id"] for r in drawn if (r["caption_clearance_pt"] or 0) < 0]
+    check(
+        all("caption_clearance_pt" in r for r in drawn + carried) and "occ_h1_10" in clearance_neg,
+        "14x. caption clearance on every capture row; the CMS-1500 cells overprint (negative)",
+        f"negative on {len(clearance_neg)} rows",
+    )
 
     # ---- 14v. the committed capture ground truth reproduces byte-for-byte on rebuild ----
     # (the committed JSON drifted once when the carried-statement label changed upstream while the
