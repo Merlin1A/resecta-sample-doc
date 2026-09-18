@@ -62,6 +62,10 @@ OUT_MARKS = REPO / "capture-masters-2026-08-marks.json"
 # fresh in-memory rebuild at the end of every capture build.
 PACKET_SHA256 = "362375692b8cff378d66c43fcf46f00ba09e1ea982602fcc5c8b70e96f54339a"
 
+# The frozen capture masters (never re-cut; every derived variant rasters THESE bytes). Asserted by
+# variants.build_all() before the capture ladder is built.
+MASTERS_SHA256 = "96de0cb8c2cc00cf90e9a3a2969b1b3adc20e71501fd0fab101fa1e05b73a1b3"
+
 # packet pages imported whole (0-indexed). `31-` SSC.1 rows 01-04 == acceptance check 13b's slice.
 PACKET_SLICE = (0, 5, 7, 9)
 PACKET_SLICE_LABEL = {0: "urla_b p1", 5: "stmt p3 (frozen)", 7: "t1040 p2", 9: "w2"}
@@ -107,6 +111,7 @@ def _render_drawables(assembly, bases):
     for name, fn in assembly:
         fn(rc, bases[name])
     c.save()
+    rc.annotate_clearance()  # the caption-clearance column: a post-pass, once every page is drawn
     return buf.getvalue(), rc
 
 
@@ -244,7 +249,7 @@ def build(*, write=True) -> dict:
 
     carried, carry_stats = _carry_packet_ground_truth(packet_gt)
     gt = {
-        "schema_version": 1,
+        "schema_version": schema.SCHEMA_VERSION,
         "packet": "resecta-capture-masters-2026-08",
         "generator": "resecta-sample-doc/packet",
         "set_id": V.CAPTURE_SET_ID,

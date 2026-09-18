@@ -33,7 +33,7 @@ Every pull request rebuilds both documents on a hosted runner and checks
 them byte-for-byte against the committed files.
 
 The core generator needs `reportlab` + `pypdf`; the test-only variants
-additionally need `pymupdf` + `pillow`.
+additionally need `pymupdf`, `pillow` and `numpy`.
 
 ## Build
 
@@ -70,7 +70,7 @@ packet/
   layout.py          geometry, fonts, palette, and form-furniture helpers
   schema.py          ground-truth schema validation
   build_packet.py    one-pass assembler -> packet.pdf + packet-ground-truth.json
-  variants.py        scan-sim / rotate / degrade / perf filler (test-only)
+  variants.py        scan-sim / rotate / the degrade ladder / perf filler (test-only)
   acceptance.py      structural acceptance suite + byte-determinism
   generators/        one module per exhibit: urla_a, urla_b, t1040, ach, w2, govid, veh, stmt
 ```
@@ -84,13 +84,33 @@ records carried over from the embedded statement (`carried_stmt`) ship with
 `bbox: null` and `measured_pending: true`: their geometry is not resolved, so
 they are checked by count, not by rectangle.
 
+Schema 2 adds three columns to every record. `context_class` names the
+name-context shape a value is drawn in, from the same vocabulary the text
+corpus uses (`caption_left`, `role_label`, `title_label`, `closing_line`,
+`body_prose`, ... or `none`); the packet's names all sit under form-field
+labels and carry `none`, the capture masters carry sixteen classed rows.
+`caption_clearance_pt` and `caption_text` record the nearest furniture text
+above the value that overlaps it horizontally and the vertical gap to it in
+points, measured from the draw geometry; a negative clearance means the caption
+overprints the value.
+
+The rasterized variants (`variants/`, built, never committed) narrow every
+record to the OCR leg and add a `polygon` beside each box: the skew rung's
+rotated quad, whose axis-aligned hull is the record's `bbox`; every other rung
+inherits the master's geometry. The degrade ladder is one declarative table
+(`packet/variants.py` `_RUNGS`) applied to both masters: skew 1.5°, blur,
+low-DPI 100 and 75, JPEG quality 85 and 70, seeded noise, duplex bleed-through,
+and fax at 204×98 and 204×196 DPI (1-bit). Every rung is a pure function of the
+master's bytes and its recorded seed, so the outputs are byte-reproducible.
+
 ## Build dependencies & licenses
 
 These are build/development dependencies of the generators; none of them ship in
 the Resecta iOS app, and none contribute code to the synthetic document outputs:
 
 - fonttools (MIT), opentype-feature-freezer (Apache-2.0), pypdf (BSD),
-  reportlab (BSD), pillow (HPND).
+  reportlab (BSD), pillow (HPND), numpy (BSD-3-Clause; the seeded noise rung
+  of the degrade ladder).
 - PyMuPDF (pymupdf) — AGPL-3.0. Used only as a build-time rasterization tool for
   the scan-simulation packet variants. The AGPL copyleft applies to PyMuPDF and
   its derivative works; the synthetic documents this tool emits are data outputs,

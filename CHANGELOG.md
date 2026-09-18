@@ -9,6 +9,17 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 
 ### Added
 
+- Packet variants: the degrade ladder is a declarative rung table applied to
+  both masters (the packet and the capture masters), with seven new rungs
+  (low-DPI 75, JPEG quality 85 and 70, seeded noise, duplex bleed-through, fax
+  204×98 and 204×196) beside the original three; the capture masters gain their
+  own scan-sim base. Rung ground truth is polygon-primary (the skew rung's true
+  rotated quad, the bbox as its hull). `numpy` joins the build dependencies.
+- Ground-truth schema 2: every record carries `context_class` (the text
+  corpus's name-context vocabulary; sixteen capture rows are classed), and the
+  caption clearance pair `caption_clearance_pt` / `caption_text` measured from
+  the draw geometry. The committed ground-truth files are regenerated; no PDF
+  byte changes.
 - GitHub Actions: a pull-request gate that rebuilds both documents and checks
   them byte-for-byte; `uv.lock` now pins `pymupdf`.
 

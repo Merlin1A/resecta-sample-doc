@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "packet": "resecta-capture-masters-2026-08",
   "generator": "resecta-sample-doc/packet",
   "set_id": "RESECTA-CAP-2026-08",
@@ -136,6 +136,9 @@
         "ocr"
       ],
       "label_context": "Date:",
+      "context_class": "none",
+      "caption_clearance_pt": 13.23,
+      "caption_text": "Regional Processing Center -- Determination Unit",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -155,7 +158,7 @@
       "overlaps": [],
       "justification": "bare letter date on .financial: only the label-anchored dobPattern runs and 'Date:' is not a DOB label -> no candidate.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m1_08",
@@ -175,6 +178,9 @@
         "ocr"
       ],
       "label_context": "Office Code:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -194,7 +200,7 @@
       "overlaps": [],
       "justification": "'0417-B': 4 digits + letter -- below every numeric detector's minimum run (account needs 6, phone 10, ssn 9) and no labeled-id pattern -> no detector has a candidate.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m1_01",
@@ -214,6 +220,9 @@
         "ocr"
       ],
       "label_context": "",
+      "context_class": "none",
+      "caption_clearance_pt": 22.87,
+      "caption_text": "Date:",
       "render": {
         "all_caps": true,
         "masked": false,
@@ -233,7 +242,7 @@
       "overlaps": [],
       "justification": "USPS Pub 28 window-block surface, ALL-CAPS, no label: NLTagger pass-1 miss on ALL-CAPS; the strict shadow pass needs surname+given bloom hits (unverified) -> should_fire.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m1_02",
@@ -253,6 +262,9 @@
         "ocr"
       ],
       "label_context": "",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": true,
         "masked": false,
@@ -281,7 +293,7 @@
       "overlaps": [],
       "justification": "ALL-CAPS USPS lines: the regex arm MISSES (street-suffix alternation is case-sensitive, 'DR' != 'Dr'); the AddressSpatialAssembler arm fires: (?i) street line '2210 LARKSPUR DR', ZIP anchor 83646, word-bounded 'ID' state, SCF 836 -> ID cross-check -> 0.80 >= 0.60; no comma -> no city cross-check. 2 spans.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m1_03",
@@ -301,6 +313,9 @@
         "ocr"
       ],
       "label_context": "Claimant Name:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.49,
+      "caption_text": "Determination Reference",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -320,7 +335,7 @@
       "overlaps": [],
       "justification": "clean two-token Title-Case; NLTagger host probe tags 'Claimant Name: Nadia Petrova' -> 0.70 >= 0.60.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m1_04",
@@ -340,6 +355,9 @@
         "ocr"
       ],
       "label_context": "Date of Birth:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.35,
+      "caption_text": "Claimant Name:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -359,7 +377,7 @@
       "overlaps": [],
       "justification": "label-anchored numeric on .financial (D4 path, dobPattern adjacency) -> 0.85 >= 0.30.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m1_05",
@@ -379,6 +397,9 @@
         "ocr"
       ],
       "label_context": "Benefit Account No.:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -398,7 +419,7 @@
       "overlaps": [],
       "justification": "12-digit (phone-immune, < 13-digit cc); 'account' kw within +-5 tokens -> boosted 0.58 raw, posterior clears 0.60 (packet occ_urlab_15 precedent, strict-true at P1.2). No routing kw within +-8.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m1_06",
@@ -418,6 +439,9 @@
         "ocr"
       ],
       "label_context": "Questions? Call",
+      "context_class": "none",
+      "caption_clearance_pt": 3.35,
+      "caption_text": "Benefit Account No.:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -437,7 +461,7 @@
       "overlaps": [],
       "justification": "NANP 555-01xx; 'call' positive kw within +-80 chars -> 0.80 >= 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m1_09",
@@ -457,6 +481,9 @@
         "ocr"
       ],
       "label_context": "Reference No.",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -476,7 +503,7 @@
       "overlaps": [],
       "justification": "10 contiguous digits match the separator-optional phone regex, but no positive phone kw (phone/tel/call/contact/number/...) within +-80 chars -> bare 0.60 < 0.70; 'reference no' is also a phone NEGATIVE. Account: no acct kw within +-5 -> base 0.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m2_07",
@@ -496,6 +523,9 @@
         "ocr"
       ],
       "label_context": "Statement No.",
+      "context_class": "none",
+      "caption_clearance_pt": 13.23,
+      "caption_text": "Residential electric service -- monthly billing statement",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -515,7 +545,7 @@
       "overlaps": [],
       "justification": "'20260811-77': the 8-digit run is an account-regex candidate with no acct kw within +-5 -> base 0. Earns the financial invoice_label bonus (classification), not a fire.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m2_08",
@@ -535,6 +565,9 @@
         "ocr"
       ],
       "label_context": "Due Date:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -554,7 +587,7 @@
       "overlaps": [],
       "justification": "bare date on .financial; 'Due Date' is not a DOB label -> the label-anchored path has no candidate.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m2_02",
@@ -574,6 +607,9 @@
         "ocr"
       ],
       "label_context": "Customer Name:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.49,
+      "caption_text": "Customer and Service Details",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -593,7 +629,7 @@
       "overlaps": [],
       "justification": "clean two-token Title-Case; NLTagger host probe tags 'Customer Name: Nadia Petrova' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m2_01",
@@ -613,6 +649,9 @@
         "ocr"
       ],
       "label_context": "Account No.",
+      "context_class": "none",
+      "caption_clearance_pt": 3.35,
+      "caption_text": "Customer Name:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -632,7 +671,7 @@
       "overlaps": [],
       "justification": "12-digit; 'account' kw adjacent (+-5) -> boosted; posterior clears 0.60 (occ_urlab_15 precedent). Kept > 8 tokens from any routing kw.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m2_03",
@@ -652,6 +691,9 @@
         "ocr"
       ],
       "label_context": "Service Address:",
+      "context_class": "none",
+      "caption_clearance_pt": 1.35,
+      "caption_text": "Service Address:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -680,7 +722,7 @@
       "overlaps": [],
       "justification": "Title-Case 'Drive' + 'ID 83646': regex arm -> 0.70; assembler arm also fires. 2 spans.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m2_04",
@@ -700,6 +742,9 @@
         "ocr"
       ],
       "label_context": "Telephone on file:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -719,7 +764,7 @@
       "overlaps": [],
       "justification": "'tel' substring positive within +-80 chars -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m2_06",
@@ -739,6 +784,9 @@
         "ocr"
       ],
       "label_context": "Meter No.",
+      "context_class": "none",
+      "caption_clearance_pt": 20.47,
+      "caption_text": "Previous Reading",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -758,7 +806,7 @@
       "overlaps": [],
       "justification": "8-digit run is an account-regex candidate, but no acct kw within +-5 tokens -> base 0.0 -> dropped at the > 0 guard. Not 9/10 digits -> no ssn/phone/routing candidate.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m2_05",
@@ -778,6 +826,9 @@
         "ocr"
       ],
       "label_context": "Billing questions? Call",
+      "context_class": "none",
+      "caption_clearance_pt": 5.11,
+      "caption_text": "Remittance Stub -- detach and return with your payment",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -797,7 +848,7 @@
       "overlaps": [],
       "justification": "the utility's own billing line (an org phone; fires as phone all the same); 'call' positive within +-80 chars -> 0.80. One minted number per org: the housing authority's reviewer line stays on M3/M4, so a value colliding across two unrelated orgs can never make a cross-page analysis ambiguous.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m2_09",
@@ -817,6 +868,9 @@
         "ocr"
       ],
       "label_context": "Autopay card on file:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.35,
+      "caption_text": "Billing questions? Call",
       "render": {
         "all_caps": false,
         "masked": true,
@@ -836,7 +890,7 @@
       "overlaps": [],
       "justification": "masked '**** 4421' < 13 digits -> below the cc shape; masked watch (occ_urlab_20 precedent).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m3_01",
@@ -856,6 +910,9 @@
         "ocr"
       ],
       "label_context": "Applicant Name:",
+      "context_class": "none",
+      "caption_clearance_pt": 0.71,
+      "caption_text": "Applicant Name:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -875,7 +932,7 @@
       "overlaps": [],
       "justification": "clean two-token Title-Case; NLTagger host probe tags 'Applicant Name: Nadia Petrova' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m3_03",
@@ -895,6 +952,9 @@
         "ocr"
       ],
       "label_context": "Date of Birth (mm/dd/yyyy):",
+      "context_class": "none",
+      "caption_clearance_pt": 0.71,
+      "caption_text": "Date of Birth (mm/dd/yyyy):",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -914,7 +974,7 @@
       "overlaps": [],
       "justification": "the boxed-form hint '(mm/dd/yyyy)' sits between label and date, breaking dobPattern adjacency -> text-leg miss (occ_urlab_04 precedent) -> should_fire. Same DOB as occ_02.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m3_04",
@@ -934,6 +994,9 @@
         "ocr"
       ],
       "label_context": "Social Security Number:",
+      "context_class": "none",
+      "caption_clearance_pt": 0.71,
+      "caption_text": "Social Security Number:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -953,7 +1016,7 @@
       "overlaps": [],
       "justification": "area 512, group 40, serial 7781 valid; 'social security' positive within +-5 -> 0.95. Kept > 5 tokens from the financial ssn negatives (account number / claim number).",
       "source_range": "synthetic + manifest (no provable never-issued SSN space post-2011)",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m3_05",
@@ -973,6 +1036,9 @@
         "ocr"
       ],
       "label_context": "Driver's License No:",
+      "context_class": "none",
+      "caption_clearance_pt": 0.71,
+      "caption_text": "Driver's License No:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -992,7 +1058,7 @@
       "overlaps": [],
       "justification": "label 'Driver's License' + 1L+7D -> CA ^[A-Z][0-9]{7}$ gazetteer row -> 0.80 >= 0.72.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m3_06",
@@ -1012,6 +1078,9 @@
         "ocr"
       ],
       "label_context": "Cell Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": 0.71,
+      "caption_text": "Cell Phone:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1031,7 +1100,7 @@
       "overlaps": [],
       "justification": "'phone'/'cell' positive -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m3_07",
@@ -1051,6 +1120,9 @@
         "ocr"
       ],
       "label_context": "Email:",
+      "context_class": "none",
+      "caption_clearance_pt": 0.71,
+      "caption_text": "Email:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1070,7 +1142,7 @@
       "overlaps": [],
       "justification": "RFC-2606 -> 0.90 >= 0.83.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m3_08",
@@ -1090,6 +1162,9 @@
         "ocr"
       ],
       "label_context": "Current Address:",
+      "context_class": "none",
+      "caption_clearance_pt": 1.35,
+      "caption_text": "Current Address:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1118,7 +1193,7 @@
       "overlaps": [],
       "justification": "Title-Case regex arm -> 0.70; 2 spans.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m3_02",
@@ -1138,6 +1213,9 @@
         "ocr"
       ],
       "label_context": "Date of Birth:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.23,
+      "caption_text": "Photo identification presented and matched to the applicant.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1157,7 +1235,7 @@
       "overlaps": [],
       "justification": "label-anchored numeric on .financial -> 0.85.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m3_09",
@@ -1177,6 +1255,9 @@
         "ocr"
       ],
       "label_context": "Application ID:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.49,
+      "caption_text": "Section 5. Certification",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1196,7 +1277,7 @@
       "overlaps": [],
       "justification": "'HA-2026-004471': no contiguous 6-digit run (account), no 'No.'-prefixed docket shape, letters-dash-digits with a 4-digit block breaks the MRN institution shape -> no detector candidate.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m3_10",
@@ -1216,6 +1297,9 @@
         "ocr"
       ],
       "label_context": "Date Signed:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1235,7 +1319,7 @@
       "overlaps": [],
       "justification": "bare signature date on .financial -> suppressed (label-anchored-only gate).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m4_07",
@@ -1255,6 +1339,9 @@
         "ocr"
       ],
       "label_context": "Date Sent:",
+      "context_class": "none",
+      "caption_clearance_pt": 15.23,
+      "caption_text": "Cover sheet -- a confidential attachment follows this page.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1274,7 +1361,7 @@
       "overlaps": [],
       "justification": "page classifies .generic -> full DOBDetector: numeric base 0.05, no DOB label within +-80 chars, no 'age' on the line -> 0.05 < 0.30.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m4_08",
@@ -1294,6 +1381,9 @@
         "ocr"
       ],
       "label_context": "Transmittal Ref:",
+      "context_class": "none",
+      "caption_clearance_pt": 29.23,
+      "caption_text": "Cover sheet -- a confidential attachment follows this page.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1313,7 +1403,7 @@
       "overlaps": [],
       "justification": "'TX-26-0447': letters-dash-2-digits-dash-4-digits -- no numeric run >= 6, no labeled-id shape -> no candidate.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m4_01",
@@ -1333,6 +1423,9 @@
         "ocr"
       ],
       "label_context": "Recipient Name:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1352,7 +1445,7 @@
       "overlaps": [],
       "justification": "clean two-token Title-Case; NLTagger host probe tags the reviewer's name in this label form -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m4_03",
@@ -1372,6 +1465,9 @@
         "ocr"
       ],
       "label_context": "Recipient Fax:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.11,
+      "caption_text": "Meridian Valley Housing Authority",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1391,7 +1487,7 @@
       "overlaps": [],
       "justification": "fax-shaped NANP; 'fax' is a phone positive kw -> 0.80 (the engine has no fax kind: category phone).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m4_04",
@@ -1411,6 +1507,9 @@
         "ocr"
       ],
       "label_context": "Recipient Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": 17.11,
+      "caption_text": "Meridian Valley Housing Authority",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1430,7 +1529,7 @@
       "overlaps": [],
       "justification": "'phone' positive -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m4_02",
@@ -1450,6 +1549,9 @@
         "ocr"
       ],
       "label_context": "Sender Name:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1469,7 +1571,7 @@
       "overlaps": [],
       "justification": "clean two-token Title-Case; NLTagger host probe -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m4_05",
@@ -1489,6 +1591,9 @@
         "ocr"
       ],
       "label_context": "Sender Fax:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.35,
+      "caption_text": "Sender Name:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1508,7 +1613,7 @@
       "overlaps": [],
       "justification": "'fax' positive -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m4_06",
@@ -1528,6 +1633,9 @@
         "ocr"
       ],
       "label_context": "Sender Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1547,7 +1655,7 @@
       "overlaps": [],
       "justification": "dotted format zoo; 'phone' positive -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_m4_09",
@@ -1567,6 +1675,9 @@
         "ocr"
       ],
       "label_context": "Account Ref:",
+      "context_class": "none",
+      "caption_clearance_pt": 26.23,
+      "caption_text": "fictional and disclosed in the accompanying manifest.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1586,7 +1697,7 @@
       "overlaps": [],
       "justification": "'account' kw present but '4471-0293' has no contiguous >= 6-digit run -> the account regex has no candidate; 4-digit halves are below every other minimum.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_03",
@@ -1606,6 +1717,9 @@
         "ocr"
       ],
       "label_context": "Attorney for Plaintiff:",
+      "context_class": "role_label",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1625,7 +1739,7 @@
       "overlaps": [],
       "justification": "NLTagger host probe tags 'Attorney for Plaintiff: Priya Ramaswamy' (0.70); the 'Plaintiff' legal-prefix pass also yields it at 0.65.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_07",
@@ -1645,6 +1759,9 @@
         "ocr"
       ],
       "label_context": "Idaho State Bar No.",
+      "context_class": "none",
+      "caption_clearance_pt": 12.92,
+      "caption_text": "Attorney for Plaintiff:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1664,7 +1781,7 @@
       "overlaps": [],
       "justification": "6-digit run: an account-regex candidate (account RUNS on .court, CND-10) with no acct kw within +-5 -> base 0 -> dropped. No 9/10-digit shape.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_04",
@@ -1684,6 +1801,9 @@
         "ocr"
       ],
       "label_context": "",
+      "context_class": "none",
+      "caption_clearance_pt": 12.92,
+      "caption_text": "Ramaswamy Law Group",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1712,7 +1832,7 @@
       "overlaps": [],
       "justification": "Title-Case '1100 Idaho Street, Suite 400' + 'Boise, ID 83702' -> regex arm 0.70 (.{0,100}? bridges the suite + newline); 2 spans.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_05",
@@ -1732,6 +1852,9 @@
         "ocr"
       ],
       "label_context": "Telephone:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1751,7 +1874,7 @@
       "overlaps": [],
       "justification": "'tel' positive -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_06",
@@ -1771,6 +1894,9 @@
         "ocr"
       ],
       "label_context": "Email:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1790,7 +1916,7 @@
       "overlaps": [],
       "justification": "RFC-2606 -> 0.90.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_01",
@@ -1810,6 +1936,9 @@
         "ocr"
       ],
       "label_context": "",
+      "context_class": "caption_left",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": true,
         "masked": false,
@@ -1829,7 +1958,7 @@
       "overlaps": [],
       "justification": "caption party in ALL-CAPS: NLTagger pass-1 miss; strict shadow pass needs bloom hits (unverified); 'Plaintiff' follows the name so the legal-prefix pass finds nothing after it -> should_fire.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_02",
@@ -1849,6 +1978,9 @@
         "ocr"
       ],
       "label_context": "",
+      "context_class": "caption_right",
+      "caption_clearance_pt": 12.92,
+      "caption_text": "v.",
       "render": {
         "all_caps": true,
         "masked": false,
@@ -1868,7 +2000,7 @@
       "overlaps": [],
       "justification": "caption defendant in ALL-CAPS, same mechanism -> should_fire.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_08",
@@ -1888,6 +2020,9 @@
         "ocr"
       ],
       "label_context": "Case No.",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1907,7 +2042,7 @@
       "overlaps": [],
       "justification": "'26-CV-01842' has no PII shape; 'case no' is a phone + ssn NEGATIVE anyway. Earns the court docket_number bonus (classification).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_09",
@@ -1927,6 +2062,9 @@
         "ocr"
       ],
       "label_context": "Filed:",
+      "context_class": "none",
+      "caption_clearance_pt": 12.92,
+      "caption_text": "(Civil action; jury trial demanded)",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1946,7 +2084,7 @@
       "overlaps": [],
       "justification": ".court -> full DOBDetector: base 0.05, no DOB label within +-80 chars -> 0.05 < 0.30.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_12",
@@ -1966,6 +2104,9 @@
         "ocr"
       ],
       "label_context": "Assigned to: Judge",
+      "context_class": "title_label",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -1985,7 +2126,7 @@
       "overlaps": [],
       "justification": "'Judge' legal prefix -> 0.65; NLTagger host probe tags 'Assigned to: Judge Beatrice Lindqvist' (0.70).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_10",
@@ -2005,6 +2146,9 @@
         "ocr"
       ],
       "label_context": "Plaintiff",
+      "context_class": "role_label",
+      "caption_clearance_pt": 13.41,
+      "caption_text": "Plaintiff, by and through counsel, alleges as follows:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2024,7 +2168,7 @@
       "overlaps": [],
       "justification": "body line 'Plaintiff Marcus Bellamy resides at ...': the legal-prefix pass takes the Title-Case words after 'Plaintiff' until a lowercase token ('resides') -> 0.65 >= 0.60; the NLTagger host probe also tags it (0.70).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_11",
@@ -2044,6 +2188,9 @@
         "ocr"
       ],
       "label_context": "resides at",
+      "context_class": "none",
+      "caption_clearance_pt": 13.41,
+      "caption_text": "Plaintiff, by and through counsel, alleges as follows:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2063,7 +2210,7 @@
       "overlaps": [],
       "justification": "inline single-line Title-Case '4415 Camas Lane, Boise, ID 83705' -> regex arm 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k1_13",
@@ -2083,6 +2230,9 @@
         "ocr"
       ],
       "label_context": "Defendant",
+      "context_class": "role_label",
+      "caption_clearance_pt": 13.41,
+      "caption_text": "and is a citizen of the state of Idaho.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2102,7 +2252,7 @@
       "overlaps": [],
       "justification": "body line 'Defendant Terrence Whitfield is an individual who ...': the legal-prefix pass takes the Title-Case words after 'Defendant' until a lowercase token ('is') -> 0.65 >= 0.60; the NLTagger host re-probe of 2026-08-25 also tags the sentence (0.70). The same two-arm mechanism as occ_k1_10 on the plaintiff line.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k2_09",
@@ -2122,6 +2272,9 @@
         "ocr"
       ],
       "label_context": "Case No.",
+      "context_class": "none",
+      "caption_clearance_pt": 2.87,
+      "caption_text": "Bellamy v. Whitfield",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2141,7 +2294,7 @@
       "overlaps": [],
       "justification": "no PII shape; phone/ssn negative context.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k2_10",
@@ -2161,6 +2314,9 @@
         "ocr"
       ],
       "label_context": "Deposition taken",
+      "context_class": "none",
+      "caption_clearance_pt": 16.87,
+      "caption_text": "Bellamy v. Whitfield",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2180,7 +2336,7 @@
       "overlaps": [],
       "justification": "full DOBDetector: base 0.05, kept > 80 chars from the testimony's 'date of birth' label -> 0.05 < 0.30.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k2_01",
@@ -2200,6 +2356,9 @@
         "ocr"
       ],
       "label_context": "Deponent:",
+      "context_class": "role_label",
+      "caption_clearance_pt": 24.75,
+      "caption_text": "Deposition taken",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2219,7 +2378,7 @@
       "overlaps": [],
       "justification": "NLTagger host probe tags 'Deponent: Marcus Bellamy' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k2_02",
@@ -2239,6 +2398,9 @@
         "ocr"
       ],
       "label_context": "A. My name is",
+      "context_class": "body_prose",
+      "caption_clearance_pt": 15.21,
+      "caption_text": "Please state your full name for the transcript.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2258,7 +2420,7 @@
       "overlaps": [],
       "justification": "testimony sentence; NLTagger host probe tags 'My name is Marcus Bellamy.' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k2_03",
@@ -2278,6 +2440,9 @@
         "ocr"
       ],
       "label_context": "my date of birth is",
+      "context_class": "none",
+      "caption_clearance_pt": 15.21,
+      "caption_text": "And your date of birth, for identification?",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2297,7 +2462,7 @@
       "overlaps": [],
       "justification": ".court -> full DOBDetector textual path ('September 9, 1983', year in 1900-2030): base 0.05 + 0.30 ('date of birth' within +-80 chars) = 0.35 >= 0.30 (0.05 margin, the occ_govid_03 precedent on a non-financial page).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k2_04",
@@ -2317,6 +2482,9 @@
         "ocr"
       ],
       "label_context": "the last four digits of my Social Security number are",
+      "context_class": "none",
+      "caption_clearance_pt": 15.21,
+      "caption_text": "Counsel has asked for the last four digits only. Please state them.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2336,7 +2504,7 @@
       "overlaps": [],
       "justification": "4 digits only: the SSN state machine needs a 9-digit shape -> no candidate despite the 'social security' positive.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k2_05",
@@ -2356,6 +2524,9 @@
         "ocr"
       ],
       "label_context": "I live at",
+      "context_class": "none",
+      "caption_clearance_pt": 15.21,
+      "caption_text": "Where do you live?",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2375,7 +2546,7 @@
       "overlaps": [],
       "justification": "single-line Title-Case 'Lane' + 'ID 83705' -> regex arm 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k2_06",
@@ -2395,6 +2566,9 @@
         "ocr"
       ],
       "label_context": "my cell is",
+      "context_class": "none",
+      "caption_clearance_pt": 15.21,
+      "caption_text": "What is the best number to reach you at during the day?",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2414,7 +2588,7 @@
       "overlaps": [],
       "justification": "'cell' positive within +-80 chars -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k2_07",
@@ -2434,6 +2608,9 @@
         "ocr"
       ],
       "label_context": "my supervisor,",
+      "context_class": "body_prose",
+      "caption_clearance_pt": 15.21,
+      "caption_text": "Who was your supervisor at the company in the spring of that year?",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2453,7 +2630,7 @@
       "overlaps": [],
       "justification": "NLTagger host probe tags 'my supervisor, Terrence Whitfield, told me' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k2_08",
@@ -2473,6 +2650,9 @@
         "ocr"
       ],
       "label_context": "",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2492,7 +2672,7 @@
       "overlaps": [],
       "justification": "Bates 'BELL-0000123' matches the MRN institution shape [A-Z]{2,5}-\\d{6,10}, but runsMRN is medical-only -> the detector never runs on .court (doctype-gated, the occ_urlab_24 mechanism).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k3_11",
@@ -2512,6 +2692,9 @@
         "ocr"
       ],
       "label_context": "",
+      "context_class": "none",
+      "caption_clearance_pt": 3.72,
+      "caption_text": "Office of Public Disclosure -- Freedom of Information Program",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2540,7 +2723,7 @@
       "overlaps": [],
       "justification": "agency letterhead address, Title-Case 'Avenue' + 'VA 22201' -> regex arm 0.70 (fixed; the (address, foia) gazetteer only scales scorer-based detectors); 2 spans.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k3_10",
@@ -2560,6 +2743,9 @@
         "ocr"
       ],
       "label_context": "",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2579,7 +2765,7 @@
       "overlaps": [],
       "justification": ".foia -> full DOBDetector textual path: 'August 14, 2026' base 0.05, no DOB label within +-80 chars -> 0.05 < 0.30.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k3_09",
@@ -2599,6 +2785,9 @@
         "ocr"
       ],
       "label_context": "FOIA Request No.",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2618,7 +2807,7 @@
       "overlaps": [],
       "justification": "'2026-01447': 4+5 digits split by a dash -- no >= 6-digit run, no ssn/phone shape; drives the foia_header bonus.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k3_04",
@@ -2638,6 +2827,9 @@
         "ocr"
       ],
       "label_context": "Name of Requester:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2657,7 +2849,7 @@
       "overlaps": [],
       "justification": "clean two-token Title-Case under the 'Name of ...' label form the NLTagger host probe tags -> 0.70 (re-probed on the page text).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k3_08",
@@ -2677,6 +2869,9 @@
         "ocr"
       ],
       "label_context": "Exemptions cited:",
+      "context_class": "none",
+      "caption_clearance_pt": 5.23,
+      "caption_text": "unwarranted invasion of personal privacy. No fees were assessed for this request.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2696,7 +2891,7 @@
       "overlaps": [],
       "justification": "'(b)(7)(C)': an exemption citation, no PII shape; drives the foia exemption_citation bonus.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k3_01",
@@ -2716,6 +2911,9 @@
         "ocr"
       ],
       "label_context": "(b)(6)",
+      "context_class": "none",
+      "caption_clearance_pt": 1.51,
+      "caption_text": "Responsive Record 1 of 3 (released in part)",
       "render": {
         "all_caps": false,
         "masked": true,
@@ -2735,7 +2933,7 @@
       "overlaps": [],
       "justification": "ALREADY REDACTED: a black bar is drawn where the name would be and the text is never emitted -- nothing exists for either leg to fire on. GT keeps the hidden value + bar rect so an evaluator can assert silence there.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k3_02",
@@ -2755,6 +2953,9 @@
         "ocr"
       ],
       "label_context": "(b)(7)(C)",
+      "context_class": "none",
+      "caption_clearance_pt": 3.37,
+      "caption_text": "(b)(6)",
       "render": {
         "all_caps": false,
         "masked": true,
@@ -2774,7 +2975,7 @@
       "overlaps": [],
       "justification": "ALREADY REDACTED under a (b)(7)(C) bar; no text under the bar.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k3_03",
@@ -2794,6 +2995,9 @@
         "ocr"
       ],
       "label_context": "(b)(6)",
+      "context_class": "none",
+      "caption_clearance_pt": 19.37,
+      "caption_text": "(b)(6)",
       "render": {
         "all_caps": false,
         "masked": true,
@@ -2813,7 +3017,7 @@
       "overlaps": [],
       "justification": "ALREADY REDACTED under a (b)(6) bar; no text under the bar.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k3_07",
@@ -2833,6 +3037,9 @@
         "ocr"
       ],
       "label_context": "Provider NPI:",
+      "context_class": "none",
+      "caption_clearance_pt": 1.63,
+      "caption_text": "Provider roster entry (released in full):",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2852,7 +3059,7 @@
       "overlaps": [],
       "justification": "10 digits starting 1, Luhn-80840 valid; runsNPI includes .foia; 'npi' positive within +-5 -> 0.90 >= 0.602.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k3_05",
@@ -2872,6 +3079,9 @@
         "ocr"
       ],
       "label_context": "Sincerely,",
+      "context_class": "closing_line",
+      "caption_clearance_pt": 14.63,
+      "caption_text": "Sincerely,",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2891,7 +3101,7 @@
       "overlaps": [],
       "justification": "signature block; NLTagger host probe tags 'Sincerely, Dana Whitcombe' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k3_06",
@@ -2911,6 +3121,9 @@
         "ocr"
       ],
       "label_context": "Telephone:",
+      "context_class": "none",
+      "caption_clearance_pt": 2.23,
+      "caption_text": "Government Information Specialist",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2930,7 +3143,7 @@
       "overlaps": [],
       "justification": "'tel' positive -> 0.80; phone has no doctype gate.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k4_08",
@@ -2950,6 +3163,9 @@
         "ocr"
       ],
       "label_context": "Case No.",
+      "context_class": "none",
+      "caption_clearance_pt": 11.75,
+      "caption_text": "District Court, Seventh Judicial District, County of Westfall -- register of actions.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -2969,7 +3185,7 @@
       "overlaps": [],
       "justification": "no PII shape; docket_number bonus only.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k4_11",
@@ -2989,6 +3205,9 @@
         "ocr"
       ],
       "label_context": "Filed",
+      "context_class": "none",
+      "caption_clearance_pt": 4.96,
+      "caption_text": "Date",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3008,7 +3227,7 @@
       "overlaps": [],
       "justification": "same mechanism as occ_10 (docket-column date).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k4_10",
@@ -3028,6 +3247,9 @@
         "ocr"
       ],
       "label_context": "Entered",
+      "context_class": "none",
+      "caption_clearance_pt": 2.72,
+      "caption_text": "08/19/2026",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3047,7 +3269,7 @@
       "overlaps": [],
       "justification": "full DOBDetector base 0.05; no DOB label within +-80 chars (the DOB block is isolated) -> 0.05 < 0.30.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k4_09",
@@ -3067,6 +3289,9 @@
         "ocr"
       ],
       "label_context": "Judgment sum:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3086,7 +3311,7 @@
       "overlaps": [],
       "justification": "currency amount: no detector shape ('$4,250.00' is 4+2 digits split by ',' and '.'); drives the financial currency_amount bonus, which .court still strictly beats.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k4_05",
@@ -3106,6 +3331,9 @@
         "ocr"
       ],
       "label_context": "Garnishee Account No.",
+      "context_class": "none",
+      "caption_clearance_pt": 3.11,
+      "caption_text": "Boise River Credit Union (financial institution)",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3125,7 +3353,7 @@
       "overlaps": [],
       "justification": "12-digit; account RUNS on .court (CND-10); 'account' kw within +-5 -> boosted; posterior clears 0.60 (occ_urlab_15 precedent).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k4_01",
@@ -3145,6 +3373,9 @@
         "ocr"
       ],
       "label_context": "Plaintiff / Creditor:",
+      "context_class": "role_label",
+      "caption_clearance_pt": 3.49,
+      "caption_text": "Parties of Record",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3164,7 +3395,7 @@
       "overlaps": [],
       "justification": "'Plaintiff' legal prefix -> the Title-Case words after it -> 0.65 >= 0.60 (the probe does not tag 'Judgment Creditor:' forms, so the label leads with the prefix word).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k4_02",
@@ -3184,6 +3415,9 @@
         "ocr"
       ],
       "label_context": "Defendant / Debtor:",
+      "context_class": "role_label",
+      "caption_clearance_pt": 17.49,
+      "caption_text": "Parties of Record",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3203,7 +3437,7 @@
       "overlaps": [],
       "justification": "'Defendant' legal prefix -> 0.65; NLTagger host probe also tags 'Judgment Debtor: Terrence Whitfield' (0.70).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k4_03",
@@ -3223,6 +3457,9 @@
         "ocr"
       ],
       "label_context": "Debtor Address:",
+      "context_class": "none",
+      "caption_clearance_pt": 1.35,
+      "caption_text": "Debtor Address:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3251,7 +3488,7 @@
       "overlaps": [],
       "justification": "Title-Case 'Road, Suite 210' + 'Boise, ID 83709' -> regex arm 0.70; 2 spans.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k4_04",
@@ -3271,6 +3508,9 @@
         "ocr"
       ],
       "label_context": "DOB:",
+      "context_class": "none",
+      "caption_clearance_pt": 2.85,
+      "caption_text": "funds are withheld from the account.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3290,7 +3530,7 @@
       "overlaps": [],
       "justification": ".court -> full DOBDetector: 0.05 + 0.30 ('dob' label within +-80 chars) = 0.35 >= 0.30. Isolated in a party-identification block > 80 chars from the docket dates.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k4_07",
@@ -3310,6 +3550,9 @@
         "ocr"
       ],
       "label_context": "Prepared by:",
+      "context_class": "none",
+      "caption_clearance_pt": 26.85,
+      "caption_text": "funds are withheld from the account.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3329,7 +3572,7 @@
       "overlaps": [],
       "justification": "NLTagger host probe tags 'Prepared by: Helen Marchetti' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_k4_06",
@@ -3349,6 +3592,9 @@
         "ocr"
       ],
       "label_context": "Clerk's Office Tel:",
+      "context_class": "none",
+      "caption_clearance_pt": 2.23,
+      "caption_text": "Deputy Clerk of the District Court",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3368,7 +3614,7 @@
       "overlaps": [],
       "justification": "'tel' positive -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_04",
@@ -3388,6 +3634,9 @@
         "ocr"
       ],
       "label_context": "Insured ID:",
+      "context_class": "none",
+      "caption_clearance_pt": -1.29,
+      "caption_text": "Insured ID:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3407,7 +3656,7 @@
       "overlaps": [],
       "justification": "'XKE44027191' is an account-regex candidate ([A-Z]{0,3}\\d{6,15}) with no acct kw within +-5 -> base 0 -> dropped; 8 digits -> no ssn; not MRN-shaped (no dash).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_01",
@@ -3427,6 +3676,9 @@
         "ocr"
       ],
       "label_context": "Patient:",
+      "context_class": "role_label",
+      "caption_clearance_pt": -1.29,
+      "caption_text": "2. Patient:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3446,7 +3698,7 @@
       "overlaps": [],
       "justification": "'Patient' legal-prefix pass -> 0.65 (a lowercase token follows the name so the box stays clean); NLTagger host probe tags 'Patient: Rosalind Okafor (self)' (0.70).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_02",
@@ -3466,6 +3718,9 @@
         "ocr"
       ],
       "label_context": "Patient Date of Birth:",
+      "context_class": "none",
+      "caption_clearance_pt": -1.29,
+      "caption_text": "3. Patient Date of Birth:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3485,7 +3740,7 @@
       "overlaps": [],
       "justification": ".medical -> full DOBDetector: 0.05 + 0.30 (label within +-80) = 0.35 >= 0.30; 'Age:' on the line adds 0.15 -> 0.50.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_03",
@@ -3505,6 +3760,9 @@
         "ocr"
       ],
       "label_context": "MRN:",
+      "context_class": "none",
+      "caption_clearance_pt": -1.29,
+      "caption_text": "6. MRN:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3524,7 +3782,7 @@
       "overlaps": [],
       "justification": "mrn.labeled \\bMR[N]?[:#\\s]+[A-Z0-9]{5,12}; runsMRN on .medical; 'patient'/'dob' positives within +-5 tokens -> 0.92 >= 0.60. 8 digits: no ssn/phone/npi shape; no acct kw within +-5.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_09",
@@ -3544,6 +3802,9 @@
         "ocr"
       ],
       "label_context": "Patient Address:",
+      "context_class": "none",
+      "caption_clearance_pt": -4.29,
+      "caption_text": "5. Patient Address:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3572,7 +3833,7 @@
       "overlaps": [],
       "justification": "Title-Case '87 Juniper Court' + 'Nampa, ID 83651' -> regex arm 0.70; 2 spans.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_08",
@@ -3592,6 +3853,9 @@
         "ocr"
       ],
       "label_context": "Patient Telephone:",
+      "context_class": "none",
+      "caption_clearance_pt": 10.71,
+      "caption_text": "7. Patient Telephone:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3611,7 +3875,7 @@
       "overlaps": [],
       "justification": "'tel' positive -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_07",
@@ -3631,6 +3895,9 @@
         "ocr"
       ],
       "label_context": "Referring Provider NPI:",
+      "context_class": "none",
+      "caption_clearance_pt": -1.29,
+      "caption_text": "17b. Referring Provider NPI:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3650,7 +3917,7 @@
       "overlaps": [],
       "justification": "check digit off by one -> NPILuhn80840.isValid false -> rejected before scoring, despite the label.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_05",
@@ -3670,6 +3937,9 @@
         "ocr"
       ],
       "label_context": "Rendering Provider NPI:",
+      "context_class": "none",
+      "caption_clearance_pt": -1.29,
+      "caption_text": "24J. Rendering Provider NPI:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3689,7 +3959,7 @@
       "overlaps": [],
       "justification": "[12]\\d{9} + Luhn-80840 valid; 'npi' positive within +-5 -> 0.90 >= 0.602 (base alone would be 0.65).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_06",
@@ -3709,6 +3979,9 @@
         "ocr"
       ],
       "label_context": "Billing Provider NPI:",
+      "context_class": "none",
+      "caption_clearance_pt": -1.29,
+      "caption_text": "33. Billing Provider NPI:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3728,7 +4001,7 @@
       "overlaps": [],
       "justification": "type-2 NPI, Luhn-80840 valid; 'npi' positive -> 0.90.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_10",
@@ -3748,6 +4021,9 @@
         "ocr"
       ],
       "label_context": "Rendering Provider: Dr.",
+      "context_class": "title_label",
+      "caption_clearance_pt": -1.29,
+      "caption_text": "31. Rendering Provider: Dr.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3767,7 +4043,7 @@
       "overlaps": [],
       "justification": "'Dr.' legal prefix -> 0.65; NLTagger host probe tags 'Rendering Provider: Dr. Imani Thorne (MD)' (0.70). Parenthesised credential keeps the prefix pass from absorbing it.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_12",
@@ -3787,6 +4063,9 @@
         "ocr"
       ],
       "label_context": "Diagnosis Code:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.23,
+      "caption_text": "99213",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3806,7 +4085,7 @@
       "overlaps": [],
       "justification": "'E11.9': letter + 2 digits + decimal -- no PII shape; drives the medical icd_shape bonus.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_11",
@@ -3826,6 +4105,9 @@
         "ocr"
       ],
       "label_context": "Patient Account No.",
+      "context_class": "none",
+      "caption_clearance_pt": 3.49,
+      "caption_text": "Patient Account and Authorization",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3845,7 +4127,7 @@
       "overlaps": [],
       "justification": "7-digit run; account RUNS on .medical; 'account' kw adjacent -> boosted; posterior clears 0.60 (occ_urlab_15 precedent).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_14",
@@ -3864,6 +4146,9 @@
         "image"
       ],
       "label_context": "Signature:",
+      "context_class": "none",
+      "caption_clearance_pt": -6.05,
+      "caption_text": "12. Patient authorization to release payment to the provider -- signed below.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3883,7 +4168,7 @@
       "overlaps": [],
       "justification": "a drawn stroke beside an exact 'Signature:' OCR block: the DRAW-3 heuristic (Sobel density + curvature on the region right of the label) is triage-only, never auto-applied, and runs on the page image -- not a Scan text/OCR leg -> image leg, watch.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h1_13",
@@ -3903,6 +4188,9 @@
         "ocr"
       ],
       "label_context": "Claim Control No.",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3922,7 +4210,7 @@
       "overlaps": [],
       "justification": "'HCF-2026041' matches the MRN institution shape and MRN runs here, but NO MRN positive kw (patient/mrn/chart/dob/physician/hospital/diagnosis/...) within +-5 tokens -> base 0.55 < 0.60.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_11",
@@ -3942,6 +4230,9 @@
         "ocr"
       ],
       "label_context": "",
+      "context_class": "none",
+      "caption_clearance_pt": 2.63,
+      "caption_text": "Sawtooth Family Medicine",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -3970,7 +4261,7 @@
       "overlaps": [],
       "justification": "letterhead: Title-Case 'Birch Street, Suite 2' + 'Nampa, ID 83686' -> regex arm 0.70; 2 spans.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_10",
@@ -3990,6 +4281,9 @@
         "ocr"
       ],
       "label_context": "Clinic Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": 26.15,
+      "caption_text": "Sawtooth Family Medicine",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4009,7 +4303,7 @@
       "overlaps": [],
       "justification": "'phone' positive -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_12",
@@ -4028,6 +4322,9 @@
         "image"
       ],
       "label_context": "",
+      "context_class": "none",
+      "caption_clearance_pt": 4.19,
+      "caption_text": "SPECIMEN LABEL",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4047,7 +4344,7 @@
       "overlaps": [],
       "justification": "a REAL Code 128 symbol encoding the MRN on the specimen label: VNDetectBarcodesRequest (DRAW-2) decodes it on the page image -- an image leg the Scan text/OCR runs never take -> watch. Value = the payload; bbox = the symbol.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_13",
@@ -4067,6 +4364,9 @@
         "ocr"
       ],
       "label_context": "Accession No.",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4086,7 +4386,7 @@
       "overlaps": [],
       "justification": "'LAB-4471902' matches the MRN institution shape but sits with NO MRN positive kw within +-5 tokens -> 0.55 < 0.60.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_01",
@@ -4106,6 +4406,9 @@
         "ocr"
       ],
       "label_context": "Patient:",
+      "context_class": "role_label",
+      "caption_clearance_pt": 3.01,
+      "caption_text": "Visit Summary -- Established Patient",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4125,7 +4428,7 @@
       "overlaps": [],
       "justification": "'Patient' legal-prefix pass -> 0.65; NLTagger host probe tags it (0.70).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_02",
@@ -4145,6 +4448,9 @@
         "ocr"
       ],
       "label_context": "MRN:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4164,7 +4470,7 @@
       "overlaps": [],
       "justification": "mrn.labeled; 'patient'/'dob' within +-5 tokens -> 0.92.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_04",
@@ -4184,6 +4490,9 @@
         "ocr"
       ],
       "label_context": "DOB:",
+      "context_class": "none",
+      "caption_clearance_pt": 2.75,
+      "caption_text": "Patient:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4203,7 +4512,7 @@
       "overlaps": [],
       "justification": "full DOBDetector: 0.05 + 0.30 ('dob' within +-80 chars) = 0.35 >= 0.30.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_03",
@@ -4223,6 +4532,9 @@
         "ocr"
       ],
       "label_context": "Patient ID:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4242,7 +4554,7 @@
       "overlaps": [],
       "justification": "mrn.patientID \\bPatient\\s+ID[:#\\s]+[A-Z0-9]{5,12}; 'patient' is itself a positive -> 0.92.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_15",
@@ -4262,6 +4574,9 @@
         "ocr"
       ],
       "label_context": "Dx:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.23,
+      "caption_text": "Vitals: BP 128/78 mmHg, pulse 72, temperature 98.4 F, weight 164 lb.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4281,7 +4596,7 @@
       "overlaps": [],
       "justification": "'I10': ICD shape, no PII shape.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_08",
@@ -4301,6 +4616,9 @@
         "ocr"
       ],
       "label_context": "Auth:",
+      "context_class": "none",
+      "caption_clearance_pt": 4.96,
+      "caption_text": "Auth",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4320,7 +4638,7 @@
       "overlaps": [],
       "justification": "the SAME valid DEA in the medication table with NO dea/prescriber/prescription/registration kw within +-5 tokens -> base 0.55 < 0.60 -> does not fire; keyword-starved valid value = watch (occ_ach_03 precedent).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_06",
@@ -4340,6 +4658,9 @@
         "ocr"
       ],
       "label_context": "DEA No.",
+      "context_class": "none",
+      "caption_clearance_pt": 27.35,
+      "caption_text": "No allergy documented. Neither tablet was changed today; the dosage carried forward from the last visit.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4359,7 +4680,7 @@
       "overlaps": [],
       "justification": "[A-Z]{2}\\d{7}: checksum (4+7+3)+2(4+1+2)=28 -> 8 valid, registrant letter C valid; runsDEA on .medical; 'dea'/'prescriber' positives within +-5 -> 0.90 >= 0.60. Kept > 5 tokens from the (dea, medical) negatives (rx number / prescription number / pharmacy id).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_07",
@@ -4379,6 +4700,9 @@
         "ocr"
       ],
       "label_context": "prior DEA No.",
+      "context_class": "none",
+      "caption_clearance_pt": 3.23,
+      "caption_text": "DEA No.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4398,7 +4722,7 @@
       "overlaps": [],
       "justification": "check digit off by one -> isValidChecksum false -> rejected before scoring despite the 'DEA' label.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_14",
@@ -4418,6 +4742,9 @@
         "ocr"
       ],
       "label_context": "Date of Service:",
+      "context_class": "none",
+      "caption_clearance_pt": 27.23,
+      "caption_text": "prior DEA No.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4437,7 +4764,7 @@
       "overlaps": [],
       "justification": "full DOBDetector base 0.05; kept > 80 chars from the 'DOB:' label -> 0.05 < 0.30 ('date of service' is not a DOB label).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_05",
@@ -4457,6 +4784,9 @@
         "ocr"
       ],
       "label_context": "Attending NPI:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.23,
+      "caption_text": "Date of Service:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4476,7 +4806,7 @@
       "overlaps": [],
       "justification": "Luhn-80840 valid; 'npi' positive -> 0.90.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h2_09",
@@ -4496,6 +4826,9 @@
         "ocr"
       ],
       "label_context": "Attending: Dr.",
+      "context_class": "title_label",
+      "caption_clearance_pt": 16.75,
+      "caption_text": "Date of Service:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4515,7 +4848,7 @@
       "overlaps": [],
       "justification": "'Dr.' legal prefix -> 0.65 (the host probe does NOT tag 'Attending: Dr. Imani Thorne' on its own, so the prefix pass is the mechanism).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_01",
@@ -4535,6 +4868,9 @@
         "ocr"
       ],
       "label_context": "Employee Name:",
+      "context_class": "none",
+      "caption_clearance_pt": 0.71,
+      "caption_text": "Employee Name:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4554,7 +4890,7 @@
       "overlaps": [],
       "justification": "clean two-token Title-Case; NLTagger host probe tags 'Employee Name: Rosalind Okafor' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_02",
@@ -4574,6 +4910,9 @@
         "ocr"
       ],
       "label_context": "Date of Birth:",
+      "context_class": "none",
+      "caption_clearance_pt": 0.71,
+      "caption_text": "Date of Birth:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4593,7 +4932,7 @@
       "overlaps": [],
       "justification": "label-anchored numeric on .financial -> 0.85.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_03",
@@ -4613,6 +4952,9 @@
         "ocr"
       ],
       "label_context": "Social Security No.:",
+      "context_class": "none",
+      "caption_clearance_pt": 0.71,
+      "caption_text": "Social Security No.:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4632,7 +4974,7 @@
       "overlaps": [],
       "justification": "area 487, group 62, serial 1930 valid; 'social security' positive -> 0.95. Kept > 5 tokens from 'ein' / 'account number' / 'routing number'.",
       "source_range": "synthetic + manifest",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_04",
@@ -4652,6 +4994,9 @@
         "ocr"
       ],
       "label_context": "Driver's License:",
+      "context_class": "none",
+      "caption_clearance_pt": 0.71,
+      "caption_text": "Driver's License:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4671,7 +5016,7 @@
       "overlaps": [],
       "justification": "label + 1L+7D -> CA gazetteer row -> 0.80 >= 0.72.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_05",
@@ -4691,6 +5036,9 @@
         "ocr"
       ],
       "label_context": "Passport No:",
+      "context_class": "none",
+      "caption_clearance_pt": 0.71,
+      "caption_text": "Passport No:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4710,7 +5058,7 @@
       "overlaps": [],
       "justification": "label + 1L+8D -> US ^[A-Z][0-9]{8}$ (also MX/VN) -> 0.80 >= 0.72.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_06",
@@ -4730,6 +5078,9 @@
         "ocr"
       ],
       "label_context": "Home Address:",
+      "context_class": "none",
+      "caption_clearance_pt": 1.35,
+      "caption_text": "Home Address:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4758,7 +5109,7 @@
       "overlaps": [],
       "justification": "Title-Case regex arm -> 0.70; 2 spans.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_07",
@@ -4778,6 +5129,9 @@
         "ocr"
       ],
       "label_context": "Home Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4797,7 +5151,7 @@
       "overlaps": [],
       "justification": "'phone' positive -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_08",
@@ -4817,6 +5171,9 @@
         "ocr"
       ],
       "label_context": "Personal Email:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4836,7 +5193,7 @@
       "overlaps": [],
       "justification": "RFC-2606 -> 0.90.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_09",
@@ -4856,6 +5213,9 @@
         "ocr"
       ],
       "label_context": "Alternate Contact:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.01,
+      "caption_text": "Section 4. Alternate Contact",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4875,7 +5235,7 @@
       "overlaps": [],
       "justification": "clean two-token Title-Case; NLTagger host probe tags 'Alternate Contact: Samuel Okafor (spouse)' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_10",
@@ -4895,6 +5255,9 @@
         "ocr"
       ],
       "label_context": "Contact Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.23,
+      "caption_text": "Alternate Contact:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4914,7 +5277,7 @@
       "overlaps": [],
       "justification": "'phone'/'contact' positives -> 0.80.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_11",
@@ -4934,6 +5297,9 @@
         "ocr"
       ],
       "label_context": "Employee ID:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.49,
+      "caption_text": "Section 5. Payroll Assignment",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4953,7 +5319,7 @@
       "overlaps": [],
       "justification": "'EMP-0048213' matches the MRN institution shape, but runsMRN is medical-only -> never runs on this .financial page (doctype-gated).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_12",
@@ -4973,6 +5339,9 @@
         "ocr"
       ],
       "label_context": "Hire Date:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -4992,7 +5361,7 @@
       "overlaps": [],
       "justification": "bare date on .financial -> suppressed (label-anchored-only gate).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_13",
@@ -5012,6 +5381,9 @@
         "ocr"
       ],
       "label_context": "Cost Center:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5031,7 +5403,7 @@
       "overlaps": [],
       "justification": "'4410': 4 digits, below every numeric minimum -> no candidate.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h3_14",
@@ -5050,6 +5422,9 @@
         "image"
       ],
       "label_context": "Signature:",
+      "context_class": "none",
+      "caption_clearance_pt": -2.05,
+      "caption_text": "The employee certifies that the identity documents presented are genuine and relate to the employee named above.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5069,7 +5444,7 @@
       "overlaps": [],
       "justification": "drawn stroke beside an exact 'Signature:' block -> DRAW-3 heuristic candidate; image leg, triage-only -> watch.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_01",
@@ -5089,6 +5464,9 @@
         "ocr"
       ],
       "label_context": "Employee:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.01,
+      "caption_text": "Section 1. Employee",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5108,7 +5486,7 @@
       "overlaps": [],
       "justification": "NLTagger host probe tags 'Employee: Rosalind Okafor' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_10",
@@ -5128,6 +5506,9 @@
         "ocr"
       ],
       "label_context": "Employee No.",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5147,7 +5528,7 @@
       "overlaps": [],
       "justification": "'48213': 5 digits, below the account regex minimum of 6 -> no candidate anywhere.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_02",
@@ -5167,6 +5548,9 @@
         "ocr"
       ],
       "label_context": "SSN:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5186,7 +5570,7 @@
       "overlaps": [],
       "justification": "valid SSN; 'ssn' positive -> 0.95. Kept > 5 tokens from the routing/account zone (the (ssn, financial) negatives 'routing number' 0.8 / 'account number' 0.7).",
       "source_range": "synthetic + manifest",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_12",
@@ -5206,6 +5590,9 @@
         "ocr"
       ],
       "label_context": "Pay Period Ending:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.49,
+      "caption_text": "Section 2. Pay Period and Earnings",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5225,7 +5612,7 @@
       "overlaps": [],
       "justification": "bare date on .financial -> suppressed.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_03",
@@ -5245,6 +5632,9 @@
         "ocr"
       ],
       "label_context": "Routing Number:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.11,
+      "caption_text": "Boise River Credit Union",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5264,7 +5654,7 @@
       "overlaps": [],
       "justification": "prefix 12 valid, ABA mod-10 valid; routing RUNS on .financial; 'routing' kw within +-8 tokens -> 0.88 >= 0.60; no acct kw within +-5 (so it is not also captured as an account). Group 00 -> SSN rejects.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_04",
@@ -5284,6 +5674,9 @@
         "ocr"
       ],
       "label_context": "Account Number:",
+      "context_class": "none",
+      "caption_clearance_pt": 6.85,
+      "caption_text": "will give notice before the first pay cycle it governs.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5303,7 +5696,7 @@
       "overlaps": [],
       "justification": "12-digit; 'account' kw adjacent -> boosted; posterior clears 0.60 (occ_urlab_15 precedent); no routing kw within +-8.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_05",
@@ -5323,6 +5716,9 @@
         "ocr"
       ],
       "label_context": "Account on file:",
+      "context_class": "none",
+      "caption_clearance_pt": 17.35,
+      "caption_text": "the following cycle. This instruction stays in effect until the employee files a written replacement with the payroll office, and the employer",
       "render": {
         "all_caps": false,
         "masked": true,
@@ -5342,7 +5738,7 @@
       "overlaps": [],
       "justification": "masked X breaks the digit run -> invisible; masked watch (occ_urlab_18 precedent).",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_06",
@@ -5362,6 +5758,9 @@
         "ocr"
       ],
       "label_context": "Dependent:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.01,
+      "caption_text": "Section 4. Dependents Enrolled",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5381,7 +5780,7 @@
       "overlaps": [],
       "justification": "NLTagger host probe tags 'Dependent: Ezra Okafor' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_07",
@@ -5401,6 +5800,9 @@
         "ocr"
       ],
       "label_context": "Date of Birth:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5420,7 +5822,7 @@
       "overlaps": [],
       "justification": "label-anchored numeric on .financial -> 0.85.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_08",
@@ -5440,6 +5842,9 @@
         "ocr"
       ],
       "label_context": "Dependent:",
+      "context_class": "none",
+      "caption_clearance_pt": 17.01,
+      "caption_text": "Section 4. Dependents Enrolled",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5459,7 +5864,7 @@
       "overlaps": [],
       "justification": "NLTagger host probe tags 'Dependent: Amara Okafor' -> 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_09",
@@ -5479,6 +5884,9 @@
         "ocr"
       ],
       "label_context": "Date of Birth:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5498,7 +5906,7 @@
       "overlaps": [],
       "justification": "label-anchored numeric on .financial -> 0.85.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_11",
@@ -5518,6 +5926,9 @@
         "ocr"
       ],
       "label_context": "Plan:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.49,
+      "caption_text": "Section 5. Benefit Elections",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5537,7 +5948,7 @@
       "overlaps": [],
       "justification": "'MED-HDHP-2': letters and a single digit -> no candidate.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     },
     {
       "id": "occ_h4_13",
@@ -5557,6 +5968,9 @@
         "ocr"
       ],
       "label_context": "Primary Care Provider NPI:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.23,
+      "caption_text": "high deductible with a savings election; employee plus family tier.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5576,7 +5990,7 @@
       "overlaps": [],
       "justification": "a VALID NPI, but runsNPI is medical + foia only -> the detector never runs on this .financial page (doctype-gated). 10 digits with 'number'-free label and no phone kw within +-80 chars -> phone bare 0.60 < 0.70.",
       "source_range": "",
-      "schema_version": 1
+      "schema_version": 2
     }
   ],
   "carried_packet": [
@@ -5598,6 +6012,9 @@
         "ocr"
       ],
       "label_context": "Name (First, Middle, Last, Suffix):",
+      "context_class": "none",
+      "caption_clearance_pt": 3.49,
+      "caption_text": "Section 1a. Personal Information",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5617,7 +6034,7 @@
       "overlaps": [],
       "justification": "middle initial breaks the NLTagger span -> tracked recall miss.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 0
@@ -5641,6 +6058,9 @@
         "ocr"
       ],
       "label_context": "Social Security Number:",
+      "context_class": "none",
+      "caption_clearance_pt": 4.35,
+      "caption_text": "Name (First, Middle, Last, Suffix):",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5660,7 +6080,7 @@
       "overlaps": [],
       "justification": "area 502 (001-899, !=666), group 19, serial 7438; valid -> 0.95 with label.",
       "source_range": "synthetic + manifest (no provable never-issued SSN space post-2011)",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 0
@@ -5684,6 +6104,9 @@
         "ocr"
       ],
       "label_context": "Date of Birth (mm/dd/yyyy):",
+      "context_class": "none",
+      "caption_clearance_pt": 19.35,
+      "caption_text": "Name (First, Middle, Last, Suffix):",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5703,7 +6126,7 @@
       "overlaps": [],
       "justification": "numeric, label-anchored. Text-leg miss (numeric DOB on .financial not detected; OCR leg mislabels as phone) -> should_fire.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 0
@@ -5727,6 +6150,9 @@
         "ocr"
       ],
       "label_context": "Home Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": 4.99,
+      "caption_text": "Contact Information",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5746,7 +6172,7 @@
       "overlaps": [],
       "justification": "NANPA 555-0147; phone kw within +-80 -> 0.80 >= 0.70.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 0
@@ -5770,6 +6196,9 @@
         "ocr"
       ],
       "label_context": "Cell Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": 4.35,
+      "caption_text": "Home Phone:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5789,7 +6218,7 @@
       "overlaps": [],
       "justification": "format-zoo (CA 916 area, kept post-relocation); 555-0182 -> 0.80.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 0
@@ -5813,6 +6242,9 @@
         "ocr"
       ],
       "label_context": "Work Phone:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5832,7 +6264,7 @@
       "overlaps": [],
       "justification": "format-zoo (dotted); 555-0119 -> 0.80.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 0
@@ -5856,6 +6288,9 @@
         "ocr"
       ],
       "label_context": "Email:",
+      "context_class": "none",
+      "caption_clearance_pt": 4.35,
+      "caption_text": "Work Phone:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5875,7 +6310,7 @@
       "overlaps": [],
       "justification": "RFC-2606 -> 0.90 >= 0.83.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 0
@@ -5899,6 +6334,9 @@
         "ocr"
       ],
       "label_context": "Current Address:",
+      "context_class": "none",
+      "caption_clearance_pt": 1.35,
+      "caption_text": "Current Address:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5927,7 +6365,7 @@
       "overlaps": [],
       "justification": "shared residence; 2 spans (street; city/ST/ZIP); 0.70.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 0
@@ -5951,6 +6389,9 @@
         "ocr"
       ],
       "label_context": "Former Address:",
+      "context_class": "none",
+      "caption_clearance_pt": 1.35,
+      "caption_text": "Former Address:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -5979,7 +6420,7 @@
       "overlaps": [],
       "justification": "CA-DL/ID-residence reconciliation; 2 spans.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 0
@@ -6003,6 +6444,9 @@
         "ocr"
       ],
       "label_context": "Mailing Address (if different):",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6022,7 +6466,7 @@
       "overlaps": [],
       "justification": "P.O. Box arm.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 0
@@ -6046,6 +6490,9 @@
         "ocr"
       ],
       "label_context": "Employer Address:",
+      "context_class": "none",
+      "caption_clearance_pt": 3.11,
+      "caption_text": "Tannersworth Freight Systems, Inc.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6065,7 +6512,7 @@
       "overlaps": [],
       "justification": "employer (Tannersworth) address.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 0
@@ -6089,6 +6536,9 @@
         "ocr"
       ],
       "label_context": "Your social security number:",
+      "context_class": "none",
+      "caption_clearance_pt": 7.63,
+      "caption_text": "U.S. Individual Income Tax Return (specimen) -- continued",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6108,7 +6558,7 @@
       "overlaps": [],
       "justification": "SAME value as occ_01 (genre-honest page-2 repeat). Each repeated box counts as its own occurrence -> distinct box.",
       "source_range": "synthetic + manifest",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 7
@@ -6132,6 +6582,9 @@
         "ocr"
       ],
       "label_context": "for example, 987-65-4320.",
+      "context_class": "none",
+      "caption_clearance_pt": 0.75,
+      "caption_text": "Sample only -- do not enter. A sample value follows",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6151,7 +6604,7 @@
       "overlaps": [],
       "justification": "area 987 >= 900 -> SSN rejects. NO substring 'tin'/ITIN keyword within +-8 tokens.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 7
@@ -6175,6 +6628,9 @@
         "ocr"
       ],
       "label_context": "Taxpayer reference / control no.:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6194,7 +6650,7 @@
       "overlaps": [],
       "justification": "valid ITIN shape, no nearby itin kw. Fires as itin (structural match clears 0.65 without context) -> watch; engine-improvement: require itin context.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 7
@@ -6218,6 +6674,9 @@
         "ocr"
       ],
       "label_context": "SSN instruction footnote:",
+      "context_class": "none",
+      "caption_clearance_pt": 9.35,
+      "caption_text": "Taxpayer reference / control no.:",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6237,7 +6696,7 @@
       "overlaps": [],
       "justification": "area 900 >= 900 -> SSN rejects; group 12 out of ITIN range -> ITIN rejects.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 7
@@ -6261,6 +6720,9 @@
         "ocr"
       ],
       "label_context": "Sign here -- Date:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6280,7 +6742,7 @@
       "overlaps": [],
       "justification": "bare signature date -> suppressed.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 7
@@ -6304,6 +6766,9 @@
         "ocr"
       ],
       "label_context": "Spouse signature -- Date:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6323,7 +6788,7 @@
       "overlaps": [],
       "justification": "bare signature date -> suppressed.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 7
@@ -6347,6 +6812,9 @@
         "ocr"
       ],
       "label_context": "For Tax Year:",
+      "context_class": "none",
+      "caption_clearance_pt": 12.23,
+      "caption_text": "Original-layout specimen for software testing. Not an IRS form.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6366,7 +6834,7 @@
       "overlaps": [],
       "justification": "bare tax-year date -> suppressed.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 9
@@ -6390,6 +6858,9 @@
         "ocr"
       ],
       "label_context": "a Employee's social security number",
+      "context_class": "none",
+      "caption_clearance_pt": 1.74,
+      "caption_text": "a Employee's social security number",
       "render": {
         "all_caps": false,
         "masked": true,
@@ -6409,7 +6880,7 @@
       "overlaps": [],
       "justification": "masked X breaks \\d runs -> tracked recall miss. Delia (last-4 7438).",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 9
@@ -6433,6 +6904,9 @@
         "ocr"
       ],
       "label_context": "b Employer identification number (EIN)",
+      "context_class": "none",
+      "caption_clearance_pt": 1.74,
+      "caption_text": "b Employer identification number (EIN)",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6452,7 +6926,7 @@
       "overlaps": [],
       "justification": "valid prefix 36 + EIN label -> 0.85. Tannersworth (= occ_t1040_12).",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 9
@@ -6476,6 +6950,9 @@
         "ocr"
       ],
       "label_context": "c Employer's name, address, and ZIP code",
+      "context_class": "none",
+      "caption_clearance_pt": 1.11,
+      "caption_text": "Tannersworth Freight Systems, Inc.",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6495,7 +6972,7 @@
       "overlaps": [],
       "justification": "employer address (single-line value); org-name line rides as a sibling.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 9
@@ -6519,6 +6996,9 @@
         "ocr"
       ],
       "label_context": "e Employee's first name and initial / Last name",
+      "context_class": "none",
+      "caption_clearance_pt": -6.77,
+      "caption_text": "e Employee's first name and initial / Last name",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6538,7 +7018,7 @@
       "overlaps": [],
       "justification": "initial/Suff sub-cells blank -> clean two-token.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 9
@@ -6562,6 +7042,9 @@
         "ocr"
       ],
       "label_context": "f Employee's address and ZIP code",
+      "context_class": "none",
+      "caption_clearance_pt": -6.29,
+      "caption_text": "f Employee's address and ZIP code",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6590,7 +7073,7 @@
       "overlaps": [],
       "justification": "2 spans.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 9
@@ -6614,6 +7097,9 @@
         "ocr"
       ],
       "label_context": "15 Employer's state ID no.:",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6633,7 +7119,7 @@
       "overlaps": [],
       "justification": "NON-EIN shape -> no EIN candidate even though bare 'employer' substring is adjacent.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 9
@@ -6657,6 +7143,9 @@
         "ocr"
       ],
       "label_context": "Notice to Employee (Box a example):",
+      "context_class": "none",
+      "caption_clearance_pt": 12.99,
+      "caption_text": "This specimen reproduces the box layout of a wage statement so software can be checked against the same field grammar a real statement uses. Every value",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6676,7 +7165,7 @@
       "overlaps": [],
       "justification": "Woolworth/wallet SSN -> SSNStructuralValidator Rule 6 hard reject -> MNF.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 9
@@ -6700,6 +7189,9 @@
         "ocr"
       ],
       "label_context": "for example, 07-3300449.",
+      "context_class": "none",
+      "caption_clearance_pt": 26.99,
+      "caption_text": "This specimen reproduces the box layout of a wage statement so software can be checked against the same field grammar a real statement uses. Every value",
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6719,7 +7211,7 @@
       "overlaps": [],
       "justification": "prefix 07 in invalid set -> EIN rejected pre-scoring. Keep >+-6 tokens from the real Box-b label.",
       "source_range": "",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 9
@@ -6737,6 +7229,9 @@
         "text"
       ],
       "label_context": "",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6748,7 +7243,7 @@
       "measured_pending": true,
       "justification": "Reg E, context-boosted 0.80.",
       "source_range": "frozen statement; geometry not resolved (measured_pending)",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 5
@@ -6766,6 +7261,9 @@
         "ocr"
       ],
       "label_context": "",
+      "context_class": "none",
+      "caption_clearance_pt": null,
+      "caption_text": null,
       "render": {
         "all_caps": false,
         "masked": false,
@@ -6777,7 +7275,7 @@
       "measured_pending": true,
       "justification": "OCR-concatenated date -> false account.",
       "source_range": "frozen statement; geometry not resolved (measured_pending)",
-      "schema_version": 1,
+      "schema_version": 2,
       "carried_from": {
         "document": "packet.pdf",
         "page": 5

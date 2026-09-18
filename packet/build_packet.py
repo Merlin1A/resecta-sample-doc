@@ -68,6 +68,7 @@ def _render_drawables(assembly, bases):
             continue
         fn(rc, bases[name])
     c.save()
+    rc.annotate_clearance()  # the caption-clearance column: a post-pass, once every page is drawn
     return buf.getvalue(), rc
 
 
@@ -157,7 +158,7 @@ def build(assembly=ASSEMBLY, *, write=True) -> dict:
     live = {name for name, _n, _fn in assembly}
     carried = STMT.carried_records() if "stmt" in live else []
     gt = {
-        "schema_version": 1,
+        "schema_version": schema.SCHEMA_VERSION,
         "packet": "hartwell-loan-packet",
         "generator": "resecta-sample-doc/packet",
         "page_count": total_pages,

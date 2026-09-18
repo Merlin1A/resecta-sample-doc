@@ -16,7 +16,11 @@ from dataclasses import dataclass
 
 from reportlab.pdfbase import pdfmetrics
 
-SCHEMA_VERSION = 1
+from .schema import SCHEMA_VERSION
+
+# Furniture text (labels, captions, headings, prose) sits within this many points above a value
+# to count as its caption for the clearance column; beyond it the value has no caption above.
+CAPTION_WINDOW_PT = 30.0
 
 # tier short codes -> ground-truth expectation strings
 TIER = {
@@ -45,6 +49,8 @@ class Occurrence:
     overlaps: tuple = ()
     justification: str = ""
     source_range: str = ""
+    # the G8 name-context class the row is drawn in (schema.CONTEXT_CLASSES); "none" = no class
+    context_class: str = "none"
 
     @property
     def expectation(self) -> str:
@@ -69,6 +75,9 @@ class RecordingCanvas:
         self.page = 0  # current GLOBAL 0-indexed page in the final packet
         self.draws: list[tuple] = []  # (page, baseline_y, x_left, text)
         self.occurrences: list[dict] = []  # ground-truth records
+        # every NON-value text draw in POINTS: (page, x0, y0, x1, y1, text, size) -- the
+        # captions/labels/headings the clearance column measures against
+        self.furniture: list[tuple] = []
 
     # ---- page control ----------------------------------------------------------------------------
     def begin_page(self, global_index: int) -> None:
@@ -83,6 +92,7 @@ class RecordingCanvas:
         self.c.setFont(font, size)
         self.c.drawString(x, y, s)
         self.draws.append((self.page, y, x, s))
+        self._record_furniture(x, y, s, font, size)
         return x + pdfmetrics.stringWidth(s, font, size)
 
     def rtext(self, x, y, s, font, size, color):
@@ -91,7 +101,13 @@ class RecordingCanvas:
         self.c.setFont(font, size)
         self.c.drawRightString(x, y, s)
         self.draws.append((self.page, y, x - w, s))
+        self._record_furniture(x - w, y, s, font, size)
         return x - w
+
+    def _record_furniture(self, x, y, s, font, size):
+        asc, desc = pdfmetrics.getAscentDescent(font, size)  # desc is negative
+        x1 = x + pdfmetrics.stringWidth(s, font, size)
+        self.furniture.append((self.page, x, y + desc, x1, y + asc, s, size))
 
     # ---- geometry helpers (not recorded) ---------------------------------------------------------
     def hrule(self, y, x0, x1, color, w=0.6):
@@ -180,6 +196,11 @@ class RecordingCanvas:
                 "expectation": occ.expectation,
                 "leg_applicability": list(occ.leg),
                 "label_context": occ.label_context,
+                "context_class": occ.context_class,
+                # the caption-clearance column -- filled by annotate_clearance() once the page is
+                # complete (a caption may be drawn after its value)
+                "caption_clearance_pt": None,
+                "caption_text": None,
                 "render": {
                     "all_caps": occ.all_caps,
                     "masked": occ.masked,
@@ -194,6 +215,49 @@ class RecordingCanvas:
                 "schema_version": SCHEMA_VERSION,
             }
         )
+
+    # ---- the caption-clearance column ----------------------------------------------------------
+    def annotate_clearance(self, *, window_pt: float = CAPTION_WINDOW_PT) -> None:
+        """Fill ``caption_clearance_pt`` / ``caption_text`` on every drawn occurrence.
+
+        The clearance is the vertical gap in POINTS between the value's top edge and the bottom
+        edge of the nearest furniture text ABOVE it whose horizontal extent overlaps the value's
+        (a boxed cell's caption, the label of a multi-line field, a heading). Negative = the
+        caption overprints the value (the overprint the capture scans showed on the W-2 cells). A
+        same-line label
+        sits beside the value, not above it, and is never a caption here; a value with no
+        furniture text within ``window_pt`` above it carries null in both columns.
+
+        Run once per document after every page is drawn: the column is a post-pass because a
+        caption may be drawn after its value.
+        """
+        by_page: dict[int, list[tuple]] = {}
+        for f in self.furniture:
+            by_page.setdefault(f[0], []).append(f)
+        for rec in self.occurrences:
+            bbox = rec.get("bbox")
+            if bbox is None:
+                continue
+            vx0, vy0, vx1, vy1 = (
+                bbox[0] * self.PW,
+                bbox[1] * self.PH,
+                bbox[2] * self.PW,
+                bbox[3] * self.PH,
+            )
+            v_mid = (vy0 + vy1) / 2.0
+            best: tuple[float, str] | None = None
+            for _page, fx0, fy0, fx1, fy1, text, _size in by_page.get(rec["page"], []):
+                if fx1 <= vx0 or fx0 >= vx1:  # no horizontal overlap
+                    continue
+                if (fy0 + fy1) / 2.0 <= v_mid:  # beside or below the value, not above it
+                    continue
+                gap = fy0 - vy1
+                if gap > window_pt:
+                    continue
+                if best is None or gap < best[0]:
+                    best = (gap, text)
+            rec["caption_clearance_pt"] = round(best[0], 2) if best is not None else None
+            rec["caption_text"] = best[1] if best is not None else None
 
     # ---- reading-order reconstruction (for the token/char-distance C-constraint checks) ----------
     def page_token_text(self, page: int) -> str:
