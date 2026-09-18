@@ -35179,13 +35179,519 @@
    "source": "adjudicated-product"
   },
   "m07|v09-flip-multiTermConjunction": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 28,
+   "hits": [
+    {
+     "bbox": [
+      0.338942,
+      0.850794,
+      0.057265,
+      0.01375
+     ],
+     "end": 236,
+     "page": 0,
+     "start": 228,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.125131,
+      0.696754,
+      0.055032,
+      0.01375
+     ],
+     "end": 452,
+     "page": 0,
+     "start": 444,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.237246,
+      0.906198,
+      0.060447,
+      0.014513
+     ],
+     "end": 97,
+     "page": 1,
+     "start": 89,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.345252,
+      0.850794,
+      0.057265,
+      0.01375
+     ],
+     "end": 231,
+     "page": 2,
+     "start": 223,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.129008,
+      0.739683,
+      0.055032,
+      0.01375
+     ],
+     "end": 430,
+     "page": 2,
+     "start": 422,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.221717,
+      0.413168,
+      0.0815,
+      0.01375
+     ],
+     "end": 1345,
+     "page": 2,
+     "start": 1337,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.153428,
+      0.817509,
+      0.06681,
+      0.016041
+     ],
+     "end": 185,
+     "page": 3,
+     "start": 177,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.771421,
+      0.742361,
+      0.053012,
+      0.012986
+     ],
+     "end": 386,
+     "page": 3,
+     "start": 378,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.222201,
+      0.501199,
+      0.075548,
+      0.012986
+     ],
+     "end": 719,
+     "page": 3,
+     "start": 711,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.222201,
+      0.471527,
+      0.075548,
+      0.012986
+     ],
+     "end": 829,
+     "page": 3,
+     "start": 821,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.11208,
+      0.946906,
+      0.054999,
+      0.012986
+     ],
+     "end": 17,
+     "page": 4,
+     "start": 9,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.222201,
+      0.866098,
+      0.075548,
+      0.012986
+     ],
+     "end": 203,
+     "page": 4,
+     "start": 195,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.222201,
+      0.787184,
+      0.075548,
+      0.012986
+     ],
+     "end": 485,
+     "page": 4,
+     "start": 477,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.222201,
+      0.691856,
+      0.075548,
+      0.012986
+     ],
+     "end": 822,
+     "page": 4,
+     "start": 814,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.222201,
+      0.612942,
+      0.075548,
+      0.012986
+     ],
+     "end": 1105,
+     "page": 4,
+     "start": 1097,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.11208,
+      0.946906,
+      0.054999,
+      0.012986
+     ],
+     "end": 17,
+     "page": 5,
+     "start": 9,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.216412,
+      0.827915,
+      0.060447,
+      0.014513
+     ],
+     "end": 222,
+     "page": 6,
+     "start": 214,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.26603,
+      0.807713,
+      0.060447,
+      0.014513
+     ],
+     "end": 252,
+     "page": 6,
+     "start": 244,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.17525,
+      0.668976,
+      0.057265,
+      0.01375
+     ],
+     "end": 474,
+     "page": 6,
+     "start": 466,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.176995,
+      0.648774,
+      0.057265,
+      0.01375
+     ],
+     "end": 498,
+     "page": 6,
+     "start": 490,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.254975,
+      0.615188,
+      0.057265,
+      0.01375
+     ],
+     "end": 839,
+     "page": 8,
+     "start": 831,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.158002,
+      0.597511,
+      0.0815,
+      0.01375
+     ],
+     "end": 860,
+     "page": 8,
+     "start": 852,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.158002,
+      0.581097,
+      0.0815,
+      0.01375
+     ],
+     "end": 894,
+     "page": 8,
+     "start": 886,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.618646,
+      0.43337,
+      0.0815,
+      0.01375
+     ],
+     "end": 1099,
+     "page": 8,
+     "start": 1091,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.119088,
+      0.743319,
+      0.060447,
+      0.015894
+     ],
+     "end": 432,
+     "page": 9,
+     "start": 424,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.216851,
+      0.850794,
+      0.057265,
+      0.01375
+     ],
+     "end": 178,
+     "page": 10,
+     "start": 170,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.324441,
+      0.617208,
+      0.0815,
+      0.01375
+     ],
+     "end": 529,
+     "page": 10,
+     "start": 521,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.419724,
+      0.737006,
+      0.060447,
+      0.014513
+     ],
+     "end": 580,
+     "page": 11,
+     "start": 572,
+     "text": "Hartwell"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "m07|v10-pair": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 14,
+   "hits": [
+    {
+     "bbox": [
+      0.338942,
+      0.850794,
+      0.057265,
+      0.01375
+     ],
+     "end": 236,
+     "page": 0,
+     "start": 228,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.237246,
+      0.906198,
+      0.060447,
+      0.014513
+     ],
+     "end": 97,
+     "page": 1,
+     "start": 89,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.345252,
+      0.850794,
+      0.057265,
+      0.01375
+     ],
+     "end": 231,
+     "page": 2,
+     "start": 223,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.153428,
+      0.817509,
+      0.06681,
+      0.016041
+     ],
+     "end": 185,
+     "page": 3,
+     "start": 177,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.11208,
+      0.946906,
+      0.054999,
+      0.012986
+     ],
+     "end": 17,
+     "page": 4,
+     "start": 9,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.11208,
+      0.946906,
+      0.054999,
+      0.012986
+     ],
+     "end": 17,
+     "page": 5,
+     "start": 9,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.216412,
+      0.827915,
+      0.060447,
+      0.014513
+     ],
+     "end": 222,
+     "page": 6,
+     "start": 214,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.26603,
+      0.807713,
+      0.060447,
+      0.014513
+     ],
+     "end": 252,
+     "page": 6,
+     "start": 244,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.17525,
+      0.668976,
+      0.057265,
+      0.01375
+     ],
+     "end": 474,
+     "page": 6,
+     "start": 466,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.176995,
+      0.648774,
+      0.057265,
+      0.01375
+     ],
+     "end": 498,
+     "page": 6,
+     "start": 490,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.254975,
+      0.615188,
+      0.057265,
+      0.01375
+     ],
+     "end": 839,
+     "page": 8,
+     "start": 831,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.119088,
+      0.743319,
+      0.060447,
+      0.015894
+     ],
+     "end": 432,
+     "page": 9,
+     "start": 424,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.216851,
+      0.850794,
+      0.057265,
+      0.01375
+     ],
+     "end": 178,
+     "page": 10,
+     "start": 170,
+     "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.419724,
+      0.737006,
+      0.060447,
+      0.014513
+     ],
+     "end": 580,
+     "page": 11,
+     "start": 572,
+     "text": "Hartwell"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "m07|v11-dual-caseSensitive-wholeWord": {
@@ -72671,23 +73177,171 @@
    "source": "adjudicated-product"
   },
   "q24|v00-default": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v01-flip-caseSensitive": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v02-flip-wholeWord": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v03-flip-includeOCR": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v04-flip-normalizeUnicode": {
@@ -72733,13 +73387,87 @@
    "source": "adjudicated-product"
   },
   "q24|v05-flip-exactMatch": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v06-flip-stripDigitSeparators": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v07-flip-normalizeSmartPunctuation": {
@@ -72748,13 +73476,87 @@
    "source": "adjudicated-product"
   },
   "q24|v08-flip-foldDiacritics": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v09-flip-multiTermConjunction": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v10-pair": {
@@ -72763,23 +73565,171 @@
    "source": "adjudicated-product"
   },
   "q24|v11-dual-caseSensitive-wholeWord": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v12-dual-exactMatch-wholeWord": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v13-dual-foldDiacritics-stripDigitSeparators": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v14-dual-wholeWord-stripDigitSeparators": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v15-dual-normalizeUnicode-normalizeSmartPunctuation": {
@@ -72830,8 +73780,45 @@
    "source": "adjudicated-product"
   },
   "q24|v17-dual-includeOCR-stripDigitSeparators": {
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 3,
+   "hits": [
+    {
+     "bbox": [
+      0.225611,
+      0.831855,
+      0.104894,
+      0.01375
+     ],
+     "end": 272,
+     "page": 0,
+     "start": 261,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.789733,
+      0.827915,
+      0.110722,
+      0.014513
+     ],
+     "end": 439,
+     "page": 6,
+     "start": 428,
+     "text": "502-19-7438"
+    },
+    {
+     "bbox": [
+      0.313725,
+      0.906198,
+      0.110722,
+      0.014513
+     ],
+     "end": 111,
+     "page": 7,
+     "start": 100,
+     "text": "502-19-7438"
+    }
+   ],
    "source": "adjudicated-product"
   },
   "q24|v18-dual-wholeWord-normalizeSmartPunctuation": {
