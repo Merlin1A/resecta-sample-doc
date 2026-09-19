@@ -231809,193 +231809,498 @@
    "source": "regenerated-ocr"
   },
   "r10|v00-default": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v01-flip-caseSensitive": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v02-flip-wholeWord": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v03-flip-includeOCR": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
    "expected_n": 0,
    "hits": [],
    "source": "regenerated-ocr"
   },
   "r10|v04-flip-normalizeUnicode": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v05-flip-exactMatch": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v06-flip-stripDigitSeparators": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v07-flip-normalizeSmartPunctuation": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v08-flip-foldDiacritics": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v09-flip-multiTermConjunction": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v10-pair": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
    "expected_n": 0,
    "hits": [],
    "source": "regenerated-ocr"
   },
   "r10|v11-dual-caseSensitive-wholeWord": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v12-dual-exactMatch-wholeWord": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v13-dual-foldDiacritics-stripDigitSeparators": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v14-dual-wholeWord-stripDigitSeparators": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v15-dual-normalizeUnicode-normalizeSmartPunctuation": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v16-dual-caseSensitive-normalizeUnicode": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r10|v17-dual-includeOCR-stripDigitSeparators": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
    "expected_n": 0,
    "hits": [],
    "source": "regenerated-ocr"
   },
   "r10|v18-dual-wholeWord-normalizeSmartPunctuation": {
-   "adjudication": {
-    "decision": "accept-product",
-    "f12": "F12-07",
-    "rationale": "The product safety gate rejects '4111(\\s?\\d{4}){3}' (hasNestedQuantifiers counts the bounded {3} and ? as nested quantifiers) and yields an empty stream; the oracle finds the card value twice on page 1. GT freezes the product contract (0 hits) so the baseline measures shipped behavior against its own contract; the over-conservative static gate itself is the F12-07 finding (with the H3.4 benign-rejection rate as the corpus-level measurement) and any future gate relaxation rebaselines these cells via the log."
-   },
-   "expected_n": 0,
-   "hits": [],
+   "expected_n": 2,
+   "hits": [
+    {
+     "bbox": [
+      0.066281,
+      0.731414,
+      0.286611,
+      0.013844
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1111"
+    },
+    {
+     "bbox": [
+      0.066281,
+      0.698056,
+      0.286611,
+      0.015225
+     ],
+     "end": null,
+     "page": 1,
+     "start": null,
+     "text": "4111 1111 1111 1112"
+    }
+   ],
    "source": "regenerated-ocr"
   },
   "r11|v00-default": {
