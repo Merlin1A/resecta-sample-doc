@@ -102,5 +102,5 @@ files = ["."]
 exclude = ["\\.venv/"]
 
 [[tool.mypy.overrides]]
-module = ["reportlab.*", "fitz.*", "pypdf.*", "fontTools.*", "PIL.*", "pypdfium2.*", "cv2.*"]
+module = ["reportlab.*", "fitz.*", "pymupdf.*", "pypdf.*", "fontTools.*", "PIL.*", "pypdfium2.*", "cv2.*"]
 ignore_missing_imports = true
