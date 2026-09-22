@@ -639,9 +639,10 @@ def run():
     check(
         len(gt["carried_stmt"]) == 20, "11a. 20 carried STMT classes", str(len(gt["carried_stmt"]))
     )
+    # the order is the registry's own (`build_packet.ASSEMBLY`); the occurrence-id literals elsewhere
+    # in this file are relationship checks between specific rows and stay literal
     check(
-        [e["name"] for e in gt["exhibits"]]
-        == ["urla_b", "urla_a", "stmt", "t1040", "ach", "w2", "govid", "veh"],
+        [e["name"] for e in gt["exhibits"]] == [name for name, *_ in B.ASSEMBLY],
         "11b. exhibit assembly order",
     )
     # schema 2: every row carries a context class (the packet draws no G8 name-context slot --
