@@ -18,6 +18,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "mypy==1.20.2",
+    "pytest>=8,<9",
     "ruff==0.15.12",
 ]
 # Harness tooling for the oracle / registration legs (tools/verify_oracle.py scan, tools/register_capture.py);
@@ -87,11 +88,17 @@ ignore = [
 "tools/register_capture.py" = ["T20", "S603", "S607"]
 "tools/search_oracle.py" = ["T20", "S603", "S607"]
 "tools/verify_oracle.py" = ["T20", "S603", "S607"]
+# pytest tests assert by design.
+"tests/*.py" = ["S101"]
 
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
 line-ending = "lf"
+
+[tool.pytest.ini_options]
+# Only `tests/` is collected: `packet/acceptance.py` and `verify.py` are scripts, not test modules.
+testpaths = ["tests"]
 
 [tool.mypy]
 python_version = "3.12"
