@@ -15,7 +15,6 @@ from __future__ import annotations
 
 import io
 import json
-import re
 from pathlib import Path
 
 from reportlab import rl_config
@@ -31,6 +30,7 @@ from . import schema  # noqa: E402
 from .generators import ach, govid, t1040, urla_a, urla_b, veh, w2  # noqa: E402
 from .generators import stmt as STMT  # noqa: E402
 from .manifest import RecordingCanvas  # noqa: E402
+from .pdfutil import strip_default_helvetica  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 OUT_PDF = REPO / "packet.pdf"
@@ -72,43 +72,6 @@ def _render_drawables(assembly, bases):
     return buf.getvalue(), rc
 
 
-# reportlab emits an empty default-font (Helvetica) preamble at each page start; strip it so only the
-# embedded-subset Inter survives (font hygiene -- mirrors the statement generator).
-_HELV_PREAMBLE = re.compile(rb"BT\s*/F1\s+12\s+Tf\s+14\.4\s+TL\s*ET")
-
-
-def _strip_default_helvetica(writer) -> None:
-    from pypdf.generic import DecodedStreamObject, NullObject
-
-    for page in writer.pages:
-        res = page.get("/Resources")
-        res = res.get_object() if res is not None else None
-        fonts = res.get("/Font").get_object() if (res is not None and "/Font" in res) else None
-        if fonts is not None and "/F1" in fonts:
-            del fonts["/F1"]
-        contents = page.get_contents()
-        if contents is None:
-            continue
-        data = contents.get_data()
-        new = _HELV_PREAMBLE.sub(b"", data)
-        if new != data:
-            obj = DecodedStreamObject()
-            obj.set_data(new)
-            page.replace_contents(obj)
-    for idx, obj in enumerate(writer._objects):
-        o = obj.get_object() if obj is not None else None
-        try:
-            is_helv = (
-                o is not None
-                and o.get("/Type") == "/Font"
-                and "Helvetica" in str(o.get("/BaseFont", ""))
-            )
-        except AttributeError:
-            is_helv = False
-        if is_helv:
-            writer._objects[idx] = NullObject()
-
-
 def _assemble(form_pdf: bytes, assembly, bases) -> bytes:
     """Splice the frozen STMT pages into the drawable pages at the STMT slot; finalize deterministically."""
     from pypdf import PdfReader, PdfWriter
@@ -128,7 +91,7 @@ def _assemble(form_pdf: bytes, assembly, bases) -> bytes:
     for p in form_pages[stmt_base:]:
         writer.add_page(p)
 
-    _strip_default_helvetica(writer)
+    strip_default_helvetica(writer)
     creator = "Resecta Sample Packet Generator"
     writer.add_metadata(
         {

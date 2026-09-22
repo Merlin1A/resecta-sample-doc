@@ -58,6 +58,8 @@ def _have_fitz():
 # deterministic finalize (shared) -- pinned metadata + fixed /ID
 # --------------------------------------------------------------------------------------------------
 def _finalize(pdf: bytes, title: str, doc_id: bytes) -> bytes:
+    # Deliberately no `pdfutil.strip_default_helvetica` here: the variants are rasters or rotated
+    # copies whose bytes the manifest pins; applying the strip would change every variant's bytes.
     from pypdf import PdfReader, PdfWriter
     from pypdf.generic import ArrayObject, ByteStringObject
 

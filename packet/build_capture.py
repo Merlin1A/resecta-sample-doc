@@ -11,7 +11,7 @@ on disk is still byte-identical. The `build(assembly=..., write=False)` route wo
 as written in any case: `build()` hardcodes `OCC.BY_EXHIBIT` for its registered-vs-drawn assert
 (capture occurrences live in `CAPTURE_BY_EXHIBIT`) and `_assemble()` hardcodes the STMT splice plus
 the Hartwell `/Title` metadata. What IS genuinely shared is imported, not forked:
-`build_packet._strip_default_helvetica`, the `_render_drawables` pattern, and the determinism recipe
+`pdfutil.strip_default_helvetica`, the `_render_drawables` pattern, and the determinism recipe
 (`rl_config.invariant` + pinned metadata + a fixed document `/ID`).
 
 Final page order (0-indexed, matching PageDetectionResult.pageIndex):
@@ -51,6 +51,7 @@ from . import schema  # noqa: E402
 from . import variants as V  # noqa: E402
 from .generators import court, forms, hr, mail, medical  # noqa: E402
 from .manifest import RecordingCanvas  # noqa: E402
+from .pdfutil import strip_default_helvetica  # noqa: E402
 
 REPO = Path(__file__).resolve().parent.parent
 PACKET_PDF = REPO / "packet.pdf"
@@ -130,7 +131,7 @@ def _assemble(form_pdf: bytes, packet_pdf: bytes) -> bytes:
     for p in drawn.pages:
         writer.add_page(p)
 
-    B._strip_default_helvetica(writer)
+    strip_default_helvetica(writer)
     creator = "Resecta Sample Packet Generator (capture master)"
     writer.add_metadata(
         {
