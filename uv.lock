@@ -1542,10 +1542,10 @@ dev = [
 harness = [
     { name = "albumentations", specifier = "==2.0.8" },
     { name = "augraphy", specifier = "==8.2.6" },
-    { name = "numpy", specifier = ">=2" },
-    { name = "opencv-python-headless", specifier = ">=5,<6" },
+    { name = "numpy", specifier = "==2.5.3" },
+    { name = "opencv-python-headless", specifier = "==5.0.0.93" },
     { name = "pdfplumber" },
-    { name = "pypdfium2" },
+    { name = "pypdfium2", specifier = "==5.13.0" },
 ]
 
 [[package]]

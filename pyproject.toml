@@ -23,13 +23,16 @@ dev = [
 ]
 # Harness tooling for the oracle / registration legs (tools/verify_oracle.py scan, tools/register_capture.py);
 # opt in with `uv sync --group harness`. Not needed to build or verify the packet itself.
+# The three members the registration tool records in `run.json` `tool_versions` are pinned to the
+# versions of record so a fresh sync reproduces them (numpy is also a runtime dependency: its pin
+# equals the lock's runtime resolution).
 harness = [
-    "opencv-python-headless>=5,<6",
-    "numpy>=2",
+    "opencv-python-headless==5.0.0.93",
+    "numpy==2.5.3",
     "augraphy==8.2.6",
     "albumentations==2.0.8",
     "pdfplumber",
-    "pypdfium2",
+    "pypdfium2==5.13.0",
 ]
 
 [tool.ruff]
