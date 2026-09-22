@@ -5,9 +5,10 @@ coordinate space where applicable.
   scan-sim       packet rasterized at 150 DPI, image-only (no text layer) -> the
                  engine takes the OCR leg. Ground truth bboxes are resolution-independent (unchanged),
                  narrowed to leg ["ocr"].
-  rotate-trigger every page /Rotate 90 -- a deliberate TRIGGER for the open rotated-coordinate P0
-                 (a trigger, NOT a guard): ground truth is transformed to the rotated display space,
-                 so it FAILS against the current engine until that fix lands.
+  rotate-trigger every page /Rotate 90 -- the rotated-coordinate trigger for the engine's page
+                 reconstruction path (a trigger, NOT a guard): the ground truth transformed into the
+                 rotated display space is the record; the text leg matches it in full and the
+                 rotated OCR leg is a measured cell, not a detection failure.
   degrade        a declarative quality ladder (`_RUNGS`) off the 150-DPI raster, built for BOTH
                  masters (the 12-page packet and the 16-page capture masters): skew 1.5deg / blur /
                  low-DPI 100 / low-DPI 75 / JPEG QF 85 / JPEG QF 70 / seeded noise / bleed-through
@@ -57,6 +58,8 @@ def _have_fitz():
 # deterministic finalize (shared) -- pinned metadata + fixed /ID
 # --------------------------------------------------------------------------------------------------
 def _finalize(pdf: bytes, title: str, doc_id: bytes) -> bytes:
+    # Deliberately no `pdfutil.strip_default_helvetica` here: the variants are rasters or rotated
+    # copies whose bytes the manifest pins; applying the strip would change every variant's bytes.
     from pypdf import PdfReader, PdfWriter
     from pypdf.generic import ArrayObject, ByteStringObject
 
@@ -145,7 +148,7 @@ def scan_sim(
 
 
 # --------------------------------------------------------------------------------------------------
-# rotate-trigger (/Rotate 90; transformed ground truth; FAILS until the engine rotated-coord fix)
+# rotate-trigger (/Rotate N; ground truth transformed into the rotated display space = the record)
 # --------------------------------------------------------------------------------------------------
 def _rotate_bbox(b, degrees: int):
     """Degrees-aware GT transform into the /Rotate display space (C12-72).
@@ -167,9 +170,9 @@ def _rotate_bbox(b, degrees: int):
 
 
 _ROTATE_NOTES = {
-    # The 90deg wording is FROZEN (byte-stable committed GT + the T1.4 manifest pin).
-    90: "TRIGGER for the open rotated-coordinate P0; FAILS until the engine "
-    "fix lands. bbox transformed (nx,ny)->(ny,1-nx).",
+    # The note strings reach the emitted variant ground truth only; the manifest pins the PDF bytes.
+    90: "Rotated-coordinate trigger for the engine's page-reconstruction path; the rotated "
+    "display-space ground truth is the record. bbox transformed (nx,ny)->(ny,1-nx).",
     180: "IM-08 rotation leg. /Rotate 180 keeps the axes (no width/height swap); "
     "bbox transformed (nx,ny)->(1-nx,1-ny). Measures only -- F12-04 stays parked.",
     270: "IM-08 rotation leg. /Rotate 270 swaps the axes like 90; "

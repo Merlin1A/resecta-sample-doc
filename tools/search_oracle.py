@@ -256,20 +256,20 @@ def extract_pymupdf(pdf: Path) -> list[str]:
     return [p.get_text() for p in doc.pages()]
 
 
+def _run_tool(cmd: list[str], timeout: int = 120) -> str:
+    """stdout of an external tool; a missing binary, a timeout or a non-zero exit ends the run."""
+    try:
+        return subprocess.run(
+            cmd, capture_output=True, text=True, check=True, timeout=timeout
+        ).stdout
+    except (FileNotFoundError, subprocess.TimeoutExpired, subprocess.CalledProcessError) as e:
+        sys.exit(f"{cmd[0]} unavailable or failed: {e}")
+
+
 def extract_pdftotext(pdf: Path) -> list[str]:
-    out = subprocess.run(
-        ["pdftotext", "-raw", "-enc", "UTF-8", "-nopgbrk", str(pdf), "-"],
-        capture_output=True,
-        text=True,
-        check=True,
-    ).stdout
+    out = _run_tool(["pdftotext", "-raw", "-enc", "UTF-8", "-nopgbrk", str(pdf), "-"])
     # -nopgbrk drops the \f page breaks; re-run WITH breaks for page split.
-    out = subprocess.run(
-        ["pdftotext", "-raw", "-enc", "UTF-8", str(pdf), "-"],
-        capture_output=True,
-        text=True,
-        check=True,
-    ).stdout
+    out = _run_tool(["pdftotext", "-raw", "-enc", "UTF-8", str(pdf), "-"])
     pages = out.split("\f")
     if pages and pages[-1] == "":
         pages.pop()

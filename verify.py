@@ -88,12 +88,22 @@ def norm(s: str) -> str:
     return re.sub(r"\s+", " ", s).strip()
 
 
+def run_tool(cmd: list[str], timeout: int = 120) -> str:
+    """stdout of an external tool; a missing binary, a timeout or a non-zero exit ends the run."""
+    try:
+        return subprocess.run(
+            cmd, capture_output=True, text=True, check=True, timeout=timeout
+        ).stdout
+    except (FileNotFoundError, subprocess.TimeoutExpired, subprocess.CalledProcessError) as e:
+        sys.exit(f"{cmd[0]} unavailable or failed: {e}")
+
+
 def pdftotext(page: int | None = None) -> str:
     cmd = ["pdftotext"]
     if page:
         cmd += ["-f", str(page), "-l", str(page)]
     cmd += [str(PDF), "-"]
-    return subprocess.run(cmd, capture_output=True, text=True, check=True).stdout
+    return run_tool(cmd)
 
 
 # ---- gather ----
@@ -190,7 +200,7 @@ check(not wm, "3. watermark on every page", f"missing on {wm}" if wm else "all 3
 
 # =================================================================================================
 # 4. fonts: only OFL Inter, embedded + subset
-pf = subprocess.run(["pdffonts", str(PDF)], capture_output=True, text=True, check=True).stdout
+pf = run_tool(["pdffonts", str(PDF)])
 font_lines = [ln for ln in pf.splitlines()[2:] if ln.strip()]
 bad_fonts = []
 for ln in font_lines:

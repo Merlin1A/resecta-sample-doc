@@ -25,6 +25,7 @@ from reportlab.pdfbase.ttfonts import TTFont  # noqa: E402
 from reportlab.pdfgen import canvas  # noqa: E402
 
 import statement_data as S  # noqa: E402
+from packet.pdfutil import strip_default_helvetica  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 FONT_DIR = HERE / "fonts"
@@ -387,58 +388,13 @@ def _render() -> bytes:
     return buf.getvalue()
 
 
-import re  # noqa: E402
-
-# reportlab emits an empty default-font preamble (Helvetica) at each page start; no glyphs are drawn
-# with it, but it declares Helvetica in the page resources. Strip it so ONLY Inter remains (#4).
-_HELV_PREAMBLE = re.compile(rb"BT\s*/F1\s+12\s+Tf\s+14\.4\s+TL\s*ET")
-
-
-def _strip_default_helvetica(writer) -> None:
-    from pypdf.generic import DecodedStreamObject
-
-    for page in writer.pages:
-        res = page.get("/Resources")
-        res = res.get_object() if res is not None else None
-        fonts = res.get("/Font").get_object() if (res is not None and "/Font" in res) else None
-        if fonts is not None and "/F1" in fonts:
-            del fonts["/F1"]
-        contents = page.get_contents()
-        if contents is None:
-            continue
-        data = contents.get_data()
-        new = _HELV_PREAMBLE.sub(b"", data)
-        if new != data:
-            obj = DecodedStreamObject()
-            obj.set_data(new)
-            page.replace_contents(obj)
-    # The default font is now unreferenced by any page, but reportlab's orphaned Helvetica font object
-    # still lives in the cloned object list (verified: object 6, /BaseFont /Helvetica). Null it so no
-    # unembedded base-14 font reference survives in the output -- the acceptance suite asserts its
-    # absence, since unembedded font references aren't allowed in the shipped PDF.
-    from pypdf.generic import NullObject
-
-    for idx, obj in enumerate(writer._objects):
-        o = obj.get_object() if obj is not None else None
-        try:
-            is_helv = (
-                o is not None
-                and o.get("/Type") == "/Font"
-                and "Helvetica" in str(o.get("/BaseFont", ""))
-            )
-        except AttributeError:
-            is_helv = False
-        if is_helv:
-            writer._objects[idx] = NullObject()
-
-
 def _finalize(pdf: bytes) -> bytes:
     from pypdf import PdfReader, PdfWriter
     from pypdf.generic import ArrayObject, ByteStringObject
 
     reader = PdfReader(io.BytesIO(pdf))
     writer = PdfWriter(clone_from=reader)
-    _strip_default_helvetica(writer)
+    strip_default_helvetica(writer)
     creator = f"{S.BANK_NAME} Statement Services"
     writer.add_metadata(
         {

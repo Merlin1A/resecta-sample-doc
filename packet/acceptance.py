@@ -639,9 +639,10 @@ def run():
     check(
         len(gt["carried_stmt"]) == 20, "11a. 20 carried STMT classes", str(len(gt["carried_stmt"]))
     )
+    # the order is the registry's own (`build_packet.ASSEMBLY`); the occurrence-id literals elsewhere
+    # in this file are relationship checks between specific rows and stay literal
     check(
-        [e["name"] for e in gt["exhibits"]]
-        == ["urla_b", "urla_a", "stmt", "t1040", "ach", "w2", "govid", "veh"],
+        [e["name"] for e in gt["exhibits"]] == [name for name, *_ in B.ASSEMBLY],
         "11b. exhibit assembly order",
     )
     # schema 2: every row carries a context class (the packet draws no G8 name-context slot --
@@ -695,6 +696,54 @@ def run():
         check(rrots == {90}, "12c. rotate-trigger /Rotate 90 on all pages", str(rrots))
         rprob = schema.validate_ground_truth(rt_gt["occurrences"])
         check(not rprob, "12d. rotate-trigger transformed ground truth valid", f"{rprob[:2]}")
+        # t23's 180/270 files (committed): the closed-form identity against the packet ground truth --
+        # the 180 set is two 90 applications of the 0 set, the 270 set is three, for every occurrence
+        # and span, all inside the unit square, schema-valid. A real check on the transform.
+        import json as _json
+
+        t23_bad = []
+        for deg, n_apply in ((180, 2), (270, 3)):
+            path = B.REPO / "t23" / f"packet-rotate-{deg}-ground-truth.json"
+            if not path.is_file():
+                t23_bad.append(f"{deg}: missing {path.name}")
+                continue
+            tgt = _json.loads(path.read_text(encoding="ascii"))
+            if tgt.get("variant", {}).get("rotate_degrees") != deg:
+                t23_bad.append(f"{deg}: variant block {tgt.get('variant')}")
+            tprob = schema.validate_ground_truth(tgt["occurrences"])
+            if tprob:
+                t23_bad.append(f"{deg}: schema {tprob[:1]}")
+
+            def _apply(b, n=n_apply):
+                for _ in range(n):
+                    b = V._rotate_bbox(b, 90)
+                return b
+
+            def _same(a, b):
+                return len(a) == len(b) and all(
+                    abs(x - y) <= 1e-6 for x, y in zip(a, b, strict=True)
+                )
+
+            expected = {
+                r["id"]: (_apply(r["bbox"]), [_apply(s["bbox"]) for s in r["spans"]])
+                for r in gt["occurrences"]
+            }
+            got = {
+                r["id"]: (r["bbox"], [s["bbox"] for s in r["spans"]]) for r in tgt["occurrences"]
+            }
+            if set(got) != set(expected):
+                t23_bad.append(f"{deg}: ids {sorted(set(got) ^ set(expected))[:3]}")
+            for oid in sorted(set(got) & set(expected)):
+                (eb, es), (gb, gs) = expected[oid], got[oid]
+                if not all(0.0 <= v <= 1.0 for v in gb):
+                    t23_bad.append(f"{deg}: {oid} outside the unit square {gb}")
+                if not (_same(eb, gb) and len(es) == len(gs) and all(map(_same, es, gs))):
+                    t23_bad.append(f"{deg}: {oid} expected {eb} got {gb}")
+        check(
+            not t23_bad,
+            "12d2. t23 rotate-180/270 ground truth = the 90-degree composition of the packet's (closed form)",
+            f"{t23_bad[:2]}",
+        )
         # degrade ladder: every _RUNGS row over the packet -> (pdf, ground truth), non-trivial
         check(
             set(o["degrade"]) == set(V.RUNG_NAMES)
