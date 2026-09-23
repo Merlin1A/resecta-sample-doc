@@ -40,7 +40,9 @@ verdict-driving status. A benign /Info (Producer/dates/creator only, no term mat
 note, never a hit.
 
 Usage:
-  python tools/verify_oracle.py scan --cells <run>/cells --docs-root <sd-root>
+  python tools/verify_oracle.py scan --cells <run>/cells --docs-root <sd-root> \
+      [--jobs N] [--jobs-cells M] [--cache-dir DIR | --no-cache] [--cache-max-gb G] \\
+      [--keep-work] [--dpi 400]
   # then the printed engine-test Vision command, then:
   python tools/verify_oracle.py finalize --cells <run>/cells [--keep-renders]
 
@@ -53,6 +55,19 @@ Usage:
   # PB-86 hidden-text re-exposure analysis over H2.2 section-E cells (M12-11):
   python tools/verify_oracle.py pb86 --cells <run>/cells
 
+  # the cross-run tool-output cache (page renders + Tesseract text; never verdicts):
+  python tools/verify_oracle.py cache-stats --cache-dir DIR
+  python tools/verify_oracle.py cache-prune --cache-dir DIR [--max-gb G]
+
+scan and calibrate run every DISTINCT (output.pdf, page) once — the two renders and the three
+Tesseract recognitions — through a process pool of --jobs workers (default: every core), then
+every cell's classification-bearing legs through the same pool; the records are byte-identical to
+a serial run. --cache-dir (or RESECTA_ORACLE_CACHE) keeps the renders and the recognised text
+across runs, keyed by input sha256 + argv + tool version (+ traineddata sha for OCR); --no-cache
+turns it off (the pages then live in <cells>/_pages/ until finalize removes them). The per-cell
+corpora (qdf, mu-clean, revision slices, extracted images) are deleted at the end of each cell
+unless --keep-work; the partial's path fields are recorded before that.
+
 Runs with the sd worktree venv (pymupdf + numpy + cv2 present); external tools per the D12-20
 inventory (qpdf, mutool, poppler, tesseract, exiftool). Every run records tool versions.
 """
@@ -61,13 +76,22 @@ from __future__ import annotations
 
 import argparse
 import base64
+import concurrent.futures
 import contextlib
+import hashlib
 import json
+import multiprocessing
+import os
 import re
+import resource
+import secrets
 import shutil
+import struct
 import subprocess
 import sys
+import time
 import unicodedata
+from collections.abc import Callable, Sequence
 from pathlib import Path
 from typing import Any
 from xml.etree import ElementTree
@@ -93,18 +117,19 @@ STRUCTURE_KEYS = [
 BENIGN_INFO = {"format", "encryption", "producer", "creationDate", "modDate", "creator"}
 
 
-def run(cmd: list[str], timeout: int = 300) -> tuple[int, str, str]:
+def run_raw(cmd: list[str], timeout: int = 300) -> tuple[int, bytes, bytes]:
     try:
         p = subprocess.run(cmd, capture_output=True, timeout=timeout, check=False)
-        return (
-            p.returncode,
-            p.stdout.decode("utf-8", "replace"),
-            p.stderr.decode("utf-8", "replace"),
-        )
+        return p.returncode, p.stdout, p.stderr
     except FileNotFoundError:
-        return 127, "", f"not found: {cmd[0]}"
+        return 127, b"", f"not found: {cmd[0]}".encode()
     except subprocess.TimeoutExpired:
-        return 124, "", f"timeout: {' '.join(cmd[:3])}"
+        return 124, b"", f"timeout: {' '.join(cmd[:3])}".encode()
+
+
+def run(cmd: list[str], timeout: int = 300) -> tuple[int, str, str]:
+    rc, out, err = run_raw(cmd, timeout)
+    return rc, out.decode("utf-8", "replace"), err.decode("utf-8", "replace")
 
 
 def run_bytes(cmd: list[str], timeout: int = 300) -> bytes:
@@ -164,8 +189,6 @@ def fuzzy_find(term: str, text: str) -> bool:
 
 
 def sh256(path: Path) -> str:
-    import hashlib
-
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
@@ -514,15 +537,81 @@ def hex_string(term: str) -> bytes:
     return term.encode("latin-1", "replace").hex().encode()
 
 
+# A PDF literal string operand: `(` … `)` with `\x` escapes. This is the unrolled-loop form of
+# `\(((?:[^()\\]|\\.)*)\)` — the same language (the plain-char and escape alternatives are
+# disjoint, so the tokenisation is unique and both engines try the same candidate ends in the same
+# order) — but it does not keep per-iteration backtracking state over the megabyte paren-free runs
+# a `mutool clean -d` corpus of decoded raster contains (3.5 GB / 2.9 s → 72 MB / 0.7 s on 51 MB).
+# tests/test_verify_oracle.py holds the old form and proves span- and output-equality.
+TJ_OPERAND_RE = re.compile(rb"\(([^()\\]*(?:\\.[^()\\]*)*)\)")
+
+
+def _tj_operands(qdf_bytes: bytes, segment: int | None = None):
+    """The string operands of Tj/TJ/'/\" show ops, unescaped, as latin-1 text, in order. With
+    `segment`, an operand longer than that many bytes is yielded in pieces split only where the
+    four preceding bytes hold no backslash (an escape is at most four bytes long), so unescaping
+    the pieces equals unescaping the whole; a decoded raster can be one operand tens of MB long."""
+    for m in TJ_OPERAND_RE.finditer(qdf_bytes):
+        start, end = m.start(1), m.end(1)
+        while start < end:
+            stop = end
+            if segment is not None and end - start > segment:
+                stop = start + segment
+                while stop < end and b"\\" in qdf_bytes[max(start, stop - 4) : stop]:
+                    stop += 1
+            raw = qdf_bytes[start:stop]
+            raw = re.sub(rb"\\([0-7]{1,3})", lambda g: bytes([int(g.group(1), 8) & 0xFF]), raw)
+            raw = raw.replace(b"\\(", b"(").replace(b"\\)", b")").replace(b"\\\\", b"\\")
+            yield raw.decode("latin-1", "replace")
+            start = stop
+
+
 def tj_reassembled(qdf_bytes: bytes) -> str:
     """Concatenate string operands of Tj/TJ/'/\" show ops, kern numbers stripped."""
-    text_parts: list[str] = []
-    for m in re.finditer(rb"\(((?:[^()\\]|\\.)*)\)", qdf_bytes):
-        raw = m.group(1)
-        raw = re.sub(rb"\\([0-7]{1,3})", lambda g: bytes([int(g.group(1), 8) & 0xFF]), raw)
-        raw = raw.replace(b"\\(", b"(").replace(b"\\)", b")").replace(b"\\\\", b"\\")
-        text_parts.append(raw.decode("latin-1", "replace"))
-    return "".join(text_parts)
+    return "".join(_tj_operands(qdf_bytes))
+
+
+TJ_CHUNK_CHARS = 4_000_000
+
+
+def tj_terms_present(
+    qdf_bytes: bytes, folded_terms: list[str], chunk_chars: int = TJ_CHUNK_CHARS
+) -> set[str]:
+    """Which folded terms occur in fold_nospace(tj_reassembled(qdf_bytes)) — computed without
+    materialising that string. The operands are latin-1 text, on which NFC is the identity and
+    casefold / whitespace removal act per code point, so folding chunk by chunk concatenates to
+    the whole fold; a term straddling two chunks is caught in the overlap window (the last and
+    first max-term-length - 1 folded characters of the two chunks). Presence per term is
+    therefore exactly that of the whole-string test."""
+    terms = [t for t in folded_terms if t]
+    if not terms:
+        return set()
+    window = max(len(t) for t in terms) - 1
+    present: set[str] = set()
+    pending = list(terms)
+    buf: list[str] = []
+    size = 0
+    tail = ""
+
+    def flush() -> None:
+        nonlocal buf, size, tail, pending
+        folded = fold_nospace("".join(buf))
+        buf, size = [], 0
+        joint = tail + folded[:window] if window else ""
+        pending = [t for t in pending if t not in folded and t not in joint]
+        present.update(set(terms) - set(pending))
+        tail = (tail + folded)[-window:] if window else ""  # rolling: a term may span chunks
+
+    for piece in _tj_operands(qdf_bytes, chunk_chars):
+        buf.append(piece)
+        size += len(piece)
+        if size >= chunk_chars:
+            flush()
+            if not pending:
+                return present
+    if buf:
+        flush()
+    return present
 
 
 def o2_bytes(cell: Cell | CalCell, o0: dict, scope: dict[str, str], workdir: Path) -> list[dict]:
@@ -546,8 +635,11 @@ def o2_bytes(cell: Cell | CalCell, o0: dict, scope: dict[str, str], workdir: Pat
             corpora[f"revision-{i}"] = (
                 rev_qdf.read_bytes() if rc == 0 and rev_qdf.exists() else raw[:off]
             )
-    tj_texts = {
-        name: fold_nospace(tj_reassembled(data)) for name, data in corpora.items() if name != "raw"
+    folded_terms = [fold_nospace(t) for t in cell.terms]
+    tj_present = {
+        name: tj_terms_present(data, folded_terms)
+        for name, data in corpora.items()
+        if name != "raw"
     }
 
     for term in cell.terms:
@@ -565,8 +657,8 @@ def o2_bytes(cell: Cell | CalCell, o0: dict, scope: dict[str, str], workdir: Pat
                 ):
                     found.append(name)
                     break
-        for name, text in tj_texts.items():
-            if fold_nospace(term) and fold_nospace(term) in text:
+        for name, present in tj_present.items():
+            if fold_nospace(term) and fold_nospace(term) in present:
                 found.append(f"{name}-tj")
         if found:
             hits.append(
@@ -627,46 +719,26 @@ def o2_bytes(cell: Cell | CalCell, o0: dict, scope: dict[str, str], workdir: Pat
 # ---------------------------------------------------------------- O3
 
 
-def o3_tesseract(cell: Cell | CalCell, render_dir: Path) -> dict:
-    """Per page: union text over PSM 6/11/12 + PSM-6 TSV word boxes."""
+def _read_text(path: Path | None) -> str:
+    return (
+        path.read_bytes().decode("utf-8", "replace") if path is not None and path.is_file() else ""
+    )
+
+
+def o3_tesseract(
+    cell: Cell | CalCell, render_dir: Path, ocr_files: dict[int, dict[str, Path | None]]
+) -> dict:
+    """Per page, ascending: union text over PSM 6/11/12 + PSM-6 TSV word boxes, read from the
+    text the page phase recognised (PSM 6 txt+tsv by file renderers, PSM 11/12 stdout)."""
     pages: dict[int, dict] = {}
     for png in sorted(render_dir.glob("pp-*.png")):
         m = re.search(r"pp-0*(\d+)\.png$", png.name)
         if not m:
             continue
         pageno = int(m.group(1)) - 1
-        texts = []
-        for psm in ("6", "11", "12"):
-            _, out, _ = run(
-                [
-                    "tesseract",
-                    str(png),
-                    "stdout",
-                    "--oem",
-                    "1",
-                    "--psm",
-                    psm,
-                    "-c",
-                    "preserve_interword_spaces=1",
-                ],
-                timeout=600,
-            )
-            texts.append(out)
-        _, tsv, _ = run(
-            [
-                "tesseract",
-                str(png),
-                "stdout",
-                "--oem",
-                "1",
-                "--psm",
-                "6",
-                "-c",
-                "preserve_interword_spaces=1",
-                "tsv",
-            ],
-            timeout=600,
-        )
+        files = ocr_files.get(pageno, {})
+        texts = [_read_text(files.get(k)) for k in ("psm6_txt", "psm11", "psm12")]
+        tsv = _read_text(files.get("psm6_tsv"))
         words: list[tuple[str, tuple[float, float, float, float]]] = []
         for line in tsv.splitlines()[1:]:
             cols = line.split("\t")
@@ -874,7 +946,9 @@ def tool_versions() -> dict[str, str]:
         ("exiftool", ["exiftool", "-ver"], False),
     ):
         _, out, err = run(cmd, timeout=30)
-        line = (err if use_err else out).strip().splitlines()
+        primary, secondary = (err, out) if use_err else (out, err)
+        # Tesseract 5 prints --version to stdout; the other tools where the table says.
+        line = primary.strip().splitlines() or secondary.strip().splitlines()
         vs[name] = line[0] if line else "?"
     return vs
 
@@ -882,88 +956,724 @@ def tool_versions() -> dict[str, str]:
 # ---------------------------------------------------------------- phases
 
 
-def phase_scan(cells_dir: Path, docs_root: Path | None, dpi: int) -> None:
+# ---------------------------------------------------------------- the parallel engine
+
+# scan and calibrate share one engine. Phase A runs every DISTINCT (output.pdf, page) once: the
+# pdftoppm render at --dpi (gray PNG), the mutool render at 300 DPI (scan only) and the three
+# Tesseract recognitions (PSM 6 with the txt + tsv file renderers = ONE recognition, PSM 11,
+# PSM 12), each step through the content-addressed cache or, without one, into the run-local
+# `_pages/` dir. Phase B runs every cell: `render/` becomes symlinks to those page files, the
+# `vision-in/` links are made, and the classification-bearing legs (term scope, O0-O2, O3 from
+# the recognised text, O4-O6) run and write the cell's partial. Both phases run in a spawn-context
+# process pool of --jobs workers; every record is assembled per cell in ascending page order, so
+# the output is byte-identical to the serial engine's (tools/oracle_parity.py proves it).
+
+CACHE_VERSION = "v1"
+CACHE_STEPS = ("render_pp", "render_mu", "ocr_psm6", "ocr_psm11", "ocr_psm12")
+DEFAULT_CACHE_MAX_GB = 20.0
+MU_DPI = "300"
+# A cell-phase worker holds the cell's corpora (raw + qdf + mu-clean, up to ≈ 400 MB each) and
+# its renders; the measured peak RSS per worker is 1.13 GiB on the 16-page JPEG-passthrough
+# documents (the byte leg streams its term-presence test, so the folded corpus is never held).
+# The pre-registered rule: a peak above 1.2 GiB caps the cell phase at ⌊8 GiB ÷ peak⌋ workers so
+# ten such workers cannot exceed the budget; at or below the line every core is used.
+# --jobs-cells overrides either way. Units: GiB (ru_maxrss bytes ÷ 2**30).
+PHASE_B_WORKER_PEAK_GB = 1.13
+PHASE_B_CAP_ABOVE_GB = 1.2
+PHASE_B_BUDGET_GB = 8.0
+TESSDATA_LANG = "eng.traineddata"
+
+
+def cache_key(descriptor: dict) -> str:
+    """sha256 of the canonical JSON of a step descriptor."""
+    canonical = json.dumps(descriptor, sort_keys=True, separators=(",", ":"), ensure_ascii=True)
+    return hashlib.sha256(canonical.encode()).hexdigest()
+
+
+class OracleCache:
+    """Cross-run store of expensive tool OUTPUTS (page renders, Tesseract text) — never verdicts.
+
+    Layout `<root>/v1/<step>/<key[:2]>/<key>/` = `meta.json` + the produced files; `key` = sha256
+    of the canonical descriptor {step, input sha256, page, argv template with <IN>/<OUT>
+    placeholders, tool version line, traineddata sha256 for OCR} — any argv or version change is
+    a new key by construction. Entries are produced into a tmp dir and renamed into place (atomic
+    on APFS; a loser whose target now exists deletes its tmp dir); readers accept only dirs that
+    carry meta.json. A hit touches meta.json (the LRU clock; atime is unreliable); prune() drops
+    the oldest entries first down to a byte cap."""
+
+    def __init__(self, root: Path):
+        self.root = root
+        self.hits: dict[str, int] = dict.fromkeys(CACHE_STEPS, 0)
+        self.misses: dict[str, int] = dict.fromkeys(CACHE_STEPS, 0)
+
+    def entry_dir(self, step: str, key: str) -> Path:
+        return self.root / CACHE_VERSION / step / key[:2] / key
+
+    def get_or_produce(
+        self, step: str, descriptor: dict, produce: Callable[[Path], bool]
+    ) -> tuple[Path | None, bool]:
+        """(entry dir, hit). `produce(out_dir)` writes the step's files there and returns
+        whether it succeeded; nothing is stored for a failure."""
+        key = cache_key(descriptor)
+        entry = self.entry_dir(step, key)
+        meta = entry / "meta.json"
+        if meta.is_file():
+            with contextlib.suppress(OSError):
+                os.utime(meta)
+            self.hits[step] = self.hits.get(step, 0) + 1
+            return entry, True
+        self.misses[step] = self.misses.get(step, 0) + 1
+        entry.parent.mkdir(parents=True, exist_ok=True)
+        tmp = entry.parent / f"{key}.tmp-{os.getpid()}-{secrets.token_hex(4)}"
+        tmp.mkdir()
+        try:
+            if not produce(tmp):
+                shutil.rmtree(tmp, ignore_errors=True)
+                return None, False
+            size = sum(p.stat().st_size for p in tmp.iterdir() if p.is_file())
+            record = {
+                "step": step,
+                "key": key,
+                "descriptor": descriptor,
+                "created": time.time(),
+                "bytes": size,
+            }
+            (tmp / "meta.json").write_text(json.dumps(record, indent=1, sort_keys=True))
+            try:
+                tmp.rename(entry)
+            except OSError:
+                if not meta.is_file():
+                    raise
+                shutil.rmtree(tmp, ignore_errors=True)  # a concurrent producer won the rename
+        except BaseException:
+            shutil.rmtree(tmp, ignore_errors=True)
+            raise
+        return entry, False
+
+    def entries(self) -> list[tuple[Path, float, int]]:
+        """(entry dir, meta mtime, bytes of the produced files) for every complete entry."""
+        rows: list[tuple[Path, float, int]] = []
+        for meta in self.root.glob(f"{CACHE_VERSION}/*/*/*/meta.json"):
+            entry = meta.parent
+            size = sum(
+                p.stat().st_size for p in entry.iterdir() if p.is_file() and p.name != "meta.json"
+            )
+            rows.append((entry, meta.stat().st_mtime, size))
+        return rows
+
+    def stats(self) -> dict:
+        rows = self.entries()
+        by_step: dict[str, int] = {}
+        for entry, _mtime, _size in rows:
+            step = entry.parent.parent.name
+            by_step[step] = by_step.get(step, 0) + 1
+        return {
+            "entries": len(rows),
+            "bytes": sum(size for _entry, _mtime, size in rows),
+            "by_step": dict(sorted(by_step.items())),
+        }
+
+    def prune(self, max_bytes: int) -> dict:
+        """LRU by meta mtime: remove the oldest entries until the cache fits max_bytes; also
+        drops tmp dirs older than a day (a crashed producer)."""
+        rows = sorted(self.entries(), key=lambda r: (r[1], str(r[0])))
+        total = sum(size for _entry, _mtime, size in rows)
+        removed = {"entries": 0, "bytes": 0}
+        for entry, _mtime, size in rows:
+            if total <= max_bytes:
+                break
+            shutil.rmtree(entry, ignore_errors=True)
+            total -= size
+            removed["entries"] += 1
+            removed["bytes"] += size
+        for tmp in self.root.glob(f"{CACHE_VERSION}/*/*/*.tmp-*"):
+            with contextlib.suppress(OSError):
+                if time.time() - tmp.stat().st_mtime > 86_400:
+                    shutil.rmtree(tmp, ignore_errors=True)
+        return removed
+
+
+def traineddata_sha256() -> str:
+    """sha256 of Tesseract's eng.traineddata (part of every OCR key); "?" if unlocatable."""
+    _, out, err = run(["tesseract", "--list-langs"], timeout=30)
+    m = re.search(r'"([^"]+)"', out + err)
+    if m:
+        td = Path(m.group(1)) / TESSDATA_LANG
+        if td.is_file():
+            return sh256(td)
+    return "?"
+
+
+def pdf_page_counts(pdf: Path) -> tuple[int | None, int | None]:
+    """(poppler's page count via pdfinfo, mupdf's via pymupdf); None where a reader fails.
+    Single-page rendering is used only when both agree — otherwise the whole document is
+    rendered, exactly as the serial engine did."""
+    _, out, _ = run(["pdfinfo", str(pdf)], timeout=120)
+    m = re.search(r"^Pages:\s+(\d+)\s*$", out, re.M)
+    poppler = int(m.group(1)) if m else None
+    mupdf: int | None = None
+    with contextlib.suppress(Exception):
+        import pymupdf
+
+        doc = pymupdf.open(pdf)
+        mupdf = int(doc.page_count)
+        doc.close()
+    return poppler, mupdf
+
+
+def _argv_render_pp(dpi: int, page: int) -> list[str]:
+    p = str(page)
+    return ["pdftoppm", "-r", str(dpi), "-gray", "-png", "-f", p, "-l", p, "<IN>", "<OUT>/pp"]
+
+
+def _argv_render_mu(page: int) -> list[str]:
+    return ["mutool", "draw", "-q", "-r", MU_DPI, "-o", "<OUT>/mu-%d.png", "<IN>", str(page)]
+
+
+def _argv_ocr(psm: str) -> list[str]:
+    out = "<OUT>/psm6" if psm == "6" else "stdout"
+    argv = [
+        "tesseract",
+        "<IN>",
+        out,
+        "--oem",
+        "1",
+        "--psm",
+        psm,
+        "-c",
+        "preserve_interword_spaces=1",
+    ]
+    return [*argv, "txt", "tsv"] if psm == "6" else argv
+
+
+def _fill(template: list[str], inp: Path, out: Path) -> list[str]:
+    return [a.replace("<IN>", str(inp)).replace("<OUT>", str(out)) for a in template]
+
+
+def ocr_psm6_files(png: Path, base: Path) -> tuple[Path, Path]:
+    """PSM 6 recognised ONCE with the txt and tsv file renderers: `<base>.txt` / `<base>.tsv`
+    are byte-equal to the two separate `stdout` invocations (proof 0 of the speed-up)."""
+    run(_fill(_argv_ocr("6"), png, base.parent), timeout=600)
+    return Path(f"{base}.txt"), Path(f"{base}.tsv")
+
+
+def _ocr_producer(psm: str, png: Path) -> Callable[[Path], bool]:
+    def produce(out: Path) -> bool:
+        if psm == "6":
+            txt, tsv = ocr_psm6_files(png, out / "psm6")
+            return txt.is_file() and tsv.is_file()
+        rc, stdout, _err = run_raw(_fill(_argv_ocr(psm), png, out), timeout=600)
+        if rc != 0:
+            return False
+        (out / f"psm{psm}.txt").write_bytes(stdout)
+        return True
+
+    return produce
+
+
+def _page_file(out: Path | None, prefix: str, page: int) -> Path | None:
+    if out is None or not out.is_dir():
+        return None
+    pat = re.compile(rf"^{prefix}-0*{page}\.png$")
+    found = sorted(p for p in out.iterdir() if pat.match(p.name))
+    return found[0] if len(found) == 1 else None
+
+
+def _produce_step(
+    cache: OracleCache | None,
+    step: str,
+    descriptor: dict,
+    local: Path,
+    produce: Callable[[Path], bool],
+) -> Path | None:
+    """The dir holding the step's files: a cache entry, or the run-local page dir (a done
+    marker per step makes an interrupted run resumable)."""
+    if cache is not None:
+        entry, _hit = cache.get_or_produce(step, descriptor, produce)
+        return entry
+    local.mkdir(parents=True, exist_ok=True)
+    marker = local / f".{step}.done"
+    if marker.exists():
+        return local
+    if produce(local):
+        marker.touch()
+        return local
+    return None
+
+
+def png_dims(png: Path) -> tuple[int, int] | None:
+    """(width, height) from the IHDR chunk — the numbers cv2 reports, without a decode."""
+    try:
+        with png.open("rb") as f:
+            head = f.read(24)
+    except OSError:
+        return None
+    if len(head) < 24 or head[:8] != b"\x89PNG\r\n\x1a\n" or head[12:16] != b"IHDR":
+        return None
+    w, h = struct.unpack(">II", head[16:24])
+    return (w, h) if w > 0 and h > 0 else None
+
+
+def _maxrss() -> int:
+    return resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
+
+
+def _relink(link: Path, target: Path) -> None:
+    if link.is_symlink() or link.exists():
+        link.unlink()
+    link.symlink_to(target)
+
+
+def _delete_work_files(workdir: Path) -> None:
+    """Drop the per-cell corpora (qdf, mu-clean, revision slices, extracted images); the
+    partial's path strings were recorded before this runs; finalize's cleanup stays idempotent."""
+    for p in workdir.glob("*"):
+        if not (p.name.startswith(("qdf", "mu-clean", "rev")) or p.name == "imgs"):
+            continue
+        if p.is_dir():
+            shutil.rmtree(p, ignore_errors=True)
+        else:
+            p.unlink(missing_ok=True)
+
+
+def _page_task(spec: dict[str, Any]) -> dict[str, Any]:
+    """Phase A: render + recognise one page of one distinct PDF (or, when the page counts
+    disagree, the whole document) through the cache / the run-local page dir."""
+    t0 = time.monotonic()
+    pdf, sha, dpi = Path(spec["pdf"]), str(spec["sha"]), int(spec["dpi"])
+    page: int | None = spec["page"]
+    versions, traineddata = spec["versions"], spec["traineddata"]
+    cache = OracleCache(Path(spec["cache_dir"])) if spec.get("cache_dir") else None
+    local_root = Path(spec["pages_dir"]) / f"{sha}-{dpi}"
+    want_mu = spec["mode"] == "scan"
+    rendered: list[tuple[int, Path | None, Path | None]] = []
+    if page is None:
+        out = local_root / "all"
+        out.mkdir(parents=True, exist_ok=True)
+        if not list(out.glob("pp-*.png")):
+            run(
+                ["pdftoppm", "-r", str(dpi), "-gray", "-png", str(pdf), str(out / "pp")],
+                timeout=900,
+            )
+        if want_mu and not list(out.glob("mu-*.png")):
+            run(
+                ["mutool", "draw", "-q", "-r", MU_DPI, "-o", str(out / "mu-%d.png"), str(pdf)],
+                timeout=900,
+            )
+        for pp_all in sorted(out.glob("pp-*.png")):
+            m = re.search(r"pp-0*(\d+)\.png$", pp_all.name)
+            if m:
+                n = int(m.group(1))
+                rendered.append((n, pp_all, _page_file(out, "mu", n) if want_mu else None))
+    else:
+        local = local_root / f"p{page}"
+        argv_pp = _argv_render_pp(dpi, page)
+        d_pp = {
+            "step": "render_pp",
+            "input_sha256": sha,
+            "page": page,
+            "argv": argv_pp,
+            "versions": {"pdftoppm": versions.get("pdftoppm", "?")},
+        }
+
+        def produce_pp(out: Path) -> bool:
+            run(_fill(argv_pp, pdf, out), timeout=900)
+            return _page_file(out, "pp", page) is not None
+
+        pp = _page_file(_produce_step(cache, "render_pp", d_pp, local, produce_pp), "pp", page)
+        mu: Path | None = None
+        if want_mu:
+            argv_mu = _argv_render_mu(page)
+            d_mu = {
+                "step": "render_mu",
+                "input_sha256": sha,
+                "page": page,
+                "argv": argv_mu,
+                "versions": {"mutool": versions.get("mutool", "?")},
+            }
+
+            def produce_mu(out: Path) -> bool:
+                run(_fill(argv_mu, pdf, out), timeout=900)
+                return _page_file(out, "mu", page) is not None
+
+            mu = _page_file(_produce_step(cache, "render_mu", d_mu, local, produce_mu), "mu", page)
+        rendered.append((page, pp, mu))
+
+    pages: list[dict[str, Any]] = []
+    for n, pp, mu in rendered:
+        rec: dict[str, Any] = {
+            "page": n,
+            "pp": str(pp) if pp else None,
+            "mu": str(mu) if mu else None,
+            "psm6_txt": None,
+            "psm6_tsv": None,
+            "psm11": None,
+            "psm12": None,
+        }
+        if pp is not None:
+            png_sha = sh256(pp)
+            local = local_root / f"p{n}"
+            for psm in ("6", "11", "12"):
+                d_ocr = {
+                    "step": f"ocr_psm{psm}",
+                    "input_sha256": png_sha,
+                    "page": None,
+                    "argv": _argv_ocr(psm),
+                    "versions": {"tesseract": versions.get("tesseract", "?")},
+                    "traineddata_sha256": traineddata,
+                }
+                entry = _produce_step(cache, f"ocr_psm{psm}", d_ocr, local, _ocr_producer(psm, pp))
+                if entry is None:
+                    continue
+                if psm == "6":
+                    rec["psm6_txt"] = str(entry / "psm6.txt")
+                    rec["psm6_tsv"] = str(entry / "psm6.tsv")
+                else:
+                    rec[f"psm{psm}"] = str(entry / f"psm{psm}.txt")
+        pages.append(rec)
+    return {
+        "sha": sha,
+        "pages": pages,
+        "hits": cache.hits if cache else {},
+        "misses": cache.misses if cache else {},
+        "seconds": time.monotonic() - t0,
+        "maxrss": _maxrss(),
+    }
+
+
+def _cell_task(spec: dict[str, Any]) -> dict[str, Any]:
+    """Phase B: one cell's classification-bearing legs over the phase-A page files; writes the
+    cell's partial (the scan or calibrate shape, unchanged)."""
+    t0 = time.monotonic()
+    mode = spec["mode"]
+    cell_dir = Path(spec["cell_dir"])
+    cell: Cell | CalCell
+    if mode == "scan":
+        cell = Cell(cell_dir)
+    else:
+        cell = CalCell(cell_dir, Path(spec["pdf"]), str(spec["fixture"]), list(spec["terms"]))
+    docs_root = Path(spec["docs_root"]) if spec.get("docs_root") else None
+    dpi = int(spec["dpi"])
+    versions = spec["versions"]
+    vision_in = Path(spec["vision_in"])
+    cell.dir.mkdir(parents=True, exist_ok=True)
+    workdir = cell.dir / "oracle-work"
+    workdir.mkdir(exist_ok=True)
+    render = cell.dir / "render"
+    render.mkdir(exist_ok=True)
+    for stale in render.iterdir():
+        if stale.is_symlink() or stale.is_file():
+            stale.unlink()
+    ocr_files: dict[int, dict[str, Path | None]] = {}
+    for page_str, rec in sorted(spec["pages"].items(), key=lambda kv: int(kv[0])):
+        page = int(page_str)
+        for kind in ("pp", "mu"):
+            if rec.get(kind):
+                target = Path(rec[kind])
+                _relink(render / target.name, target)
+        ocr_files[page - 1] = {
+            k: (Path(rec[k]) if rec.get(k) else None)
+            for k in ("psm6_txt", "psm6_tsv", "psm11", "psm12")
+        }
+    for png in sorted(render.glob("pp-*.png")):
+        _relink(vision_in / f"{cell.key}__{png.name}", png.resolve())
+
+    if isinstance(cell, Cell):
+        scope = compute_term_scope(cell, docs_root)
+    else:
+        scope = dict.fromkeys(cell.terms, "unique")
+    o0 = o0_structure(cell, workdir)
+    o1_hits, o1_diag = o1_text_layer(cell, scope)
+    o2_hits = o2_bytes(cell, o0, scope, workdir)
+    tess = o3_tesseract(cell, render, ocr_files)
+    # px dims for OCR localization (tesseract ran on the pdftoppm renders)
+    px_dims: dict[int, tuple[int, int]] = {}
+    for png in render.glob("pp-*.png"):
+        m = re.search(r"pp-0*(\d+)", png.name)
+        dims = png_dims(png) if m else None
+        if m and dims:
+            px_dims[int(m.group(1)) - 1] = dims
+    tess_hits = ocr_hits_for_engine(
+        cell,
+        {p: d["text"] for p, d in tess.items()},
+        {p: d["words"] for p, d in tess.items()},
+        px_dims,
+    )
+    o4 = o4_census(cell)
+    o6_hits = o6_adversarial(cell, scope)
+    partial: dict[str, Any] = {
+        "schema_version": SCHEMA_VERSION,
+        "o0": o0,
+        "o1_hits": o1_hits,
+        "o1_diag": o1_diag,
+        "o2_hits": o2_hits,
+        "o3_tesseract_hits": tess_hits,
+        "o4": o4,
+        "o6_hits": o6_hits,
+        "px_dims": {str(k): v for k, v in px_dims.items()},
+        "versions": versions,
+        "dpi": dpi,
+    }
+    if isinstance(cell, Cell):
+        partial["cell"] = cell.key
+        partial["term_scope"] = scope
+        partial["o5"] = o5_pixels(cell, render, workdir)
+        out_name = "oracle-partial.json"
+    else:
+        partial["fixture"] = cell.key
+        out_name = "calibrate-partial.json"
+    (cell.dir / out_name).write_text(json.dumps(partial, indent=1, sort_keys=True))
+    if not spec.get("keep_work"):
+        _delete_work_files(workdir)
+    return {"key": cell.key, "seconds": time.monotonic() - t0, "maxrss": _maxrss()}
+
+
+def _run_pool(
+    fn: Callable[[dict[str, Any]], dict[str, Any]],
+    specs: list[dict[str, Any]],
+    jobs: int,
+    on_result: Callable[[dict[str, Any]], None],
+) -> None:
+    if jobs <= 1 or len(specs) <= 1:
+        for spec in specs:
+            on_result(fn(spec))
+        return
+    ctx = multiprocessing.get_context("spawn")  # cv2 / pymupdf are not fork-safe
+    workers = min(jobs, len(specs))
+    with concurrent.futures.ProcessPoolExecutor(max_workers=workers, mp_context=ctx) as pool:
+        futures = [pool.submit(fn, spec) for spec in specs]
+        for fut in concurrent.futures.as_completed(futures):
+            on_result(fut.result())
+
+
+def _scan_cells(
+    root: Path,
+    cells: Sequence[Cell | CalCell],
+    *,
+    mode: str,
+    docs_root: Path | None,
+    dpi: int,
+    jobs: int,
+    cache_dir: Path | None,
+    keep_work: bool = False,
+    versions: dict[str, str] | None = None,
+    jobs_cells: int | None = None,
+) -> dict[str, Any]:
+    """Phase A over the distinct pages, phase B over the cells; returns the run's stats (also
+    written to <root>/<tag>-scan-stats.json and, with a cache, <cache>/last-run.json)."""
+    os.environ["OMP_THREAD_LIMIT"] = "1"  # one Tesseract thread per worker (a fence)
+    here = str(Path(__file__).resolve().parent)
+    if here not in sys.path:
+        sys.path.insert(0, here)  # spawned workers import this module by name
+    jobs = max(1, int(jobs))
+    if jobs_cells is None:
+        jobs_cells = jobs
+        if PHASE_B_WORKER_PEAK_GB > PHASE_B_CAP_ABOVE_GB:
+            jobs_cells = min(jobs, max(1, int(PHASE_B_BUDGET_GB // PHASE_B_WORKER_PEAK_GB)))
+    jobs_cells = max(1, int(jobs_cells))
+    tag = "oracle" if mode == "scan" else "calibrate"
+    versions = dict(versions) if versions else tool_versions()
+    traineddata = traineddata_sha256()
+    vision_in = root / "vision-in"
+    vision_in.mkdir(parents=True, exist_ok=True)
+    pages_dir = root / "_pages"
+    t_start = time.monotonic()
+
+    by_sha: dict[str, dict[str, Any]] = {}
+    cell_sha: dict[str, str] = {}
+    for cell in cells:
+        sha = sh256(cell.output)
+        cell_sha[cell.key] = sha
+        if sha in by_sha:
+            continue
+        poppler, mupdf = pdf_page_counts(cell.output)
+        agree = poppler is not None and (mode == "calibrate" or poppler == mupdf)
+        by_sha[sha] = {
+            "pdf": cell.output,
+            "bytes": cell.output.stat().st_size,
+            "npages": poppler if agree else None,
+            "poppler": poppler,
+            "mupdf": mupdf,
+        }
+    whole = sorted(s for s, d in by_sha.items() if d["npages"] is None)
+
+    def proxy(sha: str) -> float:  # bytes per page: the noise scans first
+        d = by_sha[sha]
+        return d["bytes"] / max(1, d["npages"] or d["poppler"] or 1)
+
+    specs_a: list[dict[str, Any]] = []
+    for sha in sorted(by_sha, key=lambda s: (-proxy(s), s)):
+        d = by_sha[sha]
+        base = {
+            "pdf": str(d["pdf"]),
+            "sha": sha,
+            "dpi": dpi,
+            "mode": mode,
+            "versions": versions,
+            "traineddata": traineddata,
+            "cache_dir": str(cache_dir) if cache_dir else None,
+            "pages_dir": str(pages_dir),
+        }
+        if d["npages"] is None:
+            specs_a.append({**base, "page": None})
+        else:
+            specs_a.extend({**base, "page": p} for p in range(1, d["npages"] + 1))
+    print(
+        f"[{tag}] phase A: {len(specs_a)} page tasks over {len(by_sha)} distinct PDFs "
+        f"({len(cells)} cells), jobs={jobs}, cache={cache_dir if cache_dir else 'off'}"
+    )
+    if whole:
+        print(f"[{tag}] whole-document renders (page counts unreadable or disagreeing): {whole}")
+    hits: dict[str, int] = {}
+    misses: dict[str, int] = {}
+    page_files: dict[str, dict[int, dict[str, Any]]] = {s: {} for s in by_sha}
+    peak = {"a": 0, "b": 0}
+
+    def on_page(res: dict[str, Any]) -> None:
+        for rec in res["pages"]:
+            page_files[res["sha"]][int(rec["page"])] = rec
+        for k, v in res["hits"].items():
+            hits[k] = hits.get(k, 0) + v
+        for k, v in res["misses"].items():
+            misses[k] = misses.get(k, 0) + v
+        peak["a"] = max(peak["a"], int(res["maxrss"]))
+        first = res["pages"][0]["page"] if res["pages"] else "?"
+        print(f"[{tag}] page {res['sha'][:8]} p{first} {res['seconds']:.1f}s")
+
+    _run_pool(_page_task, specs_a, jobs, on_page)
+    t_a = time.monotonic() - t_start
+
+    specs_b: list[dict[str, Any]] = []
+    for cell in sorted(cells, key=lambda c: (-by_sha[cell_sha[c.key]]["bytes"], c.key)):
+        sha = cell_sha[cell.key]
+        spec: dict[str, Any] = {
+            "mode": mode,
+            "cell_dir": str(cell.dir),
+            "docs_root": str(docs_root) if docs_root else None,
+            "dpi": dpi,
+            "versions": versions,
+            "keep_work": keep_work,
+            "vision_in": str(vision_in),
+            "pages": {str(p): rec for p, rec in sorted(page_files[sha].items())},
+        }
+        if isinstance(cell, CalCell):
+            spec.update({"pdf": str(cell.output), "fixture": cell.key, "terms": list(cell.terms)})
+        specs_b.append(spec)
+    print(f"[{tag}] phase B: {len(specs_b)} cells, jobs={jobs_cells}")
+
+    def on_cell(res: dict[str, Any]) -> None:
+        peak["b"] = max(peak["b"], int(res["maxrss"]))
+        print(
+            f"[{tag}] scanned {res['key']} ({res['seconds']:.1f}s; "
+            f"worker rss high-water {res['maxrss'] / 2**30:.2f} GiB)"
+        )
+
+    _run_pool(_cell_task, specs_b, jobs_cells, on_cell)
+    t_b = time.monotonic() - t_start - t_a
+    stats: dict[str, Any] = {
+        "mode": mode,
+        "root": str(root),
+        "cells": len(cells),
+        "distinct_pdfs": len(by_sha),
+        "distinct_pages": sum(len(v) for v in page_files.values()),
+        "cell_pages": sum(len(page_files[cell_sha[c.key]]) for c in cells),
+        "whole_render_pdfs": whole,
+        "jobs": jobs,
+        "jobs_cells": jobs_cells,
+        "dpi": dpi,
+        "cache_dir": str(cache_dir) if cache_dir else None,
+        "hits": hits,
+        "misses": misses,
+        "phase_a_s": round(t_a, 1),
+        "phase_b_s": round(t_b, 1),
+        "phase_a_worker_maxrss": peak["a"],
+        "phase_b_worker_maxrss": peak["b"],
+        "versions": versions,
+        "traineddata_sha256": traineddata,
+        "finished": time.time(),
+    }
+    (root / f"{tag}-scan-stats.json").write_text(json.dumps(stats, indent=1, sort_keys=True))
+    if cache_dir is not None:
+        (cache_dir / "last-run.json").write_text(json.dumps(stats, indent=1, sort_keys=True))
+    print(
+        f"[{tag}] phase A {t_a:.0f} s, phase B {t_b:.0f} s; cache hits {sum(hits.values())} / "
+        f"misses {sum(misses.values())}; worker peak RSS A {peak['a']:,} B {peak['b']:,}"
+    )
+    return stats
+
+
+def _auto_prune(cache_dir: Path | None, max_gb: float, tag: str) -> None:
+    if cache_dir is None:
+        return
+    cache = OracleCache(cache_dir)
+    removed = cache.prune(int(max_gb * 2**30))
+    st = cache.stats()
+    print(
+        f"[{tag}] cache {cache_dir}: {st['entries']} entries, {st['bytes'] / 2**30:.2f} GB "
+        f"(cap {max_gb} GB; pruned {removed['entries']} entries / {removed['bytes'] / 2**30:.2f} GB)"
+    )
+
+
+def phase_cache_stats(cache_dir: Path) -> None:
+    cache = OracleCache(cache_dir)
+    report: dict[str, Any] = {"cache_dir": str(cache_dir), **cache.stats()}
+    last = cache_dir / "last-run.json"
+    if last.is_file():
+        lr = json.loads(last.read_text())
+        keys = (
+            "root",
+            "mode",
+            "cells",
+            "distinct_pdfs",
+            "distinct_pages",
+            "jobs",
+            "hits",
+            "misses",
+            "phase_a_s",
+            "phase_b_s",
+            "finished",
+        )
+        report["last_run"] = {k: lr.get(k) for k in keys}
+    print(json.dumps(report, indent=1, sort_keys=True))
+
+
+def phase_cache_prune(cache_dir: Path, max_gb: float) -> None:
+    cache = OracleCache(cache_dir)
+    removed = cache.prune(int(max_gb * 2**30))
+    print(json.dumps({"cache_dir": str(cache_dir), "removed": removed, **cache.stats()}, indent=1))
+
+
+# ---------------------------------------------------------------- phases
+
+
+def phase_scan(
+    cells_dir: Path,
+    docs_root: Path | None,
+    dpi: int,
+    *,
+    jobs: int,
+    cache_dir: Path | None,
+    keep_work: bool,
+    cache_max_gb: float,
+    jobs_cells: int | None = None,
+) -> None:
     cells = discover_cells(cells_dir)
     if not cells:
         sys.exit(f"no cells under {cells_dir}")
-    vision_in = cells_dir / "vision-in"
-    vision_in.mkdir(exist_ok=True)
-    versions = tool_versions()
     print(f"[oracle] scan: {len(cells)} cells, dpi={dpi}")
-    for cell in cells:
-        workdir = cell.dir / "oracle-work"
-        workdir.mkdir(exist_ok=True)
-        render = cell.dir / "render"
-        render.mkdir(exist_ok=True)
-        if not list(render.glob("pp-*.png")):
-            run(
-                ["pdftoppm", "-r", str(dpi), "-gray", "-png", str(cell.output), str(render / "pp")],
-                timeout=900,
-            )
-        if not list(render.glob("mu-*.png")):
-            run(
-                [
-                    "mutool",
-                    "draw",
-                    "-q",
-                    "-r",
-                    "300",
-                    "-o",
-                    str(render / "mu-%d.png"),
-                    str(cell.output),
-                ],
-                timeout=900,
-            )
-        for png in sorted(render.glob("pp-*.png")):
-            link = vision_in / f"{cell.key}__{png.name}"
-            if not link.exists():
-                link.symlink_to(png.resolve())
-
-        scope = compute_term_scope(cell, docs_root)
-        o0 = o0_structure(cell, workdir)
-        o1_hits, o1_diag = o1_text_layer(cell, scope)
-        o2_hits = o2_bytes(cell, o0, scope, workdir)
-        tess = o3_tesseract(cell, render)
-
-        # px dims for OCR localization (tesseract ran on the pdftoppm renders)
-        px_dims: dict[int, tuple[int, int]] = {}
-        with contextlib.suppress(Exception):
-            import cv2  # optional tooling, imported only when checking
-
-            for png in render.glob("pp-*.png"):
-                m = re.search(r"pp-0*(\d+)", png.name)
-                if m:
-                    img = cv2.imread(str(png), cv2.IMREAD_GRAYSCALE)
-                    if img is not None:
-                        px_dims[int(m.group(1)) - 1] = (img.shape[1], img.shape[0])
-        tess_hits = ocr_hits_for_engine(
-            cell,
-            {p: d["text"] for p, d in tess.items()},
-            {p: d["words"] for p, d in tess.items()},
-            px_dims,
-        )
-        o4 = o4_census(cell)
-        o5 = o5_pixels(cell, render, workdir)
-        o6_hits = o6_adversarial(cell, scope)
-
-        partial = {
-            "schema_version": SCHEMA_VERSION,
-            "cell": cell.key,
-            "term_scope": scope,
-            "o0": o0,
-            "o1_hits": o1_hits,
-            "o1_diag": o1_diag,
-            "o2_hits": o2_hits,
-            "o3_tesseract_hits": tess_hits,
-            "o4": o4,
-            "o5": o5,
-            "o6_hits": o6_hits,
-            "px_dims": {str(k): v for k, v in px_dims.items()},
-            "versions": versions,
-            "dpi": dpi,
-        }
-        (cell.dir / "oracle-partial.json").write_text(json.dumps(partial, indent=1, sort_keys=True))
-        print(f"[oracle] scanned {cell.key}")
+    _scan_cells(
+        cells_dir,
+        cells,
+        mode="scan",
+        docs_root=docs_root,
+        dpi=dpi,
+        jobs=jobs,
+        cache_dir=cache_dir,
+        keep_work=keep_work,
+        jobs_cells=jobs_cells,
+    )
+    _auto_prune(cache_dir, cache_max_gb, "oracle")
+    vision_in = cells_dir / "vision-in"
     print(
         "[oracle] scan done. Run the Vision leg from the iOS worktree "
         "(HOST swift test), then finalize:\n"
@@ -1058,7 +1768,7 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
         tess_hits = partial["o3_tesseract_hits"]
         ocr_leaks: list[dict] = []
         review: list[dict] = []
-        for term in set(tess_hits) | set(vision_hits):
+        for term in sorted(set(tess_hits) | set(vision_hits)):  # deterministic record order
             t_pages = {h["page"]: h for h in tess_hits.get(term, [])}
             v_pages = {h["page"]: h for h in vision_hits.get(term, [])}
             quorum_pages = sorted(set(t_pages) & set(v_pages))
@@ -1218,6 +1928,8 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
         print(
             f"[oracle] {cell.key}: {cls}" + (f" (attributed: {attributed})" if attributed else "")
         )
+    if not keep_renders:
+        shutil.rmtree(cells_dir / "_pages", ignore_errors=True)  # the no-cache page files
 
     # ------- summary (feeds M12-07..10) -------
     by_class: dict[str, int] = {}
@@ -1358,69 +2070,35 @@ def cal_cells(planted_dir: Path, out: Path) -> list[tuple[CalCell, dict | None]]
     return cells
 
 
-def phase_calibrate(planted_dir: Path, out: Path, dpi: int) -> None:
+def phase_calibrate(
+    planted_dir: Path,
+    out: Path,
+    dpi: int,
+    *,
+    jobs: int,
+    cache_dir: Path | None,
+    keep_work: bool,
+    cache_max_gb: float,
+    jobs_cells: int | None = None,
+) -> None:
     out.mkdir(parents=True, exist_ok=True)
-    vision_in = out / "vision-in"
-    vision_in.mkdir(exist_ok=True)
-    versions = tool_versions()
     cells = cal_cells(planted_dir, out)
     print(f"[calibrate] {len(cells)} fixtures, dpi={dpi}")
     for cell, _row in cells:
         cell.dir.mkdir(parents=True, exist_ok=True)
-        workdir = cell.dir / "oracle-work"
-        workdir.mkdir(exist_ok=True)
-        render = cell.dir / "render"
-        render.mkdir(exist_ok=True)
-        if not list(render.glob("pp-*.png")):
-            run(
-                ["pdftoppm", "-r", str(dpi), "-gray", "-png", str(cell.output), str(render / "pp")],
-                timeout=900,
-            )
-        for png in sorted(render.glob("pp-*.png")):
-            link = vision_in / f"{cell.key}__{png.name}"
-            if not link.exists():
-                link.symlink_to(png.resolve())
-        scope = dict.fromkeys(cell.terms, "unique")
-        o0 = o0_structure(cell, workdir)
-        o1_hits, o1_diag = o1_text_layer(cell, scope)
-        o2_hits = o2_bytes(cell, o0, scope, workdir)
-        tess = o3_tesseract(cell, render)
-        px_dims: dict[int, tuple[int, int]] = {}
-        with contextlib.suppress(Exception):
-            import cv2
-
-            for png in render.glob("pp-*.png"):
-                m = re.search(r"pp-0*(\d+)", png.name)
-                if m:
-                    img = cv2.imread(str(png), cv2.IMREAD_GRAYSCALE)
-                    if img is not None:
-                        px_dims[int(m.group(1)) - 1] = (img.shape[1], img.shape[0])
-        tess_hits = ocr_hits_for_engine(
-            cell,
-            {p: d["text"] for p, d in tess.items()},
-            {p: d["words"] for p, d in tess.items()},
-            px_dims,
-        )
-        o4 = o4_census(cell)
-        o6_hits = o6_adversarial(cell, scope)
-        partial = {
-            "schema_version": SCHEMA_VERSION,
-            "fixture": cell.key,
-            "o0": o0,
-            "o1_hits": o1_hits,
-            "o1_diag": o1_diag,
-            "o2_hits": o2_hits,
-            "o3_tesseract_hits": tess_hits,
-            "o4": o4,
-            "o6_hits": o6_hits,
-            "px_dims": {str(k): v for k, v in px_dims.items()},
-            "versions": versions,
-            "dpi": dpi,
-        }
-        (cell.dir / "calibrate-partial.json").write_text(
-            json.dumps(partial, indent=1, sort_keys=True)
-        )
-        print(f"[calibrate] scanned {cell.key}")
+    _scan_cells(
+        out,
+        [cell for cell, _row in cells],
+        mode="calibrate",
+        docs_root=None,
+        dpi=dpi,
+        jobs=jobs,
+        cache_dir=cache_dir,
+        keep_work=keep_work,
+        jobs_cells=jobs_cells,
+    )
+    _auto_prune(cache_dir, cache_max_gb, "calibrate")
+    vision_in = out / "vision-in"
     print(
         "[calibrate] scan done. Run the Vision leg, then calibrate-finalize:\n"
         f"  RESECTA_VISION_IN={vision_in} RESECTA_VISION_OUT={out / 'vision-out'} "
@@ -1737,6 +2415,22 @@ def phase_pb86(cells_dir: Path) -> None:
     print(f"[pb86] {summary['measured']} plant-cells -> {cells_dir / 'pb86-summary.json'}")
 
 
+def _env_cache_dir() -> Path | None:
+    env = os.environ.get("RESECTA_ORACLE_CACHE")
+    return Path(env) if env else None
+
+
+def _add_engine_args(p: argparse.ArgumentParser) -> None:
+    p.add_argument("--jobs", type=int, default=os.cpu_count() or 1, help="workers (default: cores)")
+    p.add_argument(
+        "--jobs-cells", type=int, default=None, help="cell-phase workers (default: capped)"
+    )
+    p.add_argument("--cache-dir", type=Path, default=_env_cache_dir())
+    p.add_argument("--no-cache", action="store_true")
+    p.add_argument("--cache-max-gb", type=float, default=DEFAULT_CACHE_MAX_GB)
+    p.add_argument("--keep-work", action="store_true")
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     sub = ap.add_subparsers(dest="phase", required=True)
@@ -1744,6 +2438,7 @@ def main() -> None:
     scan.add_argument("--cells", required=True, type=Path)
     scan.add_argument("--docs-root", type=Path, default=None)
     scan.add_argument("--dpi", type=int, default=400)
+    _add_engine_args(scan)
     fin = sub.add_parser("finalize", help="merge the Vision leg, quorum, classification, summary")
     fin.add_argument("--cells", required=True, type=Path)
     fin.add_argument("--keep-renders", action="store_true")
@@ -1751,20 +2446,53 @@ def main() -> None:
     cal.add_argument("--planted", required=True, type=Path)
     cal.add_argument("--out", required=True, type=Path)
     cal.add_argument("--dpi", type=int, default=400)
+    _add_engine_args(cal)
     calf = sub.add_parser("calibrate-finalize", help="merge Vision + per-plant recall summary")
     calf.add_argument("--planted", required=True, type=Path)
     calf.add_argument("--out", required=True, type=Path)
     pb = sub.add_parser("pb86", help="M12-11: hidden-text re-exposure over section-E cells")
     pb.add_argument("--cells", required=True, type=Path)
+    cst = sub.add_parser("cache-stats", help="entries / bytes of the tool-output cache + last run")
+    cst.add_argument("--cache-dir", type=Path, default=_env_cache_dir())
+    cpr = sub.add_parser("cache-prune", help="LRU-prune the tool-output cache to --max-gb")
+    cpr.add_argument("--cache-dir", type=Path, default=_env_cache_dir())
+    cpr.add_argument("--max-gb", type=float, default=DEFAULT_CACHE_MAX_GB)
     args = ap.parse_args()
-    if args.phase == "scan":
-        phase_scan(args.cells, args.docs_root, args.dpi)
+    if args.phase in ("scan", "calibrate"):
+        cache_dir = None if args.no_cache else args.cache_dir
+        if args.phase == "scan":
+            phase_scan(
+                args.cells,
+                args.docs_root,
+                args.dpi,
+                jobs=args.jobs,
+                cache_dir=cache_dir,
+                keep_work=args.keep_work,
+                cache_max_gb=args.cache_max_gb,
+                jobs_cells=args.jobs_cells,
+            )
+        else:
+            phase_calibrate(
+                args.planted,
+                args.out,
+                args.dpi,
+                jobs=args.jobs,
+                cache_dir=cache_dir,
+                keep_work=args.keep_work,
+                cache_max_gb=args.cache_max_gb,
+                jobs_cells=args.jobs_cells,
+            )
     elif args.phase == "finalize":
         phase_finalize(args.cells, args.keep_renders)
-    elif args.phase == "calibrate":
-        phase_calibrate(args.planted, args.out, args.dpi)
     elif args.phase == "calibrate-finalize":
         phase_calibrate_finalize(args.planted, args.out)
+    elif args.phase in ("cache-stats", "cache-prune"):
+        if args.cache_dir is None:
+            sys.exit("--cache-dir (or RESECTA_ORACLE_CACHE) is required")
+        if args.phase == "cache-stats":
+            phase_cache_stats(args.cache_dir)
+        else:
+            phase_cache_prune(args.cache_dir, args.max_gb)
     else:
         phase_pb86(args.cells)
 
