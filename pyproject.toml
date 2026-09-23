@@ -91,6 +91,7 @@ ignore = [
 "tools/register_capture.py" = ["T20", "S603", "S607"]
 "tools/search_oracle.py" = ["T20", "S603", "S607"]
 "tools/verify_oracle.py" = ["T20", "S603", "S607"]
+"tools/oracle_parity.py" = ["T20"]
 "tools/evidence_checksums.py" = ["T20"]
 # pytest tests assert by design.
 "tests/*.py" = ["S101"]

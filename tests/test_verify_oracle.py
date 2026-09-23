@@ -21,6 +21,7 @@ import sys
 import threading
 import time
 from pathlib import Path
+from typing import Any
 
 import pytest
 
@@ -65,7 +66,7 @@ def _never(_out: Path) -> bool:
 
 
 def test_cache_key_and_atomic_write(tmp_path: Path) -> None:
-    desc = {
+    desc: dict[str, Any] = {
         "step": "render_pp",
         "input_sha256": "ab" * 32,
         "page": 3,
@@ -128,8 +129,8 @@ def test_cache_key_and_atomic_write(tmp_path: Path) -> None:
             "render_pp", {**desc, "page": page}, _writer("pp.png", b"y" * (1000 * (i + 1)))
         )
         assert e is not None and not was_hit
-        t = time.time() - 3_600 * (3 - i)  # page 10 is the oldest
-        os.utime(e / "meta.json", (t, t))
+        stamp = time.time() - 3_600 * (3 - i)  # page 10 is the oldest
+        os.utime(e / "meta.json", (stamp, stamp))
         aged[page] = e
     now = time.time()
     os.utime(meta_path, (now, now))  # the first entry is the newest
