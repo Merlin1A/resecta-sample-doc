@@ -94,6 +94,8 @@ ignore = [
 "tools/evidence_checksums.py" = ["T20"]
 # pytest tests assert by design.
 "tests/*.py" = ["S101"]
+# The oracle tests drive the external tools and seed a PRNG for the regex corpora.
+"tests/test_verify_oracle.py" = ["S101", "S603", "S607", "S311"]
 
 [tool.ruff.format]
 quote-style = "double"
