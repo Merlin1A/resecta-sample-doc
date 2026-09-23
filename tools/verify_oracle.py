@@ -546,13 +546,24 @@ def hex_string(term: str) -> bytes:
 TJ_OPERAND_RE = re.compile(rb"\(([^()\\]*(?:\\.[^()\\]*)*)\)")
 
 
-def _tj_operands(qdf_bytes: bytes):
-    """The string operands of Tj/TJ/'/\" show ops, unescaped, as latin-1 text, in order."""
+def _tj_operands(qdf_bytes: bytes, segment: int | None = None):
+    """The string operands of Tj/TJ/'/\" show ops, unescaped, as latin-1 text, in order. With
+    `segment`, an operand longer than that many bytes is yielded in pieces split only where the
+    four preceding bytes hold no backslash (an escape is at most four bytes long), so unescaping
+    the pieces equals unescaping the whole; a decoded raster can be one operand tens of MB long."""
     for m in TJ_OPERAND_RE.finditer(qdf_bytes):
-        raw = m.group(1)
-        raw = re.sub(rb"\\([0-7]{1,3})", lambda g: bytes([int(g.group(1), 8) & 0xFF]), raw)
-        raw = raw.replace(b"\\(", b"(").replace(b"\\)", b")").replace(b"\\\\", b"\\")
-        yield raw.decode("latin-1", "replace")
+        start, end = m.start(1), m.end(1)
+        while start < end:
+            stop = end
+            if segment is not None and end - start > segment:
+                stop = start + segment
+                while stop < end and b"\\" in qdf_bytes[max(start, stop - 4) : stop]:
+                    stop += 1
+            raw = qdf_bytes[start:stop]
+            raw = re.sub(rb"\\([0-7]{1,3})", lambda g: bytes([int(g.group(1), 8) & 0xFF]), raw)
+            raw = raw.replace(b"\\(", b"(").replace(b"\\)", b")").replace(b"\\\\", b"\\")
+            yield raw.decode("latin-1", "replace")
+            start = stop
 
 
 def tj_reassembled(qdf_bytes: bytes) -> str:
@@ -591,7 +602,7 @@ def tj_terms_present(
         present.update(set(terms) - set(pending))
         tail = (tail + folded)[-window:] if window else ""  # rolling: a term may span chunks
 
-    for piece in _tj_operands(qdf_bytes):
+    for piece in _tj_operands(qdf_bytes, chunk_chars):
         buf.append(piece)
         size += len(piece)
         if size >= chunk_chars:

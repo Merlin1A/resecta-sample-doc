@@ -215,8 +215,16 @@ def test_tj_terms_present_equals_whole_string_fold() -> None:
             pieces.append(b"(" + bytes(b for b in range(256) if b not in b"()\\") + b")")
         if rng.random() < 0.2:
             pieces.append(b"(\xb5 \xdf\xa0\x85 Zo\xeb)")
+    # one giant operand (a decoded raster is one operand tens of MB long) with terms inside
+    # and escapes at every position a split could land on; and an octal-dense operand that
+    # spells a term in escapes, forcing the split search past every backslash
+    body = bytearray(rng.choice(b"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 \n") for _ in range(300_000))
+    for pos in range(500, 300_000, 977):
+        body[pos : pos + 5] = rng.choice([b"\\101B", b"Zo\\353x", b"a\\\\b", b"\\(\\)", b"\\12\\3"])
+    pieces.append(b"(" + bytes(body) + b")")
+    pieces.append(b"(" + b"\\132\\157\\353" * 2000 + b"\\101" * 5000 + b")")
     data = b" 12 Tj ".join(pieces)
-    terms = ["Zoë", "µ", "ß", "not there", "ABC", "12 tj", "", "  "]
+    terms = ["Zoë", "µ", "ß", "not there", "ABC", "12 tj", "", "  ", "AB", "ëZoë"]
     folded_terms = [VO.fold_nospace(t) for t in terms]
     whole = VO.fold_nospace(VO.tj_reassembled(data))
     expected = {ft for ft in folded_terms if ft and ft in whole}
