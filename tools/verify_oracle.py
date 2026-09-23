@@ -961,11 +961,14 @@ CACHE_VERSION = "v1"
 CACHE_STEPS = ("render_pp", "render_mu", "ocr_psm6", "ocr_psm11", "ocr_psm12")
 DEFAULT_CACHE_MAX_GB = 20.0
 MU_DPI = "300"
-# Phase-B workers hold a cell's corpora (raw + qdf + mu-clean, up to ≈ 400 MB each) plus the
-# renders; measured peak RSS per worker 1.55 GB on the 12/16-page JPEG-passthrough documents.
-# By rule the cell phase is capped so that ten such workers cannot exceed an 8 GB budget:
-# ⌊8 GB ÷ peak⌋ workers; --jobs-cells overrides.
-PHASE_B_WORKER_PEAK_GB = 1.55
+# A cell-phase worker holds the cell's corpora (raw + qdf + mu-clean, up to ≈ 400 MB each) and
+# its renders; the measured peak RSS per worker is 1.13 GiB on the 16-page JPEG-passthrough
+# documents (the byte leg streams its term-presence test, so the folded corpus is never held).
+# The pre-registered rule: a peak above 1.2 GiB caps the cell phase at ⌊8 GiB ÷ peak⌋ workers so
+# ten such workers cannot exceed the budget; at or below the line every core is used.
+# --jobs-cells overrides either way. Units: GiB (ru_maxrss bytes ÷ 2**30).
+PHASE_B_WORKER_PEAK_GB = 1.13
+PHASE_B_CAP_ABOVE_GB = 1.2
 PHASE_B_BUDGET_GB = 8.0
 TESSDATA_LANG = "eng.traineddata"
 
@@ -1453,7 +1456,9 @@ def _scan_cells(
         sys.path.insert(0, here)  # spawned workers import this module by name
     jobs = max(1, int(jobs))
     if jobs_cells is None:
-        jobs_cells = min(jobs, max(1, int(PHASE_B_BUDGET_GB // PHASE_B_WORKER_PEAK_GB)))
+        jobs_cells = jobs
+        if PHASE_B_WORKER_PEAK_GB > PHASE_B_CAP_ABOVE_GB:
+            jobs_cells = min(jobs, max(1, int(PHASE_B_BUDGET_GB // PHASE_B_WORKER_PEAK_GB)))
     jobs_cells = max(1, int(jobs_cells))
     tag = "oracle" if mode == "scan" else "calibrate"
     versions = dict(versions) if versions else tool_versions()
