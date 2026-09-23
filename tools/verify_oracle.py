@@ -41,7 +41,8 @@ note, never a hit.
 
 Usage:
   python tools/verify_oracle.py scan --cells <run>/cells --docs-root <sd-root> \
-      [--jobs N] [--cache-dir DIR | --no-cache] [--cache-max-gb G] [--keep-work] [--dpi 400]
+      [--jobs N] [--jobs-cells M] [--cache-dir DIR | --no-cache] [--cache-max-gb G] \\
+      [--keep-work] [--dpi 400]
   # then the printed engine-test Vision command, then:
   python tools/verify_oracle.py finalize --cells <run>/cells [--keep-renders]
 
@@ -911,6 +912,12 @@ CACHE_VERSION = "v1"
 CACHE_STEPS = ("render_pp", "render_mu", "ocr_psm6", "ocr_psm11", "ocr_psm12")
 DEFAULT_CACHE_MAX_GB = 20.0
 MU_DPI = "300"
+# Phase-B workers hold a cell's corpora (raw + qdf + mu-clean, up to ≈ 400 MB each) plus the
+# renders; measured peak RSS per worker 1.55 GB on the 12/16-page JPEG-passthrough documents.
+# By rule the cell phase is capped so that ten such workers cannot exceed an 8 GB budget:
+# ⌊8 GB ÷ peak⌋ workers; --jobs-cells overrides.
+PHASE_B_WORKER_PEAK_GB = 1.55
+PHASE_B_BUDGET_GB = 8.0
 TESSDATA_LANG = "eng.traineddata"
 
 
@@ -1387,6 +1394,7 @@ def _scan_cells(
     cache_dir: Path | None,
     keep_work: bool = False,
     versions: dict[str, str] | None = None,
+    jobs_cells: int | None = None,
 ) -> dict[str, Any]:
     """Phase A over the distinct pages, phase B over the cells; returns the run's stats (also
     written to <root>/<tag>-scan-stats.json and, with a cache, <cache>/last-run.json)."""
@@ -1395,6 +1403,9 @@ def _scan_cells(
     if here not in sys.path:
         sys.path.insert(0, here)  # spawned workers import this module by name
     jobs = max(1, int(jobs))
+    if jobs_cells is None:
+        jobs_cells = min(jobs, max(1, int(PHASE_B_BUDGET_GB // PHASE_B_WORKER_PEAK_GB)))
+    jobs_cells = max(1, int(jobs_cells))
     tag = "oracle" if mode == "scan" else "calibrate"
     versions = dict(versions) if versions else tool_versions()
     traineddata = traineddata_sha256()
@@ -1483,13 +1494,13 @@ def _scan_cells(
         if isinstance(cell, CalCell):
             spec.update({"pdf": str(cell.output), "fixture": cell.key, "terms": list(cell.terms)})
         specs_b.append(spec)
-    print(f"[{tag}] phase B: {len(specs_b)} cells, jobs={jobs}")
+    print(f"[{tag}] phase B: {len(specs_b)} cells, jobs={jobs_cells}")
 
     def on_cell(res: dict[str, Any]) -> None:
         peak["b"] = max(peak["b"], int(res["maxrss"]))
         print(f"[{tag}] scanned {res['key']} ({res['seconds']:.1f}s)")
 
-    _run_pool(_cell_task, specs_b, jobs, on_cell)
+    _run_pool(_cell_task, specs_b, jobs_cells, on_cell)
     t_b = time.monotonic() - t_start - t_a
     stats: dict[str, Any] = {
         "mode": mode,
@@ -1500,6 +1511,7 @@ def _scan_cells(
         "cell_pages": sum(len(page_files[cell_sha[c.key]]) for c in cells),
         "whole_render_pdfs": whole,
         "jobs": jobs,
+        "jobs_cells": jobs_cells,
         "dpi": dpi,
         "cache_dir": str(cache_dir) if cache_dir else None,
         "hits": hits,
@@ -1575,6 +1587,7 @@ def phase_scan(
     cache_dir: Path | None,
     keep_work: bool,
     cache_max_gb: float,
+    jobs_cells: int | None = None,
 ) -> None:
     cells = discover_cells(cells_dir)
     if not cells:
@@ -1589,6 +1602,7 @@ def phase_scan(
         jobs=jobs,
         cache_dir=cache_dir,
         keep_work=keep_work,
+        jobs_cells=jobs_cells,
     )
     _auto_prune(cache_dir, cache_max_gb, "oracle")
     vision_in = cells_dir / "vision-in"
@@ -1997,6 +2011,7 @@ def phase_calibrate(
     cache_dir: Path | None,
     keep_work: bool,
     cache_max_gb: float,
+    jobs_cells: int | None = None,
 ) -> None:
     out.mkdir(parents=True, exist_ok=True)
     cells = cal_cells(planted_dir, out)
@@ -2012,6 +2027,7 @@ def phase_calibrate(
         jobs=jobs,
         cache_dir=cache_dir,
         keep_work=keep_work,
+        jobs_cells=jobs_cells,
     )
     _auto_prune(cache_dir, cache_max_gb, "calibrate")
     vision_in = out / "vision-in"
@@ -2338,6 +2354,9 @@ def _env_cache_dir() -> Path | None:
 
 def _add_engine_args(p: argparse.ArgumentParser) -> None:
     p.add_argument("--jobs", type=int, default=os.cpu_count() or 1, help="workers (default: cores)")
+    p.add_argument(
+        "--jobs-cells", type=int, default=None, help="cell-phase workers (default: capped)"
+    )
     p.add_argument("--cache-dir", type=Path, default=_env_cache_dir())
     p.add_argument("--no-cache", action="store_true")
     p.add_argument("--cache-max-gb", type=float, default=DEFAULT_CACHE_MAX_GB)
@@ -2382,6 +2401,7 @@ def main() -> None:
                 cache_dir=cache_dir,
                 keep_work=args.keep_work,
                 cache_max_gb=args.cache_max_gb,
+                jobs_cells=args.jobs_cells,
             )
         else:
             phase_calibrate(
@@ -2392,6 +2412,7 @@ def main() -> None:
                 cache_dir=cache_dir,
                 keep_work=args.keep_work,
                 cache_max_gb=args.cache_max_gb,
+                jobs_cells=args.jobs_cells,
             )
     elif args.phase == "finalize":
         phase_finalize(args.cells, args.keep_renders)
