@@ -198,6 +198,40 @@ def test_tj_reassembled_regex_equivalence() -> None:
         assert VO.tj_reassembled(data) == _old_tj_reassembled(data)
 
 
+def test_tj_terms_present_equals_whole_string_fold() -> None:
+    rng = random.Random(20260923)
+    pieces = [b"(x)"]
+    # operands of every byte value, whitespace runs, µ and ß (casefold leaves latin-1), NBSP/NEL
+    for _ in range(3000):
+        pieces.append(
+            b"("
+            + bytes(
+                rng.choice(b"ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 \n\t\r")
+                for _ in range(rng.randrange(0, 4000))
+            )
+            + b")"
+        )
+        if rng.random() < 0.2:
+            pieces.append(b"(" + bytes(b for b in range(256) if b not in b"()\\") + b")")
+        if rng.random() < 0.2:
+            pieces.append(b"(\xb5 \xdf\xa0\x85 Zo\xeb)")
+    data = b" 12 Tj ".join(pieces)
+    terms = ["Zoë", "µ", "ß", "not there", "ABC", "12 tj", "", "  "]
+    folded_terms = [VO.fold_nospace(t) for t in terms]
+    whole = VO.fold_nospace(VO.tj_reassembled(data))
+    expected = {ft for ft in folded_terms if ft and ft in whole}
+    for chunk in (1, 7, 100, 4_000, VO.TJ_CHUNK_CHARS):
+        assert VO.tj_terms_present(data, folded_terms, chunk_chars=chunk) == expected
+    # terms straddling a chunk boundary: every chunk size must still find them
+    straddle = b"(abc)(def)(ghi)(jkl)"
+    for chunk in range(1, 14):
+        found = VO.tj_terms_present(
+            straddle, ["cdefg", "abcdefghijkl", "lm", "kl"], chunk_chars=chunk
+        )
+        assert found == {"cdefg", "abcdefghijkl", "kl"}
+    assert VO.tj_terms_present(data, ["", "   "]) == set()
+
+
 # ---------------------------------------------------------------- (3) parallel == serial
 
 

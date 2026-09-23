@@ -546,15 +546,61 @@ def hex_string(term: str) -> bytes:
 TJ_OPERAND_RE = re.compile(rb"\(([^()\\]*(?:\\.[^()\\]*)*)\)")
 
 
-def tj_reassembled(qdf_bytes: bytes) -> str:
-    """Concatenate string operands of Tj/TJ/'/\" show ops, kern numbers stripped."""
-    text_parts: list[str] = []
+def _tj_operands(qdf_bytes: bytes):
+    """The string operands of Tj/TJ/'/\" show ops, unescaped, as latin-1 text, in order."""
     for m in TJ_OPERAND_RE.finditer(qdf_bytes):
         raw = m.group(1)
         raw = re.sub(rb"\\([0-7]{1,3})", lambda g: bytes([int(g.group(1), 8) & 0xFF]), raw)
         raw = raw.replace(b"\\(", b"(").replace(b"\\)", b")").replace(b"\\\\", b"\\")
-        text_parts.append(raw.decode("latin-1", "replace"))
-    return "".join(text_parts)
+        yield raw.decode("latin-1", "replace")
+
+
+def tj_reassembled(qdf_bytes: bytes) -> str:
+    """Concatenate string operands of Tj/TJ/'/\" show ops, kern numbers stripped."""
+    return "".join(_tj_operands(qdf_bytes))
+
+
+TJ_CHUNK_CHARS = 4_000_000
+
+
+def tj_terms_present(
+    qdf_bytes: bytes, folded_terms: list[str], chunk_chars: int = TJ_CHUNK_CHARS
+) -> set[str]:
+    """Which folded terms occur in fold_nospace(tj_reassembled(qdf_bytes)) — computed without
+    materialising that string. The operands are latin-1 text, on which NFC is the identity and
+    casefold / whitespace removal act per code point, so folding chunk by chunk concatenates to
+    the whole fold; a term straddling two chunks is caught in the overlap window (the last and
+    first max-term-length - 1 folded characters of the two chunks). Presence per term is
+    therefore exactly that of the whole-string test."""
+    terms = [t for t in folded_terms if t]
+    if not terms:
+        return set()
+    window = max(len(t) for t in terms) - 1
+    present: set[str] = set()
+    pending = list(terms)
+    buf: list[str] = []
+    size = 0
+    tail = ""
+
+    def flush() -> None:
+        nonlocal buf, size, tail, pending
+        folded = fold_nospace("".join(buf))
+        buf, size = [], 0
+        joint = tail + folded[:window] if window else ""
+        pending = [t for t in pending if t not in folded and t not in joint]
+        present.update(set(terms) - set(pending))
+        tail = (tail + folded)[-window:] if window else ""  # rolling: a term may span chunks
+
+    for piece in _tj_operands(qdf_bytes):
+        buf.append(piece)
+        size += len(piece)
+        if size >= chunk_chars:
+            flush()
+            if not pending:
+                return present
+    if buf:
+        flush()
+    return present
 
 
 def o2_bytes(cell: Cell | CalCell, o0: dict, scope: dict[str, str], workdir: Path) -> list[dict]:
@@ -578,8 +624,11 @@ def o2_bytes(cell: Cell | CalCell, o0: dict, scope: dict[str, str], workdir: Pat
             corpora[f"revision-{i}"] = (
                 rev_qdf.read_bytes() if rc == 0 and rev_qdf.exists() else raw[:off]
             )
-    tj_texts = {
-        name: fold_nospace(tj_reassembled(data)) for name, data in corpora.items() if name != "raw"
+    folded_terms = [fold_nospace(t) for t in cell.terms]
+    tj_present = {
+        name: tj_terms_present(data, folded_terms)
+        for name, data in corpora.items()
+        if name != "raw"
     }
 
     for term in cell.terms:
@@ -597,8 +646,8 @@ def o2_bytes(cell: Cell | CalCell, o0: dict, scope: dict[str, str], workdir: Pat
                 ):
                     found.append(name)
                     break
-        for name, text in tj_texts.items():
-            if fold_nospace(term) and fold_nospace(term) in text:
+        for name, present in tj_present.items():
+            if fold_nospace(term) and fold_nospace(term) in present:
                 found.append(f"{name}-tj")
         if found:
             hits.append(
