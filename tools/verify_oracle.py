@@ -1552,7 +1552,10 @@ def _scan_cells(
 
     def on_cell(res: dict[str, Any]) -> None:
         peak["b"] = max(peak["b"], int(res["maxrss"]))
-        print(f"[{tag}] scanned {res['key']} ({res['seconds']:.1f}s)")
+        print(
+            f"[{tag}] scanned {res['key']} ({res['seconds']:.1f}s; "
+            f"worker rss high-water {res['maxrss'] / 2**30:.2f} GiB)"
+        )
 
     _run_pool(_cell_task, specs_b, jobs_cells, on_cell)
     t_b = time.monotonic() - t_start - t_a
