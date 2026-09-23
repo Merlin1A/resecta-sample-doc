@@ -1700,7 +1700,7 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
         tess_hits = partial["o3_tesseract_hits"]
         ocr_leaks: list[dict] = []
         review: list[dict] = []
-        for term in set(tess_hits) | set(vision_hits):
+        for term in sorted(set(tess_hits) | set(vision_hits)):  # deterministic record order
             t_pages = {h["page"]: h for h in tess_hits.get(term, [])}
             v_pages = {h["page"]: h for h in vision_hits.get(term, [])}
             quorum_pages = sorted(set(t_pages) & set(v_pages))
