@@ -34,6 +34,11 @@ python verify.py                # bank-statement text/layout checks (needs pdfto
 - **Printable ASCII.** Generated document text stays within printable ASCII.
 - **Ground truth tracks the document.** When you change a drawn occurrence,
   update `packet-ground-truth.json` in the same commit.
+- **Mechanism, not shorthand.** Source, docstrings and emitted strings describe
+  what the code does; they never cite private planning notes, which a reader of
+  this repository cannot resolve. The lint job reports a token in that shape (a
+  short upper-case prefix, an optional hyphen, digits) on each line a change
+  adds, as a warning; `Shorthand:ok <reason>` on the line exempts it.
 
 ## Commit format and sign-off
 

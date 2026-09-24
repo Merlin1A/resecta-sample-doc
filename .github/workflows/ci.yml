@@ -64,6 +64,8 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: "3.12"
@@ -80,3 +82,40 @@ jobs:
         run: uv run mypy .
       - name: pytest
         run: uv run pytest -q
+
+      # Planning shorthand on added lines (report-only): source and docstrings
+      # describe mechanisms and never cite private planning notes, which a
+      # reader of the repository cannot resolve. Each added line of a .py file
+      # that carries a token in the register-identifier shape (a short
+      # upper-case prefix, an optional hyphen, digits) is a warning annotation;
+      # the same-line marker `Shorthand:ok <reason>` exempts a line; the step
+      # never fails the job.
+      - name: Planning shorthand on added lines (report-only)
+        env:
+          PR_BASE: ${{ github.event.pull_request.base.sha }}
+          PUSH_BEFORE: ${{ github.event.before }}
+        run: |
+          base="${PR_BASE:-$PUSH_BEFORE}"
+          if [ -z "$base" ] || [ "$base" = "0000000000000000000000000000000000000000" ]; then
+            base="$(git rev-parse HEAD~1)"
+          fi
+          echo "range: ${base}..HEAD"
+          git diff -U0 --no-color "$base" HEAD -- '*.py' > "${RUNNER_TEMP}/added.diff"
+          python3 - "${RUNNER_TEMP}/added.diff" <<'PY'
+          import re, sys
+          rx = re.compile(r"\b(D12|C12|F12|M12|Q12|RB12|SR12|SR|AL|PB|UXC|DC|R111|S4|P3)-?[0-9]+\b")
+          path, line, hits = None, 0, 0
+          for raw in open(sys.argv[1], encoding="utf-8", errors="replace"):
+              if raw.startswith("+++ "):
+                  path = raw[6:].rstrip("\n") if raw.startswith("+++ b/") else None
+              elif raw.startswith("@@"):
+                  m = re.match(r"@@ -\d+(?:,\d+)? \+(\d+)", raw)
+                  line = int(m.group(1)) if m else 0
+              elif raw.startswith("+") and not raw.startswith("+++"):
+                  body = raw[1:].rstrip("\n")
+                  if path and "Shorthand:ok" not in body and rx.search(body):
+                      print(f"::warning file={path},line={line}::planning shorthand (report-only): {body.strip()[:120]}")
+                      hits += 1
+                  line += 1
+          print(f"planning shorthand on added lines: {hits} (report-only)")
+          PY
