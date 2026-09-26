@@ -8,7 +8,7 @@ authors = [{ name = "Jesse Brookins" }]
 dependencies = [
     "fonttools>=4.63.0",
     "opentype-feature-freezer>=1.32.2",
-    "pypdf==5.1.0",
+    "pypdf==6.16.1",
     "reportlab==4.2.5",
     "pymupdf>=1.24",   # packet variants: PDF -> raster (scan-sim / degrade ladder)
     "pillow>=10",      # packet variants: image degrade transforms
