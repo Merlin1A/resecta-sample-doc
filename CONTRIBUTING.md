@@ -1,53 +1,40 @@
 # Contributing to resecta-sample-doc
 
-Thanks for your interest. This repository deterministically generates synthetic
-test documents for the Resecta iOS redaction app — a PII-dense loan/mortgage
-packet and a sample bank statement, each paired with labeled ground truth.
+Deterministic generators for the synthetic test documents of the Resecta iOS
+app; what they produce is in [`README.md`](./README.md). Maintainer-run: issues
+are welcome.
 
 ## Setup
 
-Python 3.12 is required. The project is a [uv](https://docs.astral.sh/uv/)
-project, but uv is optional — a standard virtualenv works.
+Python 3.12 (pinned by `.python-version` and CI). `uv sync` installs every
+dependency; `uv sync --group harness` adds the search-oracle tooling that
+`tools/` and the full `pytest` run need. The dependency and licence list is in
+the README.
 
-```sh
-uv sync                        # or: python -m venv .venv && pip install -e .
-```
+## Checks a change must pass
 
-The core generator needs `reportlab` + `pypdf`; the test-only variants
-additionally need `pymupdf` + `pillow`.
+`.github/workflows/ci.yml` is the source of truth. Its `build` job rebuilds the
+documents and byte-compares `packet.pdf`, `packet-ground-truth.json` and
+`sample-bank-statement.pdf` with the committed files, then runs
+`python -m packet.acceptance` and `python -m packet.variants`; its `lint` job
+runs `uv run ruff check .`, `uv run ruff format --check .`, `uv run mypy .`
+and `uv run pytest -q`. Locally, run the same plus `python verify.py` (needs
+poppler's `pdftotext` and `pdffonts`).
 
-## Build and verify
+- A change to a drawn occurrence moves `packet-ground-truth.json` in the same
+  commit; the byte-diff gate fails otherwise.
+- The invariants (synthetic only, byte-reproducible, printable ASCII) are
+  enforced by `packet.acceptance` and `verify.py`; their docstrings list the
+  current checks.
+- Source and docstrings describe mechanisms, never private planning notes. The
+  `lint` job reports a token in the register-identifier shape on each added
+  `.py` line (report-only); `Shorthand:ok <reason>` on the line exempts it.
 
-```sh
-python -m packet.build_packet   # -> packet.pdf + packet-ground-truth.json
-python -m packet.acceptance     # structural acceptance + byte-determinism (exit 0 = green)
-python verify.py                # bank-statement text/layout checks (needs pdftotext/poppler)
-```
+## Sign-off and licence
 
-## Invariants
-
-- **Synthetic only.** Every minted value is fictional and disclosed in the
-  generator source; no real personal data, and no minted entity is ever promoted
-  into a shipped gazetteer.
-- **Byte-reproducible.** Re-running a generator on the same commit produces a
-  byte-identical PDF (pinned `/ID`, fixed metadata, embedded font subset).
-- **Printable ASCII.** Generated document text stays within printable ASCII.
-- **Ground truth tracks the document.** When you change a drawn occurrence,
-  update `packet-ground-truth.json` in the same commit.
-- **Mechanism, not shorthand.** Source, docstrings and emitted strings describe
-  what the code does; they never cite private planning notes, which a reader of
-  this repository cannot resolve. The lint job reports a token in that shape (a
-  short upper-case prefix, an optional hyphen, digits) on each line a change
-  adds, as a warning; `Shorthand:ok <reason>` on the line exempts it.
-
-## Commit format and sign-off
-
-Describe the mechanism a change introduces, and sign off under the
-[Developer Certificate of Origin 1.1](https://developercertificate.org/):
-
-```sh
-git commit -s -m "add <thing>"
-```
+Apache-2.0; the bundled Inter font is under the SIL OFL 1.1
+(`fonts/NOTICE.md`). A DCO sign-off (`git commit -s`) is asked of external
+contributions.
 
 ## Security
 
