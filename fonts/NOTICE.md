@@ -27,4 +27,5 @@ glyphs. No other modification was made. Regenerate deterministically with `prepa
 ## IBM Plex Sans (documented alternate — not bundled)
 IBM Plex Sans (also SIL OFL 1.1) is a documented alternate. Inter was used as the
 primary; IBM Plex Sans was **not** fetched or embedded, so it is intentionally absent here to keep the
-embedded-font set to the single chosen family (acceptance assertion #4).
+embedded-font set to the single chosen family (`verify.py`'s assertion #4, statement PDF only; the
+packet has no equivalent automated check, though it too embeds only Inter).

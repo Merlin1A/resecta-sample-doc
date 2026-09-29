@@ -1,10 +1,10 @@
 # Security Policy
 
 resecta-sample-doc generates synthetic test documents — a multi-exhibit
-loan/mortgage packet and a sample bank statement — used as labeled corpora and
-in-app samples for the Resecta iOS redaction app. It processes no real user
-data. The security-relevant property of this repository is that its outputs stay
-synthetic and deterministic.
+loan/mortgage packet, a sample bank statement and a set of capture masters —
+used as labeled corpora and in-app samples for the Resecta iOS redaction app.
+It processes no real user data. The security-relevant property of this
+repository is that its outputs stay synthetic and deterministic.
 
 ## Reporting a vulnerability
 
@@ -38,9 +38,9 @@ disclosure has been agreed upon.
 
 ## Synthetic-data posture
 
-Every value drawn into a generated document is fictional. Persons,
-organizations, account numbers, and identifiers are invented; e-mail addresses
-use the RFC 2606 reserved example domains. No production or real-world document is
-included.
+Every value drawn into a generated document is fictional: persons,
+organizations, account numbers and identifiers are invented, e-mail addresses
+use the RFC 2606 reserved example domains, and no production or real-world
+document is included.
 
 Nothing in this policy is legal advice.
