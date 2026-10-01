@@ -20,19 +20,22 @@ Three documents are the primary outputs, all entirely synthetic:
   court and FOIA, medical and HR), with its own ground truth and a
   fiducial-marks sidecar.
 
-The repository also commits fixture sets for the app's test harness: `planted/`
-(hand-built PDFs, one per place a value can sit outside the visible page —
-hidden text, annotations, metadata, a prior revision, an embedded file — plus
-clean controls), `t23/` (rotated, annotated and incrementally updated copies of
-the packet), `robustness/` (oversized pages, page-count boundaries, encrypted
-and byte-damaged copies of the packet) and the search ground truth described
-below.
+The repository also commits fixture sets used to test the app and its
+verification tooling: `planted/` (PDFs written by
+`tools/build_planted_corpus.py`, each carrying one planted value on one surface
+of the file — visible or hidden text, an annotation, metadata, a form field, a
+prior revision, an embedded file, a JavaScript action — plus clean controls;
+they calibrate the leak oracle in `tools/verify_oracle.py`), `t23/` (rotated,
+annotated and incrementally updated copies of the packet), `robustness/`
+(page-size and page-count boundaries, encrypted and byte-damaged copies of the
+packet) and the search ground truth described below.
 
 Four rules hold for the three documents:
 
-- every person and organization is invented, identifiers are invented or taken
-  from published test and reserved ranges, and every value is disclosed in the
-  generator source;
+- every person and organization the documents are about is invented (real
+  names appear only in the titles of the public forms the exhibits imitate),
+  identifiers are invented or taken from published test and reserved ranges,
+  and every value is disclosed in the generator source;
 - no invented entity is added to a gazetteer the app ships (a project rule;
   no automated check covers it);
 - document text stays within printable ASCII;
@@ -54,9 +57,9 @@ uv sync
 
 `uv sync` installs the generators' dependencies and the `dev` group (ruff, mypy,
 pytest). The packet and statement generators use `reportlab` and `pypdf`; the
-rasterized variants use `pymupdf`, `pillow` and `numpy`. Two tools,
-`tools/register_capture.py` and `tools/verify_oracle.py`, also need the opt-in
-`harness` group (`uv sync --group harness`) for OpenCV and pypdfium2.
+rasterized variants use `pymupdf`, `pillow` and `numpy`. Two tools also need the
+opt-in `harness` group (`uv sync --group harness`): `tools/register_capture.py`
+for OpenCV and pypdfium2, and `tools/verify_oracle.py` for OpenCV.
 
 Every pull request and every push to `main` runs two jobs
 (`.github/workflows/ci.yml`). `build` checks the lockfile, rebuilds the packet
@@ -65,8 +68,9 @@ committed files, runs the acceptance suite, rebuilds and compares
 `sample-bank-statement.pdf` the same way, then builds the variants. `lint` runs
 `ruff check`, `ruff format --check`, `mypy` and `pytest`. The acceptance suite
 byte-compares the capture-masters ground truth with the committed file, and the
-variants step checks the rebuilt capture-masters PDF against a SHA-256 pinned in
-`packet/build_capture.py`. The fixture sets under `planted/`, `t23/` and
+acceptance and variants steps both rebuild the capture-masters PDF in memory
+and check it against a SHA-256 pinned in `packet/build_capture.py`. The fixture
+sets under `planted/`, `t23/` and
 `robustness/` are not rebuilt in CI.
 
 ## Build
@@ -120,7 +124,8 @@ packet/
   pdfutil.py              a shared pypdf pass over the emitted PDFs
   t23.py                  the rotated / annotated / incremental-update fixtures (t23/)
   robustness.py           the scale, page-cap and encryption fixtures (robustness/)
-  fuzz.py                 copies the pipeline's byte-damaged packets into robustness/fuzz/
+  fuzz.py                 copies the byte-damaged packets built by resecta-datapipeline
+                          into robustness/fuzz/ and writes their sidecar
 ```
 
 ## Ground truth
@@ -175,11 +180,12 @@ the Resecta iOS app, and none contribute code to the synthetic document outputs:
   degrade ladder).
 - The `dev` group (ruff, mypy, pytest — MIT) and the opt-in `harness` group
   (opencv-python-headless — Apache-2.0; pypdfium2 — BSD-3-Clause / Apache-2.0;
-  augraphy, albumentations, pdfplumber — MIT) are tooling only.
+  both wheels bundle third-party libraries under their own licenses; augraphy,
+  albumentations, pdfplumber — MIT) are tooling only.
 - PyMuPDF (pymupdf) — AGPL-3.0. Used at build time only: to rasterize the
   scan-simulation and degrade variants, to compose the oversized-page
-  robustness fixtures, and as a text extractor in the acceptance suite and the
-  search and verification tools. The AGPL copyleft applies to PyMuPDF and
+  robustness fixtures, and as a text extractor in the acceptance suite, the
+  fixture builders' self-checks and the search and verification tools. The AGPL copyleft applies to PyMuPDF and
   its derivative works; the synthetic documents this tool emits are data outputs,
   not a derivative of PyMuPDF's source, and the generator is not network-served.
   No AGPL obligation attaches to the generated documents or to this Apache-2.0

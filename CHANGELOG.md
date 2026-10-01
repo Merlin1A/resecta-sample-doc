@@ -12,8 +12,8 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 - The capture masters (`capture-masters-2026-08.pdf`, built by
   `packet/build_capture.py`) with their ground truth and fiducial-marks
   sidecar; the fixture sets under `planted/`, `t23/` and `robustness/`; the
-  search ground truth (`search-ground-truth/`) and the oracle tools under
-  `tools/`; a `tests/` suite and the opt-in `harness` dependency group.
+  search ground truth (`search-ground-truth/`) and the tools under `tools/`;
+  a `tests/` suite and the opt-in `harness` dependency group.
 - Packet variants: the degrade ladder is a declarative rung table applied to
   both masters (the packet and the capture masters), with seven new rungs
   (low-DPI 75, JPEG quality 85 and 70, seeded noise, duplex bleed-through, fax
@@ -32,11 +32,8 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 
 ### Changed
 
-- Documentation: shorter code of conduct; README/CONTRIBUTING/SECURITY trimmed and corrected.
-- Documentation: the public documents re-checked line by line against the tree
-  (the install groups, the CI steps, the capture-masters pin, the dependency
-  licences, the fixture sets, the rebaseline log); the 0.1.0 date below is the
-  date of the first public commit.
+- Documentation: shorter code of conduct; the public documents trimmed and
+  re-checked against the tree; 0.1.0 is dated by the first public commit.
 - ruff and mypy configuration with a `lint` CI job; `EMPLOYER_NAME` is the
   single source of the employer literal; the packet ground truth's watch-tier
   note is person-neutral; the README states which records carry measured

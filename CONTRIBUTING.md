@@ -8,21 +8,18 @@ are welcome.
 
 Python 3.12 (pinned by `.python-version` and CI). `uv sync` installs the
 generators' dependencies and the `dev` group; `uv sync --group harness` adds
-OpenCV and pypdfium2 for `tools/register_capture.py`, `tools/verify_oracle.py`
-and the tool-driven tests, which skip when their command-line tools are
-absent. The dependency and licence list is in the README.
+what `tools/register_capture.py`, `tools/verify_oracle.py` and the tool-driven
+tests need (those tests skip when their command-line tools are absent). The
+dependency and licence list is in the README.
 
 ## Checks a change must pass
 
-`.github/workflows/ci.yml` is the source of truth; both jobs run on every pull
-request and every push to `main`. Its `build` job checks the lockfile
-(`uv lock --check`), rebuilds the packet and byte-compares `packet.pdf` and
-`packet-ground-truth.json` with the committed files, runs
-`uv run python -m packet.acceptance`, rebuilds and byte-compares
-`sample-bank-statement.pdf`, then runs `uv run python -m packet.variants`; its
-`lint` job runs `uv run ruff check .`, `uv run ruff format --check .`,
-`uv run mypy .` and `uv run pytest -q`. Locally, run the same plus
-`uv run python verify.py` (needs poppler's `pdftotext` and `pdffonts`).
+`.github/workflows/ci.yml` is the source of truth; its `build` and `lint` jobs
+run on every pull request and every push to `main`, and the README's Install
+section says what each does. Locally, run the Build commands in the README,
+then `uv run ruff check .`, `uv run ruff format --check .`, `uv run mypy .`,
+`uv run pytest -q` and `uv run python verify.py` (needs poppler's `pdftotext`
+and `pdffonts`).
 
 - A change to a drawn occurrence moves `packet-ground-truth.json` in the same
   commit; the byte-diff gate fails otherwise.
