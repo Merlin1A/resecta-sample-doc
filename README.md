@@ -20,23 +20,27 @@ Three documents are the primary outputs, all entirely synthetic:
   court and FOIA, medical and HR), with its own ground truth and a
   fiducial-marks sidecar.
 
-The repository also commits fixture sets used to test the app and its
-verification tooling: `planted/` (PDFs written by
-`tools/build_planted_corpus.py`, each carrying one planted value on one surface
-of the file — visible or hidden text, an annotation, metadata, a form field, a
-prior revision, an embedded file, a JavaScript action — plus clean controls;
-they calibrate the leak oracle in `tools/verify_oracle.py`), `t23/` (rotated,
-annotated and incrementally updated copies of the packet), `robustness/`
-(page-size and page-count boundaries, encrypted and byte-damaged copies of the
-packet) and the search ground truth described below.
+The repository also commits fixture sets built for testing the app and for
+calibrating its verification tooling:
+
+- `planted/` — PDFs written by `tools/build_planted_corpus.py`, each carrying
+  one planted value on one surface of the file (among them visible or hidden
+  text, an image, an annotation, metadata, a form field, a bookmark, a prior
+  revision, an embedded file and a JavaScript action), plus clean controls;
+  they calibrate the leak oracle in `tools/verify_oracle.py`;
+- `t23/` — rotated, annotated and incrementally updated copies of the packet;
+- `robustness/` — page-size and page-count boundaries, encrypted and
+  byte-damaged copies of the packet;
+- the search ground truth described below.
 
 Four rules hold for the three documents:
 
 - every person and organization the documents are about is invented (real
-  names appear only in the titles of the public forms the exhibits imitate),
-  identifiers are invented or taken from published test and reserved ranges,
-  and every value is disclosed in the generator source;
-- no invented entity is added to a gazetteer the app ships (a project rule;
+  agencies, courts and statutes appear only as the furniture of the public
+  forms and filings the exhibits imitate), identifiers are invented or taken
+  from published test and reserved ranges, and every value is disclosed in the
+  generator source;
+- no invented entity is added to a name list the app ships (a project rule;
   no automated check covers it);
 - document text stays within printable ASCII;
 - the outputs are byte-reproducible from a given commit and its locked
@@ -60,6 +64,8 @@ pytest). The packet and statement generators use `reportlab` and `pypdf`; the
 rasterized variants use `pymupdf`, `pillow` and `numpy`. Two tools also need the
 opt-in `harness` group (`uv sync --group harness`): `tools/register_capture.py`
 for OpenCV and pypdfium2, and `tools/verify_oracle.py` for OpenCV.
+
+## CI
 
 Every pull request and every push to `main` runs two jobs
 (`.github/workflows/ci.yml`). `build` checks the lockfile, rebuilds the packet
@@ -138,8 +144,9 @@ records carried over from the embedded statement (`carried_stmt`) ship with
 they are checked by count, not by rectangle.
 
 Schema 2 adds three columns to every record. `context_class` names the
-name-context shape a value is drawn in, from the same vocabulary the data
-pipeline's synthetic text corpus uses (`caption_left`, `role_label`,
+name-context shape a value is drawn in, from the same vocabulary the synthetic
+text corpus of [resecta-datapipeline](https://github.com/Merlin1A/resecta-datapipeline)
+uses (`caption_left`, `role_label`,
 `title_label`, `closing_line`, `body_prose`, ... or `none`); every packet
 record carries `none` (its names all sit under form-field labels), the capture
 masters carry sixteen classed rows. `caption_clearance_pt` and `caption_text`
@@ -182,11 +189,11 @@ the Resecta iOS app, and none contribute code to the synthetic document outputs:
   (opencv-python-headless — Apache-2.0; pypdfium2 — BSD-3-Clause / Apache-2.0;
   both wheels bundle third-party libraries under their own licenses; augraphy,
   albumentations, pdfplumber — MIT) are tooling only.
-- PyMuPDF (pymupdf) — AGPL-3.0. Used at build time only: to rasterize the
-  scan-simulation and degrade variants, to compose the oversized-page
-  robustness fixtures, and as a text extractor in the acceptance suite, the
-  fixture builders' self-checks and the search and verification tools. The AGPL copyleft applies to PyMuPDF and
-  its derivative works; the synthetic documents this tool emits are data outputs,
-  not a derivative of PyMuPDF's source, and the generator is not network-served.
-  No AGPL obligation attaches to the generated documents or to this Apache-2.0
-  repository.
+- PyMuPDF (pymupdf) — AGPL-3.0. Used only by this repository's own tooling: to
+  rasterize the scan-simulation and degrade variants, to compose the
+  oversized-page robustness fixtures, and as a text extractor in the acceptance
+  suite, the fixture builders' self-checks and the search and verification
+  tools. The AGPL copyleft applies to PyMuPDF and its derivative works; the
+  synthetic documents this tool emits are data outputs, not a derivative of
+  PyMuPDF's source, and the generator is not network-served. No AGPL obligation
+  attaches to the generated documents or to this Apache-2.0 repository.

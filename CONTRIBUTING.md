@@ -15,11 +15,12 @@ dependency and licence list is in the README.
 ## Checks a change must pass
 
 `.github/workflows/ci.yml` is the source of truth; its `build` and `lint` jobs
-run on every pull request and every push to `main`, and the README's Install
-section says what each does. Locally, run the Build commands in the README,
-then `uv run ruff check .`, `uv run ruff format --check .`, `uv run mypy .`,
-`uv run pytest -q` and `uv run python verify.py` (needs poppler's `pdftotext`
-and `pdffonts`).
+run on every pull request and every push to `main`, and the README's CI
+section says what each does. Locally, run `uv lock --check` and the Build
+commands in the README (`git status` must then show no change to the committed
+outputs), then `uv run ruff check .`, `uv run ruff format --check .`,
+`uv run mypy .`, `uv run pytest -q` and `uv run python verify.py` (needs
+poppler's `pdftotext` and `pdffonts`).
 
 - A change to a drawn occurrence moves `packet-ground-truth.json` in the same
   commit; the byte-diff gate fails otherwise.
