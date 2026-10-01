@@ -26,6 +26,8 @@ Document content
 ================================================================================
 
 All document content produced by this generator is synthetic. The Hartwell
-loan/mortgage packet and the sample bank statement use fictional persons,
-organizations, account numbers, and values; e-mail addresses use the
-RFC 2606 reserved example domains. No real personal data is included.
+loan/mortgage packet, the sample bank statement, the capture masters and the
+fixtures derived from them use fictional persons and organizations;
+identifiers are invented or taken from published test and reserved ranges;
+e-mail addresses use the RFC 2606 reserved example domains. No real personal
+data is included.
