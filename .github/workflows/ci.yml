@@ -83,6 +83,27 @@ jobs:
       - name: pytest
         run: uv run pytest -q
 
+      # Every tool under tools/ runs once at its cheapest: the argument parsers'
+      # help, the checksum writer and verifier on a temporary directory, the
+      # query-bank generator against its committed output, and the planted-corpus
+      # generator on a temporary copy (it writes into the committed planted/
+      # tree when run in place). The working tree must come out unchanged.
+      - name: Tool entry points (smoke)
+        run: |
+          uv run python tools/search_oracle.py --help > /dev/null
+          uv run python tools/verify_oracle.py --help > /dev/null
+          uv run python tools/register_capture.py --help > /dev/null
+          uv run python tools/oracle_parity.py --help > /dev/null
+          d="${RUNNER_TEMP}/evidence-smoke"; mkdir -p "$d"; printf 'smoke\n' > "$d/a.txt"
+          uv run python tools/evidence_checksums.py write "$d"
+          uv run python tools/evidence_checksums.py verify "$d"
+          uv run python tools/build_search_queries.py
+          git diff --exit-code -- search-ground-truth/search-queries.json
+          c="${RUNNER_TEMP}/sd-copy"; mkdir -p "$c"; cp -R tools fonts "$c/"
+          uv run python "$c/tools/build_planted_corpus.py"
+          test -s "$c/planted/planted-leaks.json"
+          test -z "$(git status --porcelain)"
+
       # Planning shorthand on added lines (report-only): source and docstrings
       # describe mechanisms and never cite private planning notes, which a
       # reader of the repository cannot resolve. Each added line of a .py file
