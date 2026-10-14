@@ -16,66 +16,11 @@ from pathlib import Path
 from pypdf import PdfReader
 
 import statement_data as S
+from packet.brand_denylist import denylist_hits
 
 PDF = Path(__file__).resolve().parent / "sample-bank-statement.pdf"
 MODULE_SRC = (Path(__file__).resolve().parent / "statement_data.py").read_text()
 
-# build-brief denylist (safety_constraints)
-DENYLIST = [
-    "CHASE",
-    "JPMORGAN",
-    "BANK OF AMERICA",
-    "BOFA",
-    "WELLS FARGO",
-    "CITIBANK",
-    "CITIGROUP",
-    "U.S. BANK",
-    "US BANK",
-    "PNC",
-    "CAPITAL ONE",
-    "TRUIST",
-    "TD BANK",
-    "ALLY",
-    "REGIONS",
-    "FIFTH THIRD",
-    "KEYBANK",
-    "SANTANDER",
-    "HSBC",
-    "NAVY FEDERAL",
-    "AMERICAN EXPRESS",
-    "AMEX",
-    "DISCOVER",
-    "VISA",
-    "MASTERCARD",
-    "ZELLE",
-    "VENMO",
-    "PAYPAL",
-    "CASHAPP",
-    "TREAS",
-    "IRS",
-    "SSA",
-    "FDIC",
-    "NCUA",
-    "EQUAL HOUSING",
-    "AMAZON",
-    "AMZN",
-    "WALMART",
-    "WAL-MART",
-    "TARGET",
-    "COSTCO",
-    "KROGER",
-    "STARBUCKS",
-    "MCDONALD",
-    "NETFLIX",
-    "SPOTIFY",
-    "APPLE.COM",
-    "GOOGLE",
-    "UBER",
-    "LYFT",
-    "EXXON",
-    "SHELL OIL",
-    "CHEVRON",
-]
 
 _results: list[tuple[bool, str, str]] = []
 
@@ -216,11 +161,8 @@ check(
 
 
 # =================================================================================================
-# 5. denylist: zero hits in extracted text AND values module (word-boundary, case-insensitive)
-def denylist_hits(text: str) -> list[str]:
-    return [t for t in DENYLIST if re.search(r"\b" + re.escape(t) + r"\b", text, re.I)]
-
-
+# 5. denylist: zero hits in extracted text AND values module (word-boundary, case-insensitive;
+#    the list and the matcher are packet/brand_denylist.py, shared with the packet acceptance)
 hits_text = denylist_hits(full_text)
 hits_mod = denylist_hits(MODULE_SRC)
 check(

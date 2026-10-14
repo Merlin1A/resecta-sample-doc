@@ -748,6 +748,12 @@ def _capture_master() -> _Master:
             "MASTERS TRIPWIRE: the capture masters no longer match their pin.\n"
             f"  expected {BC.MASTERS_SHA256}\n  rebuilt  {got}"
         )
+    marks_got = hashlib.sha256(BC.marks_bytes(cap["sidecar"])).hexdigest()
+    if marks_got != BC.MARKS_SHA256:
+        raise SystemExit(
+            "MARKS TRIPWIRE: the fiducial sidecar no longer matches its pin.\n"
+            f"  expected {BC.MARKS_SHA256}\n  rebuilt  {marks_got}"
+        )
     return _Master(
         "capture-masters-2026-08",
         cap["pdf"],

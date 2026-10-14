@@ -877,11 +877,17 @@ def run():
     # ---- 13. capture print masters (D12-35 marks) ----
     from . import aruco as A
 
-    check(
-        A.verify_against_cv2().startswith(A.DICT_NAME) or True,
-        "13a. aruco table cross-check ran",
-        A.verify_against_cv2(),
-    )
+    try:
+        import cv2  # noqa: F401 -- its presence decides whether 13a runs (the harness group)
+    except ImportError:
+        print("SKIP  13a. aruco table cross-check (cv2 not importable -- sync the harness group)")
+    else:
+        verdict = A.verify_against_cv2()
+        check(
+            verdict.startswith(f"{A.DICT_NAME}: baked table matches cv2"),
+            "13a. aruco table matches cv2 (and ids 0..49 the legacy dictionary)",
+            verdict,
+        )
     try:
         import io as _io
 
@@ -929,6 +935,28 @@ def run():
 
     # ---- 14. capture masters (P1.8 / T1.3(a)) ----
     _capture_checks()
+
+    # ---- 15. the brand denylist over the packet's own extracted text ----
+    import io as _io15
+
+    from pypdf import PdfReader as _R15
+
+    from .brand_denylist import PACKET_DISCLAIMER_NAMES, denylist_hits
+
+    packet_text = "\n".join(
+        (page.extract_text() or "") for page in _R15(_io15.BytesIO(res["pdf"])).pages
+    )
+    check(
+        len(packet_text) > 10_000,
+        "15a. packet text extracted (not near-empty)",
+        f"{len(packet_text):,} chars",
+    )
+    brand_hits = denylist_hits(packet_text, exempt=PACKET_DISCLAIMER_NAMES)
+    check(
+        not brand_hits,
+        "15b. no denylisted brand in the packet text (the specimen disclaimer's agency exempt)",
+        f"{brand_hits}" if brand_hits else f"0 hits; exempt by name: {PACKET_DISCLAIMER_NAMES}",
+    )
 
     print("\n" + "=" * 70)
     print(

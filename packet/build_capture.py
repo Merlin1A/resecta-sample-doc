@@ -67,6 +67,10 @@ PACKET_SHA256 = "362375692b8cff378d66c43fcf46f00ba09e1ea982602fcc5c8b70e96f54339
 # variants.build_all() before the capture ladder is built.
 MASTERS_SHA256 = "96de0cb8c2cc00cf90e9a3a2969b1b3adc20e71501fd0fab101fa1e05b73a1b3"
 
+# The frozen fiducial sidecar (the marks file). It embeds the masters' digest, so a masters re-cut
+# moves it too. Asserted by variants.build_all() beside MASTERS_SHA256, on the in-memory rebuild.
+MARKS_SHA256 = "915d1c3ceef1f6fc5c570cbbb26a3f6f52aa97c79c656a6f4ccbfdb9ead7c2ea"
+
 # packet pages imported whole (0-indexed). `31-` SSC.1 rows 01-04 == acceptance check 13b's slice.
 PACKET_SLICE = (0, 5, 7, 9)
 PACKET_SLICE_LABEL = {0: "urla_b p1", 5: "stmt p3 (frozen)", 7: "t1040 p2", 9: "w2"}
@@ -316,7 +320,7 @@ def build(*, write=True) -> dict:
     if write:
         OUT_PDF.write_bytes(pdf)
         OUT_JSON.write_text(json.dumps(gt, indent=2) + "\n", encoding="ascii")
-        OUT_MARKS.write_text(json.dumps(sidecar, indent=2) + "\n", encoding="ascii")
+        OUT_MARKS.write_bytes(marks_bytes(sidecar))
     return {
         "pdf": pdf,
         "ground_truth": gt,
@@ -329,6 +333,12 @@ def build(*, write=True) -> dict:
         "sha256": master_sha,
         "recording": rc,
     }
+
+
+def marks_bytes(sidecar: dict) -> bytes:
+    """The marks file's bytes for ``sidecar`` -- the one serialisation the pin, the writer and the
+    variants tripwire all use."""
+    return (json.dumps(sidecar, indent=2) + "\n").encode("ascii")
 
 
 def main() -> None:

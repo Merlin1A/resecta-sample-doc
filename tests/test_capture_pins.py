@@ -19,9 +19,8 @@ REPO = Path(__file__).resolve().parent.parent
 if str(REPO) not in sys.path:
     sys.path.insert(0, str(REPO))
 
-from packet.brand_denylist import DENYLIST, denylist_hits  # noqa: E402
-
 from packet import build_capture as BC  # noqa: E402
+from packet.brand_denylist import DENYLIST, PACKET_DISCLAIMER_NAMES, denylist_hits  # noqa: E402
 
 
 def test_marks_pin_matches_the_committed_sidecar_and_the_rebuild() -> None:
@@ -42,4 +41,8 @@ def test_denylist_flags_a_brand_and_passes_the_packet() -> None:
     assert denylist_hits("Hartwell Savings statement, May 2026") == []
     text = "\n".join((page.extract_text() or "") for page in PdfReader(REPO / "packet.pdf").pages)
     assert len(text) > 10_000, "packet text extraction came back near-empty"
-    assert denylist_hits(text) == []
+    # The one name the packet carries is the agency its specimen disclaimer names ("Not an IRS
+    # form." on the 1040-like and W-2-like pages); the packet check exempts it by name.
+    assert denylist_hits(text) == ["IRS"]
+    assert "Not an IRS form." in text
+    assert denylist_hits(text, exempt=PACKET_DISCLAIMER_NAMES) == []
