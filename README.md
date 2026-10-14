@@ -169,7 +169,10 @@ one declarative table (`packet/variants.py` `_RUNGS`) applied to both masters:
 skew 1.5°, blur, low-DPI 100 and 75, JPEG quality 85 and 70, seeded noise,
 duplex bleed-through, and fax at 204×98 and 204×196 DPI (1-bit). Every rung is
 a pure function of the master's bytes and its recorded seed, so under the
-locked dependency versions the outputs are byte-reproducible.
+locked dependency versions the outputs are byte-reproducible. The same module's
+`build_hidden` writes the hidden-text variants (`variants/packet-hidden-*`) that
+the iOS app's verification-corpus runner reads from this repository's root;
+nothing in this repository calls it.
 
 ## Search ground truth
 

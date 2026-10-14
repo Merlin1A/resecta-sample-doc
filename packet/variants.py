@@ -1049,6 +1049,14 @@ def hidden_text(packet_pdf: bytes):
 
 
 def build_hidden(write: bool = True) -> dict:
+    """Build the hidden-text variants and their plant sidecar: ``variants/packet-hidden-text.pdf``,
+    ``packet-hidden-ocg.pdf`` and ``packet-hidden-plants.json`` (gitignored).
+
+    No code in this repository calls it. Its consumer is the iOS app's verification-corpus runner,
+    whose hidden-text cells read the three files from the sample-document root they are pointed
+    at and skip, naming this function, when the files are absent. Run it after a packet change:
+    ``.venv/bin/python -c "from packet import variants; variants.build_hidden()"``.
+    """
     if not _have_fitz():
         raise SystemExit("hidden variants require PyMuPDF (fitz)")
     res = B.build(write=False)
