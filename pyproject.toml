@@ -18,7 +18,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "mypy==1.20.2",
-    "pytest>=8,<9",
+    "pytest>=9.0.3,<10",
     "ruff==0.15.12",
 ]
 # Harness tooling for the oracle / registration legs (tools/verify_oracle.py scan, tools/register_capture.py);
