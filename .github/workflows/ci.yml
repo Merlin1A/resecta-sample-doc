@@ -56,6 +56,13 @@ jobs:
             exit 1
           fi
           sha256sum sample-bank-statement.pdf
+      # verify.py shells out to poppler's pdftotext and pdffonts, which the
+      # ubuntu-24.04 runner image does not carry.
+      - name: Statement acceptance suite (verify.py)
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq --no-install-recommends poppler-utils
+          uv run python verify.py
       - name: Variants (pymupdf + pillow leg)
         run: uv run python -m packet.variants
 

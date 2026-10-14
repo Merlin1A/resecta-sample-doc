@@ -20,6 +20,7 @@ disclosure has been agreed upon.
 
 - **Acknowledgement:** within 7 days of receipt.
 - **Triage update:** within 30 days of acknowledgement.
+- **Disclosure coordination:** we request a 90-day embargo from the date of first report and work in good faith to ship a fix within that window.
 
 ## Scope
 

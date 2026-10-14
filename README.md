@@ -71,12 +71,19 @@ Every pull request and every push to `main` runs two jobs
 (`.github/workflows/ci.yml`). `build` checks the lockfile, rebuilds the packet
 and compares `packet.pdf` and `packet-ground-truth.json` byte-for-byte with the
 committed files, runs the acceptance suite, rebuilds and compares
-`sample-bank-statement.pdf` the same way, then builds the variants. `lint` runs
-`ruff check`, `ruff format --check`, `mypy` and `pytest`. The acceptance suite
+`sample-bank-statement.pdf` the same way, runs the statement's acceptance suite
+(`verify.py`, with poppler installed on the runner), then builds the variants.
+`lint` runs `ruff check`, `ruff format --check`, `mypy` and `pytest`, then runs
+each tool under `tools/` once: the argument parsers' help, the checksum writer
+on a temporary directory, the query-bank generator against its committed output
+and the planted-corpus generator on a temporary copy. The acceptance suite
 byte-compares the capture-masters ground truth with the committed file, and the
 acceptance and variants steps both rebuild the capture-masters PDF in memory
-and check it against a SHA-256 pinned in `packet/build_capture.py`. The fixture
-sets under `planted/`, `t23/` and
+and check it and its fiducial sidecar against the two SHA-256 pins in
+`packet/build_capture.py`. The acceptance suite also checks the packet's
+extracted text against the brand denylist `verify.py` applies to the statement
+(`packet/brand_denylist.py`; the one name exempted is the agency the packet's
+own specimen disclaimer names). The fixture sets under `planted/`, `t23/` and
 `robustness/` are not rebuilt in CI.
 
 ## Build
