@@ -63,13 +63,15 @@ OUT_MARKS = REPO / "capture-masters-2026-08-marks.json"
 # fresh in-memory rebuild at the end of every capture build.
 PACKET_SHA256 = "362375692b8cff378d66c43fcf46f00ba09e1ea982602fcc5c8b70e96f54339a"
 
-# The frozen capture masters (never re-cut; every derived variant rasters THESE bytes). Asserted by
-# variants.build_all() before the capture ladder is built.
-MASTERS_SHA256 = "96de0cb8c2cc00cf90e9a3a2969b1b3adc20e71501fd0fab101fa1e05b73a1b3"
+# The frozen capture masters: every derived variant rasters THESE bytes, and variants.build_all()
+# asserts the pin before the capture ladder is built. Re-cut once, when pypdf 6.19.0 dropped a blank
+# line from each page's merged content stream (16 pages, 2 bytes each; pixels identical at 100 dpi);
+# the device captures were printed from the earlier bytes, which render the same.
+MASTERS_SHA256 = "be57ff2bcbd7cba72f37e84af1d224e659927ae389563cc675477c6ec599bf53"
 
 # The frozen fiducial sidecar (the marks file). It embeds the masters' digest, so a masters re-cut
 # moves it too. Asserted by variants.build_all() beside MASTERS_SHA256, on the in-memory rebuild.
-MARKS_SHA256 = "915d1c3ceef1f6fc5c570cbbb26a3f6f52aa97c79c656a6f4ccbfdb9ead7c2ea"
+MARKS_SHA256 = "df32d08023d4984c2494e4c444f42f6a9ea26a79d8a0ec558c83eefbf6df4ef0"
 
 # packet pages imported whole (0-indexed). `31-` SSC.1 rows 01-04 == acceptance check 13b's slice.
 PACKET_SLICE = (0, 5, 7, 9)

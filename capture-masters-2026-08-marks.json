@@ -3,7 +3,7 @@
   "family": "capture-masters",
   "set_id": "RESECTA-CAP-2026-08",
   "document": "capture-masters-2026-08.pdf",
-  "sha256": "96de0cb8c2cc00cf90e9a3a2969b1b3adc20e71501fd0fab101fa1e05b73a1b3",
+  "sha256": "be57ff2bcbd7cba72f37e84af1d224e659927ae389563cc675477c6ec599bf53",
   "ground_truth": "capture-masters-2026-08-ground-truth.json",
   "page_count": 16,
   "dictionary": {
