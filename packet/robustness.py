@@ -160,7 +160,8 @@ def packet_repeat(packet_pdf: bytes, gt: dict, pages: int = 500):
         for p in reader.pages:
             writer.add_page(p)
     while len(writer.pages) > pages:
-        del writer.pages[len(writer.pages) - 1]
+        # pypdf >= 6.16 types `pages` as a Sequence; the runtime list supports deletion.
+        del writer.pages[len(writer.pages) - 1]  # type: ignore[attr-defined]
     buf = io.BytesIO()
     writer.write(buf)
     pdf = V._finalize(
