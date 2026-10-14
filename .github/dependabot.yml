@@ -4,3 +4,12 @@ updates:
     directory: /
     schedule:
       interval: weekly
+  # The Python dependency set: Dependabot reads uv.lock and pyproject.toml.
+  # A pypdf bump is never a plain merge here: the capture masters' digest
+  # (packet/build_capture.py MASTERS_SHA256) pins the bytes pypdf writes, so
+  # a version that changes them needs the re-cut recorded in the same pull
+  # request.
+  - package-ecosystem: uv
+    directory: /
+    schedule:
+      interval: weekly
