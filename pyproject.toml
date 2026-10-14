@@ -8,7 +8,7 @@ authors = [{ name = "Jesse Brookins" }]
 dependencies = [
     "fonttools>=4.63.0",
     "opentype-feature-freezer>=1.32.2",
-    "pypdf==5.1.0",
+    "pypdf==6.19.0",
     "reportlab==4.2.5",
     "pymupdf>=1.24",   # packet variants: PDF -> raster (scan-sim / degrade ladder)
     "pillow>=10",      # packet variants: image degrade transforms
@@ -18,7 +18,7 @@ dependencies = [
 [dependency-groups]
 dev = [
     "mypy==1.20.2",
-    "pytest>=8,<9",
+    "pytest>=9.0.3,<10",
     "ruff==0.15.12",
 ]
 # Harness tooling for the oracle / registration legs (tools/verify_oracle.py scan, tools/register_capture.py);
