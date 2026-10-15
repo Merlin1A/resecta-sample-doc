@@ -1,0 +1,57 @@
+# Dependency audit over the locked set: pip-audit, at a pinned version, over
+# the requirements uv exports from uv.lock (hashes included). Findings are
+# reported in the job summary and do not fail the job: the lock moves through
+# Dependabot's uv pull requests, and a pypdf move also needs the capture
+# masters' re-cut (see .github/dependabot.yml). Weekly and on every pull
+# request; on a pull request the summary shows what the change's lock carries.
+name: security
+
+on:
+  schedule:
+    - cron: "0 7 * * 4"
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: security-${{ github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  pip-audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: "3.12"
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7 # v10.2.0
+        with:
+          version: "0.11.26"
+      - name: Export the locked set
+        run: uv export --frozen --all-groups --format requirements.txt -o "${RUNNER_TEMP}/locked.txt"
+      - name: Audit the locked set (report-only)
+        continue-on-error: true
+        run: |
+          set +e
+          uvx --from pip-audit==2.10.1 pip-audit -r "${RUNNER_TEMP}/locked.txt" --require-hashes --strict 2>&1 | tee audit.txt
+          rc="${PIPESTATUS[0]}"
+          {
+            echo "## pip-audit (report-only; rc $rc)"
+            echo '```'
+            cat audit.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          if [ "$rc" -ne 0 ]; then
+            echo "::warning::pip-audit reported a finding or could not complete (rc $rc); see the job summary"
+          fi
+          exit "$rc"

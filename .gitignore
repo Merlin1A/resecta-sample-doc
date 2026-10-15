@@ -2,3 +2,10 @@
 __pycache__/
 variants/
 build/
+
+# Never a key, a key wrapper or a local derived-data directory, whatever a
+# tool writes here.
+.dd*/
+*.age
+*private-key*
+*.pem
