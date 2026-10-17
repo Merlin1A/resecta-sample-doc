@@ -19,7 +19,7 @@ dependencies = [
 dev = [
     "mypy==1.20.2",
     "pytest>=9.0.3,<10",
-    "ruff==0.15.12",
+    "ruff==0.17.0",
 ]
 # Harness tooling for the oracle / registration legs (tools/verify_oracle.py scan, tools/register_capture.py);
 # opt in with `uv sync --group harness`. Not needed to build or verify the packet itself.
