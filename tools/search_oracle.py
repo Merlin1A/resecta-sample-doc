@@ -189,16 +189,24 @@ def literal_matches(page_text: str, query: str, opt: dict) -> list[tuple[int, in
     return hits
 
 
+def regex_flags(opt: dict) -> int:
+    """The compile flags the engine's Case-sensitive option calls for: the
+    pattern compiles case-insensitively when the option is off (the page
+    text is never case-folded on the regex path)."""
+    return 0 if opt["caseSensitive"] else re.IGNORECASE
+
+
 def regex_matches(page_text: str, pattern: str, opt: dict):
     """Regex-mode matcher: page-side NFKC (per option) + smart punct; the
-    pattern is NEVER transformed and case is NEVER folded. Returns
+    pattern is NEVER transformed; the Case-sensitive option reaches the
+    engine as a compile flag (`regex_flags`). Returns
     (list[(start,end)], error|None) — python `re` stands in for ICU, so a
     compile divergence is reported, not asserted."""
     text = nfkc(page_text) if opt["normalizeUnicode"] else page_text
     if opt["normalizeSmartPunctuation"]:
         text = smart_punct(text)
     try:
-        rx = re.compile(pattern)
+        rx = re.compile(pattern, regex_flags(opt))
     except re.error as e:
         return [], f"py-compile: {e}"
     hits = []
@@ -507,7 +515,7 @@ def phase_metamorphic(args):
             for qid, q in queries.items():
                 ca, cb = cells[(qid, on)], cells[(qid, off)]
                 ms_on, ms_off = hit_multiset(ca), hit_multiset(cb)
-                if t == "caseSensitive" and q["mode"] in ("text", "multiTerm"):
+                if t == "caseSensitive":
                     ok = all(ms_on[k] <= ms_off[k] for k in ms_on)
                     add(
                         "ci-superset-of-cs",
@@ -534,8 +542,7 @@ def phase_metamorphic(args):
                     (t == "multiTermConjunction" and q["mode"] in ("text", "regex"))
                     or (
                         q["mode"] == "regex"
-                        and t
-                        in ("caseSensitive", "exactMatch", "stripDigitSeparators", "foldDiacritics")
+                        and t in ("exactMatch", "stripDigitSeparators", "foldDiacritics")
                     )
                     or (doc_id == "packet" and t == "includeOCR")
                     or (
@@ -820,7 +827,7 @@ def phase_ocr(args):
                     if opt["normalizeSmartPunctuation"]:
                         text = smart_punct(text)
                     try:
-                        rx = re.compile(q["pattern"])
+                        rx = re.compile(q["pattern"], regex_flags(opt))
                         n = 0
                         for m in rx.finditer(text):
                             if m.start() == m.end():
