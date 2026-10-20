@@ -93106,7 +93106,7 @@
    "source": "regenerated-ocr"
   },
   "r02|v00-default": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -93119,6 +93119,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -93146,6 +93158,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -93158,6 +93194,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -93167,6 +93239,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -93242,6 +93362,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -93251,6 +93407,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -93265,7 +93433,7 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v01-flip-caseSensitive": {
    "expected_n": 13,
@@ -93430,7 +93598,7 @@
    "source": "regenerated-ocr"
   },
   "r02|v02-flip-wholeWord": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -93443,6 +93611,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -93470,6 +93650,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -93482,6 +93686,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -93491,6 +93731,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -93566,6 +93854,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -93575,6 +93899,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -93589,7 +93925,7 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v03-flip-includeOCR": {
    "expected_n": 0,
@@ -93597,7 +93933,7 @@
    "source": "regenerated-ocr"
   },
   "r02|v04-flip-normalizeUnicode": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -93610,6 +93946,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -93637,6 +93985,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -93649,6 +94021,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -93658,6 +94066,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -93733,6 +94189,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -93742,6 +94234,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -93756,10 +94260,10 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v05-flip-exactMatch": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -93772,6 +94276,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -93799,6 +94315,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -93811,6 +94351,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -93820,6 +94396,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -93895,6 +94519,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -93904,6 +94564,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -93918,10 +94590,10 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v06-flip-stripDigitSeparators": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -93934,6 +94606,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -93961,6 +94645,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -93973,6 +94681,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -93982,6 +94726,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -94057,6 +94849,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -94066,6 +94894,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -94080,10 +94920,10 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v07-flip-normalizeSmartPunctuation": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -94096,6 +94936,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -94123,6 +94975,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -94135,6 +95011,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -94144,6 +95056,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -94219,6 +95179,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -94228,6 +95224,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -94242,10 +95250,10 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v08-flip-foldDiacritics": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -94258,6 +95266,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -94285,6 +95305,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -94297,6 +95341,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -94306,6 +95386,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -94381,6 +95509,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -94390,6 +95554,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -94404,10 +95580,10 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v09-flip-multiTermConjunction": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -94420,6 +95596,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -94447,6 +95635,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -94459,6 +95671,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -94468,6 +95716,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -94543,6 +95839,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -94552,6 +95884,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -94566,7 +95910,7 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v10-pair": {
    "expected_n": 0,
@@ -94736,7 +96080,7 @@
    "source": "regenerated-ocr"
   },
   "r02|v12-dual-exactMatch-wholeWord": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -94749,6 +96093,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -94776,6 +96132,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -94788,6 +96168,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -94797,6 +96213,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -94872,6 +96336,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -94881,6 +96381,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -94895,10 +96407,10 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v13-dual-foldDiacritics-stripDigitSeparators": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -94911,6 +96423,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -94938,6 +96462,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -94950,6 +96498,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -94959,6 +96543,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -95034,6 +96666,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -95043,6 +96711,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -95057,10 +96737,10 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v14-dual-wholeWord-stripDigitSeparators": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -95073,6 +96753,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -95100,6 +96792,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -95112,6 +96828,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -95121,6 +96873,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -95196,6 +96996,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -95205,6 +97041,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -95219,10 +97067,10 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v15-dual-normalizeUnicode-normalizeSmartPunctuation": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -95235,6 +97083,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -95262,6 +97122,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -95274,6 +97158,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -95283,6 +97203,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -95358,6 +97326,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -95367,6 +97371,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -95381,7 +97397,7 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r02|v16-dual-caseSensitive-normalizeUnicode": {
    "expected_n": 13,
@@ -95551,7 +97567,7 @@
    "source": "regenerated-ocr"
   },
   "r02|v18-dual-wholeWord-normalizeSmartPunctuation": {
-   "expected_n": 13,
+   "expected_n": 27,
    "hits": [
     {
      "bbox": [
@@ -95564,6 +97580,18 @@
      "page": 0,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.695051,
+      0.220822,
+      0.015354
+     ],
+     "end": null,
+     "page": 0,
+     "start": null,
+     "text": "hartwell"
     },
     {
      "bbox": [
@@ -95591,6 +97619,30 @@
     },
     {
      "bbox": [
+      0.064401,
+      0.737172,
+      0.224581,
+      0.016869
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.411717,
+      0.243378,
+      0.015354
+     ],
+     "end": null,
+     "page": 2,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.083198,
       0.814335,
       0.143754,
@@ -95603,6 +97655,42 @@
     },
     {
      "bbox": [
+      0.677183,
+      0.737172,
+      0.252777,
+      0.024141
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "hartwell"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.497475,
+      0.333604,
+      0.018132
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13395,
+      0.468384,
+      0.333604,
+      0.019607
+     ],
+     "end": null,
+     "page": 3,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.055003,
       0.945051,
       0.506536,
@@ -95612,6 +97700,54 @@
      "page": 4,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.865207,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.785265,
+      0.333604,
+      0.016678
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.13583,
+      0.690789,
+      0.335483,
+      0.015373
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.137709,
+      0.6123,
+      0.333604,
+      0.015225
+     ],
+     "end": null,
+     "page": 4,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -95687,6 +97823,42 @@
     },
     {
      "bbox": [
+      0.062522,
+      0.594747,
+      0.181348,
+      0.018384
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.062522,
+      0.57887,
+      0.181348,
+      0.016685
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
+      0.470416,
+      0.430505,
+      0.23398,
+      0.019695
+     ],
+     "end": null,
+     "page": 8,
+     "start": null,
+     "text": "HARTWELL"
+    },
+    {
+     "bbox": [
       0.066281,
       0.847765,
       0.213303,
@@ -95696,6 +97868,18 @@
      "page": 10,
      "start": null,
      "text": "Hartwell"
+    },
+    {
+     "bbox": [
+      0.064401,
+      0.615207,
+      0.344882,
+      0.016712
+     ],
+     "end": null,
+     "page": 10,
+     "start": null,
+     "text": "HARTWELL"
     },
     {
      "bbox": [
@@ -95710,7 +97894,7 @@
      "text": "Hartwell"
     }
    ],
-   "source": "regenerated-ocr"
+   "source": "rederived-case-insensitive (the inline-flag twin r07 of the same run)"
   },
   "r03|v00-default": {
    "expected_n": 3,
