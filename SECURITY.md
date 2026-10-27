@@ -3,8 +3,8 @@
 resecta-sample-doc generates synthetic test documents for the Resecta iOS
 redaction app — a multi-exhibit loan/mortgage packet, a sample bank statement
 and a set of capture masters — and test fixtures, most of them derived from the
-packet. The statement and the packet are bundled in the app; everything else is
-test input. It processes no real user data. The security-relevant property of
+packet. The statement is bundled in the app as its sample document; the packet
+and everything else are test input. It processes no real user data. The security-relevant property of
 this repository is that its outputs stay synthetic and deterministic.
 
 ## Reporting a vulnerability

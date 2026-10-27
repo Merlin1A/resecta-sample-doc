@@ -14,8 +14,8 @@
   Inter carries **no Reserved Font Name**, so modification while keeping the family name is permitted.
 - **License posture (OFL FAQ):** OFL is OSI/FSF-approved and compatible with an
   Apache-2.0 software bundle. Redistributing these font files in the repo requires shipping `OFL.txt`
-  + the copyright notice alongside them (done here). Embedding a **subset** of the font in the PDF is
-  not "distribution" and does **not** relicense the PDF.
+  + the copyright notice alongside them (done here). Embedding a **subset** of the font in a PDF is
+  permitted and does **not** place the PDF under the OFL.
 
 ### Modification applied
 The `tnum` (tabular figures) OpenType feature was **frozen into the default glyph set** of each weight
