@@ -28,7 +28,7 @@ dev = [
 # equals the lock's runtime resolution).
 harness = [
     "opencv-python-headless==5.0.0.93",
-    "numpy==2.5.3",
+    "numpy==2.5.4",
     "augraphy==8.2.6",
     "albumentations==2.0.8",
     "pdfplumber",
