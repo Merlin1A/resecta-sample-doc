@@ -10,7 +10,7 @@ Python 3.12 (pinned by `.python-version` and CI). `uv sync` installs the
 generators' dependencies and the `dev` group; `uv sync --group harness` adds
 what `tools/register_capture.py`, `tools/verify_oracle.py` and the tool-driven
 tests need (those tests skip when their command-line tools are absent). The
-dependency and licence list is in the README.
+dependency and license list is in the README.
 
 ## Checks a change must pass
 
@@ -32,7 +32,7 @@ poppler's `pdftotext` and `pdffonts`).
   job reports a token in the register-identifier shape on each added `.py`
   line (report-only); `Shorthand:ok <reason>` on the line exempts it.
 
-## Sign-off and licence
+## Sign-off and license
 
 Apache-2.0; the bundled Inter font is under the SIL OFL 1.1
 (`fonts/NOTICE.md`). A DCO sign-off (`git commit -s`) is asked of external

@@ -32,6 +32,12 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 
 ### Changed
 
+- The capture masters are re-cut under pypdf 6.19.0, and their two pins and
+  manifest rows follow; pypdf is now 6.20.1.
+- Search ground truth: the literal-as-regex row r02 is rebaselined on the
+  case-insensitive vectors (rebaseline log row 7).
+- Security: a report-only pip-audit workflow over the locked set; Dependabot
+  reads `uv.lock`; CI checkouts no longer persist the token.
 - Documentation: shorter code of conduct; the public documents trimmed and
   re-checked against the tree; 0.1.0 is dated by the first public commit.
 - ruff and mypy configuration with a `lint` CI job; `EMPLOYER_NAME` is the
