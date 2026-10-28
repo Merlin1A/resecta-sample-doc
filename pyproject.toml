@@ -32,7 +32,7 @@ harness = [
     "augraphy==8.2.6",
     "albumentations==2.0.8",
     "pdfplumber",
-    "pypdfium2==5.13.0",
+    "pypdfium2==5.14.0",
 ]
 
 [tool.ruff]
