@@ -12,8 +12,8 @@ Three documents are the primary outputs, all entirely synthetic:
   this file's SHA-256, and its commit hook checks that the two are
   byte-identical.
 - **The Hartwell loan/mortgage packet** (`packet.pdf`) — a 12-page, PII-dense
-  multi-exhibit document that serves as the primary labeled detection corpus; a
-  copy is also bundled in the app.
+  multi-exhibit document that serves as the primary labeled detection corpus;
+  the app repository's engine tests carry a copy, pinned to this file's SHA-256.
 - **The capture masters** (`capture-masters-2026-08.pdf`) — a 16-page print
   document for the test harness's capture and OCR evaluation legs: four pages
   imported from the packet plus twelve born-digital exhibits (mail and forms,
@@ -85,6 +85,10 @@ extracted text against the brand denylist `verify.py` applies to the statement
 (`packet/brand_denylist.py`; the one name exempted is the agency the packet's
 own specimen disclaimer names). The fixture sets under `planted/`, `t23/` and
 `robustness/` are not rebuilt in CI.
+
+A second workflow, `security.yml`, runs pip-audit over the locked set weekly and
+on every pull request and reports what it finds in the job summary without
+failing the run.
 
 ## Build
 

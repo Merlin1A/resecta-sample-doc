@@ -1,7 +1,7 @@
 # search-ground-truth — rebaseline log
 
-Chromium-style discipline: the frozen sidecars (`*.search-gt.json`) change
-only through a row here. Every row answers *what changed, why, and which
+The frozen sidecars (`*.search-gt.json`) change only through a row here, the
+rebaseline rule Chromium's layout tests follow. Every row answers *what changed, why, and which
 kind of change it was* — `initial` (the first freeze), `bug-fix` (the old
 expectation was wrong), `intentional` (engine behavior legitimately changed;
 cells rebaselined), or `regenerated` (OCR-leg expectations are
