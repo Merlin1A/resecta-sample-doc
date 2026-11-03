@@ -33,9 +33,16 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 ### Changed
 
 - The capture masters are re-cut under pypdf 6.19.0, and their two pins and
-  manifest rows follow; pypdf is now 6.20.1.
+  manifest rows follow.
 - Search ground truth: the literal-as-regex row r02 is rebaselined on the
   case-insensitive vectors (rebaseline log row 7).
+- Search ground truth: the scan-simulated twin (`packet-scan-sim-150dpi`) is
+  re-frozen for the engine's confusable-character matching on scanned pages
+  and its word-level boxes (rebaseline log row 8); the packet sidecar is
+  unchanged.
+- Dependencies: Dependabot moves to pypdf 6.21.2, pillow 13.0.0, fonttools
+  4.67.0, numpy 2.5.4 and pypdfium2 5.14.0, and to the current setup-python
+  and setup-uv actions.
 - Security: a report-only pip-audit workflow over the locked set; Dependabot
   reads `uv.lock`; CI checkouts no longer persist the token.
 - Documentation: shorter code of conduct; the public documents trimmed and
@@ -45,7 +52,7 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
   note is person-neutral; the README states which records carry measured
   boxes.
 
-## 0.1.0 — 2026-07-11
+## 0.1.0 — 2026-07-11 (untagged)
 
 Initial public release.
 

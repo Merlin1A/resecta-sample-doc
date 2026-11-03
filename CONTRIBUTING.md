@@ -24,10 +24,11 @@ poppler's `pdftotext` and `pdffonts`).
 
 - A change to a drawn occurrence moves `packet-ground-truth.json` in the same
   commit; the byte-diff gate fails otherwise.
-- The rules in the README (synthetic only, byte-reproducible, printable ASCII)
-  are checked by `packet.acceptance`, by `verify.py` for the statement's
-  content, and by the CI byte-diff steps; each script prints its check names
-  when it runs.
+- The byte-reproducibility and printable-ASCII rules in the README are checked
+  by `packet.acceptance`, by `verify.py` for the statement's content, and by
+  the CI byte-diff steps; the synthetic-only rule is backed by the brand
+  denylist both suites apply, and otherwise by review. Each script prints its
+  check names when it runs.
 - New source lines describe mechanisms, not private planning notes. The `lint`
   job reports a token in the register-identifier shape on each added `.py`
   line (report-only); `Shorthand:ok <reason>` on the line exempts it.

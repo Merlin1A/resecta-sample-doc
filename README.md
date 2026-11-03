@@ -113,6 +113,10 @@ uv run python -m packet.acceptance
 `uv run python verify.py` runs twelve checks on the bank statement (content,
 fonts, arithmetic, metadata) and requires `pdftotext`/`pdffonts` (poppler).
 
+`documents.manifest.json` pins the SHA-256 of each document and variant
+(`tools/verify_oracle.py` reads it); `prepare_fonts.py` rebuilds `fonts/` from
+the Inter release (see `fonts/NOTICE.md`).
+
 ## Packet layout
 
 The packet is assembled in a fixed page order (0-indexed `pageIndex`):
