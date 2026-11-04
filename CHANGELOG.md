@@ -40,6 +40,9 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
   re-frozen for the engine's confusable-character matching on scanned pages
   and its word-level boxes (rebaseline log row 8); the packet sidecar is
   unchanged.
+- Search ground truth: the scan-simulated twin lists its regex matches in page
+  order for r09 and r06 (rebaseline log row 9); order only, the scores and
+  the packet sidecar unchanged.
 - Dependencies: Dependabot moves to pypdf 6.21.2, pillow 13.0.0, fonttools
   4.67.0, numpy 2.5.4 and pypdfium2 5.14.0, and to the current setup-python
   and setup-uv actions.
