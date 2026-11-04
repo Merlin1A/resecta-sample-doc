@@ -122,6 +122,9 @@ def test_reencode_control_keeps_the_writer_segments_only_in_faithful_mode() -> N
     assert fj["detail"]["blocks_changed"] < lj["detail"]["blocks_changed"]
 
 
+@pytest.mark.skipif(
+    not Path(sp.FONT).exists(), reason=f"image plants draw with {sp.FONT}, absent here"
+)
 def test_faithful_flate_image_keeps_one_stream() -> None:
     data, row = plant("b01-statement-h", "O-12", "flate-image", "faithful")
     assert "contents_array" not in kinds(row)
