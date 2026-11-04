@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 
 ### Added
 
+- A grammar-faithful plant mode (`tools/seeded_plant.py --mode faithful`, or
+  `both`): a planted row changes only what its class needs, in the grammar
+  Resecta's writer uses: one content stream per page, the writer's own font
+  on a Searchable page, the page JPEG re-encoded with its own tables,
+  sampling, restart interval and APP segments, and one content-derived
+  trailer `/ID`. The default (`legacy`) still rebuilds the published
+  `seeded/` rows byte for byte.
+- Every planted row records its side effects (`tools/seeded_effects.py`): a
+  structural diff against the base output, each change tagged inherent (the
+  class needs it) or artefact (a mark of how it was planted). Two new controls
+  per base: a page image re-encoded with nothing planted, and an empty
+  operator group added to the page's content.
+- `tools/seeded_score.py` compares the two modes (`fidelity` in its
+  summary: flagged rows per mode, catches only the legacy planter's marks
+  explain, and the routes' joint miss on faithful rows), and
+  `--expected-from` chooses which mode's rows an expected table is written
+  from.
 - Seeded leaks (`seeded/`): what Resecta's verifier says about a real output
   with one hidden copy of a redacted value planted into one PDF channel. The base
   specs, Resecta's outputs and input records for the sample statement (the
