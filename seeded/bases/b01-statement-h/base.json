@@ -1,0 +1,77 @@
+{
+ "base_id": "b01-statement-h",
+ "mode": "searchableRedaction",
+ "notes": "",
+ "password": null,
+ "regions": [
+  {
+   "category": "custom",
+   "page": 0,
+   "rect": [
+    0.08701,
+    0.816562,
+    0.134473,
+    0.017935
+   ],
+   "value": "Delia R. Hartwell"
+  },
+  {
+   "category": "custom",
+   "page": 0,
+   "rect": [
+    0.833618,
+    0.80707,
+    0.092451,
+    0.01488
+   ],
+   "value": "4100773265"
+  },
+  {
+   "category": "custom",
+   "page": 0,
+   "rect": [
+    0.757902,
+    0.741414,
+    0.162743,
+    0.01488
+   ],
+   "value": "d.hartwell@example.net"
+  },
+  {
+   "category": "custom",
+   "page": 0,
+   "rect": [
+    0.08701,
+    0.800148,
+    0.172064,
+    0.017935
+   ],
+   "value": "4127 N. Wrenfield Pl"
+  },
+  {
+   "category": "custom",
+   "page": 1,
+   "rect": [
+    0.057598,
+    0.945959,
+    0.110729,
+    0.01488
+   ],
+   "value": "Delia R. Hartwell"
+  },
+  {
+   "category": "custom",
+   "page": 2,
+   "rect": [
+    0.057598,
+    0.945959,
+    0.110729,
+    0.01488
+   ],
+   "value": "Delia R. Hartwell"
+  }
+ ],
+ "schema": 1,
+ "source": "sample-bank-statement.pdf",
+ "source_sha256": "992ca0543eb1a2eaab8d8dba0a4ad4b8339cf95b804a0347ab1b0987ce18fa20"
+}

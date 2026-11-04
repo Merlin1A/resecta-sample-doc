@@ -1,0 +1,112 @@
+{
+  "duration_s" : 7.391180992126465,
+  "layers" : [
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 0.0002830028533935547,
+      "index" : 0,
+      "name" : "Text Extraction",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "doc.text.magnifyingglass"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "OCR read every page; content outside every redacted region is the page's own and is not reported.",
+      "duration_s" : 0.5244870185852051,
+      "index" : 1,
+      "name" : "OCR Check",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "text.viewfinder"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 0.7541359663009644,
+      "index" : 2,
+      "name" : "Binary String Search",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "01.square.fill"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 0.0027970075607299805,
+      "index" : 3,
+      "name" : "Structure Check",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "rectangle.3.group"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "Producer and timestamps carry the writer's fixed values; no file-specific metadata is present.",
+      "duration_s" : 0.0055609941482543945,
+      "index" : 4,
+      "name" : "Metadata Check",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "info.circle"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 6.628204941749573,
+      "index" : 5,
+      "name" : "Search Re-check",
+      "short" : "No searches were applied — the search re-check did not run.",
+      "status" : {
+        "case" : "not_applicable",
+        "message" : "No searches were applied — the search re-check did not run."
+      },
+      "symbol" : "text.page.badge.magnifyingglass"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "Detection Sweep ran every detector on the output. Text was read by OCR from the rendered pages. Names and addresses are not swept. 4 possible items remain on 2 pages: 1, 3.",
+      "duration_s" : 5.900859832763672e-05,
+      "index" : 6,
+      "name" : "Detection Sweep",
+      "pages" : [
+        0,
+        2
+      ],
+      "short" : "Ran the detectors on the output — 4 possible items remain on 2 pages: 1, 3. Open Scan to review.",
+      "status" : {
+        "case" : "info",
+        "message" : "Ran the detectors on the output — 4 possible items remain on 2 pages: 1, 3. Open Scan to review."
+      },
+      "symbol" : "rectangle.and.text.magnifyingglass"
+    }
+  ],
+  "overall" : {
+    "case" : "pass"
+  },
+  "per_page_fallback_reasons" : [
+    null,
+    null,
+    null
+  ],
+  "per_page_modes" : [
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization"
+  ],
+  "schema_version" : 1,
+  "skip_reason" : "autoVerifyOff",
+  "user_acknowledged_skipped_share" : false,
+  "user_overrode_failure" : false
+}

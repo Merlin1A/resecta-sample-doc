@@ -1,0 +1,129 @@
+{
+  "applied_searches" : [
+    {
+      "applied_count" : 0,
+      "applied_pages" : [
+
+      ],
+      "deselected_count" : 0,
+      "found_count" : 0,
+      "origin" : "sweep",
+      "query_kind" : "piiScan(categories: Set([RedactionEngine"
+    }
+  ],
+  "base_id" : "b01-statement-s",
+  "filter_digests" : [
+    null,
+    null,
+    null
+  ],
+  "floor_dropped" : [
+
+  ],
+  "manual_regions_without_text" : 0,
+  "output_sha256" : "d412f9118ee2c51b05a2bc7cdea2f9bc2afa55b48a6f5433cd2bd38e73c38bd2",
+  "per_page_fallback_reasons" : [
+    null,
+    null,
+    null
+  ],
+  "per_page_modes" : [
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization"
+  ],
+  "pipeline_mode" : "secureRasterization",
+  "regions" : [
+    {
+      "category" : "custom",
+      "page" : 0,
+      "rect" : [
+        0.08701,
+        0.816562,
+        0.134473,
+        0.017935
+      ],
+      "value" : "Delia R. Hartwell"
+    },
+    {
+      "category" : "custom",
+      "page" : 0,
+      "rect" : [
+        0.833618,
+        0.80707,
+        0.092451,
+        0.01488
+      ],
+      "value" : "4100773265"
+    },
+    {
+      "category" : "custom",
+      "page" : 0,
+      "rect" : [
+        0.757902,
+        0.741414,
+        0.162743,
+        0.01488
+      ],
+      "value" : "d.hartwell@example.net"
+    },
+    {
+      "category" : "custom",
+      "page" : 0,
+      "rect" : [
+        0.08701,
+        0.800148,
+        0.172064,
+        0.017935
+      ],
+      "value" : "4127 N. Wrenfield Pl"
+    },
+    {
+      "category" : "custom",
+      "page" : 1,
+      "rect" : [
+        0.057598,
+        0.945959,
+        0.110729,
+        0.01488
+      ],
+      "value" : "Delia R. Hartwell"
+    },
+    {
+      "category" : "custom",
+      "page" : 2,
+      "rect" : [
+        0.057598,
+        0.945959,
+        0.110729,
+        0.01488
+      ],
+      "value" : "Delia R. Hartwell"
+    }
+  ],
+  "runtime" : {
+    "engine_commit" : "5ef252fb",
+    "os" : "iOS 26.4.1"
+  },
+  "schema" : 1,
+  "sensitive_terms" : [
+    {
+      "requires_token_boundary" : false,
+      "text" : "4100773265"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "4127 N. Wrenfield Pl"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "Delia R. Hartwell"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "d.hartwell@example.net"
+    }
+  ],
+  "source_page_count" : 3,
+  "source_sha256" : "992ca0543eb1a2eaab8d8dba0a4ad4b8339cf95b804a0347ab1b0987ce18fa20"
+}

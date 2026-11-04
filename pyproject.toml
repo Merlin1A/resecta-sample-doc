@@ -97,6 +97,7 @@ ignore = [
 "tools/seeded_plant.py" = ["T20", "S603", "S607"]
 "tools/seeded_oracle.py" = ["T20", "S603", "S607"]
 "tools/seeded_score.py" = ["T20"]
+"seeded/**/*.py" = ["T20"]
 # pytest tests assert by design.
 "tests/*.py" = ["S101"]
 # The oracle tests drive the external tools and seed a PRNG for the regex corpora.

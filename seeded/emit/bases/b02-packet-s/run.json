@@ -1,0 +1,86 @@
+{
+  "base_id" : "b02-packet-s",
+  "digest" : "recorded",
+  "id" : "b02-packet-s",
+  "layers" : [
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "textExtraction",
+      "status" : "pass"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "ocrCheck",
+      "pages" : [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "review_terms" : [
+        "Mateo Hartwell",
+        "d.hartwell@example.net",
+        "Delia Hartwell",
+        "970-85-6042",
+        "502-19-7438",
+        "480026184402",
+        "2900 Commerce Park Drive, Meridian, ID 83642"
+      ],
+      "status" : "attention"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "binaryStringSearch",
+      "status" : "pass"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "structureCheck",
+      "status" : "pass"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "metadataCheck",
+      "status" : "pass"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "searchRecheck",
+      "status" : "not_applicable"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : true,
+      "layer" : "detectionSweep",
+      "pages" : [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "status" : "info"
+    }
+  ],
+  "overall" : "attention",
+  "phase" : "emit",
+  "schema" : 1,
+  "seconds" : 31.48468
+}

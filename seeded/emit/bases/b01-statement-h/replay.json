@@ -1,0 +1,156 @@
+{
+  "applied_searches" : [
+    {
+      "applied_count" : 0,
+      "applied_pages" : [
+
+      ],
+      "deselected_count" : 0,
+      "found_count" : 0,
+      "origin" : "sweep",
+      "query_kind" : "piiScan(categories: Set([RedactionEngine"
+    }
+  ],
+  "base_id" : "b01-statement-h",
+  "filter_digests" : [
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 87,
+      "extracted" : 949,
+      "lineage_sha256_hex" : "87dd08ad4d441b0e0cfe6bf11df290790a8d8fabb9a9d5d01a569893fdddddc4",
+      "page" : 0,
+      "page_rotation" : 0,
+      "surviving" : 862,
+      "surviving_non_whitespace" : 795
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 17,
+      "extracted" : 2117,
+      "lineage_sha256_hex" : "2786cec8404e58e9c9242a1300969ff7061949085a379ed5be4afb9fdf8fe482",
+      "page" : 1,
+      "page_rotation" : 0,
+      "surviving" : 2100,
+      "surviving_non_whitespace" : 1892
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 17,
+      "extracted" : 2907,
+      "lineage_sha256_hex" : "afcece3e8143ab67ced6a90275308fce5bff2a7370c41322fd8e3cae38ba12e0",
+      "page" : 2,
+      "page_rotation" : 0,
+      "surviving" : 2890,
+      "surviving_non_whitespace" : 2483
+    }
+  ],
+  "floor_dropped" : [
+
+  ],
+  "manual_regions_without_text" : 0,
+  "output_sha256" : "9957ffb1f5e6385084d9671d4bac7cd1e5cb1dce825c7e865a74c0fe5bc510c2",
+  "per_page_fallback_reasons" : [
+    null,
+    null,
+    null
+  ],
+  "per_page_modes" : [
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction"
+  ],
+  "pipeline_mode" : "searchableRedaction",
+  "regions" : [
+    {
+      "category" : "custom",
+      "page" : 0,
+      "rect" : [
+        0.08701,
+        0.816562,
+        0.134473,
+        0.017935
+      ],
+      "value" : "Delia R. Hartwell"
+    },
+    {
+      "category" : "custom",
+      "page" : 0,
+      "rect" : [
+        0.833618,
+        0.80707,
+        0.092451,
+        0.01488
+      ],
+      "value" : "4100773265"
+    },
+    {
+      "category" : "custom",
+      "page" : 0,
+      "rect" : [
+        0.757902,
+        0.741414,
+        0.162743,
+        0.01488
+      ],
+      "value" : "d.hartwell@example.net"
+    },
+    {
+      "category" : "custom",
+      "page" : 0,
+      "rect" : [
+        0.08701,
+        0.800148,
+        0.172064,
+        0.017935
+      ],
+      "value" : "4127 N. Wrenfield Pl"
+    },
+    {
+      "category" : "custom",
+      "page" : 1,
+      "rect" : [
+        0.057598,
+        0.945959,
+        0.110729,
+        0.01488
+      ],
+      "value" : "Delia R. Hartwell"
+    },
+    {
+      "category" : "custom",
+      "page" : 2,
+      "rect" : [
+        0.057598,
+        0.945959,
+        0.110729,
+        0.01488
+      ],
+      "value" : "Delia R. Hartwell"
+    }
+  ],
+  "runtime" : {
+    "engine_commit" : "5ef252fb",
+    "os" : "iOS 26.4.1"
+  },
+  "schema" : 1,
+  "sensitive_terms" : [
+    {
+      "requires_token_boundary" : false,
+      "text" : "4100773265"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "4127 N. Wrenfield Pl"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "Delia R. Hartwell"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "d.hartwell@example.net"
+    }
+  ],
+  "source_page_count" : 3,
+  "source_sha256" : "992ca0543eb1a2eaab8d8dba0a4ad4b8339cf95b804a0347ab1b0987ce18fa20"
+}

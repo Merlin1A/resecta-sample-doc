@@ -1,0 +1,161 @@
+{
+  "duration_s" : 30.473891973495483,
+  "layers" : [
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 0.0007060766220092773,
+      "index" : 0,
+      "name" : "Text Extraction",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "doc.text.magnifyingglass"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 2.860841989517212,
+      "index" : 1,
+      "name" : "OCR Check",
+      "pages" : [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "review_terms" : [
+        "Mateo Hartwell",
+        "d.hartwell@example.net",
+        "Delia Hartwell",
+        "970-85-6042",
+        "502-19-7438",
+        "480026184402",
+        "2900 Commerce Park Drive, Meridian, ID 83642"
+      ],
+      "short" : "Text matching your redactions is still readable on 9 pages: 3, 4, 5, 7, 8, 9, 10, 11, 12 — read by OCR outside every redacted region",
+      "status" : {
+        "case" : "attention",
+        "message" : "Text matching your redactions is still readable on 9 pages: 3, 4, 5, 7, 8, 9, 10, 11, 12 — read by OCR outside every redacted region"
+      },
+      "symbol" : "text.viewfinder"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 3.126850962638855,
+      "index" : 2,
+      "name" : "Binary String Search",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "01.square.fill"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 0.010632991790771484,
+      "index" : 3,
+      "name" : "Structure Check",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "rectangle.3.group"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "Producer and timestamps carry the writer's fixed values; no file-specific metadata is present.",
+      "duration_s" : 0.021420001983642578,
+      "index" : 4,
+      "name" : "Metadata Check",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "info.circle"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 27.314210057258606,
+      "index" : 5,
+      "name" : "Search Re-check",
+      "short" : "No searches were applied — the search re-check did not run.",
+      "status" : {
+        "case" : "not_applicable",
+        "message" : "No searches were applied — the search re-check did not run."
+      },
+      "symbol" : "text.page.badge.magnifyingglass"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "Detection Sweep ran every detector on the output. Text was read by OCR from the rendered pages. Names and addresses are not swept. 30 possible items remain on 11 pages: 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12.",
+      "duration_s" : 0.00010406970977783203,
+      "index" : 6,
+      "name" : "Detection Sweep",
+      "pages" : [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "short" : "Ran the detectors on the output — 30 possible items remain on 11 pages: 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12. Open Scan to review.",
+      "status" : {
+        "case" : "info",
+        "message" : "Ran the detectors on the output — 30 possible items remain on 11 pages: 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12. Open Scan to review."
+      },
+      "symbol" : "rectangle.and.text.magnifyingglass"
+    }
+  ],
+  "overall" : {
+    "case" : "attention",
+    "message" : "Text matching your redactions is still readable on 9 pages: 3, 4, 5, 7, 8, 9, 10, 11, 12 — read by OCR outside every redacted region"
+  },
+  "per_page_fallback_reasons" : [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "per_page_modes" : [
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization",
+    "secureRasterization"
+  ],
+  "schema_version" : 1,
+  "skip_reason" : "autoVerifyOff",
+  "user_acknowledged_skipped_share" : false,
+  "user_overrode_failure" : false
+}

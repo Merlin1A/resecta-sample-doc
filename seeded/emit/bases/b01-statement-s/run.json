@@ -1,0 +1,57 @@
+{
+  "base_id" : "b01-statement-s",
+  "digest" : "recorded",
+  "id" : "b01-statement-s",
+  "layers" : [
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "textExtraction",
+      "status" : "pass"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "ocrCheck",
+      "status" : "pass"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "binaryStringSearch",
+      "status" : "pass"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "structureCheck",
+      "status" : "pass"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "metadataCheck",
+      "status" : "pass"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : false,
+      "layer" : "searchRecheck",
+      "status" : "not_applicable"
+    },
+    {
+      "could_not_verify" : false,
+      "has_query_lines" : true,
+      "layer" : "detectionSweep",
+      "pages" : [
+        0,
+        2
+      ],
+      "status" : "info"
+    }
+  ],
+  "overall" : "pass",
+  "phase" : "emit",
+  "schema" : 1,
+  "seconds" : 7.655212
+}

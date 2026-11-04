@@ -1,0 +1,556 @@
+{
+  "applied_searches" : [
+    {
+      "applied_count" : 0,
+      "applied_pages" : [
+
+      ],
+      "deselected_count" : 0,
+      "found_count" : 0,
+      "origin" : "sweep",
+      "query_kind" : "piiScan(categories: Set([RedactionEngine"
+    }
+  ],
+  "base_id" : "b02-packet-h",
+  "filter_digests" : [
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 218,
+      "extracted" : 3118,
+      "lineage_sha256_hex" : "6f27ce3f9106cef4c36c3ff4d87adddafdb2bf4755b382012a5de7985767293f",
+      "page" : 0,
+      "page_rotation" : 0,
+      "surviving" : 2900,
+      "surviving_non_whitespace" : 2510
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 108,
+      "extracted" : 2930,
+      "lineage_sha256_hex" : "065fd8b46d225c4f7c1bd4ca3ee599c4d5fa8cbd8046cd7682ebcac376eae135",
+      "page" : 1,
+      "page_rotation" : 0,
+      "surviving" : 2822,
+      "surviving_non_whitespace" : 2437
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 139,
+      "extracted" : 3347,
+      "lineage_sha256_hex" : "54e3308d3006b1effadb806d757cc52806e8edc4c4876ff39352b62507e4ef6b",
+      "page" : 2,
+      "page_rotation" : 0,
+      "surviving" : 3208,
+      "surviving_non_whitespace" : 2778
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 0,
+      "extracted" : 949,
+      "lineage_sha256_hex" : "72957af68f4c5829b458cd5180061cec938645bc76ad43cb7e2ab5d840543595",
+      "page" : 3,
+      "page_rotation" : 0,
+      "surviving" : 949,
+      "surviving_non_whitespace" : 874
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 0,
+      "extracted" : 2117,
+      "lineage_sha256_hex" : "bb98b049cf753b7d49e09deb3a315f8244922a2930ef934eda08754ded351613",
+      "page" : 4,
+      "page_rotation" : 0,
+      "surviving" : 2117,
+      "surviving_non_whitespace" : 1907
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 0,
+      "extracted" : 2907,
+      "lineage_sha256_hex" : "187ae55efdb7965cf0d36800430caff444e8fdabf729316357e43346550b24f9",
+      "page" : 5,
+      "page_rotation" : 0,
+      "surviving" : 2907,
+      "surviving_non_whitespace" : 2498
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 0,
+      "extracted" : 2950,
+      "lineage_sha256_hex" : "70dea0887b0044e87b2d6f637a267e16211421dfb48cf1ceca2805f3dbeed201",
+      "page" : 6,
+      "page_rotation" : 0,
+      "surviving" : 2950,
+      "surviving_non_whitespace" : 2557
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 0,
+      "extracted" : 2701,
+      "lineage_sha256_hex" : "9a14d9dd448e154c461fb607949b1a9fcd2fcfa6f29df6cf4c8b4955018f60f9",
+      "page" : 7,
+      "page_rotation" : 0,
+      "surviving" : 2701,
+      "surviving_non_whitespace" : 2326
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 0,
+      "extracted" : 1272,
+      "lineage_sha256_hex" : "f9809da5d8c360ad7b6a4420eba6057b217f63f1ba138a9bc6ccd42b91fe4a66",
+      "page" : 8,
+      "page_rotation" : 0,
+      "surviving" : 1272,
+      "surviving_non_whitespace" : 1134
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 0,
+      "extracted" : 2930,
+      "lineage_sha256_hex" : "217fe4cc4fcd598b9847db50b2b4ed7a46fa59d2f0ed9397eecf9098b8f0fa00",
+      "page" : 9,
+      "page_rotation" : 0,
+      "surviving" : 2930,
+      "surviving_non_whitespace" : 2519
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 0,
+      "extracted" : 3253,
+      "lineage_sha256_hex" : "8e541cb5f0c4e882ea614260472adb34b081ec3fad1043510e11e5228d805d0b",
+      "page" : 10,
+      "page_rotation" : 0,
+      "surviving" : 3253,
+      "surviving_non_whitespace" : 2833
+    },
+    {
+      "drawn_cell_rule_excluded" : 0,
+      "excluded" : 0,
+      "extracted" : 1976,
+      "lineage_sha256_hex" : "443db3d6ceb73ad5c66b33f84e77adeba3ce6c828fc509eb091e9129a623d0e6",
+      "page" : 11,
+      "page_rotation" : 0,
+      "surviving" : 1976,
+      "surviving_non_whitespace" : 1695
+    }
+  ],
+  "floor_dropped" : [
+
+  ],
+  "manual_regions_without_text" : 0,
+  "output_sha256" : "8a3925c0daccc5552db869b9338d67dbf2aa6bb23cb2ad8c8a50af9cd68d027f",
+  "per_page_fallback_reasons" : [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "per_page_modes" : [
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction"
+  ],
+  "pipeline_mode" : "searchableRedaction",
+  "regions" : [
+    {
+      "category" : "ssn",
+      "page" : 0,
+      "rect" : [
+        0.225611,
+        0.831855,
+        0.104895,
+        0.013749
+      ],
+      "value" : "502-19-7438"
+    },
+    {
+      "category" : "phone",
+      "page" : 0,
+      "rect" : [
+        0.15879,
+        0.753572,
+        0.120333,
+        0.01375
+      ],
+      "value" : "(208) 555-0147"
+    },
+    {
+      "category" : "phone",
+      "page" : 0,
+      "rect" : [
+        0.145725,
+        0.734633,
+        0.11443,
+        0.013749
+      ],
+      "value" : "916-555-0182"
+    },
+    {
+      "category" : "phone",
+      "page" : 0,
+      "rect" : [
+        0.155242,
+        0.715693,
+        0.103257,
+        0.01375
+      ],
+      "value" : "208.555.0119"
+    },
+    {
+      "category" : "email",
+      "page" : 0,
+      "rect" : [
+        0.112177,
+        0.696754,
+        0.167093,
+        0.013749
+      ],
+      "value" : "d.hartwell@example.net"
+    },
+    {
+      "category" : "address",
+      "page" : 0,
+      "rect" : [
+        0.068627,
+        0.6614,
+        0.151662,
+        0.01375
+      ],
+      "value" : "4127 Wrenfield Place Boise, ID 83702"
+    },
+    {
+      "category" : "address",
+      "page" : 0,
+      "rect" : [
+        0.068627,
+        0.646249,
+        0.112427,
+        0.013749
+      ],
+      "value" : "4127 Wrenfield Place Boise, ID 83702"
+    },
+    {
+      "category" : "address",
+      "page" : 0,
+      "rect" : [
+        0.068627,
+        0.60837,
+        0.166483,
+        0.01375
+      ],
+      "value" : "812 Aldergrove Avenue Modesto, CA 95354"
+    },
+    {
+      "category" : "address",
+      "page" : 0,
+      "rect" : [
+        0.068627,
+        0.593219,
+        0.141487,
+        0.013749
+      ],
+      "value" : "812 Aldergrove Avenue Modesto, CA 95354"
+    },
+    {
+      "category" : "address",
+      "page" : 0,
+      "rect" : [
+        0.259127,
+        0.570491,
+        0.221371,
+        0.01375
+      ],
+      "value" : "P.O. Box 2215, Boise, ID 83701"
+    },
+    {
+      "category" : "address",
+      "page" : 0,
+      "rect" : [
+        0.193442,
+        0.499784,
+        0.336663,
+        0.01375
+      ],
+      "value" : "2900 Commerce Park Drive, Meridian, ID 83642"
+    },
+    {
+      "category" : "name",
+      "page" : 1,
+      "rect" : [
+        0.196589,
+        0.906198,
+        0.101103,
+        0.014513
+      ],
+      "value" : "Delia Hartwell"
+    },
+    {
+      "category" : "account",
+      "page" : 1,
+      "rect" : [
+        0.139451,
+        0.85332,
+        0.11443,
+        0.013749
+      ],
+      "value" : "480026184402"
+    },
+    {
+      "category" : "account",
+      "page" : 1,
+      "rect" : [
+        0.128772,
+        0.835643,
+        0.11443,
+        0.013749
+      ],
+      "value" : "700415592031"
+    },
+    {
+      "category" : "account",
+      "page" : 1,
+      "rect" : [
+        0.09885,
+        0.817966,
+        0.11443,
+        0.01375
+      ],
+      "value" : "529184007731"
+    },
+    {
+      "category" : "creditCard",
+      "page" : 1,
+      "rect" : [
+        0.184787,
+        0.731855,
+        0.164422,
+        0.013749
+      ],
+      "value" : "4111 1111 1111 1111"
+    },
+    {
+      "category" : "dateOfBirth",
+      "page" : 1,
+      "rect" : [
+        0.403626,
+        0.60938,
+        0.113238,
+        0.01375
+      ],
+      "value" : "March 14, 1985"
+    },
+    {
+      "category" : "email",
+      "page" : 1,
+      "rect" : [
+        0.112177,
+        0.518471,
+        0.175394,
+        0.01375
+      ],
+      "value" : "k.delgado@example.com"
+    },
+    {
+      "category" : "name",
+      "page" : 2,
+      "rect" : [
+        0.297558,
+        0.850794,
+        0.104959,
+        0.01375
+      ],
+      "value" : "Mateo Hartwell"
+    },
+    {
+      "category" : "itin",
+      "page" : 2,
+      "rect" : [
+        0.081699,
+        0.816551,
+        0.110722,
+        0.014514
+      ],
+      "value" : "970-85-6042"
+    },
+    {
+      "category" : "phone",
+      "page" : 2,
+      "rect" : [
+        0.155242,
+        0.758623,
+        0.137451,
+        0.013749
+      ],
+      "value" : "+1 208-555-0173"
+    },
+    {
+      "category" : "email",
+      "page" : 2,
+      "rect" : [
+        0.112177,
+        0.739683,
+        0.17227,
+        0.01375
+      ],
+      "value" : "m.hartwell@example.org"
+    },
+    {
+      "category" : "address",
+      "page" : 2,
+      "rect" : [
+        0.068627,
+        0.705592,
+        0.151662,
+        0.01375
+      ],
+      "value" : "4127 Wrenfield Place Boise, ID 83702"
+    },
+    {
+      "category" : "address",
+      "page" : 2,
+      "rect" : [
+        0.068627,
+        0.690441,
+        0.112427,
+        0.013749
+      ],
+      "value" : "4127 Wrenfield Place Boise, ID 83702"
+    },
+    {
+      "category" : "address",
+      "page" : 2,
+      "rect" : [
+        0.259127,
+        0.670239,
+        0.221371,
+        0.013749
+      ],
+      "value" : "P.O. Box 6841, Boise, ID 83707"
+    },
+    {
+      "category" : "account",
+      "page" : 2,
+      "rect" : [
+        0.119338,
+        0.528825,
+        0.114431,
+        0.013749
+      ],
+      "value" : "836470091254"
+    }
+  ],
+  "runtime" : {
+    "engine_commit" : "5ef252fb",
+    "os" : "iOS 26.4.1"
+  },
+  "schema" : 1,
+  "sensitive_terms" : [
+    {
+      "requires_token_boundary" : false,
+      "text" : "(208) 555-0147"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "+1 208-555-0173"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "208.555.0119"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "2900 Commerce Park Drive, Meridian, ID 83642"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "4111 1111 1111 1111"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "4127 Wrenfield Place Boise, ID 83702"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "480026184402"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "502-19-7438"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "529184007731"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "700415592031"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "812 Aldergrove Avenue Modesto, CA 95354"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "836470091254"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "916-555-0182"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "970-85-6042"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "Delia Hartwell"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "March 14, 1985"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "Mateo Hartwell"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "P.O. Box 2215, Boise, ID 83701"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "P.O. Box 6841, Boise, ID 83707"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "d.hartwell@example.net"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "k.delgado@example.com"
+    },
+    {
+      "requires_token_boundary" : false,
+      "text" : "m.hartwell@example.org"
+    }
+  ],
+  "source_page_count" : 12,
+  "source_sha256" : "362375692b8cff378d66c43fcf46f00ba09e1ea982602fcc5c8b70e96f54339a"
+}
