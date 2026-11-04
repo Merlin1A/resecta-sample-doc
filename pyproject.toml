@@ -93,6 +93,10 @@ ignore = [
 "tools/verify_oracle.py" = ["T20", "S603", "S607"]
 "tools/oracle_parity.py" = ["T20"]
 "tools/evidence_checksums.py" = ["T20"]
+"tools/seeded_bases.py" = ["T20", "S603", "S607"]
+"tools/seeded_plant.py" = ["T20", "S603", "S607"]
+"tools/seeded_oracle.py" = ["T20", "S603", "S607"]
+"tools/seeded_score.py" = ["T20"]
 # pytest tests assert by design.
 "tests/*.py" = ["S101"]
 # The oracle tests drive the external tools and seed a PRNG for the regex corpora.
