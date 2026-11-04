@@ -277,6 +277,70 @@ def gate(
     return verdict, readings
 
 
+def is_faithful(row: dict[str, Any]) -> bool:
+    """A row planted in the grammar-faithful mode (its id ends in `.f`)."""
+    return str(row.get("row_id", "")).endswith(".f")
+
+
+def routes_joint(live: list[dict[str, Any]]) -> dict[str, Any]:
+    """P(both miss) per pair of routes over live rows, beside the product of the marginals."""
+    joint: dict[str, Any] = {}
+    n = len(live)
+    for a, b in itertools.combinations("TBV", 2):
+        if n == 0:
+            break
+        ma = sum(1 for s in live if not s["routes"][a]) / n
+        mb = sum(1 for s in live if not s["routes"][b]) / n
+        both = sum(1 for s in live if not s["routes"][a] and not s["routes"][b]) / n
+        joint[f"{a}{b}"] = {
+            "miss_a": round(ma, 3),
+            "miss_b": round(mb, 3),
+            "both_miss": round(both, 3),
+            "independent_product": round(ma * mb, 3),
+            "ratio": round(both / (ma * mb), 2) if ma * mb > 0 else None,
+        }
+    return joint
+
+
+def fidelity(scored: list[dict[str, Any]]) -> dict[str, Any]:
+    """Legacy vs grammar-faithful rows of the same plant (ids equal but for `.f`).
+
+    Per class/variant: live rows and flagged rows in each mode, and `artefact_only`:
+    pairs where the legacy row is flagged and its faithful twin, also live, is not
+    (a catch only the legacy planter's marks explain). The routes' joint miss is
+    reported on the faithful live rows."""
+    rows = [s for s in scored if "overall" in s and s.get("leak") == "live"]
+    legacy = {s["row_id"]: s for s in rows if not is_faithful(s)}
+    faithful = {s["row_id"].removesuffix(".f"): s for s in rows if is_faithful(s)}
+    out: dict[str, dict[str, int]] = {}
+    for s in rows:
+        cv = f"{s['class']}/{s.get('variant')}"
+        c = out.setdefault(
+            cv,
+            {
+                "live_legacy": 0,
+                "caught_legacy": 0,
+                "live_faithful": 0,
+                "caught_faithful": 0,
+                "artefact_only": 0,
+            },
+        )
+        side = "faithful" if is_faithful(s) else "legacy"
+        c[f"live_{side}"] += 1
+        c[f"caught_{side}"] += bool(s["flagged"])
+    for rid, s in legacy.items():
+        twin = faithful.get(rid)
+        if s["flagged"] and twin is not None and not twin["flagged"]:
+            out[f"{s['class']}/{s.get('variant')}"]["artefact_only"] += 1
+    return {
+        "pairs": sum(1 for rid in legacy if rid in faithful),
+        "by_class_variant": dict(sorted(out.items())),
+        "routes_joint_miss_faithful": routes_joint(
+            [s for s in faithful.values() if s["class"].startswith("O")]
+        ),
+    }
+
+
 def main() -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--rows", required=True, type=Path)
@@ -288,6 +352,12 @@ def main() -> int:
     ap.add_argument("--write-expected", type=Path, help="write the gate's expected table here")
     ap.add_argument("--version", type=int, default=1, help="the expected table's version")
     ap.add_argument("--known", type=Path, help="the ruled blind-spot list (class/variant lines)")
+    ap.add_argument(
+        "--expected-from",
+        choices=("legacy", "faithful"),
+        default="legacy",
+        help="which plant mode's rows the expected table is written from",
+    )
     ap.add_argument("--gate", type=Path, help="read this run against an expected table")
     ap.add_argument("--prereg", type=Path, help="pre-registered deltas for --gate")
     args = ap.parse_args()
@@ -357,11 +427,17 @@ def main() -> int:
     # Controls: a roundtrip whose checks already raise the confirm confounds
     # every plant on its base (the possible-items line fires on most clean outputs).
     roundtrip_alarm = {
-        s["base_id"]: s["alarm_checks"] for s in scored if s.get("class") == "C-02" and "alarm" in s
+        (s["base_id"], is_faithful(s)): s["alarm_checks"]
+        for s in scored
+        if s.get("class") == "C-02" and "alarm" in s
     }
     for s in scored:
         if "alarm" in s and s["class"].startswith("O"):
-            s["control_alarmed"] = roundtrip_alarm.get(s["base_id"])
+            s["control_alarmed"] = roundtrip_alarm.get((s["base_id"], is_faithful(s)))
+    # The summary below reads the legacy rows (the published baseline's planter);
+    # faithful rows are compared with them in `fidelity`.
+    scored_all = scored
+    scored = [s for s in scored_all if not is_faithful(s)]
 
     def rate_table(items: list[dict], key) -> dict[str, dict]:
         groups: dict[str, list[dict]] = defaultdict(list)
@@ -397,21 +473,8 @@ def main() -> int:
     fam_i = [s for s in scored if "alarm" in s and s["class"].startswith("I")]
     fam_i_live = [s for s in fam_i if s["leak"] == "live"]
 
-    joint: dict[str, Any] = {}
+    joint = routes_joint(live)
     n = len(live)
-    for a, b in itertools.combinations("TBV", 2):
-        if n == 0:
-            break
-        ma = sum(1 for s in live if not s["routes"][a]) / n
-        mb = sum(1 for s in live if not s["routes"][b]) / n
-        both = sum(1 for s in live if not s["routes"][a] and not s["routes"][b]) / n
-        joint[f"{a}{b}"] = {
-            "miss_a": round(ma, 3),
-            "miss_b": round(mb, 3),
-            "both_miss": round(both, 3),
-            "independent_product": round(ma * mb, 3),
-            "ratio": round(both / (ma * mb), 2) if ma * mb > 0 else None,
-        }
     all3 = sum(1 for s in live if not any(s["routes"].values()))
 
     twin_runs = {
@@ -505,9 +568,12 @@ def main() -> int:
         "base_snapshot_mismatch": sorted(
             {s["base_id"] for s in scored if s.get("base_matches_snapshot") is False}
         ),
+        "fidelity": fidelity(scored_all) if any(is_faithful(s) for s in scored_all) else None,
     }
     args.out.mkdir(parents=True, exist_ok=True)
-    (args.out / "scored-rows.json").write_text(json.dumps(scored, indent=1, sort_keys=True) + "\n")
+    (args.out / "scored-rows.json").write_text(
+        json.dumps(scored_all, indent=1, sort_keys=True) + "\n"
+    )
     (args.out / "baseline.json").write_text(json.dumps(summary, indent=1, sort_keys=True) + "\n")
     h = summary["headline_live"]
     print(
@@ -518,14 +584,16 @@ def main() -> int:
         f"dead {len(dead)}; pixel-only {len(pixel_only)}"
     )
     if args.write_expected:
+        source = [s for s in scored_all if is_faithful(s) == (args.expected_from == "faithful")]
         table = expected_table(
-            scored, args.emit, read_known(args.known), args.version, str(args.out)
+            source, args.emit, read_known(args.known), args.version, str(args.out)
         )
+        table["plant_mode"] = args.expected_from
         args.write_expected.write_text(json.dumps(table, indent=1, sort_keys=True) + "\n")
         print(f"expected v{args.version}: {len(table['cells'])} cells -> {args.write_expected}")
     if args.gate:
         verdict, readings = gate(
-            scored, json.loads(args.gate.read_text()), read_prereg(args.prereg)
+            scored_all, json.loads(args.gate.read_text()), read_prereg(args.prereg)
         )
         counts = Counter(r["reading"] for r in readings)
         (args.out / "lh-gate.json").write_text(
