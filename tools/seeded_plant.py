@@ -58,7 +58,10 @@ from seeded_effects import side_effects
 
 ID_RE = re.compile(rb"/ID\s*\[\s*<([0-9A-Fa-f]{32})>\s*<([0-9A-Fa-f]{32})>\s*\]")
 TRAILER_ID_RE = re.compile(rb"/ID\s*\[\s*<[0-9A-Fa-f]{32}>\s*<[0-9A-Fa-f]{32}>\s*\]")
+# Text drawn into images. Legacy keeps the macOS font the published rows were built with;
+# faithful draws with the repo's bundled Inter, so it runs the same on every host.
 FONT = "/System/Library/Fonts/Supplemental/Courier New.ttf"
+BUNDLED_FONT = str(Path(__file__).resolve().parents[1] / "fonts" / "Inter-Regular.ttf")
 
 
 # ---------------------------------------------------------------- /ID restamp
@@ -323,8 +326,14 @@ def px_box(
     return (round(x * W), round((1 - y - h) * H), round((x + w) * W), round((1 - y) * H))
 
 
-def draw_text_px(img: Image.Image, xy: tuple[int, int], text: str, height_px: int) -> None:
-    font = ImageFont.truetype(FONT, max(8, int(height_px * 0.8)))
+def image_font(ctx: dict) -> str:
+    return BUNDLED_FONT if faithful(ctx) else FONT
+
+
+def draw_text_px(
+    img: Image.Image, xy: tuple[int, int], text: str, height_px: int, font_path: str = FONT
+) -> None:
+    font = ImageFont.truetype(font_path, max(8, int(height_px * 0.8)))
     ImageDraw.Draw(img).text(xy, text, fill=(0, 0, 0), font=font)
 
 
@@ -687,7 +696,7 @@ def p_unread_image(ctx, variant):
     doc, page = ctx["doc"], ctx["page"]
     needle = ctx["needle"]
     img = Image.new("RGB", (900, 60), (255, 255, 255))
-    draw_text_px(img, (6, 6), needle, 50)
+    draw_text_px(img, (6, 6), needle, 50, image_font(ctx))
     W, H = page.rect.width, page.rect.height
     r = pymupdf.Rect(W * 0.05, H * 0.92, W * 0.05 + 180, H * 0.92 + 12)
     buf = io.BytesIO()
@@ -727,7 +736,7 @@ def p_container(ctx, variant):
     elif variant == "thumb":
         page = ctx["page"]
         img = Image.new("RGB", (400, 40), (255, 255, 255))
-        draw_text_px(img, (4, 4), needle, 32)
+        draw_text_px(img, (4, 4), needle, 32, image_font(ctx))
         tx = doc.get_new_xref()
         raw = img.convert("RGB").tobytes()
         doc.update_object(tx, "<</Width 400/Height 40/ColorSpace/DeviceRGB/BitsPerComponent 8>>")
@@ -768,7 +777,7 @@ def p_out_of_region(ctx, variant):
             return None
         xref, img = got
         Wp, Hp = img.size
-        draw_text_px(img, (int(Wp * 0.08), int(Hp * 0.95)), needle, int(Hp * 0.02))
+        draw_text_px(img, (int(Wp * 0.08), int(Hp * 0.95)), needle, int(Hp * 0.02), image_font(ctx))
         replace_jpeg(doc, xref, img, faithful=faithful(ctx))
         return save(doc), {"surface": "raster", "in_box": False}
     text = {"layer-elsewhere": needle, "layer-casefold": needle.swapcase(), "layer-zwsp": None}.get(

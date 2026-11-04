@@ -122,9 +122,19 @@ def test_reencode_control_keeps_the_writer_segments_only_in_faithful_mode() -> N
     assert fj["detail"]["blocks_changed"] < lj["detail"]["blocks_changed"]
 
 
-@pytest.mark.skipif(
-    not Path(sp.FONT).exists(), reason=f"image plants draw with {sp.FONT}, absent here"
+@pytest.mark.parametrize(
+    ("cls", "variant"),
+    [("O-12", "flate-image"), ("O-13", "thumb"), ("O-15", "raster-elsewhere")],
 )
+def test_faithful_image_plants_draw_with_the_bundled_font(
+    cls: str, variant: str, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    assert Path(sp.BUNDLED_FONT).is_file()
+    monkeypatch.setattr(sp, "FONT", "/nonexistent/legacy-font.ttf")
+    _, row = plant("b01-statement-h", cls, variant, "faithful")
+    assert row["plant_mode"] == "faithful"
+
+
 def test_faithful_flate_image_keeps_one_stream() -> None:
     data, row = plant("b01-statement-h", "O-12", "flate-image", "faithful")
     assert "contents_array" not in kinds(row)

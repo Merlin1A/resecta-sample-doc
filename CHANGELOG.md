@@ -16,6 +16,9 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
   sampling, restart interval and APP segments, and one content-derived
   trailer `/ID`. The default (`legacy`) still rebuilds the published
   `seeded/` rows byte for byte.
+  Text drawn into images uses the bundled Inter in faithful mode, so those
+  plants run the same on every host; legacy keeps the font its rows were built
+  with.
 - Every planted row records its side effects (`tools/seeded_effects.py`): a
   structural diff against the base output, each change tagged inherent (the
   class needs it) or artefact (a mark of how it was planted). Two new controls
