@@ -575,6 +575,212 @@
         "generator": "tools/build_planted_corpus.py",
         "seed": null
       }
+    },
+    {
+      "fixture": "planted-raster-ocr-layer",
+      "path": "planted/planted-raster-ocr-layer.pdf",
+      "sha256": "c2d1a4343f68a04a73672a8ff22dc1446ca803d60a3af5271ab515afd1648e89",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "raster_text_layer",
+          "term": "PLANT-OCRLAYER-01",
+          "hidden_class": "tr3_over_raster",
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o1",
+            "o2"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1078,
+            0.4949,
+            0.3595,
+            0.0379
+          ],
+          "notes": "the page content is one full-page Flate image with a black bar in its pixels; a `3 Tr` (invisible) text line carrying the term sits over the bar, the shape of a text layer left over from an earlier recognition pass"
+        }
+      ],
+      "notes": "pixels show only the bar; extractors read the invisible layer",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-nested-form",
+      "path": "planted/planted-nested-form.pdf",
+      "sha256": "216ddb984aea061a579d855e0c55390f83cdfc38f0aaaf6e95a028f02c0a418b",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "form_xobject_nested",
+          "term": "PLANT-NESTFORM-01",
+          "hidden_class": null,
+          "expect_visible_in_output": true,
+          "expected_legs": [
+            "o1",
+            "o2",
+            "o3"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.5,
+            0.4902,
+            0.0278
+          ],
+          "notes": "page -> form XObject -> form XObject -> visible text (depth 2)"
+        }
+      ],
+      "notes": "the page content stream itself carries no text operands for the term",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-xmp-flate",
+      "path": "planted/planted-xmp-flate.pdf",
+      "sha256": "2c61a7e5c4333c7ceaea4d6440432de61728f2ac00b4c799244378705dac3225",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "xmp_metadata_flate",
+          "term": "PLANT-XMPFLATE-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2",
+            "structure"
+          ],
+          "page": 0,
+          "bbox": null,
+          "notes": "dc:description in a FlateDecode catalog XMP packet; the raw bytes carry no literal form of the term"
+        }
+      ],
+      "notes": "/Metadata is a census key; the term is recoverable only after inflation",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-tounicode-remap",
+      "path": "planted/planted-tounicode-remap.pdf",
+      "sha256": "baf8f0808a2e802b43fed230a65d8187a14e1ed397496eb74d686c9a3b3c4678",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "tounicode_remap",
+          "term": "PLANT-REMAP-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o1"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.5,
+            0.2745,
+            0.0278
+          ],
+          "notes": "every code draws the glyph X; the font's /ToUnicode maps the codes to the term's characters, so text extraction yields the term while the page shows a run of X"
+        }
+      ],
+      "notes": "neither the content operand nor the CMap carries the term as a contiguous string",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-type3-font",
+      "path": "planted/planted-type3-font.pdf",
+      "sha256": "945b5304853408589b232e940099a4b3d5c06246218805d01959a8e81c4e350b",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "type3_font",
+          "term": "PLANT-TYPETHREE-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o1"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.5,
+            0.317,
+            0.0278
+          ],
+          "notes": "Type 3 font without /BaseFont; glyph procedures draw boxes and triangles, /ToUnicode maps the codes to the term's characters"
+        }
+      ],
+      "notes": "the rendered page shows shapes; extraction yields the term",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-widget-ap",
+      "path": "planted/planted-widget-ap.pdf",
+      "sha256": "292a5f6b00fad70464c6bd98d397cc0401300bdc27179a6b4412f493956a0919",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "widget_ap",
+          "term": "PLANT-WIDGETAP-01",
+          "hidden_class": null,
+          "expect_visible_in_output": true,
+          "expected_legs": [
+            "o1",
+            "o2",
+            "o3"
+          ],
+          "page": 0,
+          "bbox": [
+            0.1176,
+            0.4798,
+            0.4902,
+            0.0455
+          ],
+          "notes": "a text Widget whose FlateDecode /AP /N stream draws the term; the field has no /V and the catalog carries no /AcroForm. pdftotext, mutool and pdftoppm all draw the appearance; PyMuPDF's page.annots() skips widgets, so the annotation census key does not fire here"
+        }
+      ],
+      "notes": "an orphan widget: annotation-only form field, no form dictionary",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "planted-unreferenced-object",
+      "path": "planted/planted-unreferenced-object.pdf",
+      "sha256": "deaf8a27b8a316640179f5ae828ce0675f1d9bebe701ca38f39cce7a14d3ea29",
+      "clean": false,
+      "plants": [
+        {
+          "surface": "unreferenced_object",
+          "term": "PLANT-DEADOBJ-01",
+          "hidden_class": null,
+          "expect_visible_in_output": false,
+          "expected_legs": [
+            "o2"
+          ],
+          "page": 0,
+          "bbox": null,
+          "notes": "a FlateDecode stream object present in the file body but marked free in the single classic xref; nothing references it, and the file has one %%EOF (not an incremental update)"
+        }
+      ],
+      "notes": "reachable only by scanning the original bytes and inflating every stream",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
     }
   ],
   "clean": [
@@ -609,6 +815,18 @@
       "clean": true,
       "plants": [],
       "notes": "benign JPEG page, EXIF-free",
+      "provenance": {
+        "generator": "tools/build_planted_corpus.py",
+        "seed": null
+      }
+    },
+    {
+      "fixture": "clean-structures",
+      "path": "planted/clean/clean-structures.pdf",
+      "sha256": "ed3f7aca18ec6c0a4c6b4a0438b173229c5bd4f8e538a220fcc067efe725745d",
+      "clean": true,
+      "plants": [],
+      "notes": "benign text carried by the structural shapes of the extended surfaces: a full-page raster under an invisible text layer (page 1); a nested form XObject, a ToUnicode-remapped font, a Type 3 font, an orphan Widget /AP and a free-marked compressed object (page 2). No /Metadata (any /Metadata is a census key by design)",
       "provenance": {
         "generator": "tools/build_planted_corpus.py",
         "seed": null

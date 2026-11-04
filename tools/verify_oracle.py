@@ -9,7 +9,8 @@ independent recovery stack:
       bytes (QDF drops prior revisions), per-revision decompression where parseable.
   O1  text extractors x2 (pdftotext -layout AND -raw; mutool stext glyph boxes) + PyMuPDF
       rawdict char flags — region-localized where geometry exists.
-  O2  decompressed-byte search (QDF + mutool clean + raw revision slices): literal, hex-string,
+  O2  decompressed-byte search (QDF + mutool clean + raw revision slices + every zlib stream body
+      in the original bytes, xref-reachable or not): literal, hex-string,
       octal-escaped, UTF-16BE(±BOM), TJ/Tj-reassembly (kern-stripped), case variants; plus
       pdfimages -all → exiftool EXIF census.
   O3  OCR x2: pdftoppm 400 DPI (renderer independent of the verifier) → Tesseract oem 1 with
@@ -91,6 +92,7 @@ import subprocess
 import sys
 import time
 import unicodedata
+import zlib
 from collections.abc import Callable, Sequence
 from pathlib import Path
 from typing import Any
@@ -572,6 +574,8 @@ def tj_reassembled(qdf_bytes: bytes) -> str:
 
 
 TJ_CHUNK_CHARS = 4_000_000
+# A stream body as written in the file: `stream` EOL ... `endstream` (`endstream` itself excluded).
+RAW_STREAM_RE = re.compile(rb"(?<!end)stream\r?\n(.*?)endstream", re.S)
 
 
 def tj_terms_present(
@@ -635,6 +639,15 @@ def o2_bytes(cell: Cell | CalCell, o0: dict, scope: dict[str, str], workdir: Pat
             corpora[f"revision-{i}"] = (
                 rev_qdf.read_bytes() if rc == 0 and rev_qdf.exists() else raw[:off]
             )
+    # Every zlib stream body in the ORIGINAL bytes, inflated whether or not the xref reaches its
+    # object: qpdf and mutool rewrite only xref-listed objects, so a compressed object that is
+    # unreferenced or marked free is otherwise never decoded. Non-zlib bodies are skipped.
+    inflated: list[bytes] = []
+    for m in RAW_STREAM_RE.finditer(raw):
+        with contextlib.suppress(zlib.error):
+            inflated.append(zlib.decompressobj().decompress(m.group(1)))
+    if inflated:
+        corpora["raw-streams"] = b"\n".join(inflated)
     folded_terms = [fold_nospace(t) for t in cell.terms]
     tj_present = {
         name: tj_terms_present(data, folded_terms)
@@ -2019,6 +2032,7 @@ def phase_finalize(cells_dir: Path, keep_renders: bool) -> None:
 SURFACE_STRUCTURE_SIGNALS = {
     "ocg_off": "/OCProperties",
     "xmp_metadata": "/Metadata",
+    "xmp_metadata_flate": "/Metadata",
     "acroform_v": "/AcroForm",
     "outlines": "/Outlines",
     "thumb": "/Thumb",
