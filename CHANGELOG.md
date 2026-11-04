@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 
 ### Added
 
+- Seeded leaks (`seeded/`): what Resecta's verifier says about a real output
+  with one hidden copy of a redacted value planted into one PDF channel. The base
+  specs, Resecta's outputs and input records for the sample statement (the
+  packet's as records and hashes), the expected verdict of every planted row,
+  and the known blind spots. The planted files are rebuilt byte for byte by
+  `tools/seeded_plant.py`.
+- The seeded-leak tools: `tools/seeded_bases.py`, `seeded_plant.py`,
+  `seeded_oracle.py` and `seeded_score.py`. The scorer can write an expected
+  table from a baseline run and read a later run against it
+  (`--write-expected`, `--gate`, `--prereg`).
+- Seven planted-leak surfaces under `planted/` (an invisible text line over a
+  raster page, a nested form XObject, compressed XMP, a ToUnicode remap, a Type
+  3 font, a widget appearance without `/AcroForm`, an unreferenced compressed
+  object) and a clean control. The oracle's decompressed-byte leg also inflates
+  every zlib stream body in the file, whether or not the xref reaches it.
 - The capture masters (`capture-masters-2026-08.pdf`, built by
   `packet/build_capture.py`) with their ground truth and fiducial-marks
   sidecar; the fixture sets under `planted/`, `t23/` and `robustness/`; the

@@ -106,6 +106,10 @@ jobs:
           uv run python tools/verify_oracle.py --help > /dev/null
           uv run python tools/register_capture.py --help > /dev/null
           uv run python tools/oracle_parity.py --help > /dev/null
+          uv run python tools/seeded_bases.py --help > /dev/null
+          uv run python tools/seeded_plant.py --help > /dev/null
+          uv run python tools/seeded_oracle.py --help > /dev/null
+          uv run python tools/seeded_score.py --help > /dev/null
           d="${RUNNER_TEMP}/evidence-smoke"; mkdir -p "$d"; printf 'smoke\n' > "$d/a.txt"
           uv run python tools/evidence_checksums.py write "$d"
           uv run python tools/evidence_checksums.py verify "$d"

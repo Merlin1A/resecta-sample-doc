@@ -1,0 +1,297 @@
+{
+ "base_id": "b02-packet-h",
+ "mode": "searchableRedaction",
+ "notes": "",
+ "password": null,
+ "regions": [
+  {
+   "category": "ssn",
+   "page": 0,
+   "rect": [
+    0.225611,
+    0.831855,
+    0.104895,
+    0.013749
+   ],
+   "value": "502-19-7438"
+  },
+  {
+   "category": "phone",
+   "page": 0,
+   "rect": [
+    0.15879,
+    0.753572,
+    0.120333,
+    0.01375
+   ],
+   "value": "(208) 555-0147"
+  },
+  {
+   "category": "phone",
+   "page": 0,
+   "rect": [
+    0.145725,
+    0.734633,
+    0.11443,
+    0.013749
+   ],
+   "value": "916-555-0182"
+  },
+  {
+   "category": "phone",
+   "page": 0,
+   "rect": [
+    0.155242,
+    0.715693,
+    0.103257,
+    0.01375
+   ],
+   "value": "208.555.0119"
+  },
+  {
+   "category": "email",
+   "page": 0,
+   "rect": [
+    0.112177,
+    0.696754,
+    0.167093,
+    0.013749
+   ],
+   "value": "d.hartwell@example.net"
+  },
+  {
+   "category": "address",
+   "page": 0,
+   "rect": [
+    0.068627,
+    0.6614,
+    0.151662,
+    0.01375
+   ],
+   "value": "4127 Wrenfield Place Boise, ID 83702"
+  },
+  {
+   "category": "address",
+   "page": 0,
+   "rect": [
+    0.068627,
+    0.646249,
+    0.112427,
+    0.013749
+   ],
+   "value": "4127 Wrenfield Place Boise, ID 83702"
+  },
+  {
+   "category": "address",
+   "page": 0,
+   "rect": [
+    0.068627,
+    0.60837,
+    0.166483,
+    0.01375
+   ],
+   "value": "812 Aldergrove Avenue Modesto, CA 95354"
+  },
+  {
+   "category": "address",
+   "page": 0,
+   "rect": [
+    0.068627,
+    0.593219,
+    0.141487,
+    0.013749
+   ],
+   "value": "812 Aldergrove Avenue Modesto, CA 95354"
+  },
+  {
+   "category": "address",
+   "page": 0,
+   "rect": [
+    0.259127,
+    0.570491,
+    0.221371,
+    0.01375
+   ],
+   "value": "P.O. Box 2215, Boise, ID 83701"
+  },
+  {
+   "category": "address",
+   "page": 0,
+   "rect": [
+    0.193442,
+    0.499784,
+    0.336663,
+    0.01375
+   ],
+   "value": "2900 Commerce Park Drive, Meridian, ID 83642"
+  },
+  {
+   "category": "name",
+   "page": 1,
+   "rect": [
+    0.196589,
+    0.906198,
+    0.101103,
+    0.014513
+   ],
+   "value": "Delia Hartwell"
+  },
+  {
+   "category": "account",
+   "page": 1,
+   "rect": [
+    0.139451,
+    0.85332,
+    0.11443,
+    0.013749
+   ],
+   "value": "480026184402"
+  },
+  {
+   "category": "account",
+   "page": 1,
+   "rect": [
+    0.128772,
+    0.835643,
+    0.11443,
+    0.013749
+   ],
+   "value": "700415592031"
+  },
+  {
+   "category": "account",
+   "page": 1,
+   "rect": [
+    0.09885,
+    0.817966,
+    0.11443,
+    0.01375
+   ],
+   "value": "529184007731"
+  },
+  {
+   "category": "creditCard",
+   "page": 1,
+   "rect": [
+    0.184787,
+    0.731855,
+    0.164422,
+    0.013749
+   ],
+   "value": "4111 1111 1111 1111"
+  },
+  {
+   "category": "dateOfBirth",
+   "page": 1,
+   "rect": [
+    0.403626,
+    0.60938,
+    0.113238,
+    0.01375
+   ],
+   "value": "March 14, 1985"
+  },
+  {
+   "category": "email",
+   "page": 1,
+   "rect": [
+    0.112177,
+    0.518471,
+    0.175394,
+    0.01375
+   ],
+   "value": "k.delgado@example.com"
+  },
+  {
+   "category": "name",
+   "page": 2,
+   "rect": [
+    0.297558,
+    0.850794,
+    0.104959,
+    0.01375
+   ],
+   "value": "Mateo Hartwell"
+  },
+  {
+   "category": "itin",
+   "page": 2,
+   "rect": [
+    0.081699,
+    0.816551,
+    0.110722,
+    0.014514
+   ],
+   "value": "970-85-6042"
+  },
+  {
+   "category": "phone",
+   "page": 2,
+   "rect": [
+    0.155242,
+    0.758623,
+    0.137451,
+    0.013749
+   ],
+   "value": "+1 208-555-0173"
+  },
+  {
+   "category": "email",
+   "page": 2,
+   "rect": [
+    0.112177,
+    0.739683,
+    0.17227,
+    0.01375
+   ],
+   "value": "m.hartwell@example.org"
+  },
+  {
+   "category": "address",
+   "page": 2,
+   "rect": [
+    0.068627,
+    0.705592,
+    0.151662,
+    0.01375
+   ],
+   "value": "4127 Wrenfield Place Boise, ID 83702"
+  },
+  {
+   "category": "address",
+   "page": 2,
+   "rect": [
+    0.068627,
+    0.690441,
+    0.112427,
+    0.013749
+   ],
+   "value": "4127 Wrenfield Place Boise, ID 83702"
+  },
+  {
+   "category": "address",
+   "page": 2,
+   "rect": [
+    0.259127,
+    0.670239,
+    0.221371,
+    0.013749
+   ],
+   "value": "P.O. Box 6841, Boise, ID 83707"
+  },
+  {
+   "category": "account",
+   "page": 2,
+   "rect": [
+    0.119338,
+    0.528825,
+    0.114431,
+    0.013749
+   ],
+   "value": "836470091254"
+  }
+ ],
+ "schema": 1,
+ "source": "packet.pdf",
+ "source_sha256": "362375692b8cff378d66c43fcf46f00ba09e1ea982602fcc5c8b70e96f54339a"
+}

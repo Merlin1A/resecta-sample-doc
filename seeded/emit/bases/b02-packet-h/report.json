@@ -1,0 +1,250 @@
+{
+  "duration_s" : 61.05183398723602,
+  "layers" : [
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 0.053923964500427246,
+      "index" : 0,
+      "name" : "Text Extraction",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "doc.text.magnifyingglass"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 2.9931869506835938,
+      "index" : 1,
+      "name" : "OCR Check",
+      "pages" : [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "review_terms" : [
+        "Mateo Hartwell",
+        "d.hartwell@example.net",
+        "Delia Hartwell",
+        "970-85-6042",
+        "502-19-7438",
+        "480026184402",
+        "2900 Commerce Park Drive, Meridian, ID 83642"
+      ],
+      "short" : "Text matching your redactions is still readable on 9 pages: 3, 4, 5, 7, 8, 9, 10, 11, 12 — read by OCR outside every redacted region",
+      "status" : {
+        "case" : "attention",
+        "message" : "Text matching your redactions is still readable on 9 pages: 3, 4, 5, 7, 8, 9, 10, 11, 12 — read by OCR outside every redacted region"
+      },
+      "symbol" : "text.viewfinder"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 3.0801769495010376,
+      "index" : 2,
+      "name" : "Binary String Search",
+      "pages" : [
+        2,
+        3,
+        4,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "review_terms" : [
+        "Mateo Hartwell",
+        "d.hartwell@example.net",
+        "Delia Hartwell",
+        "970-85-6042",
+        "502-19-7438",
+        "480026184402",
+        "2900 Commerce Park Drive, Meridian, ID 83642"
+      ],
+      "short" : "Text matching your redactions is still readable on 9 pages: 3, 4, 5, 7, 8, 9, 10, 11, 12 (23 instances)",
+      "status" : {
+        "case" : "attention",
+        "message" : "Text matching your redactions is still readable on 9 pages: 3, 4, 5, 7, 8, 9, 10, 11, 12 (23 instances)"
+      },
+      "symbol" : "01.square.fill"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 0.010213971138000488,
+      "index" : 3,
+      "name" : "Structure Check",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "rectangle.3.group"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "Producer and timestamps carry the writer's fixed values; no file-specific metadata is present.",
+      "duration_s" : 0.020061969757080078,
+      "index" : 4,
+      "name" : "Metadata Check",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "info.circle"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 6.825487971305847,
+      "index" : 5,
+      "name" : "Spatial Verification",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "character.textbox"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 0.041026949882507324,
+      "index" : 6,
+      "name" : "Character Count",
+      "short" : "473 characters near redaction boundaries.",
+      "status" : {
+        "case" : "info",
+        "message" : "473 characters near redaction boundaries."
+      },
+      "symbol" : "number"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 3.707408905029297e-05,
+      "index" : 7,
+      "name" : "Font Verification",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "textformat"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 0.0985419750213623,
+      "index" : 8,
+      "name" : "Character Lineage",
+      "short" : "No issues found.",
+      "status" : {
+        "case" : "pass"
+      },
+      "symbol" : "checkmark.seal"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 0.020613908767700195,
+      "index" : 9,
+      "name" : "Operator Re-Extraction",
+      "pages" : [
+        2
+      ],
+      "review_terms" : [
+        "Mateo Hartwell"
+      ],
+      "short" : "Text matching your redactions is readable in page 3 content (1 instance)",
+      "status" : {
+        "case" : "attention",
+        "message" : "Text matching your redactions is readable in page 3 content (1 instance)"
+      },
+      "symbol" : "doc.text.below.ecg"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "",
+      "duration_s" : 50.974552035331726,
+      "index" : 10,
+      "name" : "Search Re-check",
+      "short" : "No searches were applied — the search re-check did not run.",
+      "status" : {
+        "case" : "not_applicable",
+        "message" : "No searches were applied — the search re-check did not run."
+      },
+      "symbol" : "text.page.badge.magnifyingglass"
+    },
+    {
+      "could_not_verify" : false,
+      "detail" : "Detection Sweep ran every detector on the output. Text was read from the output's text layer and by OCR from the rendered pages. Names and addresses are not swept. 32 possible items remain on 11 pages: 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12.",
+      "duration_s" : 0.00010192394256591797,
+      "index" : 11,
+      "name" : "Detection Sweep",
+      "pages" : [
+        0,
+        1,
+        2,
+        3,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "short" : "Ran the detectors on the output — 32 possible items remain on 11 pages: 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12. Open Scan to review.",
+      "status" : {
+        "case" : "info",
+        "message" : "Ran the detectors on the output — 32 possible items remain on 11 pages: 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 12. Open Scan to review."
+      },
+      "symbol" : "rectangle.and.text.magnifyingglass"
+    }
+  ],
+  "overall" : {
+    "case" : "attention",
+    "message" : "Text matching your redactions is still readable on 9 pages: 3, 4, 5, 7, 8, 9, 10, 11, 12 — read by OCR outside every redacted region"
+  },
+  "per_page_fallback_reasons" : [
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ],
+  "per_page_modes" : [
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction",
+    "searchableRedaction"
+  ],
+  "schema_version" : 1,
+  "skip_reason" : "autoVerifyOff",
+  "user_acknowledged_skipped_share" : false,
+  "user_overrode_failure" : false
+}

@@ -1,0 +1,7 @@
+# Accepted as known (verifier-only: Resecta's own export never writes these channels).
+# One class/variant per line; read by tools/seeded_score.py --known.
+O-09/dead-object
+O-10/actualtext
+O-10/content-comment
+O-02/off-crop
+O-15/layer-casefold

@@ -10,6 +10,11 @@ OCG /OFF) | hex-string text operand | Flate-compressed content stream | PDF-1.5 
 (ObjStm + xref stream) | inline image (BI/ID/EI, ASCIIHex) | annotation /AP | annotation
 /Contents | XMP /Metadata | /Info | EXIF (ImageDescription) | AcroForm /V | /Outlines bookmark |
 /Thumb pixels | REAL /Prev-linked prior revision | embedded file | /JavaScript.
+Extended surfaces: invisible (`3 Tr`) text layer over a full-page raster | text in a nested
+form XObject (depth 2) | FlateDecode XMP /Metadata | ToUnicode remap (drawn glyphs differ from
+the extracted text) | Type 3 font with a ToUnicode map | Widget /AP without a catalog /AcroForm |
+unreferenced FlateDecode object (free in the single xref, one %%EOF); plus one clean control
+carrying those structural shapes with benign text.
 Text-as-outlines is a STRETCH row -- emitted only if the mutool vectorize probe verifies
 (otherwise recorded as skipped in the manifest notes).
 
@@ -836,6 +841,382 @@ def fx_javascript() -> None:
     )
 
 
+# ---------------------------------------------------------------- structural surfaces
+
+
+def remap_codes(s: str, first: int = 0x80) -> tuple[bytes, dict[int, str]]:
+    """One single-byte code per distinct character of `s` (first appearance order, from
+    `first`): the hex-string operand that shows `s`, and the code -> character map."""
+    codes: dict[str, int] = {}
+    for ch in s:
+        codes.setdefault(ch, first + len(codes))
+    operand = b"<" + bytes(codes[ch] for ch in s).hex().upper().encode() + b">"
+    return operand, {code: ch for ch, code in codes.items()}
+
+
+def tounicode_cmap(mapping: dict[int, str]) -> bytes:
+    """A minimal single-byte ToUnicode CMap (bfchar rows, UTF-16BE destinations)."""
+    rows = b"".join(
+        b"<%02X> <" % code + ch.encode("utf-16-be").hex().upper().encode() + b">\n"
+        for code, ch in sorted(mapping.items())
+    )
+    return (
+        b"/CIDInit /ProcSet findresource begin\n12 dict begin\nbegincmap\n"
+        b"/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def\n"
+        b"/CMapName /Adobe-Identity-UCS def\n/CMapType 2 def\n"
+        b"1 begincodespacerange\n<00> <FF>\nendcodespacerange\n"
+        + b"%d beginbfchar\n" % len(mapping)
+        + rows
+        + b"endbfchar\nendcmap\nCMapName currentdict /CMap defineresource pop\nend\nend\n"
+    )
+
+
+def remap_font(mapping: dict[int, str], glyph: bytes, tounicode_ref: int) -> bytes:
+    """Helvetica whose every mapped code draws the same `glyph` (e.g. /X), while the font's
+    /ToUnicode maps each code to a different character."""
+    lo = min(mapping)
+    diffs = b"[%d" % lo + b"".join(b" /" + glyph for _ in mapping) + b"]"
+    return (
+        b"<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica "
+        b"/Encoding << /Type /Encoding /BaseEncoding /WinAnsiEncoding /Differences "
+        + diffs
+        + b" >> /ToUnicode %d 0 R >>" % tounicode_ref
+    )
+
+
+def type3_font(mapping: dict[int, str], procs_first_ref: int, tounicode_ref: int) -> bytes:
+    """A Type 3 font (no /BaseFont) whose glyph procedures draw plain shapes; /ToUnicode maps
+    each code to a character. Glyph proc objects are numbered from `procs_first_ref`."""
+    lo, hi = min(mapping), max(mapping)
+    names = [b"g%d" % i for i in range(hi - lo + 1)]
+    charprocs = b" ".join(
+        b"/" + n + b" %d 0 R" % (procs_first_ref + i) for i, n in enumerate(names)
+    )
+    diffs = b"[%d " % lo + b" ".join(b"/" + n for n in names) + b"]"
+    return (
+        b"<< /Type /Font /Subtype /Type3 /FontBBox [0 0 600 700] "
+        b"/FontMatrix [0.001 0 0 0.001 0 0] /CharProcs << " + charprocs + b" >> "
+        b"/Encoding << /Type /Encoding /Differences "
+        + diffs
+        + b" >> /FirstChar %d /LastChar %d /Widths [" % (lo, hi)
+        + b" ".join(b"600" for _ in names)
+        + b"] /Resources << >> /ToUnicode %d 0 R >>" % tounicode_ref
+    )
+
+
+def type3_glyph_procs(n: int) -> list[bytes]:
+    """`n` glyph procedures alternating a filled box and a filled triangle (d1: shape only)."""
+    box = b"600 0 0 0 600 700 d1\n60 0 480 700 re f\n"
+    tri = b"600 0 0 0 600 700 d1\n60 0 m 540 0 l 300 700 l h f\n"
+    return [stream_obj(b"", box if i % 2 == 0 else tri) for i in range(n)]
+
+
+def scan_like_raster(w: int, h: int, bar_px: tuple[int, int, int, int]) -> bytes:
+    """A deterministic full-page grayscale raster (no font rendering): gray line rules standing
+    in for scanned text, plus a black bar burned into the pixels at `bar_px` (l, t, r, b)."""
+    from PIL import Image, ImageDraw
+
+    img = Image.new("L", (w, h), 255)
+    d = ImageDraw.Draw(img)
+    for i in range(14):
+        y = 180 + i * 90
+        d.rectangle((144, y, w - 144 - (i % 4) * 120, y + 22), fill=150)
+    d.rectangle(bar_px, fill=0)
+    return img.tobytes()
+
+
+def fx_raster_ocr_layer() -> None:
+    t = "PLANT-OCRLAYER-01"
+    s = 2  # raster pixels per point (144 DPI)
+    bar = (66, 392, 220, 30)  # points, bottom-left origin
+    bar_px = (bar[0] * s, (PH - bar[1] - bar[3]) * s, (bar[0] + bar[2]) * s, (PH - bar[1]) * s)
+    pixels = scan_like_raster(PW * s, PH * s, bar_px)
+    c = (
+        b"q %d 0 0 %d 0 0 cm /Im1 Do Q\n" % (PW, PH)
+        + b"3 Tr\n"
+        + anchor("invisible text layer over a full-page raster")
+        + text_op(72, 400, 18, t)
+        + b"0 Tr\n"
+    )
+    pdf = page_pdf(
+        c,
+        resources=b"/Font << /F1 5 0 R >> /XObject << /Im1 6 0 R >>",
+        extra_objects=[
+            (
+                6,
+                stream_obj(
+                    b"/Type /XObject /Subtype /Image /Width %d /Height %d "
+                    b"/ColorSpace /DeviceGray /BitsPerComponent 8 /Filter /FlateDecode"
+                    % (PW * s, PH * s),
+                    zlib.compress(pixels, 9),
+                ),
+            )
+        ],
+    )
+    emit(
+        "planted-raster-ocr-layer",
+        pdf,
+        [
+            plant(
+                "raster_text_layer",
+                t,
+                ["o1", "o2"],
+                hidden_class="tr3_over_raster",
+                expect_visible_in_output=False,
+                bbox=nrect(*bar),
+                notes="the page content is one full-page Flate image with a black bar in its "
+                "pixels; a `3 Tr` (invisible) text line carrying the term sits over the bar, "
+                "the shape of a text layer left over from an earlier recognition pass",
+            )
+        ],
+        notes="pixels show only the bar; extractors read the invisible layer",
+    )
+
+
+def fx_nested_form() -> None:
+    t = "PLANT-NESTFORM-01"
+    inner = text_op(72, 400, 18, f"Nested value: {t}")
+    outer = b"q /Fm2 Do Q\n"
+    pdf = page_pdf(
+        anchor("text in a nested form XObject") + b"q /Fm1 Do Q\n",
+        resources=b"/Font << /F1 5 0 R >> /XObject << /Fm1 6 0 R >>",
+        extra_objects=[
+            (
+                6,
+                stream_obj(
+                    b"/Type /XObject /Subtype /Form /BBox [0 0 %d %d] "
+                    b"/Resources << /XObject << /Fm2 7 0 R >> >>" % (PW, PH),
+                    outer,
+                ),
+            ),
+            (
+                7,
+                stream_obj(
+                    b"/Type /XObject /Subtype /Form /BBox [0 0 %d %d] "
+                    b"/Resources << /Font << /F1 5 0 R >> >>" % (PW, PH),
+                    inner,
+                ),
+            ),
+        ],
+    )
+    emit(
+        "planted-nested-form",
+        pdf,
+        [
+            plant(
+                "form_xobject_nested",
+                t,
+                ["o1", "o2", "o3"],
+                expect_visible_in_output=True,
+                bbox=nrect(72, 396, 300, 22),
+                notes="page -> form XObject -> form XObject -> visible text (depth 2)",
+            )
+        ],
+        notes="the page content stream itself carries no text operands for the term",
+    )
+
+
+def fx_xmp_flate() -> None:
+    t = "PLANT-XMPFLATE-01"
+    xmp = (
+        b'<?xpacket begin="\xef\xbb\xbf" id="W5M0MpCehiHzreSzNTczkc9d"?>\n'
+        b'<x:xmpmeta xmlns:x="adobe:ns:meta/"><rdf:RDF '
+        b'xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">'
+        b'<rdf:Description xmlns:dc="http://purl.org/dc/elements/1.1/">'
+        b'<dc:description><rdf:Alt><rdf:li xml:lang="x-default">'
+        + esc(t)
+        + b"</rdf:li></rdf:Alt></dc:description></rdf:Description>"
+        b'</rdf:RDF></x:xmpmeta>\n<?xpacket end="w"?>'
+    )
+    pdf = page_pdf(
+        anchor("FlateDecode-compressed XMP /Metadata stream"),
+        catalog_extra=b" /Metadata 6 0 R",
+        extra_objects=[
+            (
+                6,
+                stream_obj(
+                    b"/Type /Metadata /Subtype /XML /Filter /FlateDecode", zlib.compress(xmp, 9)
+                ),
+            )
+        ],
+    )
+    emit(
+        "planted-xmp-flate",
+        pdf,
+        [
+            plant(
+                "xmp_metadata_flate",
+                t,
+                ["o2", "structure"],
+                expect_visible_in_output=False,
+                notes="dc:description in a FlateDecode catalog XMP packet; the raw bytes carry "
+                "no literal form of the term",
+            )
+        ],
+        notes="/Metadata is a census key; the term is recoverable only after inflation",
+    )
+
+
+def fx_tounicode_remap() -> None:
+    t = "PLANT-REMAP-01"
+    operand, mapping = remap_codes(t)
+    c = anchor("ToUnicode remap (glyphs differ from the text)") + (
+        b"BT /F2 18 Tf 72 400 Td " + operand + b" Tj ET\n"
+    )
+    pdf = page_pdf(
+        c,
+        resources=b"/Font << /F1 5 0 R /F2 6 0 R >>",
+        extra_objects=[
+            (6, remap_font(mapping, b"X", 7)),
+            (7, stream_obj(b"", tounicode_cmap(mapping))),
+        ],
+    )
+    emit(
+        "planted-tounicode-remap",
+        pdf,
+        [
+            plant(
+                "tounicode_remap",
+                t,
+                ["o1"],
+                expect_visible_in_output=False,
+                bbox=nrect(72, 396, 12 * len(t), 22),
+                notes="every code draws the glyph X; the font's /ToUnicode maps the codes to "
+                "the term's characters, so text extraction yields the term while the page "
+                "shows a run of X",
+            )
+        ],
+        notes="neither the content operand nor the CMap carries the term as a contiguous string",
+    )
+
+
+def fx_type3() -> None:
+    t = "PLANT-TYPETHREE-01"
+    operand, mapping = remap_codes(t)
+    n = len(mapping)
+    procs = type3_glyph_procs(n)
+    c = anchor("Type 3 font with a ToUnicode map") + (
+        b"BT /F2 18 Tf 72 400 Td " + operand + b" Tj ET\n"
+    )
+    pdf = page_pdf(
+        c,
+        resources=b"/Font << /F1 5 0 R /F2 6 0 R >>",
+        extra_objects=[
+            (6, type3_font(mapping, 8, 7)),
+            (7, stream_obj(b"", tounicode_cmap(mapping))),
+            *[(8 + i, p) for i, p in enumerate(procs)],
+        ],
+    )
+    emit(
+        "planted-type3-font",
+        pdf,
+        [
+            plant(
+                "type3_font",
+                t,
+                ["o1"],
+                expect_visible_in_output=False,
+                bbox=nrect(72, 396, round(10.8 * len(t)), 22),
+                notes="Type 3 font without /BaseFont; glyph procedures draw boxes and "
+                "triangles, /ToUnicode maps the codes to the term's characters",
+            )
+        ],
+        notes="the rendered page shows shapes; extraction yields the term",
+    )
+
+
+def fx_widget_ap() -> None:
+    t = "PLANT-WIDGETAP-01"
+    ap = b"/Tx BMC q BT /F1 16 Tf 0 g 6 12 Td (" + esc(t) + b") Tj ET Q EMC"
+    pdf = page_pdf(
+        anchor("Widget annotation appearance without /AcroForm"),
+        extra_page=b" /Annots [6 0 R]",
+        extra_objects=[
+            (
+                6,
+                b"<< /Type /Annot /Subtype /Widget /FT /Tx /T (field1) /Rect [72 380 372 416] "
+                b"/P 3 0 R /F 4 /DA (/F1 16 Tf 0 g) /MK << >> /AP << /N 7 0 R >> >>",
+            ),
+            (
+                7,
+                stream_obj(
+                    b"/Type /XObject /Subtype /Form /BBox [0 0 300 36] "
+                    b"/Resources << /Font << /F1 5 0 R >> >> /Filter /FlateDecode",
+                    zlib.compress(ap, 9),
+                ),
+            ),
+        ],
+    )
+    emit(
+        "planted-widget-ap",
+        pdf,
+        [
+            plant(
+                "widget_ap",
+                t,
+                ["o1", "o2", "o3"],
+                expect_visible_in_output=True,
+                bbox=nrect(72, 380, 300, 36),
+                notes="a text Widget whose FlateDecode /AP /N stream draws the term; the field "
+                "has no /V and the catalog carries no /AcroForm. pdftotext, mutool and pdftoppm "
+                "all draw the appearance; PyMuPDF's page.annots() skips widgets, so the "
+                "annotation census key does not fire here",
+            )
+        ],
+        notes="an orphan widget: annotation-only form field, no form dictionary",
+    )
+
+
+def fx_unreferenced_object() -> None:
+    t = "PLANT-DEADOBJ-01"
+    objs = [
+        (1, b"<< /Type /Catalog /Pages 2 0 R >>"),
+        (2, b"<< /Type /Pages /Kids [3 0 R] /Count 1 >>"),
+        (
+            3,
+            b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 %d %d] /Contents 4 0 R "
+            b"/Resources << /Font << /F1 5 0 R >> >> >>" % (PW, PH),
+        ),
+        (4, stream_obj(b"", anchor("unreferenced compressed object"))),
+        (5, HELV),
+        (
+            6,
+            stream_obj(
+                b"/Filter /FlateDecode",
+                zlib.compress(text_op(72, 400, 18, f"Unused value: {t}"), 9),
+            ),
+        ),
+    ]
+    body = b"%PDF-1.4\n" + HEADER
+    offsets: dict[int, int] = {}
+    for oid, content in objs:
+        offsets[oid] = len(body)
+        body += b"%d 0 obj\n" % oid + content + b"\nendobj\n\n"
+    xref_off = len(body)
+    # Object 6 sits in the body but the xref marks it free (generation bumped to 1, head of the
+    # free list): no reader that follows the xref reaches it. One xref, one %%EOF.
+    xref = b"xref\n0 7\n0000000006 65535 f \n"
+    xref += b"".join(b"%010d 00000 n \n" % offsets[oid] for oid in range(1, 6))
+    xref += b"0000000000 00001 f \n"
+    trailer = b"trailer\n<< /Size 7 /Root 1 0 R >>\nstartxref\n%d\n%%%%EOF" % xref_off
+    emit(
+        "planted-unreferenced-object",
+        body + xref + trailer,
+        [
+            plant(
+                "unreferenced_object",
+                t,
+                ["o2"],
+                expect_visible_in_output=False,
+                notes="a FlateDecode stream object present in the file body but marked free in "
+                "the single classic xref; nothing references it, and the file has one %%EOF "
+                "(not an incremental update)",
+            )
+        ],
+        notes="reachable only by scanning the original bytes and inflating every stream",
+    )
+
+
 def fx_text_outlines_probe() -> str:
     """STRETCH row: text-as-outlines. Verified only if a vectorized copy of the
     visible fixture truly loses its fonts; otherwise records a skip note."""
@@ -948,6 +1329,115 @@ def clean_docs() -> None:
     )
     emit("clean-image", pdf3, [], clean=True, notes="benign JPEG page, EXIF-free")
 
+    emit(
+        "clean-structures",
+        clean_structures_pdf(),
+        [],
+        clean=True,
+        notes="benign text carried by the structural shapes of the extended surfaces: a "
+        "full-page raster under an invisible text layer (page 1); a nested form XObject, a "
+        "ToUnicode-remapped font, a Type 3 font, an orphan Widget /AP and a free-marked "
+        "compressed object (page 2). No /Metadata (any /Metadata is a census key by design)",
+    )
+
+
+def clean_structures_pdf() -> bytes:
+    """Two-page clean control for the extended structural surfaces (benign strings only)."""
+    s = 2
+    bar = (66, 392, 220, 30)
+    bar_px = (bar[0] * s, (PH - bar[1] - bar[3]) * s, (bar[0] + bar[2]) * s, (PH - bar[1]) * s)
+    pixels = scan_like_raster(PW * s, PH * s, bar_px)
+    p1 = (
+        b"q %d 0 0 %d 0 0 cm /Im1 Do Q\n3 Tr\n" % (PW, PH)
+        + anchor("clean control: raster page with a text layer")
+        + text_op(72, 400, 18, "Archive series AA-150")
+        + b"0 Tr\n"
+    )
+    remap_op, remap_map = remap_codes("Ledger BB-210", first=0x80)
+    t3_op, t3_map = remap_codes("Summary CC-330", first=0x80)
+    procs = type3_glyph_procs(len(t3_map))
+    p2 = (
+        anchor("clean control: structural shapes")
+        + b"q /Fm1 Do Q\n"
+        + b"BT /F2 14 Tf 72 300 Td "
+        + remap_op
+        + b" Tj ET\n"
+        + b"BT /F3 14 Tf 72 250 Td "
+        + t3_op
+        + b" Tj ET\n"
+    )
+    widget_ap = b"/Tx BMC q BT /F1 14 Tf 0 g 6 12 Td (Field note DD-440) Tj ET Q EMC"
+    form_obj = b"/Type /XObject /Subtype /Form /BBox [0 0 %d %d] /Resources << " % (PW, PH)
+    objs: list[tuple[int, bytes]] = [
+        (1, b"<< /Type /Catalog /Pages 2 0 R >>"),
+        (2, b"<< /Type /Pages /Kids [3 0 R 10 0 R] /Count 2 >>"),
+        (
+            3,
+            b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 %d %d] /Contents 4 0 R "
+            b"/Resources << /Font << /F1 5 0 R >> /XObject << /Im1 6 0 R >> >> >>" % (PW, PH),
+        ),
+        (4, stream_obj(b"", p1)),
+        (5, HELV),
+        (
+            6,
+            stream_obj(
+                b"/Type /XObject /Subtype /Image /Width %d /Height %d "
+                b"/ColorSpace /DeviceGray /BitsPerComponent 8 /Filter /FlateDecode"
+                % (PW * s, PH * s),
+                zlib.compress(pixels, 9),
+            ),
+        ),
+        (
+            10,
+            b"<< /Type /Page /Parent 2 0 R /MediaBox [0 0 %d %d] /Contents 11 0 R "
+            b"/Resources << /Font << /F1 5 0 R /F2 14 0 R /F3 16 0 R >> "
+            b"/XObject << /Fm1 12 0 R >> >> /Annots [18 0 R] >>" % (PW, PH),
+        ),
+        (11, stream_obj(b"", p2)),
+        (12, stream_obj(form_obj + b"/XObject << /Fm2 13 0 R >> >>", b"q /Fm2 Do Q\n")),
+        (
+            13,
+            stream_obj(
+                form_obj + b"/Font << /F1 5 0 R >> >>",
+                text_op(72, 400, 14, "Nested heading: quarterly archive index"),
+            ),
+        ),
+        (14, remap_font(remap_map, b"X", 15)),
+        (15, stream_obj(b"", tounicode_cmap(remap_map))),
+        (16, type3_font(t3_map, 20, 17)),
+        (17, stream_obj(b"", tounicode_cmap(t3_map))),
+        (
+            18,
+            b"<< /Type /Annot /Subtype /Widget /FT /Tx /T (field1) /Rect [72 150 372 186] "
+            b"/P 10 0 R /F 4 /DA (/F1 14 Tf 0 g) /MK << >> /AP << /N 19 0 R >> >>",
+        ),
+        (
+            19,
+            stream_obj(
+                b"/Type /XObject /Subtype /Form /BBox [0 0 300 36] "
+                b"/Resources << /Font << /F1 5 0 R >> >> /Filter /FlateDecode",
+                zlib.compress(widget_ap, 9),
+            ),
+        ),
+        *[(20 + i, p) for i, p in enumerate(procs)],
+        (
+            9,
+            stream_obj(
+                b"/Filter /FlateDecode",
+                zlib.compress(text_op(72, 400, 12, "Unused draft line EE-550"), 9),
+            ),
+        ),
+    ]
+    # build_pdf marks the absent ids (7, 8) free; object 9 is written to the body and then
+    # re-marked free below, so it is an unreferenced compressed object, as in the planted row.
+    pdf = build_pdf(objs, root=1)
+    xref_at = pdf.rfind(b"\nxref\n") + 1
+    head, tail = pdf[:xref_at], pdf[xref_at:]
+    entry9 = b"%010d 00000 n \n" % (head.find(b"\n9 0 obj\n") + 1)
+    if tail.count(entry9) != 1:
+        raise AssertionError("object 9 xref entry not found exactly once")
+    return head + tail.replace(entry9, b"0000000000 00001 f \n")
+
 
 # ---------------------------------------------------------------- main
 
@@ -976,6 +1466,13 @@ def main() -> None:
     fx_prev_revision()
     fx_embedded_file()
     fx_javascript()
+    fx_raster_ocr_layer()
+    fx_nested_form()
+    fx_xmp_flate()
+    fx_tounicode_remap()
+    fx_type3()
+    fx_widget_ap()
+    fx_unreferenced_object()
     fx_text_outlines_probe()
     clean_docs()
 
