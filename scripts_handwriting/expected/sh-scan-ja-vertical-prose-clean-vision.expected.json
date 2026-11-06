@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-ja-vertical-prose-clean-vision",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "ja-vertical",
+ "layout": "prose",
+ "source": "sh-born-ja-vertical-prose",
+ "condition": "clean",
+ "dpi": 300,
+ "jpeg_quality": 85,
+ "image": {"sha256": "5b536b1b6aac2b3b7bbeb2657dfa6149b6c382f2e4b616cdd5c5243d172b244c", "px": [2550, 3300]},
+ "layer": "vision",
+ "fonts_embedded": ["/AVYWKR+GlyphlessLayer Regular"],
+ "render_modes": [3],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 778, 217], [793, 204, 803, 207], [820, 187, 1027, 217], [1043, 187, 1138, 217]]},
+  {"key": "line0", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [520, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u3053\u308c\u306f\u30c6\u30b9\u30c8\u7528\u306e\u66f8\u985e\u3067\u3059\u3002", "gloss": "Kore wa tesuto-y\u014d no shorui desu.", "meaning": "This is a document for testing.", "ink_boxes_px": [[2157, 394, 2210, 1097]]},
+  {"key": "line1", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [474, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u6765\u9031\u306e\u6708\u66dc\u65e5\u307e\u3067\u306b\u3054\u8fd4\u4fe1\u304f\u3060\u3055\u3044\u3002", "gloss": "Raish\u016b no getsuy\u014dbi made ni go-henshin kudasai.", "meaning": "Please reply by next Monday.", "ink_boxes_px": [[1964, 386, 2019, 1333]]},
+  {"key": "line2", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [428, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u62c5\u5f53\u8005\uff1a\u5317\u5ddd \u5948\u82b1", "gloss": "Tant\u014dsha: Kitagawa Naka", "meaning": "Person in charge: Kitagawa Naka", "ink_boxes_px": [[1774, 386, 1827, 731], [1774, 794, 1827, 906]]},
+  {"key": "line3", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [382, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u96fb\u8a71\uff1a(206) 555-0143", "gloss": "Denwa: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[1582, 388, 1635, 854], [1595, 917, 1622, 1077], [1594, 1117, 1624, 1369]]},
+  {"key": "line4", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [336, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u53e3\u5ea7\u756a\u53f7\uff1a0000 4471 2290 18", "gloss": "K\u014dza bang\u014d: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[1390, 392, 1444, 902], [1402, 975, 1432, 1193], [1404, 1266, 1431, 1486], [1404, 1558, 1431, 1661]]},
+  {"key": "line5", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [290, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u65e5\u4ed8\uff1a2026\u5e7410\u670830\u65e5", "gloss": "Hizuke: 2026-nen 10-gatsu 30-nichi", "meaning": "Date: 30 October 2026", "ink_boxes_px": [[1199, 390, 1252, 1197]]}
+ ],
+ "vision": {"recording": "vision/sh-pic-ja-vertical-prose-clean.vision.json", "recording_sha256": "038fb70e417c5edccc807314d3ab6c33224c8569e6b1fd492f7dc25f8df27446", "macos": "27.2.0", "revision": 3, "languages": ["ja-JP", "en-US"], "pieces": [["SYNTHETIC", [70.173, 737.895, 126.42, 747.12]], ["SCRIPT", [126.6, 738.0, 162.9, 747.12]], ["PAGE", [163.08, 738.0, 189.12, 747.12]], ["-", [189.3, 738.0, 195.96, 747.12]], ["FICTIONAL", [196.14, 738.0, 249.54, 747.12]], ["DATA", [249.72, 737.895, 277.241, 747.12]]]}
+}

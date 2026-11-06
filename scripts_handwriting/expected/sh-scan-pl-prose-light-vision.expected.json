@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-pl-prose-light-vision",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "pl",
+ "layout": "prose",
+ "source": "sh-born-pl-prose",
+ "condition": "light",
+ "dpi": 200,
+ "jpeg_quality": 75,
+ "image": {"sha256": "cc4acd976f7a29df33f9416bd7c3876f03036aac45319d10016c1d0acc1e8efc", "px": [1700, 2200]},
+ "layer": "vision",
+ "fonts_embedded": ["/AVYWKR+GlyphlessLayer Regular"],
+ "render_modes": [3],
+ "ink_dpi": 200,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[201, 124, 345, 144], [354, 124, 445, 144], [455, 124, 521, 144], [531, 135, 537, 138], [549, 124, 686, 144], [697, 124, 765, 144]]},
+  {"key": "line0", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "To jest dokument testowy.", "gloss": "", "meaning": "This is a test document.", "ink_boxes_px": [[200, 283, 243, 311], [253, 282, 319, 320], [332, 281, 518, 311], [529, 285, 679, 320]]},
+  {"key": "line1", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Prosz\u0119 odpowiedzie\u0107 do przysz\u0142ego poniedzia\u0142ku.", "gloss": "", "meaning": "Please reply by next Monday.", "ink_boxes_px": [[204, 378, 320, 415], [334, 376, 581, 415], [595, 376, 638, 406], [653, 376, 842, 415], [858, 376, 1095, 415]]},
+  {"key": "line2", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Kontakt: \u015al\u0119\u017ca \u0141\u0119cka", "gloss": "", "meaning": "Contact: Sleza Lecka", "ink_boxes_px": [[204, 470, 350, 500], [365, 463, 453, 509], [467, 470, 567, 509]]},
+  {"key": "line3", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Telefon: (206) 555-0143", "gloss": "", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[200, 564, 344, 594], [359, 566, 446, 600], [459, 566, 572, 594], [582, 566, 623, 594]]},
+  {"key": "line4", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Numer konta: 0000 4471 2290 18", "gloss": "", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[204, 661, 327, 689], [341, 659, 450, 689], [465, 661, 550, 689], [563, 661, 642, 689], [663, 661, 748, 689], [764, 661, 774, 689], [784, 661, 803, 689]]},
+  {"key": "line5", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Data: 30.10.2026", "gloss": "", "meaning": "Date: 30.10.2026", "ink_boxes_px": [[204, 755, 294, 783], [308, 755, 375, 783], [386, 755, 503, 783]]}
+ ],
+ "vision": {"recording": "vision/sh-pic-pl-prose-light.vision.json", "recording_sha256": "25a0be20cd90174651608fed00039e38fd7d96b69392e99016fd4070534ae774", "macos": "27.2.0", "revision": 3, "languages": ["pl-PL", "en-US"], "pieces": [["SYNTHETIC", [70.173, 737.895, 125.325, 747.105]], ["SCRIPT", [126.45, 738.0, 160.2, 747.0]], ["PAGE", [161.325, 738.0, 188.325, 747.0]], ["-", [189.45, 738.0, 193.95, 747.0]], ["FICTIONAL", [195.075, 738.0, 247.95, 747.0]], ["DATA", [249.075, 737.895, 277.241, 747.105]], ["To", [71.323, 675.72, 88.38, 689.547]], ["jest", [90.09, 675.72, 115.74, 689.4]], ["dokument", [117.45, 675.72, 185.85, 689.4]], ["testowy.", [187.56, 675.72, 247.331, 689.547]], ["Prosz\u0119", [72.474, 641.16, 115.83, 656.28]], ["odpowiedzie\u0107", [117.72, 641.16, 210.33, 656.28]], ["do", [212.22, 641.16, 229.23, 656.28]], ["przysz\u0142ego", [231.12, 641.16, 302.94, 656.28]], ["poniedzia\u0142ku.", [304.83, 641.16, 395.73, 656.28]], ["Kontakt:", [71.057, 608.368, 126.585, 627.258]], ["\u015al\u0119\u017ca", [128.135, 607.245, 164.634, 625.354]], ["\u0141\u0119cka", [166.179, 605.747, 205.19, 624.086]], ["Telefon:", [71.323, 574.43, 124.29, 588.245]], ["(206)", [126.0, 574.56, 161.91, 588.24]], ["555-0143", [163.62, 574.43, 224.323, 588.245]], ["Numer", [72.474, 541.047, 118.035, 553.709]], ["konta:", [119.61, 541.08, 162.135, 553.68]], ["0000", [163.71, 541.08, 198.36, 553.68]], ["4471", [199.935, 541.08, 234.585, 553.68]], ["2290", [236.16, 541.08, 270.81, 553.68]], ["18", [272.385, 541.047, 288.745, 553.709]], ["Data:", [72.474, 506.512, 106.56, 520.326]], ["30.10.2026", [108.27, 506.512, 181.759, 520.326]]]}
+}

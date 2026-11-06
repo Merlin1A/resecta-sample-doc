@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-zh-Hans-prose-clean-none",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "zh-Hans",
+ "layout": "prose",
+ "source": "sh-born-zh-Hans-prose",
+ "condition": "clean",
+ "dpi": 300,
+ "jpeg_quality": 85,
+ "image": {"sha256": "edaeed1bebd109fc473368d0a75acd0ff617a86aea377d45c08ca13ef9e13ef9", "px": [2550, 3300]},
+ "layer": "none",
+ "fonts_embedded": [],
+ "render_modes": [],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 778, 217], [793, 204, 803, 207], [820, 187, 1027, 217], [1043, 187, 1138, 217]]},
+  {"key": "line0", "script": "zh-Hans", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u8fd9\u662f\u4e00\u4efd\u6d4b\u8bd5\u6587\u4ef6\u3002", "gloss": "Zh\u00e8 sh\u00ec y\u012b f\u00e8n c\u00e8sh\u00ec w\u00e9nji\u00e0n.", "meaning": "This is a test document.", "ink_boxes_px": [[302, 418, 787, 472]]},
+  {"key": "line1", "script": "zh-Hans", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u8bf7\u4e8e\u4e0b\u5468\u4e00\u524d\u56de\u590d\u672c\u529e\u516c\u5ba4\u3002", "gloss": "Q\u01d0ng y\u00fa xi\u00e0 zh\u014duy\u012b qi\u00e1n hu\u00edf\u00f9 b\u011bn b\u00e0ng\u014dngsh\u00ec.", "meaning": "Please reply to this office before next Monday.", "ink_boxes_px": [[302, 559, 1020, 613]]},
+  {"key": "line2", "script": "zh-Hans", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u8054\u7cfb\u4eba\uff1a\u6797\u96ea\u5b81", "gloss": "Li\u00e1nx\u00ec r\u00e9n: Lin Xuening", "meaning": "Contact: Lin Xuening", "ink_boxes_px": [[302, 701, 494, 755], [535, 701, 704, 755]]},
+  {"key": "line3", "script": "zh-Hans", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u7535\u8bdd\uff1a(206) 555-0143", "gloss": "Di\u00e0nhu\u00e0: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[307, 843, 436, 897], [480, 844, 606, 903], [627, 848, 868, 893]]},
+  {"key": "line4", "script": "zh-Hans", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u8d26\u53f7\uff1a0000 4471 2290 18", "gloss": "Zh\u00e0ngh\u00e0o: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[303, 985, 412, 1038], [427, 996, 436, 1033], [478, 989, 602, 1034], [619, 990, 744, 1033], [763, 989, 887, 1034], [908, 990, 965, 1034]]},
+  {"key": "line5", "script": "zh-Hans", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u65e5\u671f\uff1a2026\u5e7410\u670830\u65e5", "gloss": "R\u00ecq\u012b: 2026 ni\u00e1n 10 yu\u00e8 30 r\u00ec", "meaning": "Date: 30 October 2026", "ink_boxes_px": [[310, 1127, 412, 1179], [427, 1138, 436, 1175], [478, 1126, 900, 1180]]}
+ ],
+ "vision": null
+}

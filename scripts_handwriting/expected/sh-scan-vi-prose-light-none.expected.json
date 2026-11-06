@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-vi-prose-light-none",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "vi",
+ "layout": "prose",
+ "source": "sh-born-vi-prose",
+ "condition": "light",
+ "dpi": 200,
+ "jpeg_quality": 75,
+ "image": {"sha256": "f64333110ef3093b58a41c0695a3bd80d5a57430f562de07deb71c8c7f66c819", "px": [1700, 2200]},
+ "layer": "none",
+ "fonts_embedded": [],
+ "render_modes": [],
+ "ink_dpi": 200,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[201, 124, 345, 144], [354, 124, 445, 144], [455, 124, 521, 144], [531, 135, 537, 138], [549, 124, 686, 144], [697, 124, 765, 144]]},
+  {"key": "line0", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0110\u00e2y l\u00e0 m\u1ed9t t\u00e0i li\u1ec7u th\u1eed nghi\u1ec7m.", "gloss": "", "meaning": "This is a test document.", "ink_boxes_px": [[201, 281, 269, 320], [283, 281, 309, 311], [325, 281, 395, 318], [407, 281, 449, 311], [465, 281, 525, 318], [539, 279, 604, 311], [616, 281, 761, 320]]},
+  {"key": "line1", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Vui l\u00f2ng tr\u1ea3 l\u1eddi tr\u01b0\u1edbc th\u1ee9 Hai tu\u1ea7n sau.", "gloss": "", "meaning": "Please reply before Monday next week.", "ink_boxes_px": [[200, 377, 255, 406], [271, 376, 346, 415], [360, 374, 408, 406], [424, 376, 462, 406], [476, 376, 573, 406], [585, 376, 650, 406], [662, 377, 716, 406], [730, 374, 810, 406], [825, 385, 896, 407]]},
+  {"key": "line2", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Ng\u01b0\u1eddi li\u00ean h\u1ec7: \u0110o\u00e0n Ng\u1ecdc", "gloss": "", "meaning": "Contact: Doan Ngoc", "ink_boxes_px": [[204, 470, 310, 509], [327, 470, 387, 500], [403, 470, 454, 507], [468, 470, 561, 500], [578, 472, 669, 509]]},
+  {"key": "line3", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0110i\u1ec7n tho\u1ea1i: (206) 555-0143", "gloss": "", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[201, 564, 281, 601], [295, 564, 396, 601], [410, 566, 497, 600], [511, 566, 675, 594]]},
+  {"key": "line4", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "S\u1ed1 t\u00e0i kho\u1ea3n: 0000 4471 2290 18", "gloss": "", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[202, 657, 243, 689], [256, 659, 298, 689], [314, 657, 433, 689], [447, 661, 533, 689], [546, 661, 625, 689], [646, 661, 731, 689], [747, 661, 757, 689], [767, 661, 785, 689]]},
+  {"key": "line5", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Ng\u00e0y: 30/10/2026", "gloss": "", "meaning": "Date: 30/10/2026", "ink_boxes_px": [[204, 753, 303, 792], [317, 755, 388, 783], [399, 755, 521, 783]]}
+ ],
+ "vision": null
+}

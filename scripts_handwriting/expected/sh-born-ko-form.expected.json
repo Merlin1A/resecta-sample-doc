@@ -1,0 +1,25 @@
+{
+ "schema": 1,
+ "id": "sh-born-ko-form",
+ "family": "scripts-handwriting",
+ "kind": "born",
+ "script": "ko",
+ "layout": "form",
+ "writer": "pymupdf",
+ "fonts_embedded": ["/EEYUCZ+Noto Sans Subset Regular", "/UWMNHF+Noto Sans KR Subset Regular"],
+ "render_modes": [0],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[306, 187, 522, 217], [536, 187, 671, 217], [687, 187, 782, 217], [797, 204, 807, 207], [824, 187, 1031, 217], [1047, 187, 1143, 217]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "label0", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 660], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\uc131\uba85", "gloss": "Seongmyeong", "meaning": "label: name", "ink_boxes_px": [[307, 502, 404, 554]], "layer_text": "\uc131\uba85", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "value0", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 660], "span_pt": [241.5, 612], "size_pt": 14, "text": "\uc11c \ud558\uc740", "gloss": "", "meaning": "value: name", "ink_boxes_px": [[1016, 502, 1059, 555], [1082, 502, 1184, 555]], "layer_text": "\uc11c\u00a0\ud558\uc740", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "label1", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 616], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\uc804\ud654", "gloss": "Jeonhwa", "meaning": "label: phone", "ink_boxes_px": [[307, 685, 410, 738]], "layer_text": "\uc804\ud654", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "value1", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 616], "span_pt": [241.5, 612], "size_pt": 14, "text": "(206) 555-0143", "gloss": "", "meaning": "value: phone", "ink_boxes_px": [[1018, 685, 1143, 744], [1164, 689, 1406, 734]], "layer_text": "(206)\u00a0555-0143", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "label2", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 572], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\uacc4\uc88c \ubc88\ud638", "gloss": "Gyejwa beonho", "meaning": "label: account", "ink_boxes_px": [[307, 869, 410, 922], [430, 869, 529, 920]], "layer_text": "\uacc4\uc88c\u00a0\ubc88\ud638", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "value2", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 572], "span_pt": [241.5, 612], "size_pt": 14, "text": "0000 4471 2290 18", "gloss": "", "meaning": "value: account", "ink_boxes_px": [[1016, 873, 1140, 918], [1156, 874, 1281, 917], [1301, 873, 1425, 918], [1445, 874, 1503, 918]], "layer_text": "0000\u00a04471\u00a02290\u00a018", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "label3", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 528], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\ub0a0\uc9dc", "gloss": "Naljja", "meaning": "label: date", "ink_boxes_px": [[309, 1052, 410, 1105]], "layer_text": "\ub0a0\uc9dc", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "value3", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 528], "span_pt": [241.5, 612], "size_pt": 14, "text": "2026\ub144 10\uc6d4 30\uc77c", "gloss": "", "meaning": "value: date", "ink_boxes_px": [[1016, 1052, 1190, 1103], [1214, 1052, 1321, 1104], [1342, 1052, 1453, 1104]], "layer_text": "2026\ub144\u00a010\uc6d4\u00a030\uc77c", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "label4", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 484], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\uc774\uba54\uc77c", "gloss": "Imeil", "meaning": "label: email", "ink_boxes_px": [[309, 1235, 460, 1288]], "layer_text": "\uc774\uba54\uc77c", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "value4", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 484], "span_pt": [241.5, 612], "size_pt": 14, "text": "office@example.org", "gloss": "", "meaning": "value: email", "ink_boxes_px": [[1016, 1236, 1553, 1298]], "layer_text": "o\ufffdce@example.org", "layer_unmapped": 1, "decodes_exactly": false, "decodes_normalised": false}
+ ]
+}

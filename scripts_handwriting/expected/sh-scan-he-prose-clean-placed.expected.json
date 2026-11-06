@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-he-prose-clean-placed",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "he",
+ "layout": "prose",
+ "source": "sh-born-he-prose",
+ "condition": "clean",
+ "dpi": 300,
+ "jpeg_quality": 85,
+ "image": {"sha256": "c05eecdbc2fa1babdd8f76ac5677c7c2eb7933fe1ae81e1b1e7d9848182d3393", "px": [2550, 3300]},
+ "layer": "placed",
+ "fonts_embedded": ["/AAAAAC+NotoSansSubset-Regular", "/AAAAAE+NotoSansHebrewSubset-Regular"],
+ "render_modes": [3],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 778, 217], [793, 204, 803, 207], [820, 187, 1027, 217], [1043, 187, 1138, 217]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line0", "script": "he", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u05d6\u05d4\u05d5 \u05de\u05e1\u05de\u05da \u05dc\u05d1\u05d3\u05d9\u05e7\u05d4.", "gloss": "Zehu mismakh li-vdika.", "meaning": "This is a document for testing.", "ink_boxes_px": [[1807, 423, 1998, 478], [2019, 432, 2158, 478], [2179, 432, 2248, 467]], "layer_text": ".\u05d4\u05e7\u05d9\u05d3\u05d1\u05dc \u05da\u05de\u05e1\u05de \u05d5\u05d4\u05d6", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "line1", "script": "he", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u05e0\u05d0 \u05dc\u05d4\u05e9\u05d9\u05d1 \u05e2\u05d3 \u05d9\u05d5\u05dd \u05e9\u05e0\u05d9 \u05d4\u05d1\u05d0.", "gloss": "Na lehashiv ad yom sheni haba.", "meaning": "Please reply by next Monday.", "ink_boxes_px": [[1617, 573, 1730, 609], [1752, 573, 1828, 608], [1850, 573, 1917, 608], [1939, 573, 2000, 610], [2021, 564, 2173, 608], [2193, 573, 2246, 608]], "layer_text": ".\u05d0\u05d1\u05d4 \u05d9\u05e0\u05e9 \u05dd\u05d5\u05d9 \u05d3\u05e2 \u05d1\u05d9\u05e9\u05d4\u05dc \u05d0\u05e0", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "line2", "script": "he", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u05d0\u05d9\u05e9 \u05e7\u05e9\u05e8: \u05e0\u05d5\u05e2\u05d4 \u05e8\u05d5\u05d6\u05df", "gloss": "Ish kesher: Noa Rozen", "meaning": "Contact: Noa Rozen", "ink_boxes_px": [[1789, 715, 1868, 761], [1892, 715, 1995, 752], [2019, 715, 2136, 761], [2159, 715, 2247, 750]], "layer_text": "\u05df\u05d6\u05d5\u05e8 \u05d4\u05e2\u05d5\u05e0 :\u05e8\u05e9\u05e7 \u05e9\u05d9\u05d0", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "line3", "script": "he", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u05d8\u05dc\u05e4\u05d5\u05df: (206) 555-0143", "gloss": "Telefon: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[1681, 850, 1927, 893], [1948, 850, 2079, 901], [2101, 848, 2247, 903]], "layer_text": "555-0143 (206) :\u05df\u05d5\u05e4\u05dc\u05d8", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line4", "script": "he", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u05de\u05e1\u05e4\u05e8 \u05d7\u05e9\u05d1\u05d5\u05df: 0000 4471 2290 18", "gloss": "Mispar heshbon: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[1402, 991, 1419, 1033], [1434, 991, 1461, 1034], [1483, 991, 1612, 1034], [1631, 991, 1753, 1033], [1783, 991, 1912, 1034], [1934, 998, 2090, 1044], [2112, 998, 2248, 1034]], "layer_text": "18 2290 4471 0000 :\u05df\u05d5\u05d1\u05e9\u05d7 \u05e8\u05e4\u05e1\u05de", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line5", "script": "he", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u05ea\u05d0\u05e8\u05d9\u05da: 30/10/2026", "gloss": "Ta'arikh: 30/10/2026", "meaning": "Date: 30/10/2026", "ink_boxes_px": [[1754, 1133, 2061, 1176], [2083, 1140, 2246, 1186]], "layer_text": "30/10/2026 :\u05da\u05d9\u05e8\u05d0\u05ea", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": false}
+ ],
+ "vision": null
+}

@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-pl-prose-clean-none",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "pl",
+ "layout": "prose",
+ "source": "sh-born-pl-prose",
+ "condition": "clean",
+ "dpi": 300,
+ "jpeg_quality": 85,
+ "image": {"sha256": "4b950d3c9b2fa900a7ef9facc56274623f06b959c9e486a56a8d8370cef78172", "px": [2550, 3300]},
+ "layer": "none",
+ "fonts_embedded": [],
+ "render_modes": [],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 781, 217], [796, 204, 806, 207], [823, 187, 1030, 217], [1046, 187, 1148, 217]]},
+  {"key": "line0", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "To jest dokument testowy.", "gloss": "", "meaning": "This is a test document.", "ink_boxes_px": [[301, 425, 364, 468], [380, 424, 479, 481], [498, 423, 777, 468], [794, 429, 1018, 481]]},
+  {"key": "line1", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Prosz\u0119 odpowiedzie\u0107 do przysz\u0142ego poniedzia\u0142ku.", "gloss": "", "meaning": "Please reply by next Monday.", "ink_boxes_px": [[306, 566, 480, 621], [501, 563, 871, 622], [892, 564, 957, 609], [980, 564, 1263, 622], [1287, 564, 1641, 622]]},
+  {"key": "line2", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Kontakt: \u015al\u0119\u017ca \u0141\u0119cka", "gloss": "", "meaning": "Contact: Sleza Lecka", "ink_boxes_px": [[306, 706, 524, 751], [547, 695, 680, 763], [701, 706, 850, 763]]},
+  {"key": "line3", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Telefon: (206) 555-0143", "gloss": "", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[301, 847, 516, 893], [537, 850, 668, 901], [690, 850, 935, 893]]},
+  {"key": "line4", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Numer konta: 0000 4471 2290 18", "gloss": "", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[306, 991, 491, 1034], [512, 989, 674, 1034], [697, 991, 825, 1034], [844, 991, 964, 1033], [994, 991, 1123, 1034], [1146, 991, 1161, 1033], [1176, 991, 1203, 1034]]},
+  {"key": "line5", "script": "pl", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Data: 30.10.2026", "gloss": "", "meaning": "Date: 30.10.2026", "ink_boxes_px": [[306, 1133, 440, 1176], [463, 1133, 563, 1176], [579, 1133, 756, 1176]]}
+ ],
+ "vision": null
+}

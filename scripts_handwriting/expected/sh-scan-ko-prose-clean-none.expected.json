@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-ko-prose-clean-none",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "ko",
+ "layout": "prose",
+ "source": "sh-born-ko-prose",
+ "condition": "clean",
+ "dpi": 300,
+ "jpeg_quality": 85,
+ "image": {"sha256": "d39a5566a541c87b0cc926dd802eae0069fa4bd31a45f01a79734ba227f215e7", "px": [2550, 3300]},
+ "layer": "none",
+ "fonts_embedded": [],
+ "render_modes": [],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 778, 217], [793, 204, 803, 207], [820, 187, 1027, 217], [1043, 187, 1138, 217]]},
+  {"key": "line0", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\uc774\uac83\uc740 \uc2dc\ud5d8\uc6a9 \ubb38\uc11c\uc785\ub2c8\ub2e4.", "gloss": "Igeoseun siheomyong munseoimnida.", "meaning": "This is a document for testing.", "ink_boxes_px": [[305, 419, 458, 472], [480, 418, 636, 472], [658, 419, 935, 472]]},
+  {"key": "line1", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\ub2e4\uc74c \uc8fc \uc6d4\uc694\uc77c\uae4c\uc9c0 \ud68c\uc2e0\ud574 \uc8fc\uc2ed\uc2dc\uc624.", "gloss": "Daeum ju woryoil-kkaji hoesinhae jusipsio.", "meaning": "Please reply by next Monday.", "ink_boxes_px": [[305, 560, 405, 613], [427, 563, 475, 613], [497, 560, 754, 613], [781, 560, 934, 613], [959, 560, 1182, 613]]},
+  {"key": "line2", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\ub2f4\ub2f9\uc790: \uc11c \ud558\uc740", "gloss": "Damdangja: Seo Haeun", "meaning": "Person in charge: Seo Haeun", "ink_boxes_px": [[305, 702, 473, 755], [493, 702, 536, 755], [563, 702, 665, 755]]},
+  {"key": "line3", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\uc804\ud654: (206) 555-0143", "gloss": "Jeonhwa: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[304, 844, 419, 897], [442, 844, 567, 903], [588, 848, 830, 893]]},
+  {"key": "line4", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\uacc4\uc88c \ubc88\ud638: 0000 4471 2290 18", "gloss": "Gyejwa beonho: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[303, 985, 406, 1038], [429, 985, 543, 1036], [563, 990, 687, 1034], [704, 990, 829, 1033], [848, 989, 973, 1034], [993, 990, 1050, 1034]]},
+  {"key": "line5", "script": "ko", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\ub0a0\uc9dc: 2026\ub144 10\uc6d4 30\uc77c", "gloss": "Naljja: 2026-nyeon 10-wol 30-il", "meaning": "Date: 30 October 2026", "ink_boxes_px": [[305, 1127, 419, 1180], [440, 1127, 614, 1178], [638, 1127, 746, 1179], [766, 1127, 877, 1179]]}
+ ],
+ "vision": null
+}

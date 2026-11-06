@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-hi-prose-light-placed",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "hi",
+ "layout": "prose",
+ "source": "sh-born-hi-prose",
+ "condition": "light",
+ "dpi": 200,
+ "jpeg_quality": 75,
+ "image": {"sha256": "b0f1b6647a1c2cfdcb3e012d644c48335678f40c3272366d8716dd4047f91753", "px": [1700, 2200]},
+ "layer": "placed",
+ "fonts_embedded": ["/AAAAAC+NotoSansSubset-Regular", "/AAAAAE+NotoSansDevanagariSubset-Regular"],
+ "render_modes": [3],
+ "ink_dpi": 200,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[201, 124, 345, 144], [354, 124, 445, 144], [455, 124, 519, 144], [529, 135, 535, 138], [547, 124, 684, 144], [695, 124, 759, 144]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line0", "script": "hi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u092f\u0939 \u090f\u0915 \u092a\u0930\u0940\u0915\u094d\u0937\u0923 \u0926\u0938\u094d\u0924\u093e\u0935\u0947\u091c\u093c \u0939\u0948\u0964", "gloss": "Yah ek par\u012bk\u1e63a\u1e47 dast\u0101vez hai.", "meaning": "This is a test document.", "ink_boxes_px": [[200, 287, 244, 316], [254, 287, 305, 314], [315, 276, 419, 314], [429, 276, 589, 316]], "layer_text": "\u092f\u0939 \u090f\u0915 \u092a\u0930\u0940\ufffd\u0923 \u0926\ufffd\u0924\u093e\u0935\u0947\ufffd \u0939\u0948\u0964", "layer_unmapped": 3, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line1", "script": "hi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0915\u0943\u092a\u092f\u093e \u0905\u0917\u0932\u0947 \u0938\u094b\u092e\u0935\u093e\u0930 \u0924\u0915 \u0909\u0924\u094d\u0924\u0930 \u0926\u0947\u0902\u0964", "gloss": "K\u1e5bpay\u0101 agle somv\u0101r tak uttar de\u1e41.", "meaning": "Please reply by next Monday.", "ink_boxes_px": [[200, 382, 285, 416], [296, 371, 373, 406], [383, 371, 490, 406], [500, 382, 553, 406], [563, 382, 627, 406], [637, 371, 668, 408]], "layer_text": "\u0915\u0943\u092a\u092f\u093e \u0905\u0917\u0932\u0947 \u0938\u094b\u092e\u0935\u093e\u0930 \u0924\u0915 \u0909\ufffd\u0930 \u0926\ufffd\u0964", "layer_unmapped": 2, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line2", "script": "hi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0938\u0902\u092a\u0930\u094d\u0915: \u092e\u0940\u0930\u093e \u0938\u0947\u0920\u093f\u092f\u093e", "gloss": "Sampark: Mira Sethiya", "meaning": "Contact: Mira Sethiya", "ink_boxes_px": [[200, 465, 286, 500], [300, 465, 461, 500]], "layer_text": "\u0938\u0902\u092a\u0915\ufffd: \u092e\u0940\u0930\u093e \u0938\u0947\ufffd\u0920\u092f\u093e", "layer_unmapped": 2, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line3", "script": "hi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u092b\u093c\u094b\u0928: (206) 555-0143", "gloss": "Fon: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[200, 559, 270, 595], [286, 562, 372, 600], [388, 566, 546, 594]], "layer_text": "\ufffd\u094b\u0928: (206) 555-0143", "layer_unmapped": 1, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line4", "script": "hi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0916\u093e\u0924\u093e \u0938\u0902\u0916\u094d\u092f\u093e: 0000 4471 2290 18", "gloss": "Kh\u0101t\u0101 sa\u1e45khy\u0101: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[200, 657, 374, 689], [389, 661, 471, 689], [484, 661, 561, 689], [581, 661, 663, 689], [679, 661, 716, 689]], "layer_text": "\u0916\u093e\u0924\u093e \u0938\u0902\ufffd\u092f\u093e: 0000 4471 2290 18", "layer_unmapped": 1, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line5", "script": "hi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0924\u093e\u0930\u0940\u0916\u093c: 30/10/2026", "gloss": "T\u0101r\u012bkh: 30/10/2026", "meaning": "Date: 30/10/2026", "ink_boxes_px": [[200, 748, 298, 784], [313, 751, 515, 789]], "layer_text": "\u0924\u093e\u0930\u0940\ufffd: 30/10/2026", "layer_unmapped": 1, "decodes_exactly": false, "decodes_normalised": false}
+ ],
+ "vision": null
+}

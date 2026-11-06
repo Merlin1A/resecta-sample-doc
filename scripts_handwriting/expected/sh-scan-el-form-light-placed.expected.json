@@ -1,0 +1,31 @@
+{
+ "schema": 1,
+ "id": "sh-scan-el-form-light-placed",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "el",
+ "layout": "form",
+ "source": "sh-born-el-form",
+ "condition": "light",
+ "dpi": 200,
+ "jpeg_quality": 75,
+ "image": {"sha256": "67cf0e1a6d4e9ee9041fdb343d16f30be732f9fb588dc540956c25ece20631a0", "px": [1700, 2200]},
+ "layer": "placed",
+ "fonts_embedded": ["/AAAAAA+NotoSansSubset-Regular"],
+ "render_modes": [3],
+ "ink_dpi": 200,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[201, 124, 345, 144], [354, 124, 445, 144], [455, 124, 521, 144], [531, 135, 537, 138], [549, 124, 686, 144], [697, 124, 765, 144]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "label0", "script": "el", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 660], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\u038c\u03bd\u03bf\u03bc\u03b1", "gloss": "\u00d3noma", "meaning": "label: name", "ink_boxes_px": [[201, 339, 326, 376]], "layer_text": "\u038c\u03bd\u03bf\u03bc\u03b1", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "value0", "script": "el", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 660], "span_pt": [241.5, 612], "size_pt": 14, "text": "\u0394\u03ac\u03c6\u03bd\u03b7 \u039a\u03b1\u03c1\u03b1\u03bb\u03ae", "gloss": "", "meaning": "value: name", "ink_boxes_px": [[672, 337, 790, 376], [807, 337, 940, 376]], "layer_text": "\u0394\u03ac\u03c6\u03bd\u03b7 \u039a\u03b1\u03c1\u03b1\u03bb\u03ae", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "label1", "script": "el", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 616], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\u03a4\u03b7\u03bb\u03ad\u03c6\u03c9\u03bd\u03bf", "gloss": "Til\u00e9fono", "meaning": "label: phone", "ink_boxes_px": [[200, 459, 384, 498]], "layer_text": "\u03a4\u03b7\u03bb\u03ad\u03c6\u03c9\u03bd\u03bf", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "value1", "script": "el", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 616], "span_pt": [241.5, 612], "size_pt": 14, "text": "(206) 555-0143", "gloss": "", "meaning": "value: phone", "ink_boxes_px": [[674, 461, 761, 495], [775, 461, 938, 489]], "layer_text": "(206) 555-0143", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "label2", "script": "el", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 572], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\u039b\u03bf\u03b3\u03b1\u03c1\u03b9\u03b1\u03c3\u03bc\u03cc\u03c2", "gloss": "Logariasm\u00f3s", "meaning": "label: account", "ink_boxes_px": [[200, 581, 441, 620]], "layer_text": "\u039b\u03bf\u03b3\u03b1\u03c1\u03b9\u03b1\u03c3\u03bc\u03cc\u03c2", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "value2", "script": "el", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 572], "span_pt": [241.5, 612], "size_pt": 14, "text": "0000 4471 2290 18", "gloss": "", "meaning": "value: account", "ink_boxes_px": [[674, 583, 759, 611], [772, 583, 852, 611], [872, 583, 957, 611], [973, 583, 983, 611], [993, 583, 1012, 611]], "layer_text": "0000 4471 2290 18", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "label3", "script": "el", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 528], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\u0397\u03bc\u03b5\u03c1\u03bf\u03bc\u03b7\u03bd\u03af\u03b1", "gloss": "Imeromin\u00eda", "meaning": "label: date", "ink_boxes_px": [[204, 703, 423, 742]], "layer_text": "\u0397\u03bc\u03b5\u03c1\u03bf\u03bc\u03b7\u03bd\u03af\u03b1", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "value3", "script": "el", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 528], "span_pt": [241.5, 612], "size_pt": 14, "text": "30/10/2026", "gloss": "", "meaning": "value: date", "ink_boxes_px": [[674, 705, 745, 733], [755, 705, 877, 733]], "layer_text": "30/10/2026", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "label4", "script": "el", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 484], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\u0397\u03bb\u03b5\u03ba\u03c4\u03c1\u03bf\u03bd\u03b9\u03ba\u03cc \u03c4\u03b1\u03c7\u03c5\u03b4\u03c1\u03bf\u03bc\u03b5\u03af\u03bf", "gloss": "Ilektronik\u00f3 tachydrome\u00edo", "meaning": "label: email", "ink_boxes_px": [[204, 826, 429, 865], [442, 826, 671, 865]], "layer_text": "\u0397\u03bb\u03b5\u03ba\u03c4\u03c1\u03bf\u03bd\u03b9\u03ba\u03cc \u03c4\u03b1\u03c7\u03c5\u03b4\u03c1\u03bf\u03bc\u03b5\u03af\u03bf", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "value4", "script": "el", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 484], "span_pt": [241.5, 612], "size_pt": 14, "text": "office@example.org", "gloss": "", "meaning": "value: email", "ink_boxes_px": [[671, 826, 1035, 865]], "layer_text": "office@example.org", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true}
+ ],
+ "vision": null
+}
