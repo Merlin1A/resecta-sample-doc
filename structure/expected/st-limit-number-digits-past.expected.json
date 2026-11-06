@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-limit-number-digits-past",
+ "family": "structure",
+ "group": "limit-past",
+ "kind": "number-digits",
+ "property": "one number has 19 significant digits",
+ "facts": {"number": "1234567891234567891", "significant_digits": 19},
+ "bytes": 750,
+ "qpdf_check_exit": 0,
+ "note": null
+}

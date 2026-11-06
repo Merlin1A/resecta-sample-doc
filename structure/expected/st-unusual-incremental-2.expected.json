@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-unusual-incremental-2",
+ "family": "structure",
+ "group": "unusual",
+ "kind": "incremental",
+ "property": "an original and one incremental update: two cross-reference sections joined by /Prev, two %%EOF",
+ "facts": {"revisions": 2, "eof_markers": 2},
+ "bytes": 1064,
+ "qpdf_check_exit": 0,
+ "note": null
+}

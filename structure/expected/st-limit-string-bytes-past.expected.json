@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-limit-string-bytes-past",
+ "family": "structure",
+ "group": "limit-past",
+ "kind": "string-bytes",
+ "property": "one string holds 32,768 bytes",
+ "facts": {"longest_string": 32768},
+ "bytes": 33550,
+ "qpdf_check_exit": 0,
+ "note": null
+}

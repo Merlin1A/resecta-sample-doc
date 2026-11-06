@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-malformed-encrypted-empty-user",
+ "family": "structure",
+ "group": "malformed",
+ "kind": "encrypted",
+ "property": "the file is RC4-encrypted (standard handler, revision 2) with an empty user password",
+ "facts": {"filter": "/Standard", "v": 1, "revision": 2, "o": "6c7fbd492bf971a9f62afc778b48ab3056a0c52a5c63af9c8d43755230e4635c", "u": "a6a9030418d429ac07ce2cc08912e93a35a1910bff014ca9e6fadaa02641443e", "p": -4, "id": "7220bd22cf67a6af45e1cf6ddc4db2da", "user_password": "", "text": "Synthetic structure test document. Every name and number on it is invented."},
+ "bytes": 1023,
+ "qpdf_check_exit": 0,
+ "note": "Encrypted by the standard security handler, revision 2 (40-bit RC4), as ISO 32000-1 7.6.3 defines it. The user password is empty and the owner password is the synthetic string 'synthetic-owner-password'. /O: the owner password, padded to 32 bytes with the standard padding string, is hashed with MD5; the first 5 bytes of the hash are an RC4 key that encrypts the padded user password. File key: MD5 over the padded user password, /O, /P as four little-endian bytes and the first /ID string; its first 5 bytes. /U: the padding string encrypted with the file key. Each object: MD5 over the file key, the object number (three little-endian bytes) and the generation (two); its first 10 bytes are the RC4 key for that object's strings and streams. The file was written once with that procedure and is kept as written."
+}

@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-malformed-kids-cycle",
+ "family": "structure",
+ "group": "malformed",
+ "kind": "kids-cycle",
+ "property": "the Pages node lists itself among its /Kids",
+ "facts": {"pages_object": 2, "self_in_kids": true},
+ "bytes": 723,
+ "qpdf_check_exit": 2,
+ "note": null
+}

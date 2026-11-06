@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-unusual-annotation-kinds",
+ "family": "structure",
+ "group": "unusual",
+ "kind": "annots",
+ "property": "a link, a text note, a highlight, an ink mark, a stamp and a file attachment holding a short invented text",
+ "facts": {"annotation_subtypes": ["/Link", "/Text", "/Highlight", "/Ink", "/Stamp", "/FileAttachment"], "attachment_sha256": "19c33a539900ee6faa61dd9659a81f12157a9d1c393bd666a6bc643696954631"},
+ "bytes": 1940,
+ "qpdf_check_exit": 0,
+ "note": null
+}

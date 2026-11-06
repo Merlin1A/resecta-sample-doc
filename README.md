@@ -40,7 +40,15 @@ calibrating its verification tooling:
 - `filled_forms/` — one synthetic intake form filled by reportlab, pypdf,
   PyMuPDF and macOS PDFKit, with a widget-free control, a dynamic XFA form and
   three reject documents, each with an expected file of its fields, values,
-  flags and appearances (see [`filled_forms/README.md`](./filled_forms/README.md)).
+  flags and appearances (see [`filled_forms/README.md`](./filled_forms/README.md));
+- `scripts_handwriting/` — non-Latin and mixed-script pages from three PDF
+  writers, their scanned twins (with no layer, their own layer, or a layer from
+  recorded text recognition) and synthetic handwriting, each with an expected
+  file of its text, gloss, ink and decoded layer (see
+  [`scripts_handwriting/README.md`](./scripts_handwriting/README.md));
+- `structure/` — unusual, at-the-limit and malformed or hostile-shaped files,
+  every active element inert, each with an expected file of the one structural
+  property it holds (see [`structure/README.md`](./structure/README.md)).
 
 Four rules hold for the three documents:
 

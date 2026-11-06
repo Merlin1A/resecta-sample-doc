@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-unusual-rotate-inherited",
+ "family": "structure",
+ "group": "unusual",
+ "kind": "rotate",
+ "property": "the page has no /Rotate of its own; the Pages node it inherits from has /Rotate 90",
+ "facts": {"rotate": 90, "inherited": true},
+ "bytes": 728,
+ "qpdf_check_exit": 0,
+ "note": null
+}

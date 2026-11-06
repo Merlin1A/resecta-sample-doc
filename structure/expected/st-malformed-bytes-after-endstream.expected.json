@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-malformed-bytes-after-endstream",
+ "family": "structure",
+ "group": "malformed",
+ "kind": "after-endstream",
+ "property": "ten bytes sit between a stream's endstream and its endobj",
+ "facts": {"junk_after_endstream": 10},
+ "bytes": 727,
+ "qpdf_check_exit": 3,
+ "note": null
+}

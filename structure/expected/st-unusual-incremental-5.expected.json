@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-unusual-incremental-5",
+ "family": "structure",
+ "group": "unusual",
+ "kind": "incremental",
+ "property": "an original and four incremental updates: five sections joined by /Prev, five %%EOF",
+ "facts": {"revisions": 5, "eof_markers": 5},
+ "bytes": 2110,
+ "qpdf_check_exit": 0,
+ "note": null
+}

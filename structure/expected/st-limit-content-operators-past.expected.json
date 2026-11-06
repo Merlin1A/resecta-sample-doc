@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-limit-content-operators-past",
+ "family": "structure",
+ "group": "limit-past",
+ "kind": "content-operators",
+ "property": "the content streams hold 1,000,001 operators",
+ "facts": {"content_operators": 1000001},
+ "bytes": 2000713,
+ "qpdf_check_exit": 0,
+ "note": null
+}

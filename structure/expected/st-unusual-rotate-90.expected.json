@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-unusual-rotate-90",
+ "family": "structure",
+ "group": "unusual",
+ "kind": "rotate",
+ "property": "the one page has /Rotate 90",
+ "facts": {"rotate": 90, "inherited": false},
+ "bytes": 728,
+ "qpdf_check_exit": 0,
+ "note": null
+}

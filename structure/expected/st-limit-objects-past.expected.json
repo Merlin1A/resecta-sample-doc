@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-limit-objects-past",
+ "family": "structure",
+ "group": "limit-past",
+ "kind": "objects",
+ "property": "the file holds 100,001 objects",
+ "facts": {"objects": 100001},
+ "bytes": 4389471,
+ "qpdf_check_exit": 0,
+ "note": null
+}

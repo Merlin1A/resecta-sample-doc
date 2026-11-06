@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-unusual-pdf20",
+ "family": "structure",
+ "group": "unusual",
+ "kind": "header",
+ "property": "the header declares PDF 2.0",
+ "facts": {"header": "%PDF-2.0"},
+ "bytes": 717,
+ "qpdf_check_exit": 0,
+ "note": null
+}

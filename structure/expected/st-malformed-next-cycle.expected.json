@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-malformed-next-cycle",
+ "family": "structure",
+ "group": "malformed",
+ "kind": "next-cycle",
+ "property": "the open action's /Next chain returns to itself after two actions (GoTo actions only)",
+ "facts": {"cycle": [6, 7]},
+ "bytes": 891,
+ "qpdf_check_exit": 0,
+ "note": null
+}

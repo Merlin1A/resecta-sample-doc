@@ -1,0 +1,12 @@
+{
+ "schema": 1,
+ "id": "st-limit-total-inflated-at",
+ "family": "structure",
+ "group": "limit-at",
+ "kind": "total-inflated",
+ "property": "five streams, each under the per-stream and ratio limits, inflate to 67,108,864 bytes in all",
+ "facts": {"stream_sizes": [13421773, 13421773, 13421773, 13421773, 13421772], "total_inflated": 67108864},
+ "bytes": 1321446,
+ "qpdf_check_exit": 0,
+ "note": null
+}
