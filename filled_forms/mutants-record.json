@@ -1,0 +1,19 @@
+{
+ "rows": [
+  {"mutant": "control ff-pypdf-text-ap", "target": null, "checks": {"checksums": true, "facts": true, "intent": true, "second-reader": true, "visible": true, "reject": null, "cover": null, "xfa": null}, "outcome": "green"},
+  {"mutant": "control ff-pypdf-buttons", "target": null, "checks": {"checksums": true, "facts": true, "intent": true, "second-reader": true, "visible": true, "reject": null, "cover": null, "xfa": null}, "outcome": "green"},
+  {"mutant": "control ff-reportlab-all", "target": null, "checks": {"checksums": true, "facts": true, "intent": true, "second-reader": true, "visible": true, "reject": null, "cover": null, "xfa": null}, "outcome": "green"},
+  {"mutant": "control ff-pypdf-hidden-noview", "target": null, "checks": {"checksums": true, "facts": true, "intent": true, "second-reader": true, "visible": true, "reject": null, "cover": null, "xfa": null}, "outcome": "green"},
+  {"mutant": "control ff-reject-overflow", "target": null, "checks": {"checksums": true, "facts": true, "intent": true, "second-reader": true, "visible": true, "reject": true, "cover": null, "xfa": null}, "outcome": "green"},
+  {"mutant": "control ff-pdfkit-blackwidget-cover", "target": null, "checks": {"checksums": true, "facts": true, "intent": true, "second-reader": true, "visible": true, "reject": null, "cover": true, "xfa": null}, "outcome": "green"},
+  {"mutant": "control ff-xfa-dynamic", "target": null, "checks": {"checksums": true, "facts": true, "intent": true, "second-reader": true, "visible": true, "reject": null, "cover": null, "xfa": true}, "outcome": "green"},
+  {"mutant": "value-written-wrong", "target": "intent", "what": "pypdf fills the SSN with a different last digit", "checks": {"checksums": true, "facts": true, "intent": false, "second-reader": true, "visible": true, "reject": null, "cover": null, "xfa": null}, "outcome": "killed"},
+  {"mutant": "expected-value-changed", "target": "facts", "what": "one recorded value in the expected file is changed", "checks": {"checksums": true, "facts": false, "intent": true, "second-reader": false, "visible": true, "reject": null, "cover": null, "xfa": null}, "outcome": "killed"},
+  {"mutant": "expected-widget-moved", "target": "second-reader", "what": "one recorded widget rectangle is moved 30 pt", "checks": {"checksums": true, "facts": false, "intent": true, "second-reader": false, "visible": true, "reject": null, "cover": null, "xfa": null}, "outcome": "killed"},
+  {"mutant": "draws-flipped", "target": "visible", "what": "the Hidden SSN widget is recorded as drawing", "checks": {"checksums": true, "facts": true, "intent": true, "second-reader": true, "visible": false, "reject": null, "cover": null, "xfa": null}, "outcome": "killed"},
+  {"mutant": "overflow-unclipped", "target": "reject", "what": "the overflowing appearance is written without its clip", "checks": {"checksums": true, "facts": true, "intent": false, "second-reader": true, "visible": true, "reject": false, "cover": null, "xfa": null}, "outcome": "killed"},
+  {"mutant": "cover-emptied", "target": "cover", "what": "the black cover widget's appearance is replaced by an empty one", "checks": {"checksums": true, "facts": true, "intent": true, "second-reader": true, "visible": true, "reject": null, "cover": false, "xfa": null}, "outcome": "killed"},
+  {"mutant": "xfa-value-dropped", "target": "xfa", "what": "the SSN is left out of the XFA packets", "checks": {"checksums": true, "facts": true, "intent": true, "second-reader": true, "visible": true, "reject": null, "cover": null, "xfa": false}, "outcome": "killed"},
+  {"mutant": "manifest-sha-changed", "target": "checksums", "what": "the manifest's SHA-256 for the document is changed", "checks": {"checksums": false, "facts": true, "intent": true, "second-reader": true, "visible": true, "reject": null, "cover": null, "xfa": null}, "outcome": "killed"}
+ ]
+}

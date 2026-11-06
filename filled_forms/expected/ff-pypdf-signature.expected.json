@@ -1,0 +1,14 @@
+{
+ "schema": 1,
+ "id": "ff-pypdf-signature",
+ "family": "filled-forms",
+ "kind": "form",
+ "purpose": "one unsigned signature field (/FT /Sig, no /V) whose appearance is a drawn stroke; no signing key, a visual mark only",
+ "producer": "pypdf",
+ "facts": {"pages": 1, "needs_rendering": false, "acroform": {"present": true, "need_appearances": false, "sig_flags": 0, "fields": 1, "xfa_packets": null}, "widgets": [{"name": "signature", "ft": "/Sig", "ff": 0, "value": null, "default": null, "options": null, "annot_flags": 4, "annot_flag_names": ["print"], "rect": [210.0, 208.0, 410.0, 258.0], "state": null, "background": null, "appearance": {"present": true, "normal": "stream", "bbox": [0.0, 0.0, 200.0, 50.0], "drawn": [], "clip": null, "size": null, "origin": null}}], "other_annotations": [], "page_text": "SYNTHETIC INTAKE FORM - FICTIONAL DATA\nFull name:\nTelephone:\nE-mail:\nSSN:\nDate of birth:\nConsent on file:\nMail me copies:\nContact by:\nState:\nProgram:\nNotes:\nSignature:\nphone\nemail\npost\nThis synthetic form is a test document. Every name and number on it is invented.\n", "info": {"/Author": "resecta-sample-doc (synthetic)", "/CreationDate": "D:20000101000000+00'00'", "/Creator": "ReportLab PDF Library - www.reportlab.com", "/Keywords": "", "/ModDate": "D:20000101000000+00'00'", "/Producer": "ReportLab PDF Library - www.reportlab.com", "/Subject": "SYNTHETIC TEST DOCUMENT - FICTIONAL DATA", "/Title": "Synthetic filled-form fixture", "/Trapped": "/False"}},
+ "fields": [
+  {"name": "signature", "ft": "/Sig", "kind": "signature", "ff": 0, "value": null, "widgets": [0]}
+ ],
+ "visible": [true],
+ "draws": [true]
+}

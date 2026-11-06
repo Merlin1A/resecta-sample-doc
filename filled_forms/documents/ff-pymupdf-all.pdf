@@ -1,0 +1,537 @@
+%PDF-1.3
+%µ¶
+% Written by MuPDF 1.28.2
+
+1 0 obj
+<</F1 2 0 R/F2 3 0 R>>
+endobj
+
+2 0 obj
+<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Encoding/WinAnsiEncoding/Name/F1>>
+endobj
+
+3 0 obj
+<</Type/Font/Subtype/Type1/BaseFont/Helvetica-Bold/Encoding/WinAnsiEncoding/Name/F2>>
+endobj
+
+4 0 obj
+<</Type/Page/Contents 8 0 R/MediaBox[0 0 612 792]/Parent 7 0 R/Resources<</Font 1 0 R/ProcSet[/PDF/Text/ImageB/ImageC/ImageI]>>/Rotate 0/Trans<<>>/Annots[9 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 24 0 R 27 0 R 30 0 R 33 0 R 38 0 R 40 0 R 42 0 R]>>
+endobj
+
+5 0 obj
+<</Type/Catalog/PageMode/UseNone/Pages 7 0 R/AcroForm<</Fields[9 0 R 12 0 R 14 0 R 16 0 R 18 0 R 20 0 R 24 0 R 27 0 R 30 0 R 33 0 R 38 0 R 40 0 R 42 0 R]>>>>
+endobj
+
+6 0 obj
+<</Author(resecta-sample-doc \(synthetic\))/CreationDate(D:20000101000000+00'00')/Creator(ReportLab PDF Library - www.reportlab.com)/Keywords()/ModDate(D:20000101000000+00'00')/Producer(ReportLab PDF Library - www.reportlab.com)/Subject(SYNTHETIC TEST DOCUMENT - FICTIONAL DATA)/Title(Synthetic filled-form fixture)/Trapped/False>>
+endobj
+
+7 0 obj
+<</Type/Pages/Count 1/Kids[4 0 R]>>
+endobj
+
+8 0 obj
+<</Length 1070>>
+stream
+1 0 0 1 0 0 cm  BT /F1 12 Tf 14.4 TL ET
+BT /F2 14 Tf 16.8 TL ET
+BT 1 0 0 1 72 740 Tm (SYNTHETIC INTAKE FORM - FICTIONAL DATA) Tj T* ET
+BT /F1 12 Tf 14.4 TL ET
+BT 1 0 0 1 72 690 Tm (Full name:) Tj T* ET
+.5 w
+n 210 683 m 450 683 l S
+BT 1 0 0 1 72 656 Tm (Telephone:) Tj T* ET
+.5 w
+n 210 649 m 450 649 l S
+BT 1 0 0 1 72 622 Tm (E-mail:) Tj T* ET
+.5 w
+n 210 615 m 450 615 l S
+BT 1 0 0 1 72 588 Tm (SSN:) Tj T* ET
+.5 w
+n 210 581 m 350 581 l S
+BT 1 0 0 1 72 554 Tm (Date of birth:) Tj T* ET
+.5 w
+n 210 547 m 350 547 l S
+BT 1 0 0 1 72 518 Tm (Consent on file:) Tj T* ET
+BT 1 0 0 1 72 484 Tm (Mail me copies:) Tj T* ET
+BT 1 0 0 1 72 450 Tm (Contact by:) Tj T* ET
+BT 1 0 0 1 72 418 Tm (State:) Tj T* ET
+BT 1 0 0 1 72 386 Tm (Program:) Tj T* ET
+BT 1 0 0 1 72 318 Tm (Notes:) Tj T* ET
+BT 1 0 0 1 72 246 Tm (Signature:) Tj T* ET
+BT 1 0 0 1 228 451 Tm (phone) Tj T* ET
+BT 1 0 0 1 318 451 Tm (email) Tj T* ET
+BT 1 0 0 1 408 451 Tm (post) Tj T* ET
+BT /F1 9 Tf 10.8 TL ET
+BT 1 0 0 1 72 60 Tm (This synthetic form is a test document. Every name and number on it is invented.) Tj T* ET
+ 
+
+endstream
+endobj
+
+9 0 obj
+<</Type/Annot/Subtype/Widget/FT/Tx/T(full_name)/NM(fitz-W0)/Rect[210 684 450 706]/F 4/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 11 Tf)/Ff 0/V(Teodora Delgado)/AP<</N 11 0 R>>>>
+endobj
+
+10 0 obj
+<</Type/Font/Subtype/Type1/BaseFont/Helvetica/Encoding/WinAnsiEncoding>>
+endobj
+
+11 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 240 22]/Matrix[1 0 0 1 0 0]/Resources<</Font<</Helv 10 0 R>>>>/Length 95>>
+stream
+/Tx BMC
+q
+0 w
+0 0 240 22 re
+W
+n
+BT
+0 0 0 rg
+0 7.7 Td
+/Helv 11 Tf
+(Teodora Delgado) Tj
+ET
+Q
+EMC
+
+endstream
+endobj
+
+12 0 obj
+<</Type/Annot/Subtype/Widget/FT/Tx/T(phone)/NM(fitz-W1)/Rect[210 650 450 672]/F 4/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 11 Tf)/Ff 0/V(\(206\) 555-0143)/AP<</N 13 0 R>>>>
+endobj
+
+13 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 240 22]/Matrix[1 0 0 1 0 0]/Resources<</Font<</Helv 10 0 R>>>>/Length 96>>
+stream
+/Tx BMC
+q
+0 w
+0 0 240 22 re
+W
+n
+BT
+0 0 0 rg
+0 7.7 Td
+/Helv 11 Tf
+(\(206\) 555-0143) Tj
+ET
+Q
+EMC
+
+endstream
+endobj
+
+14 0 obj
+<</Type/Annot/Subtype/Widget/FT/Tx/T(email)/NM(fitz-W2)/Rect[210 616 450 638]/F 4/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 11 Tf)/Ff 0/V(t.delgado@example.org)/AP<</N 15 0 R>>>>
+endobj
+
+15 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 240 22]/Matrix[1 0 0 1 0 0]/Resources<</Font<</Helv 10 0 R>>>>/Length 101>>
+stream
+/Tx BMC
+q
+0 w
+0 0 240 22 re
+W
+n
+BT
+0 0 0 rg
+0 7.7 Td
+/Helv 11 Tf
+(t.delgado@example.org) Tj
+ET
+Q
+EMC
+
+endstream
+endobj
+
+16 0 obj
+<</Type/Annot/Subtype/Widget/FT/Tx/T(ssn)/NM(fitz-W3)/Rect[210 582 350 604]/F 4/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 11 Tf)/Ff 0/V(000-41-7720)/AP<</N 17 0 R>>>>
+endobj
+
+17 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 140 22]/Matrix[1 0 0 1 0 0]/Resources<</Font<</Helv 10 0 R>>>>/Length 91>>
+stream
+/Tx BMC
+q
+0 w
+0 0 140 22 re
+W
+n
+BT
+0 0 0 rg
+0 7.7 Td
+/Helv 11 Tf
+(000-41-7720) Tj
+ET
+Q
+EMC
+
+endstream
+endobj
+
+18 0 obj
+<</Type/Annot/Subtype/Widget/FT/Tx/T(dob)/NM(fitz-W4)/Rect[210 548 350 570]/F 4/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 11 Tf)/Ff 0/V(03/14/1979)/AP<</N 19 0 R>>>>
+endobj
+
+19 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 140 22]/Matrix[1 0 0 1 0 0]/Resources<</Font<</Helv 10 0 R>>>>/Length 90>>
+stream
+/Tx BMC
+q
+0 w
+0 0 140 22 re
+W
+n
+BT
+0 0 0 rg
+0 7.7 Td
+/Helv 11 Tf
+(03/14/1979) Tj
+ET
+Q
+EMC
+
+endstream
+endobj
+
+20 0 obj
+<</Type/Annot/Subtype/Widget/FT/Btn/Ff 0/T(consent)/NM(fitz-W5)/Rect[210 516 224 530]/F 4/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 11 Tf)/AS/Yes/V/Yes/AP<</N<</Off 21 0 R/Yes 23 0 R>>>>>>
+endobj
+
+21 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Length 8>>
+stream
+q
+0 w
+Q
+
+endstream
+endobj
+
+22 0 obj
+<</Type/Font/Subtype/Type1/BaseFont/ZapfDingbats/Encoding/WinAnsiEncoding>>
+endobj
+
+23 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Resources<</Font<</ZaDb 22 0 R>>>>/Length 54>>
+stream
+q
+0 w
+BT
+0 g
+1.4 2.7999998 Td
+/ZaDb 14 Tf
+(3) Tj
+ET
+Q
+
+endstream
+endobj
+
+24 0 obj
+<</Type/Annot/Subtype/Widget/FT/Btn/Ff 0/T(mailing)/NM(fitz-W6)/Rect[210 482 224 496]/F 4/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 11 Tf)/AS/Off/V/Off/AP<</N<</Off 25 0 R/Yes 26 0 R>>>>>>
+endobj
+
+25 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Length 8>>
+stream
+q
+0 w
+Q
+
+endstream
+endobj
+
+26 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Resources<</Font<</ZaDb 22 0 R>>>>/Length 54>>
+stream
+q
+0 w
+BT
+0 g
+1.4 2.7999998 Td
+/ZaDb 14 Tf
+(3) Tj
+ET
+Q
+
+endstream
+endobj
+
+27 0 obj
+<</Type/Annot/Subtype/Widget/FT/Btn/Ff 32768/T(contact_pref)/NM(fitz-W7)/Rect[210 448 224 462]/F 4/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 0 Tf)/AS/Off/V(Off)/AP<</N<</Off 28 0 R/Yes 29 0 R>>>>>>
+endobj
+
+28 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Length 8>>
+stream
+q
+0 w
+Q
+
+endstream
+endobj
+
+29 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Length 169>>
+stream
+q
+0 w
+0 g
+7 10.5 m
+8.931703 10.5 10.5 8.931703 10.5 7 c
+10.5 5.0682976 8.931703 3.5 7 3.5 c
+5.0682976 3.5 3.5 5.0682976 3.5 7 c
+3.5 8.931703 5.0682976 10.5 7 10.5 c
+f
+Q
+
+endstream
+endobj
+
+30 0 obj
+<</Type/Annot/Subtype/Widget/FT/Btn/Ff 32768/T(contact_pref)/NM(fitz-W8)/Rect[300 448 314 462]/F 4/BS<</S/S/W 1>>/DA(0 0 0 rg /Helv 0 Tf)/AS/Yes/V(Yes)/AP<</N<</Off 36 0 R/Yes 37 0 R>>>>>>
+endobj
+
+31 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Length 8>>
+stream
+q
+0 w
+Q
+
+endstream
+endobj
+
+32 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Length 169>>
+stream
+q
+0 w
+0 g
+7 10.5 m
+8.931703 10.5 10.5 8.931703 10.5 7 c
+10.5 5.0682976 8.931703 3.5 7 3.5 c
+5.0682976 3.5 3.5 5.0682976 3.5 7 c
+3.5 8.931703 5.0682976 10.5 7 10.5 c
+f
+Q
+
+endstream
+endobj
+
+33 0 obj
+<</Type/Annot/Subtype/Widget/FT/Btn/Ff 32768/T(contact_pref)/NM(fitz-W9)/Rect[390 448 404 462]/F 4/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 0 Tf)/AS/Off/V(Off)/AP<</N<</Off 34 0 R/Yes 35 0 R>>>>>>
+endobj
+
+34 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Length 8>>
+stream
+q
+0 w
+Q
+
+endstream
+endobj
+
+35 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Length 169>>
+stream
+q
+0 w
+0 g
+7 10.5 m
+8.931703 10.5 10.5 8.931703 10.5 7 c
+10.5 5.0682976 8.931703 3.5 7 3.5 c
+5.0682976 3.5 3.5 5.0682976 3.5 7 c
+3.5 8.931703 5.0682976 10.5 7 10.5 c
+f
+Q
+
+endstream
+endobj
+
+36 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Length 8>>
+stream
+q
+1 w
+Q
+
+endstream
+endobj
+
+37 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 14 14]/Matrix[1 0 0 1 0 0]/Length 139>>
+stream
+q
+1 w
+0 g
+7 10 m
+8.655745 10 10 8.655745 10 7 c
+10 5.344255 8.655745 4 7 4 c
+5.344255 4 4 5.344255 4 7 c
+4 8.655745 5.344255 10 7 10 c
+f
+Q
+
+endstream
+endobj
+
+38 0 obj
+<</Type/Annot/Subtype/Widget/FT/Ch/Ff 131072/T(state)/NM(fitz-W10)/Rect[210 412 300 432]/F 4/Opt[(ZX)(ZY)(ZZ)]/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 11 Tf)/V(ZZ)/AP<</N 39 0 R>>>>
+endobj
+
+39 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 90 20]/Matrix[1 0 0 1 0 0]/Resources<</Font<</Helv 10 0 R>>>>/Length 81>>
+stream
+/Tx BMC
+q
+0 w
+0 0 90 20 re
+W
+n
+BT
+0 0 0 rg
+0 6.7 Td
+/Helv 11 Tf
+(ZZ) Tj
+ET
+Q
+EMC
+
+endstream
+endobj
+
+40 0 obj
+<</Type/Annot/Subtype/Widget/FT/Ch/Ff 0/T(program)/NM(fitz-W11)/Rect[210 344 370 398]/F 4/Opt[(Archive)(Records)(Review)]/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 11 Tf)/V(Records)/AP<</N 41 0 R>>>>
+endobj
+
+41 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 160 54]/Matrix[1 0 0 1 0 0]/Resources<</Font<</Helv 10 0 R>>>>/Length 183>>
+stream
+/Tx BMC
+q
+0 w
+0 0 160 54 re
+W
+n
+BT
+0 0 0 rg
+0 54 Td
+0 -12.276001 Td
+/Helv 11 Tf
+(Archive) Tj
+0 -12.276001 Td
+/Helv 11 Tf
+(Records) Tj
+0 -12.276001 Td
+/Helv 11 Tf
+(Review) Tj
+ET
+Q
+EMC
+
+endstream
+endobj
+
+42 0 obj
+<</Type/Annot/Subtype/Widget/FT/Tx/T(notes)/NM(fitz-W12)/Rect[210 276 450 330]/F 4/BS<</S/S/W 0>>/DA(0 0 0 rg /Helv 11 Tf)/Ff 4096/V(Called \(206\) 555-0143 on October 30, 2026 about the file. Left a message for Teodora Delgado and sent a copy to t.delgado@example.org. The office will call again next week if there is no answer. Account 0000 4471 2290 18 stays on hold until then. Reference CV-0000-0417.)/AP<</N 43 0 R>>>>
+endobj
+
+43 0 obj
+<</Type/XObject/Subtype/Form/BBox[0 0 240 54]/Matrix[1 0 0 1 0 0]/Resources<</Font<</Helv 10 0 R>>>>/Length 571>>
+stream
+/Tx BMC
+q
+0 w
+0 0 240 54 re
+W
+n
+BT
+0 0 0 rg
+0 54 Td
+0 -12.276001 Td
+/Helv 11 Tf
+(Called \(206\) 555-0143 on October 30, 2026 ) Tj
+0 -12.276001 Td
+/Helv 11 Tf
+(about the file. Left a message for Teodora ) Tj
+0 -12.276001 Td
+/Helv 11 Tf
+(Delgado and sent a copy to ) Tj
+0 -12.276001 Td
+/Helv 11 Tf
+(t.delgado@example.org. The office will call again ) Tj
+0 -12.276001 Td
+/Helv 11 Tf
+(next week if there is no answer. Account 0000 ) Tj
+0 -12.276001 Td
+/Helv 11 Tf
+(4471 2290 18 stays on hold until then. Reference ) Tj
+0 -12.276001 Td
+/Helv 11 Tf
+(CV-0000-0417.) Tj
+ET
+Q
+EMC
+
+endstream
+endobj
+
+xref
+0 44
+0000000000 65535 f 
+0000000042 00000 n 
+0000000081 00000 n 
+0000000178 00000 n 
+0000000280 00000 n 
+0000000543 00000 n 
+0000000717 00000 n 
+0000001065 00000 n 
+0000001117 00000 n 
+0000002238 00000 n 
+0000002422 00000 n 
+0000002512 00000 n 
+0000002755 00000 n 
+0000002937 00000 n 
+0000003181 00000 n 
+0000003368 00000 n 
+0000003618 00000 n 
+0000003793 00000 n 
+0000004032 00000 n 
+0000004206 00000 n 
+0000004444 00000 n 
+0000004641 00000 n 
+0000004760 00000 n 
+0000004853 00000 n 
+0000005054 00000 n 
+0000005251 00000 n 
+0000005370 00000 n 
+0000005571 00000 n 
+0000005777 00000 n 
+0000005896 00000 n 
+0000006178 00000 n 
+0000006384 00000 n 
+0000006503 00000 n 
+0000006785 00000 n 
+0000006991 00000 n 
+0000007110 00000 n 
+0000007392 00000 n 
+0000007511 00000 n 
+0000007763 00000 n 
+0000007955 00000 n 
+0000008183 00000 n 
+0000008391 00000 n 
+0000008723 00000 n 
+0000009165 00000 n 
+
+trailer
+<</Size 44/Info 6 0 R/Root 5 0 R/ID[<88DCA2BED7153382B23239CA5A8D75C0><88DCA2BED7153382B23239CA5A8D75C0>]>>
+startxref
+9885
+%%EOF

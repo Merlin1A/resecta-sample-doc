@@ -36,7 +36,11 @@ calibrating its verification tooling:
   placed at chosen offsets from the printed words, each with an expected file
   of its geometry and named box scenarios, and the generator, checks and
   recorded mutants that rebuild them (see
-  [`hidden_layer/README.md`](./hidden_layer/README.md)).
+  [`hidden_layer/README.md`](./hidden_layer/README.md));
+- `filled_forms/` — one synthetic intake form filled by reportlab, pypdf,
+  PyMuPDF and macOS PDFKit, with a widget-free control, a dynamic XFA form and
+  three reject documents, each with an expected file of its fields, values,
+  flags and appearances (see [`filled_forms/README.md`](./filled_forms/README.md)).
 
 Four rules hold for the three documents:
 
@@ -90,7 +94,9 @@ extracted text against the brand denylist `verify.py` applies to the statement
 (`packet/brand_denylist.py`; the one name exempted is the agency the packet's
 own specimen disclaimer names). The fixture sets under `planted/`, `t23/` and
 `robustness/` are not rebuilt in CI. The pytest suite checks the committed
-`hidden_layer/` documents and rebuilds the smallest of them byte for byte.
+`hidden_layer/` documents and rebuilds the smallest of them byte for byte,
+and checks and rebuilds the `filled_forms/` documents (all but the two
+recorded PDFKit files).
 
 A second workflow, `security.yml`, runs pip-audit over the locked set weekly and
 on every pull request and reports what it finds in the job summary without

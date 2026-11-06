@@ -1,0 +1,14 @@
+{
+ "schema": 1,
+ "id": "ff-pdfkit-blackwidget-cover",
+ "family": "filled-forms",
+ "kind": "form",
+ "purpose": "the SSN printed as page text, with an empty black-background PDFKit text widget drawn over it",
+ "producer": "PDFKit",
+ "facts": {"pages": 1, "needs_rendering": false, "acroform": {"present": false}, "widgets": [{"name": "text0", "ft": "/Tx", "ff": 0, "value": "", "default": null, "options": null, "annot_flags": 4, "annot_flag_names": ["print"], "rect": [210.0, 582.0, 350.0, 604.0], "state": null, "background": null, "appearance": {"present": true, "normal": "stream", "bbox": [0.0, 0.0, 140.0, 22.0], "drawn": [], "clip": [0.0, 0.0, 140.0, 22.0], "size": null, "origin": null}}], "other_annotations": [], "page_text": "SYNTHETIC INTAKE FORM - FICTIONAL DATA\nFull name:\nTelephone:\nE-mail:\nSSN:\nDate of birth:\nConsent on file:\nMail me copies:\nContact by:\nState:\nProgram:\nNotes:\nSignature:\nphone\nemail\npost\nThis synthetic form is a test document. Every name and number on it is invented.\n000-41-7720\n", "info": {"/Title": "Synthetic filled-form fixture", "/Trapped": "/False", "/Subject": "SYNTHETIC TEST DOCUMENT - FICTIONAL DATA", "/ModDate": "D:20261105000000Z00'00'", "/Creator": "ReportLab PDF Library - www.reportlab.com", "/Producer": "ReportLab PDF Library - www.reportlab.com", "/CreationDate": "D:20261105000000Z00'00'", "/Keywords": "", "/Author": "resecta-sample-doc (synthetic)"}},
+ "fields": [
+  {"name": "text0", "ft": "/Tx", "kind": "text", "ff": 0, "value": "", "widgets": [0]}
+ ],
+ "visible": [true],
+ "draws": [null]
+}

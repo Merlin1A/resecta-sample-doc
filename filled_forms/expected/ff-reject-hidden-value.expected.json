@@ -1,0 +1,14 @@
+{
+ "schema": 1,
+ "id": "ff-reject-hidden-value",
+ "family": "filled-forms",
+ "kind": "reject",
+ "purpose": "one text field flagged Hidden whose stored value and appearance hold the SSN, which the page does not print",
+ "producer": "pypdf",
+ "facts": {"pages": 1, "needs_rendering": false, "acroform": {"present": true, "need_appearances": false, "sig_flags": 0, "fields": 1, "xfa_packets": null}, "widgets": [{"name": "ssn", "ft": "/Tx", "ff": 0, "value": "000-41-7720", "default": null, "options": null, "annot_flags": 6, "annot_flag_names": ["hidden", "print"], "rect": [210.0, 582.0, 350.0, 604.0], "state": null, "background": null, "appearance": {"present": true, "normal": "stream", "bbox": [0.0, 0.0, 140.0, 22.0], "drawn": ["000-41-7720"], "clip": [1.0, 1.0, 138.0, 20.0], "size": 11.0, "origin": [2.0, 7.5]}}], "other_annotations": [], "page_text": "SYNTHETIC INTAKE FORM - FICTIONAL DATA\nFull name:\nTelephone:\nE-mail:\nSSN:\nDate of birth:\nConsent on file:\nMail me copies:\nContact by:\nState:\nProgram:\nNotes:\nSignature:\nphone\nemail\npost\nThis synthetic form is a test document. Every name and number on it is invented.\n", "info": {"/Author": "resecta-sample-doc (synthetic)", "/CreationDate": "D:20000101000000+00'00'", "/Creator": "ReportLab PDF Library - www.reportlab.com", "/Keywords": "", "/ModDate": "D:20000101000000+00'00'", "/Producer": "ReportLab PDF Library - www.reportlab.com", "/Subject": "SYNTHETIC TEST DOCUMENT - FICTIONAL DATA", "/Title": "Synthetic filled-form fixture", "/Trapped": "/False"}},
+ "fields": [
+  {"name": "ssn", "ft": "/Tx", "kind": "text", "ff": 0, "value": "000-41-7720", "widgets": [0]}
+ ],
+ "visible": [false],
+ "draws": [false]
+}
