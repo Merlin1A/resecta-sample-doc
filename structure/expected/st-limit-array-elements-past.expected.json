@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-array-elements-past",
+ "family": "structure",
+ "group": "limit-past",
+ "kind": "array-elements",
+ "property": "one array holds 8,192 elements",
+ "facts": {"object": 6, "array_elements": 8192},
+ "bytes": 17158,
+ "qpdf_check_exit": 0
+}

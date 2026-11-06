@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-malformed-second-eof",
+ "family": "structure",
+ "group": "malformed",
+ "kind": "second-eof",
+ "property": "a second %%EOF marker follows the first",
+ "facts": {"eof_markers": 2},
+ "bytes": 723,
+ "qpdf_check_exit": 0
+}

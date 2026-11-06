@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-objects-at",
+ "family": "structure",
+ "group": "limit-at",
+ "kind": "objects",
+ "property": "the file holds 100,000 objects",
+ "facts": {"objects": 100000},
+ "bytes": 4389426,
+ "qpdf_check_exit": 0
+}

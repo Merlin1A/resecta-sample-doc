@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-form-depth-past",
+ "family": "structure",
+ "group": "limit-past",
+ "kind": "form-depth",
+ "property": "form XObjects nest 9 levels deep",
+ "facts": {"form_depth": 9},
+ "bytes": 2291,
+ "qpdf_check_exit": 0
+}

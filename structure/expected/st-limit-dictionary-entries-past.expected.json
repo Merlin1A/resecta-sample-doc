@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-dictionary-entries-past",
+ "family": "structure",
+ "group": "limit-past",
+ "kind": "dictionary-entries",
+ "property": "one dictionary holds 4,096 entries",
+ "facts": {"object": 6, "dictionary_entries": 4096},
+ "bytes": 36531,
+ "qpdf_check_exit": 0
+}

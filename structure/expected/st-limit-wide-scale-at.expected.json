@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-wide-scale-at",
+ "family": "structure",
+ "group": "limit-at",
+ "kind": "wide-scale",
+ "property": "chained cm operators whose first entries, multiplied, have 36 decimal places",
+ "facts": {"cm_operators": 2, "per_factor": 18, "product_width": 36},
+ "bytes": 789,
+ "qpdf_check_exit": 0
+}

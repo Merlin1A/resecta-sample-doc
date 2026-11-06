@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-unusual-object-streams",
+ "family": "structure",
+ "group": "unusual",
+ "kind": "objstm",
+ "property": "the objects sit in object streams indexed by a cross-reference stream (PyMuPDF)",
+ "facts": {"xref_stream": true, "object_streams_min": 1},
+ "bytes": 706,
+ "qpdf_check_exit": 0
+}

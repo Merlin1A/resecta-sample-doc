@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-wide-digits-past",
+ "family": "structure",
+ "group": "limit-past",
+ "kind": "wide-digits",
+ "property": "chained cm operators whose first entries, multiplied, have 54 significant digits",
+ "facts": {"cm_operators": 3, "per_factor": 18, "product_width": 54},
+ "bytes": 817,
+ "qpdf_check_exit": 0
+}

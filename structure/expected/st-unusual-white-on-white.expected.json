@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-unusual-white-on-white",
+ "family": "structure",
+ "group": "unusual",
+ "kind": "white",
+ "property": "the page text is filled with white (1 g) on the white page",
+ "facts": {"fill_gray_before_text": 1.0, "text": "Synthetic structure test document. Every name and number on it is invented."},
+ "bytes": 721,
+ "qpdf_check_exit": 0
+}

@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-image-pixels-past",
+ "family": "structure",
+ "group": "limit-past",
+ "kind": "image-pixels",
+ "property": "one image has 100,000,001 pixels",
+ "facts": {"width": 100000001, "height": 1, "pixels": 100000001},
+ "bytes": 246800,
+ "qpdf_check_exit": 0
+}

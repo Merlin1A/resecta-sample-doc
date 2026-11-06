@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-malformed-encrypted-empty-user",
+ "family": "structure",
+ "group": "malformed",
+ "kind": "encrypted",
+ "property": "the file is RC4-encrypted (standard handler, revision 2) with an empty user password",
+ "facts": {"filter": "/Standard", "revision": 2, "user_password": "", "text": "Synthetic structure test document. Every name and number on it is invented."},
+ "bytes": 1023,
+ "qpdf_check_exit": 0
+}

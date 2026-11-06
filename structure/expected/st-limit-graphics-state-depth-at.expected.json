@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-graphics-state-depth-at",
+ "family": "structure",
+ "group": "limit-at",
+ "kind": "graphics-state-depth",
+ "property": "saved graphics states nest 28 levels deep",
+ "facts": {"graphics_state_depth": 28},
+ "bytes": 829,
+ "qpdf_check_exit": 0
+}

@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-unusual-linearized",
+ "family": "structure",
+ "group": "unusual",
+ "kind": "linearized",
+ "property": "a linearized file (qpdf --linearize --deterministic-id, kept as written)",
+ "facts": {"linearized": true},
+ "bytes": 1861,
+ "qpdf_check_exit": 0
+}

@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-malformed-length-short",
+ "family": "structure",
+ "group": "malformed",
+ "kind": "length-lies",
+ "property": "the content stream's /Length is 40 bytes short of its endstream",
+ "facts": {"object": 5, "length_delta": -40},
+ "bytes": 716,
+ "qpdf_check_exit": 3
+}

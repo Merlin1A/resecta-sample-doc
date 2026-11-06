@@ -78,6 +78,9 @@ How the born pages' lines (headings excluded) came out:
 These are facts about the writers as they are, recorded so a test can tell an exact layer from an
 imperfect one. Nothing here was altered to make a layer decode better or worse.
 
+A U+FFFD character in an expected file's `layer_text` is what that page's text layer decodes to
+(a code with no ToUnicode entry). It is not an encoding error in the expected file.
+
 ## Build and check
 
 ```sh

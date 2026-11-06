@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-stream-inflated-at",
+ "family": "structure",
+ "group": "limit-at",
+ "kind": "stream-inflated",
+ "property": "one stream inflates to 16,777,216 bytes",
+ "facts": {"largest_inflated": 16777216},
+ "bytes": 330750,
+ "qpdf_check_exit": 0
+}

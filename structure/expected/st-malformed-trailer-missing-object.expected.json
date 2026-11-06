@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-malformed-trailer-missing-object",
+ "family": "structure",
+ "group": "malformed",
+ "kind": "trailer-missing",
+ "property": "the trailer's /Info points at object 40, which the file does not hold",
+ "facts": {"info_reference": 40, "object_present": false},
+ "bytes": 730,
+ "qpdf_check_exit": 0
+}

@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-unusual-rotate-180",
+ "family": "structure",
+ "group": "unusual",
+ "kind": "rotate",
+ "property": "the one page has /Rotate 180",
+ "facts": {"rotate": 180, "inherited": false},
+ "bytes": 729,
+ "qpdf_check_exit": 0
+}

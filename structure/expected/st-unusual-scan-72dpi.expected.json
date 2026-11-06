@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-unusual-scan-72dpi",
+ "family": "structure",
+ "group": "unusual",
+ "kind": "scan",
+ "property": "one page that is a 72 dpi picture (612 x 792 px)",
+ "facts": {"image_px": [612, 792], "dpi": 72},
+ "bytes": 11320,
+ "qpdf_check_exit": 0
+}

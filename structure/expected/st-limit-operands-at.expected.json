@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-operands-at",
+ "family": "structure",
+ "group": "limit-at",
+ "kind": "operands",
+ "property": "one content operator takes 64 operands",
+ "facts": {"most_operands": 64},
+ "bytes": 854,
+ "qpdf_check_exit": 0
+}

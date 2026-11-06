@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-inflate-ratio-past",
+ "family": "structure",
+ "group": "limit-past",
+ "kind": "inflate-ratio",
+ "property": "one stream inflates to exactly 1,001 bytes per encoded byte",
+ "facts": {"inflated": 1233232, "encoded": 1232},
+ "bytes": 2044,
+ "qpdf_check_exit": 0
+}

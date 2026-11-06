@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-input-bytes-at",
+ "family": "structure",
+ "group": "limit-at",
+ "kind": "input-bytes",
+ "property": "the file is 52,428,800 bytes long",
+ "facts": {"bytes": 52428800},
+ "bytes": 52428800,
+ "qpdf_check_exit": 0
+}

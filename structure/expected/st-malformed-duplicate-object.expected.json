@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-malformed-duplicate-object",
+ "family": "structure",
+ "group": "malformed",
+ "kind": "duplicate",
+ "property": "object 5 appears twice, at two offsets; the table points at the second",
+ "facts": {"object": 5, "copies": 2, "table_points_at_last": true},
+ "bytes": 867,
+ "qpdf_check_exit": 0
+}

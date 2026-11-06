@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-pages-at",
+ "family": "structure",
+ "group": "limit-at",
+ "kind": "pages",
+ "property": "the file has 2,000 pages",
+ "facts": {"pages": 2000},
+ "bytes": 583064,
+ "qpdf_check_exit": 0
+}

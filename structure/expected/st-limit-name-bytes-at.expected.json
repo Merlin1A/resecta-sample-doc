@@ -1,0 +1,11 @@
+{
+ "schema": 1,
+ "id": "st-limit-name-bytes-at",
+ "family": "structure",
+ "group": "limit-at",
+ "kind": "name-bytes",
+ "property": "one name holds 127 bytes",
+ "facts": {"longest_name": 127},
+ "bytes": 851,
+ "qpdf_check_exit": 0
+}
