@@ -19,7 +19,8 @@ and state code are unassigned, the SSN area is 000, and the card number is a pub
 | `verify_docs.py` | checks each document's properties from its bytes and a render (below) |
 | `mutants.py` | the recorded mutants: one deliberate defect per property, each of which `verify_docs` must report |
 | `pages.py`, `layer.py`, `grid.py`, `scenarios.py`, `geometry.py`, `rng.py`, `values.py` | the page renderer, the PDF writer, the parameter grid, the box scenarios, exact rectangle arithmetic, the seeded integer stream, the synthetic values |
-| `documents/` | the documents under 1 MiB (the rest are rebuilt locally; see `manifest.json` `stored`) |
+| `vision/` | `vision_words.swift` (a small Apple Vision helper), `record.py` (runs it on the Vision-set pictures) and one recorded reading per Vision-set document, `<id>.vision.json` |
+| `documents/` | the documents under 512 KiB (the rest are rebuilt locally; see `manifest.json` `stored`) |
 | `expected/<id>.expected.json` | one expected file per document, committed for every document |
 | `manifest.json` | one row per document: path, size, SHA-256, parameters, producer and versions, purpose, `committed` or `local` |
 | `SHA256SUMS` | the SHA-256 of every document and expected file, including the local ones |
@@ -39,7 +40,8 @@ uv run python hidden_layer/mutants.py --out /tmp/hl-mutants     # exit 0 = every
 uv run python hidden_layer/build.py --out /tmp/hl-c --publish   # refresh the committed files here
 ```
 
-`--only id,id` limits a build or a check to some documents. The build writes no clock fields and
+The Vision set needs its recordings (committed under `vision/`), not a Mac. `--only id,id` limits a
+build or a check to some documents. The build writes no clock fields and
 draws every random value from a SplitMix64 integer stream, so the output depends only on this
 commit and the locked versions of Pillow, NumPy and reportlab (whose Helvetica metrics give the
 layer's advances). `tests/test_hidden_layer.py` checks the committed documents and rebuilds the
@@ -75,8 +77,28 @@ Its baseline is the printed baseline plus the vertical shift and jitter. The par
 | `a2` | 16 | clean and heavy-noise x 150 / 200 / 300 dpi x none / mild / rough; drift 30 pt |
 | `a3` | 14 | clean and heavy-noise at 300 dpi: per-word jitter up to 1.5 pt (drift 8); the layer 4 pt above the ink; 12 pt below and 15 pt along; the surname's hidden copy spelled "Delgaclo" (drift 0 and 8); split as "Del gado" (drift 8); a 30 pt drift to the left |
 
-A set whose layer comes from Apple's Vision text recognition run on the same kind of pictures
-follows in a later change.
+### The Vision set
+
+Eighteen more documents (`v`: the six grounds x 150 / 200 / 300 dpi, mild degradation) carry a layer
+built from Apple's own text recognition instead, so their layer has the errors a real recognizer
+makes: a dash split from its number, "Okator" for "Okafor", "Z2" for "ZZ", words missed under the
+black bar. `vision/record.py` renders each picture, runs `vision_words` on it
+(`VNRecognizeTextRequest`, accurate level, US English, language correction on) and writes
+`vision/<id>.vision.json` with the macOS version, the request revision, the picture's SHA-256 and
+every observation's words and boxes. The build reads those files and never runs Vision, so these
+PDFs also rebuild on any platform. Recording again on another macOS release can give a different
+reading, and so different documents.
+
+Each recognized word becomes one hidden piece whose advance spans its recorded box and whose
+Helvetica ascender-to-descender band fills the box's height. It is assigned to the printed word
+whose ink box it overlaps most, and a piece that overlaps none is listed in `unpaired_hidden`.
+`hidden_matches_print` tells whether a printed word's hidden pieces spell it. The
+`recognition-box-surname` scenario appears where the surname's hidden copy does not spell the print.
+
+```sh
+swiftc -O -o hidden_layer/vision/vision_words hidden_layer/vision/vision_words.swift   # macOS
+uv run python hidden_layer/vision/record.py
+```
 
 ## The expected file
 
@@ -86,7 +108,7 @@ picture pixels with a top-left origin and exclusive right and bottom edges.
 - `words[]`: `text` (the print), `ink_px` and `ink_pt` (the printed ink box), `baseline_pt`,
   `under_bar`, and `hidden[]`: each hidden piece's `text`, `box_pt` (from the origin to the end of
   its advance, and from the Helvetica descender to its ascender), `origin_pt`, `hscale_pct` and
-  `glyph_x_pt` (each glyph's advance range). A split word has two pieces.
+  `glyph_edges_pt` (the glyphs' advance edges: glyph i spans entries i and i + 1). A split word has two pieces.
 - `scenarios[]`: one entry per box scenario, with its `regions`. Each region has a `paint_pt`
   rectangle (the box) and a `strip_pt` rectangle (the hidden-copy box of the word it was placed
   from, for boxes placed from a search of the hidden layer; `null` otherwise). The facts recorded
@@ -131,8 +153,9 @@ The scenarios (`scenarios.py`; boxes drawn by hand are the ink box grown by 1.5 
 | `ground` | a PyMuPDF render | the left-margin strip's mean and spread fall inside the ground's class; the bar's inside is dark |
 | `ink` | the render | each word's measured ink box is within `1 + 3 x blur` px of the expected box (inward also by the skew slack); words under the bar are skipped |
 | `layer` | PyMuPDF's characters | each hidden piece reads back with the expected text, origin and glyph advances within 0.02 pt |
-| `drift` | the layer and the render | each word's hidden left edge minus its measured ink left edge equals drift + jitter (recomputed from the seed); the median equals the drift; the hidden baseline equals the ink baseline plus the vertical shift, on words with no descender |
+| `drift` | the layer and the render | each word's hidden left edge minus its measured ink left edge equals drift + jitter (recomputed from the seed); the median equals the drift; the hidden baseline equals the ink baseline plus the vertical shift, on words with no descender (placed layers; on the Vision set it reports the measured offset only) |
 | `misread` | PyMuPDF's characters | the surname's hidden copy reads as the misread spelling, never as the printed one |
+| `vision` | PyMuPDF's characters and the recording | the layer holds exactly the recorded words, each spanning its recorded box; the recording was made from this picture |
 | `scenarios` | the expected file | every scenario recomputed from the recorded numbers equals the recorded one |
 
 The ink is measured per word with a threshold halfway between the darkest pixel in its window and
@@ -141,11 +164,12 @@ through the ink tolerance), the hidden boxes' heights come from Helvetica's metr
 a reader, and the scenario facts are geometry over the recorded rectangles. They say nothing about
 what any program does with them.
 
-`mutants.py` builds `hl-a3-heavy-300-none-d8-misread-substitute` once clean and once per defect
-(the drift written as zero, render mode 0, the JPEG quality changed, the ground swapped, one ink
-box moved, one hidden letter changed, the misread dropped, one scenario fact emptied, one manifest
-checksum changed). It passes when the clean build is green and each defect is reported by its own
-check.
+`mutants.py` builds `hl-a3-heavy-300-none-d8-misread-substitute` and `hl-v-heavy-200-mild` once
+clean and once per defect: the drift written as zero, render mode 0, the JPEG quality changed, the
+ground swapped, one ink box moved, one hidden letter changed, the misread dropped, one scenario fact
+emptied, one manifest checksum changed, one recorded Vision word left out. It passes when both clean
+builds are green and each defect is reported by its own check. `mutants-record.json` is the last
+run.
 
 ## Licences
 

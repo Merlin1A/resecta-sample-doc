@@ -31,7 +31,7 @@ class HiddenPiece:
     text: str
     x_pt: Fraction
     baseline_pt: Fraction
-    size_pt: int
+    size_pt: Fraction | int
     hscale: Fraction
     trailing_space: bool
 
@@ -59,7 +59,7 @@ def fit_piece(
     x0_pt: Fraction,
     x1_pt: Fraction,
     baseline_pt: Fraction,
-    size_pt: int,
+    size_pt: Fraction | int,
     trailing_space: bool,
 ) -> HiddenPiece:
     """A piece whose advance spans [x0, x1]. The scale is rounded to 0.001 % and the origin to 0.01 pt,
@@ -97,7 +97,7 @@ def content_stream(pieces: list[HiddenPiece], width_pt: int, height_pt: int) -> 
         for p in pieces:
             text = p.text + (" " if p.trailing_space else "")
             ops.append(
-                f"/F1 {p.size_pt} Tf {dec(p.hscale, 3)} Tz 1 0 0 1 {dec(p.x_pt, 2)} {dec(p.baseline_pt, 2)} Tm "
+                f"/F1 {dec(Fraction(p.size_pt), 2)} Tf {dec(p.hscale, 3)} Tz 1 0 0 1 {dec(p.x_pt, 2)} {dec(p.baseline_pt, 2)} Tm "
                 f"{_pdf_string(text)} Tj"
             )
         ops.append("ET")

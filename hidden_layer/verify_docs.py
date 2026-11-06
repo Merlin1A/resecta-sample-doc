@@ -26,6 +26,8 @@ The properties, each a named check (``CHECKS``):
   baseline plus the vertical shift, measured on words with no descender.
 - ``misread``: where the parameters ask for it, the surname's hidden copy is spelled differently
   from the print, and no hidden word over that copy reads as the printed surname.
+- ``vision``: for the Vision set, the layer holds exactly the recorded words, each spanning its
+  recorded box, and the recording belongs to this picture (its SHA-256).
 - ``scenarios``: every scenario's regions and facts, recomputed from the expected file's numbers
   with the same rules, equal the recorded ones.
 - ``checksums``: the document and its expected file match ``manifest.json`` and ``SHA256SUMS``.
@@ -42,6 +44,7 @@ import statistics
 import sys
 from decimal import Decimal
 from fractions import Fraction
+from itertools import pairwise
 from pathlib import Path
 from typing import Any
 
@@ -367,28 +370,35 @@ def match_piece(chars: list[dict[str, Any]], piece: dict[str, Any]) -> list[dict
     return sorted(got, key=lambda c: c["x0"])
 
 
+def glyph_ranges(piece: dict[str, Any]) -> list[tuple[Any, Any]]:
+    """Each glyph's advance range from the piece's edge list (glyph i spans edges i and i + 1)."""
+    e = piece["glyph_edges_pt"]
+    return list(pairwise(e))
+
+
 def check_layer(chars: list[dict[str, Any]], exp: dict[str, Any], r: Result) -> dict[int, float]:
     """Returns each word's measured hidden left edge (pt)."""
     tol = float(LAYER_TOL_PT)
     bad = []
     left: dict[int, float] = {}
     n = 0
-    for wd in exp["words"]:
-        for k, piece in enumerate(wd["hidden"]):
-            n += 1
-            got = match_piece(chars, piece)
-            text = "".join(c["c"] for c in got)
-            if text != piece["text"]:
-                bad.append(f"{wd['i']}: read {text!r} for {piece['text']!r}")
-                continue
-            dev = max(
-                max(abs(c["x0"] - float(g[0])), abs(c["x1"] - float(g[1])))
-                for c, g in zip(got, piece["glyph_x_pt"], strict=True)
-            )
-            if dev > tol or abs(got[0]["ox"] - float(piece["origin_pt"][0])) > tol:
-                bad.append(f"{wd['i']}: glyph edges off by {dev:.3f} pt")
-            if k == 0:
-                left[wd["i"]] = got[0]["x0"]
+    listed = [(wd["i"], k, p) for wd in exp["words"] for k, p in enumerate(wd["hidden"])]
+    listed += [(-1, k, p) for k, p in enumerate(exp.get("unpaired_hidden") or [])]
+    for i, k, piece in listed:
+        n += 1
+        got = match_piece(chars, piece)
+        text = "".join(c["c"] for c in got)
+        if text != piece["text"]:
+            bad.append(f"{i}: read {text!r} for {piece['text']!r}")
+            continue
+        dev = max(
+            max(abs(c["x0"] - float(g[0])), abs(c["x1"] - float(g[1])))
+            for c, g in zip(got, glyph_ranges(piece), strict=True)
+        )
+        if dev > tol or abs(got[0]["ox"] - float(piece["origin_pt"][0])) > tol:
+            bad.append(f"{i}: glyph edges off by {dev:.3f} pt")
+        if k == 0 and i >= 0:
+            left[i] = got[0]["x0"]
     r.record(
         "layer",
         not bad,
@@ -408,6 +418,19 @@ def check_drift(
     dpi = int(exp["page"]["dpi"])
     k = 72 / dpi
     n = len(exp["words"])
+    if exp["layer"]["source"] == "vision":
+        offs = [
+            left[w["i"]] - m[0] * k
+            for w in exp["words"]
+            if w["i"] in left and (m := measured.get(w["i"]))
+        ]
+        med = statistics.median(offs) if offs else float("nan")
+        r.record(
+            "drift",
+            None,
+            f"layer from text recognition, no drift parameter; median measured offset {med:+.2f} pt over {len(offs)} words",
+        )
+        return
     jit = [(0, 0)] * n
     if p["jitter_cpt"]:
         vals = scalar_ints(
@@ -466,6 +489,66 @@ def check_misread(chars: list[dict[str, Any]], exp: dict[str, Any], r: Result) -
     r.record("misread", ok, f"printed {wd['text']!r}; hidden reads {read!r}; expected {want!r}")
 
 
+def check_vision(chars: list[dict[str, Any]], exp: dict[str, Any], root: Path, r: Result) -> None:
+    """The layer holds exactly the recorded Vision words: same text, and an advance from the
+    recorded box's left edge to its right edge."""
+    v = exp.get("vision")
+    if not v:
+        r.record("vision", None, "placed layer")
+        return
+    path = root / v["recording"]
+    if not path.exists():
+        r.record("vision", False, f"recording {v['recording']} missing")
+        return
+    raw = path.read_bytes()
+    rec = json.loads(raw.decode("ascii"), parse_float=Decimal)
+    problems = []
+    if hashlib.sha256(raw).hexdigest() != v["recording_sha256"]:
+        problems.append("recording checksum differs")
+    if rec["image_sha256"] != exp["image"]["sha256"]:
+        problems.append("recording made from a different picture")
+    pieces = [p for wd in exp["words"] for p in wd["hidden"]] + list(
+        exp.get("unpaired_hidden") or []
+    )
+    read = []
+    for p in pieces:
+        got = match_piece(chars, p)
+        if got:
+            read.append(("".join(c["c"] for c in got), got[0]["x0"], got[-1]["x1"]))
+    tokens = [
+        (w["text"], float(w["box"][0]) * 612, float(w["box"][2]) * 612)
+        for o in rec["observations"]
+        for w in o["words"]
+        if w["box"] is not None
+    ]
+    tol = float(LAYER_TOL_PT) + 0.03
+    unmatched = 0
+    pool = list(read)
+    for t in tokens:
+        hit = next(
+            (
+                q
+                for q in pool
+                if q[0] == t[0] and abs(q[1] - t[1]) <= tol and abs(q[2] - t[2]) <= tol
+            ),
+            None,
+        )
+        if hit is None:
+            unmatched += 1
+        else:
+            pool.remove(hit)
+    if unmatched or pool:
+        problems.append(
+            f"{unmatched} recorded words not in the layer; {len(pool)} layer words not recorded"
+        )
+    r.record(
+        "vision",
+        not problems,
+        "; ".join(problems)
+        or f"{len(tokens)} recorded words = the layer (macOS {rec['macos']}, revision {rec['revision']})",
+    )
+
+
 # ------------------------------------------------------------------------------------- scenarios
 def geoms_from_expected(exp: dict[str, Any]) -> list[scenarios.WordGeom]:
     out = []
@@ -475,7 +558,7 @@ def geoms_from_expected(exp: dict[str, Any]) -> list[scenarios.WordGeom]:
             box = rect_of(p["box_pt"])
             glyphs = tuple(
                 scenarios.Glyph(ch, (frac(g[0]), box[1], frac(g[1]), box[3]))
-                for ch, g in zip(p["text"], p["glyph_x_pt"], strict=True)
+                for ch, g in zip(p["text"], glyph_ranges(p), strict=True)
             )
             pieces.append(scenarios.Piece(p["text"], box, glyphs))
         out.append(
@@ -587,6 +670,7 @@ def check_one(root: Path, row: dict[str, Any], sums: dict[str, str]) -> Result:
     left = check_layer(chars, exp, r)
     check_drift(left, measured, chars, exp, r)
     check_misread(chars, exp, r)
+    check_vision(chars, exp, root, r)
     check_scenarios(exp, r)
     return r
 
@@ -600,6 +684,7 @@ CHECKS = (
     "layer",
     "drift",
     "misread",
+    "vision",
     "scenarios",
 )
 

@@ -4,7 +4,7 @@ and the accept list.
     .venv/bin/python -I hidden_layer/build.py --out <empty dir> [--only id,id] [--publish]
 
 ``--publish`` then copies the expected files, the manifest, the checksums, the accept list and every
-document under ``COMMIT_LIMIT`` bytes into ``hidden_layer/`` of this repository. Larger documents
+document under ``COMMIT_LIMIT`` (512 KiB) into ``hidden_layer/`` of this repository. Larger documents
 stay in ``--out`` and are rebuilt from this generator.
 """
 
@@ -14,11 +14,12 @@ import argparse
 import hashlib
 import json
 import platform
-import re
 import shutil
 import sys
+from decimal import Decimal
 from fractions import Fraction
 from pathlib import Path
+from typing import Any
 
 if __package__ in (None, ""):
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
@@ -28,14 +29,14 @@ import PIL
 import reportlab
 from reportlab.pdfbase.pdfmetrics import stringWidth
 
-from hidden_layer import grid, pages, scenarios
-from hidden_layer.layer import HIDDEN_FONT, HiddenPiece, dec, fit_piece, write_pdf
+from hidden_layer import geometry, grid, pages, scenarios
+from hidden_layer.layer import ASCENT, DESCENT, HIDDEN_FONT, HiddenPiece, dec, fit_piece, write_pdf
 from hidden_layer.rng import mix_seed, scalar_ints
 from hidden_layer.values import MISREAD_SPLIT, MISREAD_SUBSTITUTE
 
 HERE = Path(__file__).resolve().parent
 SCHEMA = 1
-COMMIT_LIMIT = 1024 * 1024
+COMMIT_LIMIT = 512 * 1024
 SPLIT_GAP = Fraction(3, 2)
 PAGE_W = 612
 PAGE_H = 792
@@ -94,6 +95,83 @@ def placed_pieces(spec: grid.DocSpec, page: pages.Page) -> list[list[HiddenPiece
     return out
 
 
+VISION_DIR = HERE / "vision"
+
+
+def _overlap(a: scenarios.Rect, b: scenarios.Rect) -> Fraction:
+    r = geometry.intersect(a, b)
+    return Fraction(0) if r is None else geometry.area(r)
+
+
+def vision_recording(doc_id: str) -> tuple[Path, dict[str, Any]]:
+    path = VISION_DIR / f"{doc_id}.vision.json"
+    return path, json.loads(path.read_text(encoding="ascii"), parse_float=Decimal)
+
+
+def vision_pieces(
+    spec: grid.DocSpec, page: pages.Page, jpg: bytes
+) -> tuple[list[list[HiddenPiece]], list[HiddenPiece], list[HiddenPiece], dict[str, object]]:
+    """The layer from a Vision recording: one piece per recognized word, with its advance spanning
+    the word's box and its Helvetica ascender-to-descender band filling the box's height. Each piece
+    goes to the printed word whose ink box it overlaps most; a piece overlapping none is unpaired.
+    Returns (pieces per printed word, unpaired pieces, all pieces in Vision's order, the recording's
+    facts)."""
+    path, rec = vision_recording(spec.doc_id)
+    if rec["image_sha256"] != sha256(jpg):
+        raise SystemExit(f"{path.name}: recorded for a different picture; re-run vision/record.py")
+    inks = [ink_pt(wd.ink_px, page.dpi) for wd in page.words]
+    per_word: list[list[HiddenPiece]] = [[] for _ in page.words]
+    unpaired: list[HiddenPiece] = []
+    flat: list[HiddenPiece] = []
+    skipped = 0
+    band = ASCENT - DESCENT
+    for obs in rec["observations"]:
+        words = obs["words"]
+        for wi, w in enumerate(words):
+            if w["box"] is None:
+                skipped += 1
+                continue
+            b = [Fraction(v) for v in w["box"]]
+            box = (b[0] * PAGE_W, b[1] * PAGE_H, b[2] * PAGE_W, b[3] * PAGE_H)
+            if box[2] <= box[0] or box[3] <= box[1]:
+                skipped += 1
+                continue
+            size = Fraction(round((box[3] - box[1]) / band, 2))
+            base = box[1] - DESCENT * size
+            piece = fit_piece(w["text"], box[0], box[2], base, size, wi < len(words) - 1)
+            flat.append(piece)
+            overlaps = [_overlap(box, ink) for ink in inks]
+            best = max(range(len(inks)), key=lambda j: overlaps[j])
+            if overlaps[best] > 0:
+                per_word[best].append(piece)
+            else:
+                unpaired.append(piece)
+    for ps in per_word:
+        ps.sort(key=lambda p: p.x_pt)
+    facts: dict[str, object] = {
+        "recording": f"vision/{path.name}",
+        "recording_sha256": sha256(path.read_bytes()),
+        "macos": rec["macos"],
+        "request": rec["request"],
+        "revision": int(rec["revision"]),
+        "recognition_level": rec["recognition_level"],
+        "language_correction": rec["language_correction"],
+        "words_without_box": skipped,
+    }
+    return per_word, unpaired, flat, facts
+
+
+def piece_out(p: HiddenPiece) -> dict[str, object]:
+    return {
+        "text": p.text,
+        "box_pt": box_out(p.box()),
+        "origin_pt": [num(p.x_pt, 2), num(p.baseline_pt, 2)],
+        "size_pt": num(Fraction(p.size_pt), 2),
+        "hscale_pct": num(p.hscale),
+        "glyph_edges_pt": [num(p.x_pt)] + [num(b) for _, _, b in p.glyphs()],
+    }
+
+
 def piece_geom(p: HiddenPiece) -> scenarios.Piece:
     x0, y0, x1, y1 = p.box()
     glyphs = tuple(scenarios.Glyph(ch, (gx0, y0, gx1, y1)) for ch, gx0, gx1 in p.glyphs())
@@ -113,8 +191,13 @@ def _note_value(v: object) -> object:
 def build_doc(spec: grid.DocSpec) -> tuple[bytes, dict[str, object]]:
     deg = pages.DEGRADES[spec.degrade]
     page, jpg = pages.render(spec.layout, spec.ground, spec.dpi, deg, spec.seed)
-    pieces = placed_pieces(spec, page)
-    flat = [p for ps in pieces for p in ps]
+    unpaired: list[HiddenPiece] = []
+    vision: dict[str, object] | None = None
+    if spec.layer == "vision":
+        pieces, unpaired, flat, vision = vision_pieces(spec, page, jpg)
+    else:
+        pieces = placed_pieces(spec, page)
+        flat = [p for ps in pieces for p in ps]
     pdf = write_pdf(jpg, (page.width_px, page.height_px), flat, PAGE_W, PAGE_H)
     k = Fraction(72, page.dpi)
     geoms = []
@@ -152,24 +235,16 @@ def build_doc(spec: grid.DocSpec) -> tuple[bytes, dict[str, object]]:
                 ],
                 "baseline_pt": num(PAGE_H - wd.baseline_px * k),
                 "under_bar": wd.under_bar,
-                "hidden": [
-                    {
-                        "text": p.text,
-                        "box_pt": box_out(p.box()),
-                        "origin_pt": [num(p.x_pt, 2), num(p.baseline_pt, 2)],
-                        "hscale_pct": num(p.hscale),
-                        "glyph_x_pt": [[num(a), num(b)] for _, a, b in p.glyphs()],
-                    }
-                    for p in ps
-                ],
+                "hidden": [piece_out(p) for p in ps],
+                "hidden_matches_print": " ".join(p.text for p in ps) == wd.text,
             }
         )
     page_rect = scenarios.rect(0, 0, PAGE_W, PAGE_H)
     bar = ink_pt(page.bar_px, page.dpi) if page.bar_px is not None else None
     scen_out = []
-    for name, kind, regions, notes in scenarios.scenario_regions(
-        geoms, page_rect, bar, spec.misread is not None
-    ):
+    sur = next(g for g in geoms if (g.line_key, g.position) == scenarios.SURNAME)
+    misread = spec.misread is not None or " ".join(p.text for p in sur.hidden) != sur.text
+    for name, kind, regions, notes in scenarios.scenario_regions(geoms, page_rect, bar, misread):
         scen_out.append(
             {
                 "name": name,
@@ -210,7 +285,9 @@ def build_doc(spec: grid.DocSpec) -> tuple[bytes, dict[str, object]]:
         "rules_px": [list(r) for r in page.rules_px],
         "rules_polygon_px": [[list(pt) for pt in poly] for poly in page.rules_polygon_px] or None,
         "layer": {"render_mode": 3, "font": HIDDEN_FONT, "pieces": len(flat), "source": spec.layer},
+        "vision": vision,
         "words": words_out,
+        "unpaired_hidden": [piece_out(p) for p in unpaired],
         "scenarios": scen_out,
     }
     return pdf, expected
@@ -227,19 +304,24 @@ def producer() -> dict[str, str]:
     }
 
 
-_NUM_LIST = re.compile(r"\[\s*((?:-?[\d.]+(?:e-?\d+)?,\s*)*-?[\d.]+(?:e-?\d+)?)\s*\]")
+def _compact(v: object) -> str:
+    return json.dumps(v, separators=(", ", ": "), ensure_ascii=True)
 
 
 def json_bytes(obj: object) -> bytes:
-    """Indented JSON with every list of plain numbers kept on one line."""
-    text = json.dumps(obj, indent=1, sort_keys=False, ensure_ascii=True)
-    text = _NUM_LIST.sub(lambda m: "[" + re.sub(r",\s*", ", ", m.group(1)) + "]", text)
-    text = re.sub(
-        r"\[\s*(\[[^\[\]]*\](?:,\s*\[[^\[\]]*\])*)\s*\]",
-        lambda m: "[" + re.sub(r"\],\s*\[", "], [", m.group(1)) + "]",
-        text,
-    )
-    return (text + "\n").encode("ascii")
+    """JSON with one top-level key per line, and one line per element of a list of objects (a word,
+    a scenario, a manifest row), so a change shows as a change of one line."""
+    if not isinstance(obj, dict):
+        return (_compact(obj) + "\n").encode("ascii")
+    lines = []
+    for k, v in obj.items():
+        key = json.dumps(k)
+        if isinstance(v, list) and v and all(isinstance(e, dict) for e in v):
+            inner = ",\n".join("  " + _compact(e) for e in v)
+            lines.append(f" {key}: [\n{inner}\n ]")
+        else:
+            lines.append(f" {key}: {_compact(v)}")
+    return ("{\n" + ",\n".join(lines) + "\n}\n").encode("ascii")
 
 
 def build(out: Path, only: set[str] | None) -> list[dict[str, object]]:
@@ -256,6 +338,15 @@ def build(out: Path, only: set[str] | None) -> list[dict[str, object]]:
         exp_path = f"expected/{spec.doc_id}.expected.json"
         (out / pdf_path).write_bytes(pdf)
         (out / exp_path).write_bytes(exp_b)
+        extra = {}
+        if spec.layer == "vision":
+            rec_path = VISION_DIR / f"{spec.doc_id}.vision.json"
+            (out / "vision").mkdir(exist_ok=True)
+            shutil.copyfile(rec_path, out / "vision" / rec_path.name)
+            extra = {
+                "vision_recording": f"vision/{rec_path.name}",
+                "vision_recording_sha256": sha256(rec_path.read_bytes()),
+            }
         scen = expected["scenarios"]
         for s in scen if isinstance(scen, list) else []:
             if s["hidden_copies_covered"]:
@@ -273,6 +364,7 @@ def build(out: Path, only: set[str] | None) -> list[dict[str, object]]:
                 "producer": prod,
                 "purpose": spec.purpose,
                 "stored": "committed" if len(pdf) < COMMIT_LIMIT else "local",
+                **extra,
             }
         )
         sys.stdout.write(f"{spec.doc_id}  {len(pdf) // 1024} KiB  {sha256(pdf)[:12]}\n")
@@ -281,9 +373,15 @@ def build(out: Path, only: set[str] | None) -> list[dict[str, object]]:
     (out / "accept-scenarios.json").write_bytes(
         json_bytes({"schema": SCHEMA, "rule": ACCEPT_RULE, "scenarios": accept})
     )
-    sums = [f"{r['sha256']}  {r['path']}" for r in rows] + [
-        f"{r['expected_sha256']}  {r['expected']}" for r in rows
-    ]
+    sums = (
+        [f"{r['sha256']}  {r['path']}" for r in rows]
+        + [f"{r['expected_sha256']}  {r['expected']}" for r in rows]
+        + [
+            f"{r['vision_recording_sha256']}  {r['vision_recording']}"
+            for r in rows
+            if "vision_recording" in r
+        ]
+    )
     (out / "SHA256SUMS").write_text("\n".join(sums) + "\n", encoding="ascii")
     return rows
 

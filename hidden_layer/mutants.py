@@ -5,8 +5,8 @@ report as a failed property.
 
 Each mutant builds one document with the defect applied (to the generator, or to the files after
 the build), then runs the checks. The run passes only when the unmutated control is green and every
-mutant turns its own property red. The document used carries every property kind: a heavy-noise
-page with a drifted, misread layer.
+mutant turns its own property red. The documents used carry every property kind between them: a
+heavy-noise page with a drifted, misread layer, and a Vision-set page.
 """
 
 from __future__ import annotations
@@ -26,6 +26,8 @@ if __package__ in (None, ""):
 from hidden_layer import build, grid, layer, pages, verify_docs
 
 DOC = "hl-a3-heavy-300-none-d8-misread-substitute"
+DOC_VISION = "hl-v-heavy-200-mild"
+_current = {"doc": DOC}
 
 
 @contextmanager
@@ -39,20 +41,25 @@ def patched(obj: Any, name: str, value: Any) -> Iterator[None]:
 
 
 def _spec() -> grid.DocSpec:
-    return next(s for s in grid.all_specs() if s.doc_id == DOC)
+    return next(s for s in grid.all_specs() if s.doc_id == _current["doc"])
 
 
 def _write(out: Path, pdf: bytes, expected: dict[str, Any], spec: grid.DocSpec) -> None:
     (out / "documents").mkdir(parents=True)
     (out / "expected").mkdir(parents=True)
     exp_b = build.json_bytes(expected)
-    (out / f"documents/{DOC}.pdf").write_bytes(pdf)
-    (out / f"expected/{DOC}.expected.json").write_bytes(exp_b)
+    doc = spec.doc_id
+    (out / f"documents/{doc}.pdf").write_bytes(pdf)
+    (out / f"expected/{doc}.expected.json").write_bytes(exp_b)
+    if spec.layer == "vision":
+        (out / "vision").mkdir()
+        src = build.VISION_DIR / f"{doc}.vision.json"
+        (out / "vision" / src.name).write_bytes(src.read_bytes())
     row = {
-        "path": f"documents/{DOC}.pdf",
+        "path": f"documents/{doc}.pdf",
         "bytes": len(pdf),
         "sha256": hashlib.sha256(pdf).hexdigest(),
-        "expected": f"expected/{DOC}.expected.json",
+        "expected": f"expected/{doc}.expected.json",
         "expected_sha256": hashlib.sha256(exp_b).hexdigest(),
         "stored": "local",
         "params": spec.params(),
@@ -151,6 +158,23 @@ def _scenario_fact_emptied() -> tuple[bytes, dict[str, Any]]:
     return pdf, exp
 
 
+def _vision_word_dropped() -> tuple[bytes, dict[str, Any]]:
+    real = build.vision_pieces
+
+    def dropped(spec: grid.DocSpec, page: pages.Page, jpg: bytes) -> Any:
+        per_word, unpaired, flat, facts = real(spec, page, jpg)
+        gone = flat.pop()
+        for ps in per_word:
+            if gone in ps:
+                ps.remove(gone)
+        if gone in unpaired:
+            unpaired.remove(gone)
+        return per_word, unpaired, flat, facts
+
+    with patched(build, "vision_pieces", dropped):
+        return build.build_doc(_spec())
+
+
 MUTANTS: dict[str, tuple[str, str, Callable[[], tuple[bytes, dict[str, Any]]]]] = {
     "drift-written-as-zero": (
         "drift",
@@ -200,7 +224,9 @@ def run_one(
     name: str,
     make: Callable[[], tuple[bytes, dict[str, Any]]],
     tamper_manifest: bool = False,
+    doc: str = DOC,
 ) -> dict[str, Any]:
+    _current["doc"] = doc
     d = out / name
     pdf, exp = make()
     _write(d, pdf, exp, _spec())
@@ -235,7 +261,19 @@ def main() -> int:
             "outcome": "green" if control_ok else "RED",
         }
     )
-    plan = [(n, t, w, m, False) for n, (t, w, m) in MUTANTS.items()]
+    control_v = run_one(a.out, "control-vision", lambda: build.build_doc(_spec()), doc=DOC_VISION)
+    control_v_ok = all(v is not False for v in control_v.values())
+    control_ok = control_ok and control_v_ok
+    rows.append(
+        {
+            "mutant": "control-vision",
+            "target": None,
+            "what": f"no defect ({DOC_VISION})",
+            "checks": control_v,
+            "outcome": "green" if control_v_ok else "RED",
+        }
+    )
+    plan = [(n, t, w, m, False, DOC) for n, (t, w, m) in MUTANTS.items()]
     plan.append(
         (
             "manifest-sha-changed",
@@ -243,11 +281,22 @@ def main() -> int:
             "the manifest's SHA-256 for the document is changed",
             lambda: build.build_doc(_spec()),
             True,
+            DOC,
+        )
+    )
+    plan.append(
+        (
+            "vision-word-dropped",
+            "vision",
+            f"one recorded Vision word is left out of the layer ({DOC_VISION})",
+            _vision_word_dropped,
+            False,
+            DOC_VISION,
         )
     )
     ok = control_ok
-    for name, target, what, make, tamper in plan:
-        checks = run_one(a.out, name, make, tamper)
+    for name, target, what, make, tamper, doc in plan:
+        checks = run_one(a.out, name, make, tamper, doc)
         killed = checks.get(target) is False
         ok = ok and killed
         rows.append(
@@ -264,7 +313,7 @@ def main() -> int:
         f"control {'green' if control_ok else 'RED'}; {'all mutants killed' if ok else 'a mutant survived'}\n"
     )
     if a.record:
-        a.record.write_bytes(build.json_bytes({"document": DOC, "rows": rows}))
+        a.record.write_bytes(build.json_bytes({"documents": [DOC, DOC_VISION], "rows": rows}))
     return 0 if ok else 1
 
 

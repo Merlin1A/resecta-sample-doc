@@ -135,5 +135,35 @@ def placed_grid() -> list[DocSpec]:
     return out
 
 
+VISION_DEGRADE = "mild"
+
+
+def vision_grid(start: int) -> list[DocSpec]:
+    """Six grounds x three resolutions with the mild degradation; the layer is Vision's reading."""
+    out = []
+    i = start
+    for ground in GROUNDS:
+        for dpi in DPIS:
+            doc_id = f"hl-v-{SHORT_GROUND[ground]}-{dpi}-{VISION_DEGRADE}"
+            purpose = f"a layer built from Apple Vision's words and boxes on the {ground} ground at {dpi} dpi"
+            layout = LAYOUT_CYCLE[i % len(LAYOUT_CYCLE)]
+            out.append(
+                DocSpec(
+                    doc_id,
+                    "v",
+                    layout,
+                    ground,
+                    dpi,
+                    VISION_DEGRADE,
+                    layer="vision",
+                    seed=_seed(i),
+                    purpose=purpose,
+                )
+            )
+            i += 1
+    return out
+
+
 def all_specs() -> list[DocSpec]:
-    return placed_grid()
+    placed = placed_grid()
+    return placed + vision_grid(len(placed))
