@@ -1,0 +1,3445 @@
+{
+ "schema": 1,
+ "id": "hl-a1-bar-300-none-d5",
+ "family": "hidden-layer",
+ "purpose": "a 5 pt along-the-line drift of the whole layer on the black-bar ground",
+ "params": {
+  "axis": "a1",
+  "layout": "form",
+  "ground": "black-bar",
+  "dpi": 300,
+  "degrade": "none",
+  "drift_cpt": 500,
+  "jitter_cpt": 0,
+  "vshift_cpt": 0,
+  "misread": null,
+  "layer": "placed",
+  "seed": 1137
+ },
+ "page": {
+  "width_pt": 612,
+  "height_pt": 792,
+  "dpi": 300,
+  "image_px": [2550, 3300]
+ },
+ "image": {
+  "sha256": "6e653273650680019e56117659b57eb40cb0f892ca6d41cd9eea4bc9b306e65d",
+  "bytes": 344026,
+  "jpeg_quality": 85
+ },
+ "ground": {
+  "kind": "black-bar",
+  "text_fill": 24
+ },
+ "degrade": {
+  "skew_deg": 0.0,
+  "blur_px": 0.0,
+  "jpeg_quality": 85
+ },
+ "bar_pt": [124.56, 342.96, 257.28, 358.56],
+ "bar_px": [519, 1806, 1072, 1871],
+ "rules_px": [[825, 521, 1917, 524], [825, 629, 1917, 632], [825, 738, 1917, 741], [825, 846, 1917, 849], [825, 954, 1917, 957], [825, 1062, 1917, 1065]],
+ "rules_polygon_px": null,
+ "layer": {
+  "render_mode": 3,
+  "font": "Helvetica",
+  "pieces": 110,
+  "source": "placed"
+ },
+ "words": [
+  {
+   "i": 0,
+   "line": 0,
+   "line_key": "banner",
+   "position": 0,
+   "text": "SYNTHETIC",
+   "size_pt": 10,
+   "ink_px": [301, 220, 543, 250],
+   "ink_pt": [72.24, 732.0, 130.32, 739.2],
+   "ink_polygon_pt": null,
+   "baseline_pt": 732.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "SYNTHETIC",
+     "box_pt": [77.24, 729.93, 135.32, 739.18],
+     "origin_pt": [77.24, 732.0],
+     "hscale_pct": 102.488,
+     "glyph_x_pt": [[77.24, 84.076], [84.076, 90.912], [90.912, 98.312], [98.312, 104.574], [104.574, 111.973], [111.973, 118.809], [118.809, 125.071], [125.071, 127.92], [127.92, 135.32]]
+    }
+   ]
+  },
+  {
+   "i": 1,
+   "line": 0,
+   "line_key": "banner",
+   "position": 1,
+   "text": "INTAKE",
+   "size_pt": 10,
+   "ink_px": [557, 220, 708, 250],
+   "ink_pt": [133.68, 732.0, 169.92, 739.2],
+   "ink_polygon_pt": null,
+   "baseline_pt": 732.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "INTAKE",
+     "box_pt": [138.68, 729.93, 174.92, 739.18],
+     "origin_pt": [138.68, 732.0],
+     "hscale_pct": 100.332,
+     "glyph_x_pt": [[138.68, 141.469], [141.469, 148.713], [148.713, 154.843], [154.843, 161.536], [161.536, 168.228], [168.228, 174.92]]
+    }
+   ]
+  },
+  {
+   "i": 2,
+   "line": 0,
+   "line_key": "banner",
+   "position": 2,
+   "text": "FORM",
+   "size_pt": 10,
+   "ink_px": [722, 220, 841, 250],
+   "ink_pt": [173.28, 732.0, 201.84, 739.2],
+   "ink_polygon_pt": null,
+   "baseline_pt": 732.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "FORM",
+     "box_pt": [178.28, 729.93, 206.84, 739.18],
+     "origin_pt": [178.28, 732.0],
+     "hscale_pct": 97.011,
+     "glyph_x_pt": [[178.28, 184.207], [184.207, 191.755], [191.755, 198.759], [198.759, 206.84]]
+    }
+   ]
+  },
+  {
+   "i": 3,
+   "line": 0,
+   "line_key": "banner",
+   "position": 3,
+   "text": "-",
+   "size_pt": 10,
+   "ink_px": [860, 235, 875, 240],
+   "ink_pt": [206.4, 734.4, 210.0, 735.6],
+   "ink_polygon_pt": null,
+   "baseline_pt": 732.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "-",
+     "box_pt": [211.4, 729.93, 215.0, 739.18],
+     "origin_pt": [211.4, 732.0],
+     "hscale_pct": 108.108,
+     "glyph_x_pt": [[211.4, 215.0]]
+    }
+   ]
+  },
+  {
+   "i": 4,
+   "line": 0,
+   "line_key": "banner",
+   "position": 4,
+   "text": "FICTIONAL",
+   "size_pt": 10,
+   "ink_px": [894, 220, 1116, 250],
+   "ink_pt": [214.56, 732.0, 267.84, 739.2],
+   "ink_polygon_pt": null,
+   "baseline_pt": 732.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "FICTIONAL",
+     "box_pt": [219.56, 729.93, 272.84, 739.18],
+     "origin_pt": [219.56, 732.0],
+     "hscale_pct": 102.01,
+     "glyph_x_pt": [[219.56, 225.793], [225.793, 228.629], [228.629, 235.994], [235.994, 242.227], [242.227, 245.062], [245.062, 252.999], [252.999, 260.364], [260.364, 267.168], [267.168, 272.84]]
+    }
+   ]
+  },
+  {
+   "i": 5,
+   "line": 0,
+   "line_key": "banner",
+   "position": 5,
+   "text": "DATA",
+   "size_pt": 10,
+   "ink_px": [1131, 220, 1240, 250],
+   "ink_pt": [271.44, 732.0, 297.6, 739.2],
+   "ink_polygon_pt": null,
+   "baseline_pt": 732.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "DATA",
+     "box_pt": [276.44, 729.93, 302.6, 739.18],
+     "origin_pt": [276.44, 732.0],
+     "hscale_pct": 98.088,
+     "glyph_x_pt": [[276.44, 283.522], [283.522, 290.064], [290.064, 296.058], [296.058, 302.6]]
+    }
+   ]
+  },
+  {
+   "i": 6,
+   "line": 1,
+   "line_key": "title",
+   "position": 0,
+   "text": "Records",
+   "size_pt": 15,
+   "ink_px": [304, 312, 549, 359],
+   "ink_pt": [72.96, 705.84, 131.76, 717.12],
+   "ink_polygon_pt": null,
+   "baseline_pt": 706.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Records",
+     "box_pt": [77.96, 702.975, 136.76, 716.85],
+     "origin_pt": [77.96, 706.08],
+     "hscale_pct": 105.291,
+     "glyph_x_pt": [[77.96, 89.363], [89.363, 98.144], [98.144, 106.041], [106.041, 114.822], [114.822, 120.082], [120.082, 128.863], [128.863, 136.76]]
+    }
+   ]
+  },
+  {
+   "i": 7,
+   "line": 1,
+   "line_key": "title",
+   "position": 1,
+   "text": "Intake",
+   "size_pt": 15,
+   "ink_px": [572, 312, 754, 359],
+   "ink_pt": [137.28, 705.84, 180.96, 717.12],
+   "ink_polygon_pt": null,
+   "baseline_pt": 706.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Intake",
+     "box_pt": [142.28, 702.975, 185.96, 716.85],
+     "origin_pt": [142.28, 706.08],
+     "hscale_pct": 106.902,
+     "glyph_x_pt": [[142.28, 146.738], [146.738, 155.653], [155.653, 160.111], [160.111, 169.027], [169.027, 177.045], [177.045, 185.96]]
+    }
+   ]
+  },
+  {
+   "i": 8,
+   "line": 2,
+   "line_key": "name",
+   "position": 0,
+   "text": "Full",
+   "size_pt": 12,
+   "ink_px": [304, 463, 379, 500],
+   "ink_pt": [72.96, 672.0, 90.96, 680.88],
+   "ink_polygon_pt": null,
+   "baseline_pt": 672.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Full",
+     "box_pt": [77.96, 669.516, 95.96, 680.616],
+     "origin_pt": [77.96, 672.0],
+     "hscale_pct": 93.11,
+     "glyph_x_pt": [[77.96, 84.787], [84.787, 90.999], [90.999, 93.48], [93.48, 95.96]]
+    }
+   ]
+  },
+  {
+   "i": 9,
+   "line": 2,
+   "line_key": "name",
+   "position": 1,
+   "text": "name:",
+   "size_pt": 12,
+   "ink_px": [398, 472, 537, 501],
+   "ink_pt": [95.52, 671.76, 128.88, 678.72],
+   "ink_polygon_pt": null,
+   "baseline_pt": 672.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "name:",
+     "box_pt": [100.52, 669.516, 133.88, 680.616],
+     "origin_pt": [100.52, 672.0],
+     "hscale_pct": 100.036,
+     "glyph_x_pt": [[100.52, 107.194], [107.194, 113.869], [113.869, 123.868], [123.868, 130.543], [130.543, 133.88]]
+    }
+   ]
+  },
+  {
+   "i": 10,
+   "line": 2,
+   "line_key": "name",
+   "position": 2,
+   "text": "Teodora",
+   "size_pt": 12,
+   "ink_px": [827, 463, 1017, 501],
+   "ink_pt": [198.48, 671.76, 244.08, 680.88],
+   "ink_polygon_pt": null,
+   "baseline_pt": 672.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Teodora",
+     "box_pt": [203.48, 669.516, 249.08, 680.616],
+     "origin_pt": [203.48, 672.0],
+     "hscale_pct": 102.041,
+     "glyph_x_pt": [[203.48, 210.962], [210.962, 217.77], [217.77, 224.578], [224.578, 231.386], [231.386, 238.194], [238.194, 242.272], [242.272, 249.08]]
+    }
+   ]
+  },
+  {
+   "i": 11,
+   "line": 2,
+   "line_key": "name",
+   "position": 3,
+   "text": "Delgado",
+   "size_pt": 12,
+   "ink_px": [1037, 463, 1228, 510],
+   "ink_pt": [248.88, 669.6, 294.72, 680.88],
+   "ink_polygon_pt": null,
+   "baseline_pt": 672.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Delgado",
+     "box_pt": [253.88, 669.516, 299.72, 680.616],
+     "origin_pt": [253.88, 672.0],
+     "hscale_pct": 102.578,
+     "glyph_x_pt": [[253.88, 262.767], [262.767, 269.611], [269.611, 272.344], [272.344, 279.188], [279.188, 286.032], [286.032, 292.876], [292.876, 299.72]]
+    }
+   ]
+  },
+  {
+   "i": 12,
+   "line": 3,
+   "line_key": "phone",
+   "position": 0,
+   "text": "Telephone:",
+   "size_pt": 12,
+   "ink_px": [302, 571, 559, 618],
+   "ink_pt": [72.48, 643.68, 134.16, 654.96],
+   "ink_polygon_pt": null,
+   "baseline_pt": 646.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Telephone:",
+     "box_pt": [77.48, 643.596, 139.16, 654.696],
+     "origin_pt": [77.48, 646.08],
+     "hscale_pct": 102.738,
+     "glyph_x_pt": [[77.48, 85.013], [85.013, 91.867], [91.867, 94.604], [94.604, 101.459], [101.459, 108.314], [108.314, 115.168], [115.168, 122.023], [122.023, 128.878], [128.878, 135.732], [135.732, 139.16]]
+    }
+   ]
+  },
+  {
+   "i": 13,
+   "line": 3,
+   "line_key": "phone",
+   "position": 1,
+   "text": "(206)",
+   "size_pt": 12,
+   "ink_px": [831, 569, 956, 615],
+   "ink_pt": [199.44, 644.4, 229.44, 655.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 646.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "(206)",
+     "box_pt": [204.44, 643.596, 234.44, 654.696],
+     "origin_pt": [204.44, 646.08],
+     "hscale_pct": 107.112,
+     "glyph_x_pt": [[204.44, 208.72], [208.72, 215.867], [215.867, 223.013], [223.013, 230.16], [230.16, 234.44]]
+    }
+   ]
+  },
+  {
+   "i": 14,
+   "line": 3,
+   "line_key": "phone",
+   "position": 2,
+   "text": "555-0187",
+   "size_pt": 12,
+   "ink_px": [979, 571, 1230, 608],
+   "ink_pt": [234.96, 646.08, 295.2, 654.96],
+   "ink_polygon_pt": null,
+   "baseline_pt": 646.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "555-0187",
+     "box_pt": [239.96, 643.596, 300.2, 654.696],
+     "origin_pt": [239.96, 646.08],
+     "hscale_pct": 118.817,
+     "glyph_x_pt": [[239.96, 247.887], [247.887, 255.815], [255.815, 263.742], [263.742, 268.49], [268.49, 276.418], [276.418, 284.345], [284.345, 292.273], [292.273, 300.2]]
+    }
+   ]
+  },
+  {
+   "i": 15,
+   "line": 4,
+   "line_key": "email",
+   "position": 0,
+   "text": "E-mail:",
+   "size_pt": 12,
+   "ink_px": [304, 679, 470, 718],
+   "ink_pt": [72.96, 619.68, 112.8, 629.04],
+   "ink_polygon_pt": null,
+   "baseline_pt": 619.92,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "E-mail:",
+     "box_pt": [77.96, 617.436, 117.8, 628.536],
+     "origin_pt": [77.96, 619.92],
+     "hscale_pct": 106.718,
+     "glyph_x_pt": [[77.96, 86.502], [86.502, 90.766], [90.766, 101.434], [101.434, 108.554], [108.554, 111.397], [111.397, 114.24], [114.24, 117.8]]
+    }
+   ]
+  },
+  {
+   "i": 16,
+   "line": 4,
+   "line_key": "email",
+   "position": 1,
+   "text": "t.delgado@example.org",
+   "size_pt": 12,
+   "ink_px": [825, 680, 1382, 727],
+   "ink_pt": [198.0, 617.52, 331.68, 628.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 619.92,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "t.delgado@example.org",
+     "box_pt": [203.0, 617.436, 336.68, 628.536],
+     "origin_pt": [203.0, 619.92],
+     "hscale_pct": 104.788,
+     "glyph_x_pt": [[203.0, 206.496], [206.496, 209.991], [209.991, 216.983], [216.983, 223.974], [223.974, 226.766], [226.766, 233.757], [233.757, 240.749], [240.749, 247.74], [247.74, 254.732], [254.732, 267.495], [267.495, 274.486], [274.486, 280.774], [280.774, 287.765], [287.765, 298.24], [298.24, 305.231], [305.231, 308.023], [308.023, 315.014], [315.014, 318.51], [318.51, 325.501], [325.501, 329.689], [329.689, 336.68]]
+    }
+   ]
+  },
+  {
+   "i": 17,
+   "line": 5,
+   "line_key": "ssn",
+   "position": 0,
+   "text": "SSN:",
+   "size_pt": 12,
+   "ink_px": [302, 788, 413, 826],
+   "ink_pt": [72.48, 593.76, 99.12, 602.88],
+   "ink_polygon_pt": null,
+   "baseline_pt": 594.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "SSN:",
+     "box_pt": [77.48, 591.516, 104.12, 602.616],
+     "origin_pt": [77.48, 594.0],
+     "hscale_pct": 95.116,
+     "glyph_x_pt": [[77.48, 85.093], [85.093, 92.706], [92.706, 100.947], [100.947, 104.12]]
+    }
+   ]
+  },
+  {
+   "i": 18,
+   "line": 5,
+   "line_key": "ssn",
+   "position": 1,
+   "text": "000-41-7720",
+   "size_pt": 12,
+   "ink_px": [828, 788, 1178, 825],
+   "ink_pt": [198.72, 594.0, 282.72, 602.88],
+   "ink_polygon_pt": null,
+   "baseline_pt": 594.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "000-41-7720",
+     "box_pt": [203.72, 591.516, 287.72, 602.616],
+     "origin_pt": [203.72, 594.0],
+     "hscale_pct": 123.457,
+     "glyph_x_pt": [[203.72, 211.957], [211.957, 220.194], [220.194, 228.431], [228.431, 233.364], [233.364, 241.602], [241.602, 249.839], [249.839, 254.772], [254.772, 263.009], [263.009, 271.246], [271.246, 279.483], [279.483, 287.72]]
+    }
+   ]
+  },
+  {
+   "i": 19,
+   "line": 6,
+   "line_key": "dob",
+   "position": 0,
+   "text": "Date",
+   "size_pt": 12,
+   "ink_px": [304, 896, 407, 934],
+   "ink_pt": [72.96, 567.84, 97.68, 576.96],
+   "ink_polygon_pt": null,
+   "baseline_pt": 568.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Date",
+     "box_pt": [77.96, 565.596, 102.68, 576.696],
+     "origin_pt": [77.96, 568.08],
+     "hscale_pct": 97.538,
+     "glyph_x_pt": [[77.96, 86.411], [86.411, 92.918], [92.918, 96.172], [96.172, 102.68]]
+    }
+   ]
+  },
+  {
+   "i": 20,
+   "line": 6,
+   "line_key": "dob",
+   "position": 1,
+   "text": "of",
+   "size_pt": 12,
+   "ink_px": [425, 894, 471, 934],
+   "ink_pt": [102.0, 567.84, 113.04, 577.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 568.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "of",
+     "box_pt": [107.0, 565.596, 118.04, 576.696],
+     "origin_pt": [107.0, 568.08],
+     "hscale_pct": 110.312,
+     "glyph_x_pt": [[107.0, 114.36], [114.36, 118.04]]
+    }
+   ]
+  },
+  {
+   "i": 21,
+   "line": 6,
+   "line_key": "dob",
+   "position": 2,
+   "text": "birth:",
+   "size_pt": 12,
+   "ink_px": [488, 895, 604, 934],
+   "ink_pt": [117.12, 567.84, 144.96, 577.2],
+   "ink_polygon_pt": null,
+   "baseline_pt": 568.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "birth:",
+     "box_pt": [122.12, 565.596, 149.96, 576.696],
+     "origin_pt": [122.12, 568.08],
+     "hscale_pct": 104.363,
+     "glyph_x_pt": [[122.12, 129.083], [129.083, 131.863], [131.863, 136.034], [136.034, 139.515], [139.515, 146.478], [146.478, 149.96]]
+    }
+   ]
+  },
+  {
+   "i": 22,
+   "line": 6,
+   "line_key": "dob",
+   "position": 3,
+   "text": "03/14/1979",
+   "size_pt": 12,
+   "ink_px": [828, 895, 1117, 939],
+   "ink_pt": [198.72, 566.64, 268.08, 577.2],
+   "ink_polygon_pt": null,
+   "baseline_pt": 568.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "03/14/1979",
+     "box_pt": [203.72, 565.596, 273.08, 576.696],
+     "origin_pt": [203.72, 568.08],
+     "hscale_pct": 115.508,
+     "glyph_x_pt": [[203.72, 211.427], [211.427, 219.133], [219.133, 222.987], [222.987, 230.693], [230.693, 238.4], [238.4, 242.253], [242.253, 249.96], [249.96, 257.667], [257.667, 265.374], [265.374, 273.08]]
+    }
+   ]
+  },
+  {
+   "i": 23,
+   "line": 7,
+   "line_key": "card",
+   "position": 0,
+   "text": "Card",
+   "size_pt": 12,
+   "ink_px": [302, 1005, 410, 1043],
+   "ink_pt": [72.48, 541.68, 98.4, 550.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 541.92,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Card",
+     "box_pt": [77.48, 539.436, 103.4, 550.536],
+     "origin_pt": [77.48, 541.92],
+     "hscale_pct": 99.677,
+     "glyph_x_pt": [[77.48, 86.116], [86.116, 92.766], [92.766, 96.75], [96.75, 103.4]]
+    }
+   ]
+  },
+  {
+   "i": 24,
+   "line": 7,
+   "line_key": "card",
+   "position": 1,
+   "text": "on",
+   "size_pt": 12,
+   "ink_px": [429, 1014, 483, 1043],
+   "ink_pt": [102.96, 541.68, 115.92, 548.64],
+   "ink_polygon_pt": null,
+   "baseline_pt": 541.92,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "on",
+     "box_pt": [107.96, 539.436, 120.92, 550.536],
+     "origin_pt": [107.96, 541.92],
+     "hscale_pct": 97.122,
+     "glyph_x_pt": [[107.96, 114.44], [114.44, 120.92]]
+    }
+   ]
+  },
+  {
+   "i": 25,
+   "line": 7,
+   "line_key": "card",
+   "position": 2,
+   "text": "file:",
+   "size_pt": 12,
+   "ink_px": [500, 1003, 583, 1043],
+   "ink_pt": [120.0, 541.68, 139.92, 551.28],
+   "ink_polygon_pt": null,
+   "baseline_pt": 541.92,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "file:",
+     "box_pt": [125.0, 539.436, 144.92, 550.536],
+     "origin_pt": [125.0, 541.92],
+     "hscale_pct": 106.684,
+     "glyph_x_pt": [[125.0, 128.559], [128.559, 131.401], [131.401, 134.243], [134.243, 141.361], [141.361, 144.92]]
+    }
+   ]
+  },
+  {
+   "i": 26,
+   "line": 7,
+   "line_key": "card",
+   "position": 3,
+   "text": "4111",
+   "size_pt": 12,
+   "ink_px": [827, 1005, 950, 1042],
+   "ink_pt": [198.48, 541.92, 228.0, 550.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 541.92,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "4111",
+     "box_pt": [203.48, 539.436, 233.0, 550.536],
+     "origin_pt": [203.48, 541.92],
+     "hscale_pct": 110.612,
+     "glyph_x_pt": [[203.48, 210.86], [210.86, 218.24], [218.24, 225.62], [225.62, 233.0]]
+    }
+   ]
+  },
+  {
+   "i": 27,
+   "line": 7,
+   "line_key": "card",
+   "position": 4,
+   "text": "1111",
+   "size_pt": 12,
+   "ink_px": [973, 1005, 1093, 1042],
+   "ink_pt": [233.52, 541.92, 262.32, 550.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 541.92,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "1111",
+     "box_pt": [238.52, 539.436, 267.32, 550.536],
+     "origin_pt": [238.52, 541.92],
+     "hscale_pct": 107.914,
+     "glyph_x_pt": [[238.52, 245.72], [245.72, 252.92], [252.92, 260.12], [260.12, 267.32]]
+    }
+   ]
+  },
+  {
+   "i": 28,
+   "line": 7,
+   "line_key": "card",
+   "position": 5,
+   "text": "1111",
+   "size_pt": 12,
+   "ink_px": [1116, 1005, 1236, 1042],
+   "ink_pt": [267.84, 541.92, 296.64, 550.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 541.92,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "1111",
+     "box_pt": [272.84, 539.436, 301.64, 550.536],
+     "origin_pt": [272.84, 541.92],
+     "hscale_pct": 107.914,
+     "glyph_x_pt": [[272.84, 280.04], [280.04, 287.24], [287.24, 294.44], [294.44, 301.64]]
+    }
+   ]
+  },
+  {
+   "i": 29,
+   "line": 7,
+   "line_key": "card",
+   "position": 6,
+   "text": "1111",
+   "size_pt": 12,
+   "ink_px": [1259, 1005, 1379, 1042],
+   "ink_pt": [302.16, 541.92, 330.96, 550.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 541.92,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "1111",
+     "box_pt": [307.16, 539.436, 335.96, 550.536],
+     "origin_pt": [307.16, 541.92],
+     "hscale_pct": 107.914,
+     "glyph_x_pt": [[307.16, 314.36], [314.36, 321.56], [321.56, 328.76], [328.76, 335.96]]
+    }
+   ]
+  },
+  {
+   "i": 30,
+   "line": 8,
+   "line_key": "tick",
+   "position": 0,
+   "text": "[x]",
+   "size_pt": 11,
+   "ink_px": [306, 1140, 355, 1181],
+   "ink_pt": [73.44, 508.56, 85.2, 518.4],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "[x]",
+     "box_pt": [78.44, 507.723, 90.2, 517.898],
+     "origin_pt": [78.44, 510.0],
+     "hscale_pct": 101.24,
+     "glyph_x_pt": [[78.44, 81.536], [81.536, 87.104], [87.104, 90.2]]
+    }
+   ]
+  },
+  {
+   "i": 31,
+   "line": 8,
+   "line_key": "tick",
+   "position": 1,
+   "text": "I",
+   "size_pt": 11,
+   "ink_px": [377, 1142, 382, 1175],
+   "ink_pt": [90.48, 510.0, 91.68, 517.92],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "I",
+     "box_pt": [95.48, 507.723, 96.68, 517.898],
+     "origin_pt": [95.48, 510.0],
+     "hscale_pct": 39.241,
+     "glyph_x_pt": [[95.48, 96.68]]
+    }
+   ]
+  },
+  {
+   "i": 32,
+   "line": 8,
+   "line_key": "tick",
+   "position": 2,
+   "text": "agree",
+   "size_pt": 11,
+   "ink_px": [400, 1150, 520, 1184],
+   "ink_pt": [96.0, 507.84, 124.8, 516.0],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "agree",
+     "box_pt": [101.0, 507.723, 129.8, 517.898],
+     "origin_pt": [101.0, 510.0],
+     "hscale_pct": 102.393,
+     "glyph_x_pt": [[101.0, 107.262], [107.262, 113.525], [113.525, 117.275], [117.275, 123.538], [123.538, 129.8]]
+    }
+   ]
+  },
+  {
+   "i": 33,
+   "line": 8,
+   "line_key": "tick",
+   "position": 3,
+   "text": "that",
+   "size_pt": 11,
+   "ink_px": [534, 1142, 617, 1176],
+   "ink_pt": [128.16, 509.76, 148.08, 517.92],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "that",
+     "box_pt": [133.16, 507.723, 153.08, 517.898],
+     "origin_pt": [133.16, 510.0],
+     "hscale_pct": 108.568,
+     "glyph_x_pt": [[133.16, 136.48], [136.48, 143.12], [143.12, 149.76], [149.76, 153.08]]
+    }
+   ]
+  },
+  {
+   "i": 34,
+   "line": 8,
+   "line_key": "tick",
+   "position": 4,
+   "text": "the",
+   "size_pt": 11,
+   "ink_px": [629, 1142, 696, 1176],
+   "ink_pt": [150.96, 509.76, 167.04, 517.92],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "the",
+     "box_pt": [155.96, 507.723, 172.04, 517.898],
+     "origin_pt": [155.96, 510.0],
+     "hscale_pct": 105.167,
+     "glyph_x_pt": [[155.96, 159.176], [159.176, 165.608], [165.608, 172.04]]
+    }
+   ]
+  },
+  {
+   "i": 35,
+   "line": 8,
+   "line_key": "tick",
+   "position": 5,
+   "text": "office",
+   "size_pt": 11,
+   "ink_px": [712, 1140, 832, 1176],
+   "ink_pt": [170.88, 509.76, 199.68, 518.4],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "office",
+     "box_pt": [175.88, 507.723, 204.68, 517.898],
+     "origin_pt": [175.88, 510.0],
+     "hscale_pct": 109.547,
+     "glyph_x_pt": [[175.88, 182.58], [182.58, 185.93], [185.93, 189.28], [189.28, 191.955], [191.955, 197.98], [197.98, 204.68]]
+    }
+   ]
+  },
+  {
+   "i": 36,
+   "line": 8,
+   "line_key": "tick",
+   "position": 6,
+   "text": "may",
+   "size_pt": 11,
+   "ink_px": [849, 1150, 936, 1184],
+   "ink_pt": [203.76, 507.84, 224.64, 516.0],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "may",
+     "box_pt": [208.76, 507.723, 229.64, 517.898],
+     "origin_pt": [208.76, 510.0],
+     "hscale_pct": 100.486,
+     "glyph_x_pt": [[208.76, 217.968], [217.968, 224.113], [224.113, 229.64]]
+    }
+   ]
+  },
+  {
+   "i": 37,
+   "line": 8,
+   "line_key": "tick",
+   "position": 7,
+   "text": "keep",
+   "size_pt": 11,
+   "ink_px": [952, 1142, 1053, 1184],
+   "ink_pt": [228.48, 507.84, 252.72, 517.92],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "keep",
+     "box_pt": [233.48, 507.723, 257.72, 517.898],
+     "origin_pt": [233.48, 510.0],
+     "hscale_pct": 101.644,
+     "glyph_x_pt": [[233.48, 239.07], [239.07, 245.287], [245.287, 251.504], [251.504, 257.72]]
+    }
+   ]
+  },
+  {
+   "i": 38,
+   "line": 8,
+   "line_key": "tick",
+   "position": 8,
+   "text": "this",
+   "size_pt": 11,
+   "ink_px": [1067, 1141, 1142, 1176],
+   "ink_pt": [256.08, 509.76, 274.08, 518.16],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "this",
+     "box_pt": [261.08, 507.723, 279.08, 517.898],
+     "origin_pt": [261.08, 510.0],
+     "hscale_pct": 105.165,
+     "glyph_x_pt": [[261.08, 264.296], [264.296, 270.728], [270.728, 273.296], [273.296, 279.08]]
+    }
+   ]
+  },
+  {
+   "i": 39,
+   "line": 8,
+   "line_key": "tick",
+   "position": 9,
+   "text": "form",
+   "size_pt": 11,
+   "ink_px": [1157, 1140, 1255, 1176],
+   "ink_pt": [277.68, 509.76, 301.2, 518.4],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "form",
+     "box_pt": [282.68, 507.723, 306.2, 517.898],
+     "origin_pt": [282.68, 510.0],
+     "hscale_pct": 106.909,
+     "glyph_x_pt": [[282.68, 285.949], [285.949, 292.488], [292.488, 296.404], [296.404, 306.2]]
+    }
+   ]
+  },
+  {
+   "i": 40,
+   "line": 8,
+   "line_key": "tick",
+   "position": 10,
+   "text": "on",
+   "size_pt": 11,
+   "ink_px": [1272, 1150, 1321, 1176],
+   "ink_pt": [305.28, 509.76, 317.04, 516.0],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "on",
+     "box_pt": [310.28, 507.723, 322.04, 517.898],
+     "origin_pt": [310.28, 510.0],
+     "hscale_pct": 96.141,
+     "glyph_x_pt": [[310.28, 316.16], [316.16, 322.04]]
+    }
+   ]
+  },
+  {
+   "i": 41,
+   "line": 8,
+   "line_key": "tick",
+   "position": 11,
+   "text": "file.",
+   "size_pt": 11,
+   "ink_px": [1337, 1140, 1413, 1176],
+   "ink_pt": [320.88, 509.76, 339.12, 518.4],
+   "ink_polygon_pt": null,
+   "baseline_pt": 510.0,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "file.",
+     "box_pt": [325.88, 507.723, 344.12, 517.898],
+     "origin_pt": [325.88, 510.0],
+     "hscale_pct": 106.567,
+     "glyph_x_pt": [[325.88, 329.139], [329.139, 331.741], [331.741, 334.344], [334.344, 340.861], [340.861, 344.12]]
+    }
+   ]
+  },
+  {
+   "i": 42,
+   "line": 9,
+   "line_key": "ask",
+   "position": 0,
+   "text": "Questions",
+   "size_pt": 13,
+   "ink_px": [303, 1318, 555, 1362],
+   "ink_pt": [72.72, 465.12, 133.2, 475.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 466.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Questions",
+     "box_pt": [77.72, 463.389, 138.2, 475.414],
+     "origin_pt": [77.72, 466.08],
+     "hscale_pct": 103.339,
+     "glyph_x_pt": [[77.72, 88.172], [88.172, 95.641], [95.641, 103.11], [103.11, 109.827], [109.827, 113.562], [113.562, 116.544], [116.544, 124.014], [124.014, 131.483], [131.483, 138.2]]
+    }
+   ]
+  },
+  {
+   "i": 43,
+   "line": 9,
+   "line_key": "ask",
+   "position": 1,
+   "text": "about",
+   "size_pt": 13,
+   "ink_px": [574, 1319, 717, 1359],
+   "ink_pt": [137.76, 465.84, 172.08, 475.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 466.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "about",
+     "box_pt": [142.76, 463.389, 177.08, 475.414],
+     "origin_pt": [142.76, 466.08],
+     "hscale_pct": 105.516,
+     "glyph_x_pt": [[142.76, 150.387], [150.387, 158.013], [158.013, 165.64], [165.64, 173.267], [173.267, 177.08]]
+    }
+   ]
+  },
+  {
+   "i": 44,
+   "line": 9,
+   "line_key": "ask",
+   "position": 2,
+   "text": "this",
+   "size_pt": 13,
+   "ink_px": [732, 1318, 821, 1359],
+   "ink_pt": [175.68, 465.84, 197.04, 475.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 466.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "this",
+     "box_pt": [180.68, 463.389, 202.04, 475.414],
+     "origin_pt": [180.68, 466.08],
+     "hscale_pct": 105.596,
+     "glyph_x_pt": [[180.68, 184.496], [184.496, 192.129], [192.129, 195.176], [195.176, 202.04]]
+    }
+   ]
+  },
+  {
+   "i": 45,
+   "line": 9,
+   "line_key": "ask",
+   "position": 3,
+   "text": "notice",
+   "size_pt": 13,
+   "ink_px": [842, 1318, 993, 1359],
+   "ink_pt": [202.08, 465.84, 238.32, 475.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 466.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "notice",
+     "box_pt": [207.08, 463.389, 243.32, 475.414],
+     "origin_pt": [207.08, 466.08],
+     "hscale_pct": 104.486,
+     "glyph_x_pt": [[207.08, 214.632], [214.632, 222.184], [222.184, 225.961], [225.961, 228.976], [228.976, 235.768], [235.768, 243.32]]
+    }
+   ]
+  },
+  {
+   "i": 46,
+   "line": 9,
+   "line_key": "ask",
+   "position": 4,
+   "text": "go",
+   "size_pt": 13,
+   "ink_px": [1013, 1328, 1074, 1369],
+   "ink_pt": [243.12, 463.44, 257.76, 473.28],
+   "ink_polygon_pt": null,
+   "baseline_pt": 466.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "go",
+     "box_pt": [248.12, 463.389, 262.76, 475.414],
+     "origin_pt": [248.12, 466.08],
+     "hscale_pct": 101.273,
+     "glyph_x_pt": [[248.12, 255.44], [255.44, 262.76]]
+    }
+   ]
+  },
+  {
+   "i": 47,
+   "line": 9,
+   "line_key": "ask",
+   "position": 5,
+   "text": "to",
+   "size_pt": 13,
+   "ink_px": [1091, 1321, 1138, 1359],
+   "ink_pt": [261.84, 465.84, 273.12, 474.96],
+   "ink_polygon_pt": null,
+   "baseline_pt": 466.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "to",
+     "box_pt": [266.84, 463.389, 278.12, 475.414],
+     "origin_pt": [266.84, 466.08],
+     "hscale_pct": 104.04,
+     "glyph_x_pt": [[266.84, 270.6], [270.6, 278.12]]
+    }
+   ]
+  },
+  {
+   "i": 48,
+   "line": 9,
+   "line_key": "ask",
+   "position": 6,
+   "text": "the",
+   "size_pt": 13,
+   "ink_px": [1155, 1319, 1234, 1359],
+   "ink_pt": [277.2, 465.84, 296.16, 475.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 466.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "the",
+     "box_pt": [282.2, 463.389, 301.16, 475.414],
+     "origin_pt": [282.2, 466.08],
+     "hscale_pct": 104.925,
+     "glyph_x_pt": [[282.2, 285.992], [285.992, 293.576], [293.576, 301.16]]
+    }
+   ]
+  },
+  {
+   "i": 49,
+   "line": 9,
+   "line_key": "ask",
+   "position": 7,
+   "text": "office",
+   "size_pt": 13,
+   "ink_px": [1253, 1316, 1395, 1359],
+   "ink_pt": [300.72, 465.84, 334.8, 476.16],
+   "ink_polygon_pt": null,
+   "baseline_pt": 466.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "office",
+     "box_pt": [305.72, 463.389, 339.8, 475.414],
+     "origin_pt": [305.72, 466.08],
+     "hscale_pct": 109.688,
+     "glyph_x_pt": [[305.72, 313.648], [313.648, 317.612], [317.612, 321.576], [321.576, 324.742], [324.742, 331.872], [331.872, 339.8]]
+    }
+   ]
+  },
+  {
+   "i": 50,
+   "line": 9,
+   "line_key": "ask",
+   "position": 8,
+   "text": "named",
+   "size_pt": 13,
+   "ink_px": [1416, 1319, 1582, 1359],
+   "ink_pt": [339.84, 465.84, 379.68, 475.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 466.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "named",
+     "box_pt": [344.84, 463.389, 384.68, 475.414],
+     "origin_pt": [344.84, 466.08],
+     "hscale_pct": 100.249,
+     "glyph_x_pt": [[344.84, 352.086], [352.086, 359.332], [359.332, 370.188], [370.188, 377.434], [377.434, 384.68]]
+    }
+   ]
+  },
+  {
+   "i": 51,
+   "line": 9,
+   "line_key": "ask",
+   "position": 9,
+   "text": "below.",
+   "size_pt": 13,
+   "ink_px": [1605, 1319, 1766, 1359],
+   "ink_pt": [385.2, 465.84, 423.84, 475.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 466.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "below.",
+     "box_pt": [390.2, 463.389, 428.84, 475.414],
+     "origin_pt": [390.2, 466.08],
+     "hscale_pct": 102.848,
+     "glyph_x_pt": [[390.2, 397.634], [397.634, 405.068], [405.068, 408.036], [408.036, 415.47], [415.47, 425.123], [425.123, 428.84]]
+    }
+   ]
+  },
+  {
+   "i": 52,
+   "line": 10,
+   "line_key": "contact",
+   "position": 0,
+   "text": "Contact",
+   "size_pt": 13,
+   "ink_px": [303, 1418, 500, 1459],
+   "ink_pt": [72.72, 441.84, 120.0, 451.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 442.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Contact",
+     "box_pt": [77.72, 439.389, 125.0, 451.414],
+     "origin_pt": [77.72, 442.08],
+     "hscale_pct": 105.54,
+     "glyph_x_pt": [[77.72, 87.626], [87.626, 95.254], [95.254, 102.883], [102.883, 106.697], [106.697, 114.325], [114.325, 121.186], [121.186, 125.0]]
+    }
+   ]
+  },
+  {
+   "i": 53,
+   "line": 10,
+   "line_key": "contact",
+   "position": 1,
+   "text": "Teodora",
+   "size_pt": 13,
+   "ink_px": [518, 1419, 724, 1459],
+   "ink_pt": [124.32, 441.84, 173.76, 451.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 442.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Teodora",
+     "box_pt": [129.32, 439.389, 178.76, 451.414],
+     "origin_pt": [129.32, 442.08],
+     "hscale_pct": 102.123,
+     "glyph_x_pt": [[129.32, 137.432], [137.432, 144.813], [144.813, 152.195], [152.195, 159.576], [159.576, 166.957], [166.957, 171.378], [171.378, 178.76]]
+    }
+   ]
+  },
+  {
+   "i": 54,
+   "line": 10,
+   "line_key": "contact",
+   "position": 2,
+   "text": "Delgado",
+   "size_pt": 13,
+   "ink_px": [745, 1419, 952, 1469],
+   "ink_pt": [178.8, 439.44, 228.48, 451.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 442.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Delgado",
+     "box_pt": [183.8, 439.389, 233.48, 451.414],
+     "origin_pt": [183.8, 442.08],
+     "hscale_pct": 102.619,
+     "glyph_x_pt": [[183.8, 193.432], [193.432, 200.849], [200.849, 203.811], [203.811, 211.228], [211.228, 218.645], [218.645, 226.063], [226.063, 233.48]]
+    }
+   ]
+  },
+  {
+   "i": 55,
+   "line": 10,
+   "line_key": "contact",
+   "position": 3,
+   "text": "about",
+   "size_pt": 13,
+   "ink_px": [971, 1419, 1114, 1459],
+   "ink_pt": [233.04, 441.84, 267.36, 451.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 442.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "about",
+     "box_pt": [238.04, 439.389, 272.36, 451.414],
+     "origin_pt": [238.04, 442.08],
+     "hscale_pct": 105.516,
+     "glyph_x_pt": [[238.04, 245.667], [245.667, 253.293], [253.293, 260.92], [260.92, 268.547], [268.547, 272.36]]
+    }
+   ]
+  },
+  {
+   "i": 56,
+   "line": 10,
+   "line_key": "contact",
+   "position": 4,
+   "text": "the",
+   "size_pt": 13,
+   "ink_px": [1129, 1419, 1208, 1459],
+   "ink_pt": [270.96, 441.84, 289.92, 451.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 442.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "the",
+     "box_pt": [275.96, 439.389, 294.92, 451.414],
+     "origin_pt": [275.96, 442.08],
+     "hscale_pct": 104.925,
+     "glyph_x_pt": [[275.96, 279.752], [279.752, 287.336], [287.336, 294.92]]
+    }
+   ]
+  },
+  {
+   "i": 57,
+   "line": 10,
+   "line_key": "contact",
+   "position": 5,
+   "text": "file",
+   "size_pt": 13,
+   "ink_px": [1225, 1416, 1300, 1459],
+   "ink_pt": [294.0, 441.84, 312.0, 452.16],
+   "ink_polygon_pt": null,
+   "baseline_pt": 442.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "file",
+     "box_pt": [299.0, 439.389, 317.0, 451.414],
+     "origin_pt": [299.0, 442.08],
+     "hscale_pct": 108.342,
+     "glyph_x_pt": [[299.0, 302.915], [302.915, 306.042], [306.042, 309.169], [309.169, 317.0]]
+    }
+   ]
+  },
+  {
+   "i": 58,
+   "line": 10,
+   "line_key": "contact",
+   "position": 6,
+   "text": "today.",
+   "size_pt": 13,
+   "ink_px": [1317, 1419, 1471, 1469],
+   "ink_pt": [316.08, 439.44, 353.04, 451.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 442.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "today.",
+     "box_pt": [321.08, 439.389, 358.04, 451.414],
+     "origin_pt": [321.08, 442.08],
+     "hscale_pct": 104.371,
+     "glyph_x_pt": [[321.08, 324.852], [324.852, 332.396], [332.396, 339.94], [339.94, 347.484], [347.484, 354.268], [354.268, 358.04]]
+    }
+   ]
+  },
+  {
+   "i": 59,
+   "line": 11,
+   "line_key": "signed",
+   "position": 0,
+   "text": "Signed",
+   "size_pt": 13,
+   "ink_px": [303, 1518, 474, 1569],
+   "ink_pt": [72.72, 415.44, 113.76, 427.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 418.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Signed",
+     "box_pt": [77.72, 415.389, 118.76, 427.414],
+     "origin_pt": [77.72, 418.08],
+     "hscale_pct": 101.411,
+     "glyph_x_pt": [[77.72, 86.513], [86.513, 89.44], [89.44, 96.77], [96.77, 104.1], [104.1, 111.43], [111.43, 118.76]]
+    }
+   ]
+  },
+  {
+   "i": 60,
+   "line": 11,
+   "line_key": "signed",
+   "position": 1,
+   "text": "by",
+   "size_pt": 13,
+   "ink_px": [496, 1519, 553, 1569],
+   "ink_pt": [119.04, 415.44, 132.72, 427.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 418.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "by",
+     "box_pt": [124.04, 415.389, 137.72, 427.414],
+     "origin_pt": [124.04, 418.08],
+     "hscale_pct": 99.65,
+     "glyph_x_pt": [[124.04, 131.243], [131.243, 137.72]]
+    }
+   ]
+  },
+  {
+   "i": 61,
+   "line": 11,
+   "line_key": "signed",
+   "position": 2,
+   "text": "Lee",
+   "size_pt": 13,
+   "ink_px": [573, 1519, 660, 1559],
+   "ink_pt": [137.52, 417.84, 158.4, 427.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 418.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Lee",
+     "box_pt": [142.52, 415.389, 163.4, 427.414],
+     "origin_pt": [142.52, 418.08],
+     "hscale_pct": 96.292,
+     "glyph_x_pt": [[142.52, 149.48], [149.48, 156.44], [156.44, 163.4]]
+    }
+   ]
+  },
+  {
+   "i": 62,
+   "line": 11,
+   "line_key": "signed",
+   "position": 3,
+   "text": "on",
+   "size_pt": 13,
+   "ink_px": [680, 1528, 738, 1559],
+   "ink_pt": [163.2, 417.84, 177.12, 425.28],
+   "ink_polygon_pt": null,
+   "baseline_pt": 418.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "on",
+     "box_pt": [168.2, 415.389, 182.12, 427.414],
+     "origin_pt": [168.2, 418.08],
+     "hscale_pct": 96.292,
+     "glyph_x_pt": [[168.2, 175.16], [175.16, 182.12]]
+    }
+   ]
+  },
+  {
+   "i": 63,
+   "line": 11,
+   "line_key": "signed",
+   "position": 4,
+   "text": "the",
+   "size_pt": 13,
+   "ink_px": [757, 1519, 836, 1559],
+   "ink_pt": [181.68, 417.84, 200.64, 427.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 418.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "the",
+     "box_pt": [186.68, 415.389, 205.64, 427.414],
+     "origin_pt": [186.68, 418.08],
+     "hscale_pct": 104.925,
+     "glyph_x_pt": [[186.68, 190.472], [190.472, 198.056], [198.056, 205.64]]
+    }
+   ]
+  },
+  {
+   "i": 64,
+   "line": 11,
+   "line_key": "signed",
+   "position": 5,
+   "text": "date",
+   "size_pt": 13,
+   "ink_px": [855, 1519, 963, 1559],
+   "ink_pt": [205.2, 417.84, 231.12, 427.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 418.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "date",
+     "box_pt": [210.2, 415.389, 236.12, 427.414],
+     "origin_pt": [210.2, 418.08],
+     "hscale_pct": 102.459,
+     "glyph_x_pt": [[210.2, 217.606], [217.606, 225.011], [225.011, 228.714], [228.714, 236.12]]
+    }
+   ]
+  },
+  {
+   "i": 65,
+   "line": 11,
+   "line_key": "signed",
+   "position": 6,
+   "text": "below.",
+   "size_pt": 13,
+   "ink_px": [984, 1519, 1145, 1559],
+   "ink_pt": [236.16, 417.84, 274.8, 427.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 418.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "below.",
+     "box_pt": [241.16, 415.389, 279.8, 427.414],
+     "origin_pt": [241.16, 418.08],
+     "hscale_pct": 102.848,
+     "glyph_x_pt": [[241.16, 248.594], [248.594, 256.028], [256.028, 258.996], [258.996, 266.43], [266.43, 276.083], [276.083, 279.8]]
+    }
+   ]
+  },
+  {
+   "i": 66,
+   "line": 12,
+   "line_key": "holds",
+   "position": 0,
+   "text": "The",
+   "size_pt": 13,
+   "ink_px": [302, 1619, 396, 1659],
+   "ink_pt": [72.48, 393.84, 95.04, 403.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 394.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "The",
+     "box_pt": [77.48, 391.389, 100.04, 403.414],
+     "origin_pt": [77.48, 394.08],
+     "hscale_pct": 100.719,
+     "glyph_x_pt": [[77.48, 85.48], [85.48, 92.76], [92.76, 100.04]]
+    }
+   ]
+  },
+  {
+   "i": 67,
+   "line": 12,
+   "line_key": "holds",
+   "position": 1,
+   "text": "file",
+   "size_pt": 13,
+   "ink_px": [413, 1616, 488, 1659],
+   "ink_pt": [99.12, 393.84, 117.12, 404.16],
+   "ink_polygon_pt": null,
+   "baseline_pt": 394.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "file",
+     "box_pt": [104.12, 391.389, 122.12, 403.414],
+     "origin_pt": [104.12, 394.08],
+     "hscale_pct": 108.342,
+     "glyph_x_pt": [[104.12, 108.035], [108.035, 111.162], [111.162, 114.289], [114.289, 122.12]]
+    }
+   ]
+  },
+  {
+   "i": 68,
+   "line": 12,
+   "line_key": "holds",
+   "position": 2,
+   "text": "holds",
+   "size_pt": 13,
+   "ink_px": [509, 1619, 642, 1659],
+   "ink_pt": [122.16, 393.84, 154.08, 403.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 394.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "holds",
+     "box_pt": [127.16, 391.389, 159.08, 403.414],
+     "origin_pt": [127.16, 394.08],
+     "hscale_pct": 102.736,
+     "glyph_x_pt": [[127.16, 134.586], [134.586, 142.012], [142.012, 144.976], [144.976, 152.402], [152.402, 159.08]]
+    }
+   ]
+  },
+  {
+   "i": 69,
+   "line": 12,
+   "line_key": "holds",
+   "position": 3,
+   "text": "the",
+   "size_pt": 13,
+   "ink_px": [659, 1619, 738, 1659],
+   "ink_pt": [158.16, 393.84, 177.12, 403.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 394.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "the",
+     "box_pt": [163.16, 391.389, 182.12, 403.414],
+     "origin_pt": [163.16, 394.08],
+     "hscale_pct": 104.925,
+     "glyph_x_pt": [[163.16, 166.952], [166.952, 174.536], [174.536, 182.12]]
+    }
+   ]
+  },
+  {
+   "i": 70,
+   "line": 12,
+   "line_key": "holds",
+   "position": 4,
+   "text": "plan,",
+   "size_pt": 13,
+   "ink_px": [759, 1619, 875, 1669],
+   "ink_pt": [182.16, 391.44, 210.0, 403.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 394.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "plan,",
+     "box_pt": [187.16, 391.389, 215.0, 403.414],
+     "origin_pt": [187.16, 394.08],
+     "hscale_pct": 98.779,
+     "glyph_x_pt": [[187.16, 194.3], [194.3, 197.151], [197.151, 204.29], [204.29, 211.43], [211.43, 215.0]]
+    }
+   ]
+  },
+  {
+   "i": 71,
+   "line": 12,
+   "line_key": "holds",
+   "position": 5,
+   "text": "the",
+   "size_pt": 13,
+   "ink_px": [893, 1619, 972, 1659],
+   "ink_pt": [214.32, 393.84, 233.28, 403.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 394.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "the",
+     "box_pt": [219.32, 391.389, 238.28, 403.414],
+     "origin_pt": [219.32, 394.08],
+     "hscale_pct": 104.925,
+     "glyph_x_pt": [[219.32, 223.112], [223.112, 230.696], [230.696, 238.28]]
+    }
+   ]
+  },
+  {
+   "i": 72,
+   "line": 12,
+   "line_key": "holds",
+   "position": 6,
+   "text": "notes",
+   "size_pt": 13,
+   "ink_px": [993, 1621, 1128, 1659],
+   "ink_pt": [238.32, 393.84, 270.72, 402.96],
+   "ink_polygon_pt": null,
+   "baseline_pt": 394.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "notes",
+     "box_pt": [243.32, 391.389, 275.72, 403.414],
+     "origin_pt": [243.32, 394.08],
+     "hscale_pct": 101.893,
+     "glyph_x_pt": [[243.32, 250.685], [250.685, 258.05], [258.05, 261.732], [261.732, 269.097], [269.097, 275.72]]
+    }
+   ]
+  },
+  {
+   "i": 73,
+   "line": 12,
+   "line_key": "holds",
+   "position": 7,
+   "text": "and",
+   "size_pt": 13,
+   "ink_px": [1147, 1619, 1236, 1659],
+   "ink_pt": [275.28, 393.84, 296.64, 403.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 394.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "and",
+     "box_pt": [280.28, 391.389, 301.64, 403.414],
+     "origin_pt": [280.28, 394.08],
+     "hscale_pct": 98.506,
+     "glyph_x_pt": [[280.28, 287.4], [287.4, 294.52], [294.52, 301.64]]
+    }
+   ]
+  },
+  {
+   "i": 74,
+   "line": 12,
+   "line_key": "holds",
+   "position": 8,
+   "text": "the",
+   "size_pt": 13,
+   "ink_px": [1255, 1619, 1334, 1659],
+   "ink_pt": [301.2, 393.84, 320.16, 403.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 394.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "the",
+     "box_pt": [306.2, 391.389, 325.16, 403.414],
+     "origin_pt": [306.2, 394.08],
+     "hscale_pct": 104.925,
+     "glyph_x_pt": [[306.2, 309.992], [309.992, 317.576], [317.576, 325.16]]
+    }
+   ]
+  },
+  {
+   "i": 75,
+   "line": 12,
+   "line_key": "holds",
+   "position": 9,
+   "text": "final",
+   "size_pt": 13,
+   "ink_px": [1351, 1616, 1456, 1659],
+   "ink_pt": [324.24, 393.84, 349.44, 404.16],
+   "ink_polygon_pt": null,
+   "baseline_pt": 394.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "final",
+     "box_pt": [329.24, 391.389, 354.44, 403.414],
+     "origin_pt": [329.24, 394.08],
+     "hscale_pct": 105.696,
+     "glyph_x_pt": [[329.24, 333.06], [333.06, 336.11], [336.11, 343.75], [343.75, 351.39], [351.39, 354.44]]
+    }
+   ]
+  },
+  {
+   "i": 76,
+   "line": 12,
+   "line_key": "holds",
+   "position": 10,
+   "text": "summary.",
+   "size_pt": 13,
+   "ink_px": [1476, 1628, 1723, 1669],
+   "ink_pt": [354.24, 391.44, 413.52, 401.28],
+   "ink_polygon_pt": null,
+   "baseline_pt": 394.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "summary.",
+     "box_pt": [359.24, 391.389, 418.52, 403.414],
+     "origin_pt": [359.24, 394.08],
+     "hscale_pct": 103.896,
+     "glyph_x_pt": [[359.24, 365.993], [365.993, 373.503], [373.503, 384.754], [384.754, 396.005], [396.005, 403.514], [403.514, 408.012], [408.012, 414.765], [414.765, 418.52]]
+    }
+   ]
+  },
+  {
+   "i": 77,
+   "line": 13,
+   "line_key": "copies",
+   "position": 0,
+   "text": "Copies",
+   "size_pt": 13,
+   "ink_px": [303, 1718, 476, 1769],
+   "ink_pt": [72.72, 367.44, 114.24, 379.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 370.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Copies",
+     "box_pt": [77.72, 367.389, 119.24, 379.414],
+     "origin_pt": [77.72, 370.08],
+     "hscale_pct": 102.63,
+     "glyph_x_pt": [[77.72, 87.353], [87.353, 94.771], [94.771, 102.189], [102.189, 105.151], [105.151, 112.569], [112.569, 119.24]]
+    }
+   ]
+  },
+  {
+   "i": 78,
+   "line": 13,
+   "line_key": "copies",
+   "position": 1,
+   "text": "went",
+   "size_pt": 13,
+   "ink_px": [494, 1721, 617, 1759],
+   "ink_pt": [118.56, 369.84, 148.08, 378.96],
+   "ink_polygon_pt": null,
+   "baseline_pt": 370.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "went",
+     "box_pt": [123.56, 367.389, 153.08, 379.414],
+     "origin_pt": [123.56, 370.08],
+     "hscale_pct": 107.517,
+     "glyph_x_pt": [[123.56, 133.652], [133.652, 141.423], [141.423, 149.194], [149.194, 153.08]]
+    }
+   ]
+  },
+  {
+   "i": 79,
+   "line": 13,
+   "line_key": "copies",
+   "position": 2,
+   "text": "to",
+   "size_pt": 13,
+   "ink_px": [632, 1721, 679, 1759],
+   "ink_pt": [151.68, 369.84, 162.96, 378.96],
+   "ink_polygon_pt": null,
+   "baseline_pt": 370.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "to",
+     "box_pt": [156.68, 367.389, 167.96, 379.414],
+     "origin_pt": [156.68, 370.08],
+     "hscale_pct": 104.04,
+     "glyph_x_pt": [[156.68, 160.44], [160.44, 167.96]]
+    }
+   ]
+  },
+  {
+   "i": 80,
+   "line": 13,
+   "line_key": "copies",
+   "position": 3,
+   "text": "Hartigan",
+   "size_pt": 13,
+   "ink_px": [700, 1718, 910, 1769],
+   "ink_pt": [168.0, 367.44, 218.4, 379.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 370.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Hartigan",
+     "box_pt": [173.0, 367.389, 223.4, 379.414],
+     "origin_pt": [173.0, 370.08],
+     "hscale_pct": 102.591,
+     "glyph_x_pt": [[173.0, 182.629], [182.629, 190.044], [190.044, 194.486], [194.486, 198.193], [198.193, 201.154], [201.154, 208.569], [208.569, 215.985], [215.985, 223.4]]
+    }
+   ]
+  },
+  {
+   "i": 81,
+   "line": 13,
+   "line_key": "copies",
+   "position": 4,
+   "text": "and",
+   "size_pt": 13,
+   "ink_px": [931, 1719, 1020, 1759],
+   "ink_pt": [223.44, 369.84, 244.8, 379.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 370.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "and",
+     "box_pt": [228.44, 367.389, 249.8, 379.414],
+     "origin_pt": [228.44, 370.08],
+     "hscale_pct": 98.506,
+     "glyph_x_pt": [[228.44, 235.56], [235.56, 242.68], [242.68, 249.8]]
+    }
+   ]
+  },
+  {
+   "i": 82,
+   "line": 13,
+   "line_key": "copies",
+   "position": 5,
+   "text": "Okafor",
+   "size_pt": 13,
+   "ink_px": [1042, 1716, 1211, 1759],
+   "ink_pt": [250.08, 369.84, 290.64, 380.16],
+   "ink_polygon_pt": null,
+   "baseline_pt": 370.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Okafor",
+     "box_pt": [255.08, 367.389, 295.64, 379.414],
+     "origin_pt": [255.08, 370.08],
+     "hscale_pct": 103.965,
+     "glyph_x_pt": [[255.08, 265.595], [265.595, 272.353], [272.353, 279.867], [279.867, 283.625], [283.625, 291.139], [291.139, 295.64]]
+    }
+   ]
+  },
+  {
+   "i": 83,
+   "line": 13,
+   "line_key": "copies",
+   "position": 6,
+   "text": "last",
+   "size_pt": 13,
+   "ink_px": [1231, 1719, 1316, 1759],
+   "ink_pt": [295.44, 369.84, 315.84, 379.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 370.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "last",
+     "box_pt": [300.44, 367.389, 320.84, 379.414],
+     "origin_pt": [300.44, 370.08],
+     "hscale_pct": 100.85,
+     "glyph_x_pt": [[300.44, 303.351], [303.351, 310.64], [310.64, 317.195], [317.195, 320.84]]
+    }
+   ]
+  },
+  {
+   "i": 84,
+   "line": 13,
+   "line_key": "copies",
+   "position": 7,
+   "text": "week.",
+   "size_pt": 13,
+   "ink_px": [1332, 1719, 1478, 1759],
+   "ink_pt": [319.68, 369.84, 354.72, 379.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 370.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "week.",
+     "box_pt": [324.68, 367.389, 359.72, 379.414],
+     "origin_pt": [324.68, 370.08],
+     "hscale_pct": 103.192,
+     "glyph_x_pt": [[324.68, 334.366], [334.366, 341.824], [341.824, 349.283], [349.283, 355.991], [355.991, 359.72]]
+    }
+   ]
+  },
+  {
+   "i": 85,
+   "line": 14,
+   "line_key": "account",
+   "position": 0,
+   "text": "Account",
+   "size_pt": 13,
+   "ink_px": [301, 1819, 513, 1859],
+   "ink_pt": [72.24, 345.84, 123.12, 355.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 346.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Account",
+     "box_pt": [77.24, 343.389, 128.12, 355.414],
+     "origin_pt": [77.24, 346.08],
+     "hscale_pct": 108.327,
+     "glyph_x_pt": [[77.24, 86.633], [86.633, 93.674], [93.674, 100.716], [100.716, 108.545], [108.545, 116.375], [116.375, 124.205], [124.205, 128.12]]
+    }
+   ]
+  },
+  {
+   "i": 86,
+   "line": 14,
+   "line_key": "account",
+   "position": 1,
+   "text": "0000",
+   "size_pt": 13,
+   "ink_px": [531, 1818, 665, 1859],
+   "ink_pt": [127.44, 345.84, 159.6, 355.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 346.08,
+   "under_bar": true,
+   "hidden": [
+    {
+     "text": "0000",
+     "box_pt": [132.44, 343.389, 164.6, 355.414],
+     "origin_pt": [132.44, 346.08],
+     "hscale_pct": 111.234,
+     "glyph_x_pt": [[132.44, 140.48], [140.48, 148.52], [148.52, 156.56], [156.56, 164.6]]
+    }
+   ]
+  },
+  {
+   "i": 87,
+   "line": 14,
+   "line_key": "account",
+   "position": 2,
+   "text": "4471",
+   "size_pt": 13,
+   "ink_px": [686, 1819, 819, 1858],
+   "ink_pt": [164.64, 346.08, 196.56, 355.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 346.08,
+   "under_bar": true,
+   "hidden": [
+    {
+     "text": "4471",
+     "box_pt": [169.64, 343.389, 201.56, 355.414],
+     "origin_pt": [169.64, 346.08],
+     "hscale_pct": 110.404,
+     "glyph_x_pt": [[169.64, 177.62], [177.62, 185.6], [185.6, 193.58], [193.58, 201.56]]
+    }
+   ]
+  },
+  {
+   "i": 88,
+   "line": 14,
+   "line_key": "account",
+   "position": 3,
+   "text": "2290",
+   "size_pt": 13,
+   "ink_px": [843, 1818, 975, 1859],
+   "ink_pt": [202.32, 345.84, 234.0, 355.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 346.08,
+   "under_bar": true,
+   "hidden": [
+    {
+     "text": "2290",
+     "box_pt": [207.32, 343.389, 239.0, 355.414],
+     "origin_pt": [207.32, 346.08],
+     "hscale_pct": 109.574,
+     "glyph_x_pt": [[207.32, 215.24], [215.24, 223.16], [223.16, 231.08], [231.08, 239.0]]
+    }
+   ]
+  },
+  {
+   "i": 89,
+   "line": 14,
+   "line_key": "account",
+   "position": 4,
+   "text": "18",
+   "size_pt": 13,
+   "ink_px": [998, 1818, 1060, 1859],
+   "ink_pt": [239.52, 345.84, 254.4, 355.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 346.08,
+   "under_bar": true,
+   "hidden": [
+    {
+     "text": "18",
+     "box_pt": [244.52, 343.389, 259.4, 355.414],
+     "origin_pt": [244.52, 346.08],
+     "hscale_pct": 102.933,
+     "glyph_x_pt": [[244.52, 251.96], [251.96, 259.4]]
+    }
+   ]
+  },
+  {
+   "i": 90,
+   "line": 14,
+   "line_key": "account",
+   "position": 5,
+   "text": "is",
+   "size_pt": 13,
+   "ink_px": [1081, 1818, 1117, 1859],
+   "ink_pt": [259.44, 345.84, 268.08, 355.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 346.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "is",
+     "box_pt": [264.44, 343.389, 273.08, 355.414],
+     "origin_pt": [264.44, 346.08],
+     "hscale_pct": 92.052,
+     "glyph_x_pt": [[264.44, 267.097], [267.097, 273.08]]
+    }
+   ]
+  },
+  {
+   "i": 91,
+   "line": 14,
+   "line_key": "account",
+   "position": 6,
+   "text": "held",
+   "size_pt": 13,
+   "ink_px": [1138, 1819, 1240, 1859],
+   "ink_pt": [273.12, 345.84, 297.6, 355.44],
+   "ink_polygon_pt": null,
+   "baseline_pt": 346.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "held",
+     "box_pt": [278.12, 343.389, 302.6, 355.414],
+     "origin_pt": [278.12, 346.08],
+     "hscale_pct": 99.634,
+     "glyph_x_pt": [[278.12, 285.322], [285.322, 292.523], [292.523, 295.399], [295.399, 302.6]]
+    }
+   ]
+  },
+  {
+   "i": 92,
+   "line": 14,
+   "line_key": "account",
+   "position": 7,
+   "text": "for",
+   "size_pt": 13,
+   "ink_px": [1258, 1816, 1329, 1859],
+   "ink_pt": [301.92, 345.84, 318.96, 356.16],
+   "ink_polygon_pt": null,
+   "baseline_pt": 346.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "for",
+     "box_pt": [306.92, 343.389, 323.96, 355.414],
+     "origin_pt": [306.92, 346.08],
+     "hscale_pct": 112.32,
+     "glyph_x_pt": [[306.92, 310.979], [310.979, 319.098], [319.098, 323.96]]
+    }
+   ]
+  },
+  {
+   "i": 93,
+   "line": 14,
+   "line_key": "account",
+   "position": 8,
+   "text": "this",
+   "size_pt": 13,
+   "ink_px": [1344, 1818, 1433, 1859],
+   "ink_pt": [322.56, 345.84, 343.92, 355.68],
+   "ink_polygon_pt": null,
+   "baseline_pt": 346.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "this",
+     "box_pt": [327.56, 343.389, 348.92, 355.414],
+     "origin_pt": [327.56, 346.08],
+     "hscale_pct": 105.596,
+     "glyph_x_pt": [[327.56, 331.376], [331.376, 339.009], [339.009, 342.056], [342.056, 348.92]]
+    }
+   ]
+  },
+  {
+   "i": 94,
+   "line": 14,
+   "line_key": "account",
+   "position": 9,
+   "text": "file.",
+   "size_pt": 13,
+   "ink_px": [1450, 1816, 1539, 1859],
+   "ink_pt": [348.0, 345.84, 369.36, 356.16],
+   "ink_polygon_pt": null,
+   "baseline_pt": 346.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "file.",
+     "box_pt": [353.0, 343.389, 374.36, 355.414],
+     "origin_pt": [353.0, 346.08],
+     "hscale_pct": 105.596,
+     "glyph_x_pt": [[353.0, 356.816], [356.816, 359.864], [359.864, 362.911], [362.911, 370.544], [370.544, 374.36]]
+    }
+   ]
+  },
+  {
+   "i": 95,
+   "line": 15,
+   "line_key": "footer",
+   "position": 0,
+   "text": "This",
+   "size_pt": 9,
+   "ink_px": [301, 3055, 373, 3083],
+   "ink_pt": [72.24, 52.08, 89.52, 58.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "This",
+     "box_pt": [77.24, 50.217, 94.52, 58.542],
+     "origin_pt": [77.24, 52.08],
+     "hscale_pct": 101.641,
+     "glyph_x_pt": [[77.24, 82.829], [82.829, 87.915], [87.915, 89.946], [89.946, 94.52]]
+    }
+   ]
+  },
+  {
+   "i": 96,
+   "line": 15,
+   "line_key": "footer",
+   "position": 1,
+   "text": "synthetic",
+   "size_pt": 9,
+   "ink_px": [387, 3055, 546, 3091],
+   "ink_pt": [92.88, 50.16, 131.04, 58.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "synthetic",
+     "box_pt": [97.88, 50.217, 136.04, 58.542],
+     "origin_pt": [97.88, 52.08],
+     "hscale_pct": 107.451,
+     "glyph_x_pt": [[97.88, 102.715], [102.715, 107.551], [107.551, 112.927], [112.927, 115.616], [115.616, 120.993], [120.993, 126.37], [126.37, 129.058], [129.058, 131.205], [131.205, 136.04]]
+    }
+   ]
+  },
+  {
+   "i": 97,
+   "line": 15,
+   "line_key": "footer",
+   "position": 2,
+   "text": "page",
+   "size_pt": 9,
+   "ink_px": [560, 3062, 646, 3091],
+   "ink_pt": [134.4, 50.16, 155.04, 57.12],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "page",
+     "box_pt": [139.4, 50.217, 160.04, 58.542],
+     "origin_pt": [139.4, 52.08],
+     "hscale_pct": 103.118,
+     "glyph_x_pt": [[139.4, 144.56], [144.56, 149.72], [149.72, 154.88], [154.88, 160.04]]
+    }
+   ]
+  },
+  {
+   "i": 98,
+   "line": 15,
+   "line_key": "footer",
+   "position": 3,
+   "text": "is",
+   "size_pt": 9,
+   "ink_px": [659, 3055, 684, 3083],
+   "ink_pt": [158.16, 52.08, 164.16, 58.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "is",
+     "box_pt": [163.16, 50.217, 169.16, 58.542],
+     "origin_pt": [163.16, 52.08],
+     "hscale_pct": 92.336,
+     "glyph_x_pt": [[163.16, 165.005], [165.005, 169.16]]
+    }
+   ]
+  },
+  {
+   "i": 99,
+   "line": 15,
+   "line_key": "footer",
+   "position": 4,
+   "text": "a",
+   "size_pt": 9,
+   "ink_px": [697, 3062, 715, 3083],
+   "ink_pt": [167.28, 52.08, 171.6, 57.12],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "a",
+     "box_pt": [172.28, 50.217, 176.6, 58.542],
+     "origin_pt": [172.28, 52.08],
+     "hscale_pct": 86.331,
+     "glyph_x_pt": [[172.28, 176.6]]
+    }
+   ]
+  },
+  {
+   "i": 100,
+   "line": 15,
+   "line_key": "footer",
+   "position": 5,
+   "text": "test",
+   "size_pt": 9,
+   "ink_px": [727, 3057, 793, 3083],
+   "ink_pt": [174.48, 52.08, 190.32, 58.32],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "test",
+     "box_pt": [179.48, 50.217, 195.32, 58.542],
+     "origin_pt": [179.48, 52.08],
+     "hscale_pct": 109.181,
+     "glyph_x_pt": [[179.48, 182.212], [182.212, 187.675], [187.675, 192.588], [192.588, 195.32]]
+    }
+   ]
+  },
+  {
+   "i": 101,
+   "line": 15,
+   "line_key": "footer",
+   "position": 6,
+   "text": "document.",
+   "size_pt": 9,
+   "ink_px": [804, 3055, 989, 3083],
+   "ink_pt": [192.96, 52.08, 237.36, 58.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "document.",
+     "box_pt": [197.96, 50.217, 242.36, 58.542],
+     "origin_pt": [197.96, 52.08],
+     "hscale_pct": 105.661,
+     "glyph_x_pt": [[197.96, 203.247], [203.247, 208.535], [208.535, 213.289], [213.289, 218.577], [218.577, 226.498], [226.498, 231.785], [231.785, 237.073], [237.073, 239.716], [239.716, 242.36]]
+    }
+   ]
+  },
+  {
+   "i": 102,
+   "line": 15,
+   "line_key": "footer",
+   "position": 7,
+   "text": "Every",
+   "size_pt": 9,
+   "ink_px": [1004, 3055, 1101, 3091],
+   "ink_pt": [240.96, 50.16, 264.24, 58.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "Every",
+     "box_pt": [245.96, 50.217, 269.24, 58.542],
+     "origin_pt": [245.96, 52.08],
+     "hscale_pct": 101.2,
+     "glyph_x_pt": [[245.96, 252.035], [252.035, 256.589], [256.589, 261.653], [261.653, 264.686], [264.686, 269.24]]
+    }
+   ]
+  },
+  {
+   "i": 103,
+   "line": 15,
+   "line_key": "footer",
+   "position": 8,
+   "text": "name",
+   "size_pt": 9,
+   "ink_px": [1114, 3062, 1209, 3083],
+   "ink_pt": [267.36, 52.08, 290.16, 57.12],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "name",
+     "box_pt": [272.36, 50.217, 295.16, 58.542],
+     "origin_pt": [272.36, 52.08],
+     "hscale_pct": 101.293,
+     "glyph_x_pt": [[272.36, 277.429], [277.429, 282.497], [282.497, 290.091], [290.091, 295.16]]
+    }
+   ]
+  },
+  {
+   "i": 104,
+   "line": 15,
+   "line_key": "footer",
+   "position": 9,
+   "text": "and",
+   "size_pt": 9,
+   "ink_px": [1221, 3055, 1284, 3083],
+   "ink_pt": [293.04, 52.08, 308.16, 58.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "and",
+     "box_pt": [298.04, 50.217, 313.16, 58.542],
+     "origin_pt": [298.04, 52.08],
+     "hscale_pct": 100.719,
+     "glyph_x_pt": [[298.04, 303.08], [303.08, 308.12], [308.12, 313.16]]
+    }
+   ]
+  },
+  {
+   "i": 105,
+   "line": 15,
+   "line_key": "footer",
+   "position": 10,
+   "text": "number",
+   "size_pt": 9,
+   "ink_px": [1298, 3055, 1432, 3083],
+   "ink_pt": [311.52, 52.08, 343.68, 58.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "number",
+     "box_pt": [316.52, 50.217, 348.68, 58.542],
+     "origin_pt": [316.52, 52.08],
+     "hscale_pct": 105.408,
+     "glyph_x_pt": [[316.52, 321.795], [321.795, 327.069], [327.069, 334.972], [334.972, 340.246], [340.246, 345.521], [345.521, 348.68]]
+    }
+   ]
+  },
+  {
+   "i": 106,
+   "line": 15,
+   "line_key": "footer",
+   "position": 11,
+   "text": "on",
+   "size_pt": 9,
+   "ink_px": [1443, 3062, 1484, 3083],
+   "ink_pt": [346.32, 52.08, 356.16, 57.12],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "on",
+     "box_pt": [351.32, 50.217, 361.16, 58.542],
+     "origin_pt": [351.32, 52.08],
+     "hscale_pct": 98.321,
+     "glyph_x_pt": [[351.32, 356.24], [356.24, 361.16]]
+    }
+   ]
+  },
+  {
+   "i": 107,
+   "line": 15,
+   "line_key": "footer",
+   "position": 12,
+   "text": "it",
+   "size_pt": 9,
+   "ink_px": [1499, 3055, 1518, 3083],
+   "ink_pt": [359.76, 52.08, 364.32, 58.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "it",
+     "box_pt": [364.76, 50.217, 369.32, 58.542],
+     "origin_pt": [364.76, 52.08],
+     "hscale_pct": 101.333,
+     "glyph_x_pt": [[364.76, 366.785], [366.785, 369.32]]
+    }
+   ]
+  },
+  {
+   "i": 108,
+   "line": 15,
+   "line_key": "footer",
+   "position": 13,
+   "text": "is",
+   "size_pt": 9,
+   "ink_px": [1530, 3055, 1555, 3083],
+   "ink_pt": [367.2, 52.08, 373.2, 58.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "is",
+     "box_pt": [372.2, 50.217, 378.2, 58.542],
+     "origin_pt": [372.2, 52.08],
+     "hscale_pct": 92.336,
+     "glyph_x_pt": [[372.2, 374.045], [374.045, 378.2]]
+    }
+   ]
+  },
+  {
+   "i": 109,
+   "line": 15,
+   "line_key": "footer",
+   "position": 14,
+   "text": "invented.",
+   "size_pt": 9,
+   "ink_px": [1569, 3055, 1727, 3083],
+   "ink_pt": [376.56, 52.08, 414.48, 58.8],
+   "ink_polygon_pt": null,
+   "baseline_pt": 52.08,
+   "under_bar": false,
+   "hidden": [
+    {
+     "text": "invented.",
+     "box_pt": [381.56, 50.217, 419.48, 58.542],
+     "origin_pt": [381.56, 52.08],
+     "hscale_pct": 103.828,
+     "glyph_x_pt": [[381.56, 383.634], [383.634, 388.83], [388.83, 393.502], [393.502, 398.698], [398.698, 403.893], [403.893, 406.491], [406.491, 411.687], [411.687, 416.882], [416.882, 419.48]]
+    }
+   ]
+  }
+ ],
+ "scenarios": [
+  {
+   "name": "no-box",
+   "kind": "no-box",
+   "regions": [],
+   "notes": {},
+   "marked": [],
+   "must_be_absent": [],
+   "glyphs": [],
+   "hidden_copies_covered": true,
+   "uncovered_glyphs": [],
+   "unmarked_glyphs_meeting_rects": []
+  },
+  {
+   "name": "hand-box-surname",
+   "kind": "hand-box",
+   "regions": [
+    {
+     "made_by": "hand",
+     "paint_pt": [177.3, 437.94, 229.98, 452.94],
+     "strip_pt": null
+    }
+   ],
+   "notes": {
+    "target": 54
+   },
+   "marked": [54],
+   "must_be_absent": [
+    "Delgado"
+   ],
+   "glyphs": [
+    {
+     "word": 54,
+     "glyph_relations": "iiiiiip"
+    }
+   ],
+   "hidden_copies_covered": true,
+   "uncovered_glyphs": [],
+   "unmarked_glyphs_meeting_rects": [
+    {
+     "word": 53,
+     "glyphs": "a"
+    }
+   ]
+  },
+  {
+   "name": "hand-box-short-word",
+   "kind": "hand-box",
+   "regions": [
+    {
+     "made_by": "hand",
+     "paint_pt": [136.02, 416.34, 159.9, 428.94],
+     "strip_pt": null
+    }
+   ],
+   "notes": {
+    "target": 61
+   },
+   "marked": [61],
+   "must_be_absent": [
+    "Lee"
+   ],
+   "glyphs": [
+    {
+     "word": 61,
+     "glyph_relations": "ppp"
+    }
+   ],
+   "hidden_copies_covered": false,
+   "uncovered_glyphs": [
+    {
+     "word": 61,
+     "glyphs": "e"
+    }
+   ],
+   "unmarked_glyphs_meeting_rects": [
+    {
+     "word": 60,
+     "glyphs": "y"
+    }
+   ]
+  },
+  {
+   "name": "hand-box-first-word",
+   "kind": "hand-box",
+   "regions": [
+    {
+     "made_by": "hand",
+     "paint_pt": [71.22, 413.94, 115.26, 429.18],
+     "strip_pt": null
+    }
+   ],
+   "notes": {
+    "target": 59
+   },
+   "marked": [59],
+   "must_be_absent": [
+    "Signed"
+   ],
+   "glyphs": [
+    {
+     "word": 59,
+     "glyph_relations": "iiiiip"
+    }
+   ],
+   "hidden_copies_covered": true,
+   "uncovered_glyphs": [],
+   "unmarked_glyphs_meeting_rects": []
+  },
+  {
+   "name": "hand-box-narrow-first-word",
+   "kind": "hand-box",
+   "regions": [
+    {
+     "made_by": "hand",
+     "paint_pt": [70.98, 392.34, 96.54, 404.94],
+     "strip_pt": null
+    }
+   ],
+   "notes": {
+    "target": 66,
+    "ink_width_pt": 22.56
+   },
+   "marked": [66],
+   "must_be_absent": [
+    "The"
+   ],
+   "glyphs": [
+    {
+     "word": 66,
+     "glyph_relations": "ppp"
+    }
+   ],
+   "hidden_copies_covered": true,
+   "uncovered_glyphs": [],
+   "unmarked_glyphs_meeting_rects": []
+  },
+  {
+   "name": "duplicate-moved",
+   "kind": "duplicate-moved",
+   "regions": [
+    {
+     "made_by": "duplicate",
+     "paint_pt": [166.86, 366.06, 219.54, 381.06],
+     "strip_pt": null
+    }
+   ],
+   "notes": {
+    "source": 54,
+    "target": 80
+   },
+   "marked": [80],
+   "must_be_absent": [
+    "Hartigan"
+   ],
+   "glyphs": [
+    {
+     "word": 80,
+     "glyph_relations": "iiiiiiip"
+    }
+   ],
+   "hidden_copies_covered": false,
+   "uncovered_glyphs": [
+    {
+     "word": 80,
+     "glyphs": "n"
+    }
+   ],
+   "unmarked_glyphs_meeting_rects": [
+    {
+     "word": 79,
+     "glyphs": "o"
+    }
+   ]
+  },
+  {
+   "name": "search-resized",
+   "kind": "search-resized",
+   "regions": [
+    {
+     "made_by": "search-resized",
+     "paint_pt": [71.22, 413.94, 159.9, 429.18],
+     "strip_pt": [77.72, 415.389, 118.76, 427.414]
+    }
+   ],
+   "notes": {
+    "source": 59,
+    "grown_over_through": 61
+   },
+   "marked": [59, 60, 61],
+   "must_be_absent": [
+    "Signed",
+    "by",
+    "Lee"
+   ],
+   "glyphs": [
+    {
+     "word": 59,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 60,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 61,
+     "glyph_relations": "iip"
+    }
+   ],
+   "hidden_copies_covered": false,
+   "uncovered_glyphs": [
+    {
+     "word": 61,
+     "glyphs": "e"
+    }
+   ],
+   "unmarked_glyphs_meeting_rects": []
+  },
+  {
+   "name": "search-moved",
+   "kind": "search-moved",
+   "regions": [
+    {
+     "made_by": "search-moved",
+     "paint_pt": [244.02, 367.5, 296.7, 382.5],
+     "strip_pt": [183.8, 439.389, 233.48, 451.414]
+    }
+   ],
+   "notes": {
+    "source": 54,
+    "target": 82
+   },
+   "marked": [82],
+   "must_be_absent": [
+    "Okafor"
+   ],
+   "glyphs": [
+    {
+     "word": 82,
+     "glyph_relations": "pppppp"
+    }
+   ],
+   "hidden_copies_covered": true,
+   "uncovered_glyphs": [],
+   "unmarked_glyphs_meeting_rects": [
+    {
+     "word": 54,
+     "glyphs": "Delgado"
+    },
+    {
+     "word": 81,
+     "glyphs": "d"
+    }
+   ]
+  },
+  {
+   "name": "search-as-placed-surname",
+   "kind": "search-as-placed",
+   "regions": [
+    {
+     "made_by": "search",
+     "paint_pt": [177.3, 437.94, 229.98, 452.94],
+     "strip_pt": [183.8, 439.389, 233.48, 451.414]
+    }
+   ],
+   "notes": {
+    "target": 54
+   },
+   "marked": [54],
+   "must_be_absent": [
+    "Delgado"
+   ],
+   "glyphs": [
+    {
+     "word": 54,
+     "glyph_relations": "iiiiiii"
+    }
+   ],
+   "hidden_copies_covered": true,
+   "uncovered_glyphs": [],
+   "unmarked_glyphs_meeting_rects": [
+    {
+     "word": 53,
+     "glyphs": "a"
+    }
+   ]
+  },
+  {
+   "name": "search-as-placed-short-word",
+   "kind": "search-as-placed",
+   "regions": [
+    {
+     "made_by": "search",
+     "paint_pt": [136.02, 416.34, 159.9, 428.94],
+     "strip_pt": [142.52, 415.389, 163.4, 427.414]
+    }
+   ],
+   "notes": {
+    "target": 61
+   },
+   "marked": [61],
+   "must_be_absent": [
+    "Lee"
+   ],
+   "glyphs": [
+    {
+     "word": 61,
+     "glyph_relations": "iii"
+    }
+   ],
+   "hidden_copies_covered": true,
+   "uncovered_glyphs": [],
+   "unmarked_glyphs_meeting_rects": [
+    {
+     "word": 60,
+     "glyphs": "y"
+    }
+   ]
+  },
+  {
+   "name": "whole-page",
+   "kind": "whole-page",
+   "regions": [
+    {
+     "made_by": "whole-page",
+     "paint_pt": [0.0, 0.0, 612.0, 792.0],
+     "strip_pt": null
+    }
+   ],
+   "notes": {},
+   "marked": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109],
+   "must_be_absent": [
+    "SYNTHETIC",
+    "INTAKE",
+    "FORM",
+    "-",
+    "FICTIONAL",
+    "DATA",
+    "Records",
+    "Intake",
+    "Full",
+    "name:",
+    "Teodora",
+    "Delgado",
+    "Telephone:",
+    "(206)",
+    "555-0187",
+    "E-mail:",
+    "t.delgado@example.org",
+    "SSN:",
+    "000-41-7720",
+    "Date",
+    "of",
+    "birth:",
+    "03/14/1979",
+    "Card",
+    "on",
+    "file:",
+    "4111",
+    "1111",
+    "1111",
+    "1111",
+    "[x]",
+    "I",
+    "agree",
+    "that",
+    "the",
+    "office",
+    "may",
+    "keep",
+    "this",
+    "form",
+    "on",
+    "file.",
+    "Questions",
+    "about",
+    "this",
+    "notice",
+    "go",
+    "to",
+    "the",
+    "office",
+    "named",
+    "below.",
+    "Contact",
+    "Teodora",
+    "Delgado",
+    "about",
+    "the",
+    "file",
+    "today.",
+    "Signed",
+    "by",
+    "Lee",
+    "on",
+    "the",
+    "date",
+    "below.",
+    "The",
+    "file",
+    "holds",
+    "the",
+    "plan,",
+    "the",
+    "notes",
+    "and",
+    "the",
+    "final",
+    "summary.",
+    "Copies",
+    "went",
+    "to",
+    "Hartigan",
+    "and",
+    "Okafor",
+    "last",
+    "week.",
+    "Account",
+    "0000",
+    "4471",
+    "2290",
+    "18",
+    "is",
+    "held",
+    "for",
+    "this",
+    "file.",
+    "This",
+    "synthetic",
+    "page",
+    "is",
+    "a",
+    "test",
+    "document.",
+    "Every",
+    "name",
+    "and",
+    "number",
+    "on",
+    "it",
+    "is",
+    "invented."
+   ],
+   "glyphs": [
+    {
+     "word": 0,
+     "glyph_relations": "iiiiiiiii"
+    },
+    {
+     "word": 1,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 2,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 3,
+     "glyph_relations": "i"
+    },
+    {
+     "word": 4,
+     "glyph_relations": "iiiiiiiii"
+    },
+    {
+     "word": 5,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 6,
+     "glyph_relations": "iiiiiii"
+    },
+    {
+     "word": 7,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 8,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 9,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 10,
+     "glyph_relations": "iiiiiii"
+    },
+    {
+     "word": 11,
+     "glyph_relations": "iiiiiii"
+    },
+    {
+     "word": 12,
+     "glyph_relations": "iiiiiiiiii"
+    },
+    {
+     "word": 13,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 14,
+     "glyph_relations": "iiiiiiii"
+    },
+    {
+     "word": 15,
+     "glyph_relations": "iiiiiii"
+    },
+    {
+     "word": 16,
+     "glyph_relations": "iiiiiiiiiiiiiiiiiiiii"
+    },
+    {
+     "word": 17,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 18,
+     "glyph_relations": "iiiiiiiiiii"
+    },
+    {
+     "word": 19,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 20,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 21,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 22,
+     "glyph_relations": "iiiiiiiiii"
+    },
+    {
+     "word": 23,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 24,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 25,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 26,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 27,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 28,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 29,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 30,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 31,
+     "glyph_relations": "i"
+    },
+    {
+     "word": 32,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 33,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 34,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 35,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 36,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 37,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 38,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 39,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 40,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 41,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 42,
+     "glyph_relations": "iiiiiiiii"
+    },
+    {
+     "word": 43,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 44,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 45,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 46,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 47,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 48,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 49,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 50,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 51,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 52,
+     "glyph_relations": "iiiiiii"
+    },
+    {
+     "word": 53,
+     "glyph_relations": "iiiiiii"
+    },
+    {
+     "word": 54,
+     "glyph_relations": "iiiiiii"
+    },
+    {
+     "word": 55,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 56,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 57,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 58,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 59,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 60,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 61,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 62,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 63,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 64,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 65,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 66,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 67,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 68,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 69,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 70,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 71,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 72,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 73,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 74,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 75,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 76,
+     "glyph_relations": "iiiiiiii"
+    },
+    {
+     "word": 77,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 78,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 79,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 80,
+     "glyph_relations": "iiiiiiii"
+    },
+    {
+     "word": 81,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 82,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 83,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 84,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 85,
+     "glyph_relations": "iiiiiii"
+    },
+    {
+     "word": 86,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 87,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 88,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 89,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 90,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 91,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 92,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 93,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 94,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 95,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 96,
+     "glyph_relations": "iiiiiiiii"
+    },
+    {
+     "word": 97,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 98,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 99,
+     "glyph_relations": "i"
+    },
+    {
+     "word": 100,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 101,
+     "glyph_relations": "iiiiiiiii"
+    },
+    {
+     "word": 102,
+     "glyph_relations": "iiiii"
+    },
+    {
+     "word": 103,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 104,
+     "glyph_relations": "iii"
+    },
+    {
+     "word": 105,
+     "glyph_relations": "iiiiii"
+    },
+    {
+     "word": 106,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 107,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 108,
+     "glyph_relations": "ii"
+    },
+    {
+     "word": 109,
+     "glyph_relations": "iiiiiiiii"
+    }
+   ],
+   "hidden_copies_covered": true,
+   "uncovered_glyphs": [],
+   "unmarked_glyphs_meeting_rects": []
+  },
+  {
+   "name": "two-boxes-surname",
+   "kind": "two-boxes",
+   "regions": [
+    {
+     "made_by": "hand",
+     "paint_pt": [177.3, 437.94, 229.98, 452.94],
+     "strip_pt": null
+    },
+    {
+     "made_by": "hand",
+     "paint_pt": [182.3, 437.889, 234.98, 452.914],
+     "strip_pt": null
+    }
+   ],
+   "notes": {
+    "target": 54,
+    "box_a": "ink",
+    "box_b": "hidden copy"
+   },
+   "marked": [54],
+   "must_be_absent": [
+    "Delgado"
+   ],
+   "glyphs": [
+    {
+     "word": 54,
+     "glyph_relations": "iiiiiii"
+    }
+   ],
+   "hidden_copies_covered": true,
+   "uncovered_glyphs": [],
+   "unmarked_glyphs_meeting_rects": [
+    {
+     "word": 53,
+     "glyphs": "a"
+    }
+   ]
+  },
+  {
+   "name": "bar-box",
+   "kind": "bar-box",
+   "regions": [
+    {
+     "made_by": "hand",
+     "paint_pt": [123.06, 341.46, 258.78, 360.06],
+     "strip_pt": null
+    }
+   ],
+   "notes": {},
+   "marked": [86, 87, 88, 89],
+   "must_be_absent": [
+    "0000",
+    "4471",
+    "2290",
+    "18"
+   ],
+   "glyphs": [
+    {
+     "word": 86,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 87,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 88,
+     "glyph_relations": "iiii"
+    },
+    {
+     "word": 89,
+     "glyph_relations": "ip"
+    }
+   ],
+   "hidden_copies_covered": true,
+   "uncovered_glyphs": [],
+   "unmarked_glyphs_meeting_rects": [
+    {
+     "word": 85,
+     "glyphs": "nt"
+    }
+   ]
+  }
+ ]
+}

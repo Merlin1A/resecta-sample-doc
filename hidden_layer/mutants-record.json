@@ -1,0 +1,175 @@
+{
+ "document": "hl-a3-heavy-300-none-d8-misread-substitute",
+ "rows": [
+  {
+   "mutant": "control",
+   "target": null,
+   "what": "no defect",
+   "checks": {
+    "checksums": true,
+    "structure": true,
+    "jpeg": true,
+    "ground": true,
+    "ink": true,
+    "layer": true,
+    "drift": true,
+    "misread": true,
+    "scenarios": true
+   },
+   "outcome": "green"
+  },
+  {
+   "mutant": "drift-written-as-zero",
+   "target": "drift",
+   "what": "the generator places the layer with drift 0; the parameters still say 8 pt",
+   "checks": {
+    "checksums": true,
+    "structure": true,
+    "jpeg": true,
+    "ground": true,
+    "ink": true,
+    "layer": true,
+    "drift": false,
+    "misread": true,
+    "scenarios": true
+   },
+   "outcome": "killed"
+  },
+  {
+   "mutant": "render-mode-0",
+   "target": "structure",
+   "what": "the layer is written in render mode 0 (visible) instead of 3",
+   "checks": {
+    "checksums": true,
+    "structure": false,
+    "jpeg": true,
+    "ground": true,
+    "ink": true,
+    "layer": true,
+    "drift": true,
+    "misread": true,
+    "scenarios": true
+   },
+   "outcome": "killed"
+  },
+  {
+   "mutant": "jpeg-quality-off",
+   "target": "jpeg",
+   "what": "the page image is encoded at quality 10 below the stated one",
+   "checks": {
+    "checksums": true,
+    "structure": true,
+    "jpeg": false,
+    "ground": true,
+    "ink": true,
+    "layer": true,
+    "drift": true,
+    "misread": true,
+    "scenarios": true
+   },
+   "outcome": "killed"
+  },
+  {
+   "mutant": "ground-swapped",
+   "target": "ground",
+   "what": "the heavy-noise ground is replaced by the clean ground",
+   "checks": {
+    "checksums": true,
+    "structure": true,
+    "jpeg": true,
+    "ground": false,
+    "ink": true,
+    "layer": true,
+    "drift": true,
+    "misread": true,
+    "scenarios": true
+   },
+   "outcome": "killed"
+  },
+  {
+   "mutant": "ink-box-shifted",
+   "target": "ink",
+   "what": "one word's recorded ink box is moved 3 px to the right",
+   "checks": {
+    "checksums": true,
+    "structure": true,
+    "jpeg": true,
+    "ground": true,
+    "ink": false,
+    "layer": true,
+    "drift": false,
+    "misread": true,
+    "scenarios": true
+   },
+   "outcome": "killed"
+  },
+  {
+   "mutant": "layer-text-changed",
+   "target": "layer",
+   "what": "one hidden word is written with a changed letter",
+   "checks": {
+    "checksums": true,
+    "structure": true,
+    "jpeg": true,
+    "ground": true,
+    "ink": true,
+    "layer": false,
+    "drift": true,
+    "misread": true,
+    "scenarios": true
+   },
+   "outcome": "killed"
+  },
+  {
+   "mutant": "misread-dropped",
+   "target": "misread",
+   "what": "the misread surname is written with the printed spelling",
+   "checks": {
+    "checksums": true,
+    "structure": true,
+    "jpeg": true,
+    "ground": true,
+    "ink": true,
+    "layer": true,
+    "drift": true,
+    "misread": false,
+    "scenarios": true
+   },
+   "outcome": "killed"
+  },
+  {
+   "mutant": "scenario-fact-emptied",
+   "target": "scenarios",
+   "what": "one scenario's must_be_absent list is emptied",
+   "checks": {
+    "checksums": true,
+    "structure": true,
+    "jpeg": true,
+    "ground": true,
+    "ink": true,
+    "layer": true,
+    "drift": true,
+    "misread": true,
+    "scenarios": false
+   },
+   "outcome": "killed"
+  },
+  {
+   "mutant": "manifest-sha-changed",
+   "target": "checksums",
+   "what": "the manifest's SHA-256 for the document is changed",
+   "checks": {
+    "checksums": false,
+    "structure": true,
+    "jpeg": true,
+    "ground": true,
+    "ink": true,
+    "layer": true,
+    "drift": true,
+    "misread": true,
+    "scenarios": true
+   },
+   "outcome": "killed"
+  }
+ ]
+}

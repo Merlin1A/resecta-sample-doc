@@ -31,7 +31,12 @@ calibrating its verification tooling:
 - `t23/` — rotated, annotated and incrementally updated copies of the packet;
 - `robustness/` — page-size and page-count boundaries, encrypted and
   byte-damaged copies of the packet;
-- the search ground truth described below.
+- the search ground truth described below;
+- `hidden_layer/` — single-page scan-like PDFs whose invisible text layer is
+  placed at chosen offsets from the printed words, each with an expected file
+  of its geometry and named box scenarios, and the generator, checks and
+  recorded mutants that rebuild them (see
+  [`hidden_layer/README.md`](./hidden_layer/README.md)).
 
 Four rules hold for the three documents:
 
@@ -84,7 +89,8 @@ and check it and its fiducial sidecar against the two SHA-256 pins in
 extracted text against the brand denylist `verify.py` applies to the statement
 (`packet/brand_denylist.py`; the one name exempted is the agency the packet's
 own specimen disclaimer names). The fixture sets under `planted/`, `t23/` and
-`robustness/` are not rebuilt in CI.
+`robustness/` are not rebuilt in CI. The pytest suite checks the committed
+`hidden_layer/` documents and rebuilds the smallest of them byte for byte.
 
 A second workflow, `security.yml`, runs pip-audit over the locked set weekly and
 on every pull request and reports what it finds in the job summary without
