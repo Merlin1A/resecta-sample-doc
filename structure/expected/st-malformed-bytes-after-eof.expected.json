@@ -7,5 +7,6 @@
  "property": "bytes follow the final %%EOF marker",
  "facts": {"bytes_after_eof": 46},
  "bytes": 763,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

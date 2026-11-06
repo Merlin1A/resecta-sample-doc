@@ -7,5 +7,6 @@
  "property": "the cross-reference entry for object 4 points 7 bytes before the object",
  "facts": {"object": 4, "table_offset": 211, "actual_offset": 218, "delta": -7},
  "bytes": 717,
- "qpdf_check_exit": 3
+ "qpdf_check_exit": 3,
+ "note": null
 }

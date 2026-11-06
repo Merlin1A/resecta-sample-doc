@@ -7,5 +7,6 @@
  "property": "one stream inflates to exactly 1,000 bytes per encoded byte",
  "facts": {"inflated": 1000000, "encoded": 1000},
  "bytes": 1812,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

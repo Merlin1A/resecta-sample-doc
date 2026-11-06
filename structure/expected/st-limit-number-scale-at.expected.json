@@ -7,5 +7,6 @@
  "property": "one number has 18 decimal places",
  "facts": {"number": "0.000000000000000001", "decimal_places": 18},
  "bytes": 751,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

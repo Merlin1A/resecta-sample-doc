@@ -7,5 +7,6 @@
  "property": "a second %%EOF marker follows the first",
  "facts": {"eof_markers": 2},
  "bytes": 723,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

@@ -11,8 +11,9 @@ Each document holds one structural property and comes with an expected file that
 sentence and as numbers. [`verify_docs.py`](verify_docs.py) measures the numbers again from the
 bytes alone, with code that did not write them ([`measure.py`](measure.py): a byte walk, zlib and
 pypdf). The files are built by [`pdfbytes.py`](pdfbytes.py), a small writer in which every object,
-offset and trailer key is chosen, so a malformed property is exact. Two documents use another
-writer: object streams from PyMuPDF, and a linearized file from qpdf, kept as written in `recorded/`.
+offset and trailer key is chosen, so a malformed property is exact. Three documents come from
+elsewhere: object streams from PyMuPDF, and two files kept as written in `recorded/`, a linearized
+file from qpdf and the encrypted file (below).
 
 All text in the files is synthetic.
 
@@ -85,10 +86,31 @@ and it is never committed.
 | `st-malformed-bytes-after-eof` | bytes follow the final %%EOF |
 | `st-malformed-second-eof` | a second %%EOF follows the first |
 | `st-malformed-bounded-bomb` | one stream inflates to 33,554,432 bytes (32 MiB) from under 100 KiB: past the per-stream and ratio limits, under 64 MiB |
-| `st-malformed-encrypted-empty-user` | RC4-encrypted (standard handler, revision 2, [`rc4.py`](rc4.py)) with an empty user password |
+| `st-malformed-encrypted-empty-user` | RC4-encrypted (standard handler, revision 2) with an empty user password; kept as written in `recorded/` (below) |
 | `st-malformed-active-elements` | a document JavaScript that is a comment and an empty function, an open action that runs it, and a Launch action naming a file that does not exist |
 
 The nesting depth past its limit is `st-limit-nesting-past`.
+
+**The encrypted document.** `st-malformed-encrypted-empty-user` is kept as written. Its encryption
+dictionary is `/Filter /Standard /V 1 /R 2 /P -4`, with
+`/O <6c7fbd492bf971a9f62afc778b48ab3056a0c52a5c63af9c8d43755230e4635c>` and
+`/U <a6a9030418d429ac07ce2cc08912e93a35a1910bff014ca9e6fadaa02641443e>`, and its `/ID` is
+`<7220bd22cf67a6af45e1cf6ddc4db2da>` twice. It was written once by the standard security handler,
+revision 2 (40-bit RC4), as ISO 32000-1 section 7.6.3 defines it; no code for that handler is kept
+in this repository. The user password is empty, and the owner password is the synthetic string
+`synthetic-owner-password`. The steps:
+
+1. `/O`: the owner password, padded to 32 bytes with the standard padding string, is hashed with
+   MD5. The first 5 bytes of the hash are an RC4 key, which encrypts the padded user password.
+2. The file key: MD5 over the padded user password, `/O`, `/P` as four little-endian bytes and the
+   first `/ID` string. Its first 5 bytes are the key.
+3. `/U`: the padding string, encrypted with the file key.
+4. Each object: MD5 over the file key, the object number (three little-endian bytes) and the
+   generation (two little-endian bytes). The first 10 bytes are the RC4 key for that object's
+   strings and streams.
+
+The expected file holds these entries as facts and the same steps as a `note`. Verify reads the
+entries from the bytes and opens the file with an empty password through pypdf.
 
 ## Build and check
 

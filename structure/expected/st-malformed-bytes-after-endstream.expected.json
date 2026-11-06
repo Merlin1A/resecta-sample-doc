@@ -7,5 +7,6 @@
  "property": "ten bytes sit between a stream's endstream and its endobj",
  "facts": {"junk_after_endstream": 10},
  "bytes": 727,
- "qpdf_check_exit": 3
+ "qpdf_check_exit": 3,
+ "note": null
 }

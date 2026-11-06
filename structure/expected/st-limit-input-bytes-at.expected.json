@@ -7,5 +7,6 @@
  "property": "the file is 52,428,800 bytes long",
  "facts": {"bytes": 52428800},
  "bytes": 52428800,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

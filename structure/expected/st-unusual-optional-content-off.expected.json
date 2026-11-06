@@ -7,5 +7,6 @@
  "property": "one line sits in an optional-content group that the default configuration switches off",
  "facts": {"ocg_off": 1},
  "bytes": 963,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

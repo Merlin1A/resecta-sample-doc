@@ -7,5 +7,6 @@
  "property": "chained cm operators whose first entries, multiplied, have 36 significant digits",
  "facts": {"cm_operators": 2, "per_factor": 18, "product_width": 36},
  "bytes": 785,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

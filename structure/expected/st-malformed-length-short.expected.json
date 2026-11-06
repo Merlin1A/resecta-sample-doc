@@ -7,5 +7,6 @@
  "property": "the content stream's /Length is 40 bytes short of its endstream",
  "facts": {"object": 5, "length_delta": -40},
  "bytes": 716,
- "qpdf_check_exit": 3
+ "qpdf_check_exit": 3,
+ "note": null
 }

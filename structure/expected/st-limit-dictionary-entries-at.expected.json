@@ -7,5 +7,6 @@
  "property": "one dictionary holds 4,095 entries",
  "facts": {"object": 6, "dictionary_entries": 4095},
  "bytes": 36522,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

@@ -387,11 +387,17 @@ def measure_malformed(kind: str, data: bytes, facts: dict[str, Any]) -> dict[str
     if kind == "encrypted":
         r = pypdf.PdfReader(io.BytesIO(data))
         enc: Any = r.trailer["/Encrypt"].get_object()
+        ids: Any = r.trailer["/ID"]
         ok = r.decrypt("")
         text = " ".join(t.strip() for t in r.pages[0].extract_text().splitlines() if t.strip())
         return {
             "filter": str(enc["/Filter"]),
+            "v": int(enc["/V"]),
             "revision": int(enc["/R"]),
+            "o": bytes(enc["/O"].original_bytes).hex(),
+            "u": bytes(enc["/U"].original_bytes).hex(),
+            "p": int(enc["/P"]),
+            "id": bytes(ids[0].original_bytes).hex(),
             "user_password": "" if ok else None,
             "text": text,
         }

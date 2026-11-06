@@ -7,5 +7,6 @@
  "property": "a document JavaScript that is a comment and an empty function, an open action that runs it, and a Launch action naming a file that does not exist",
  "facts": {"javascript": "/* A synthetic test script. It does nothing. */ function inert() {}", "open_action": "/JavaScript", "launch_file": "synthetic-file-that-does-not-exist.txt", "embedded_files": 0},
  "bytes": 1148,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

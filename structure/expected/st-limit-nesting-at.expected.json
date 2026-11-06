@@ -7,5 +7,6 @@
  "property": "one array nests 32 levels deep",
  "facts": {"object": 6, "array_depth": 32},
  "bytes": 838,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

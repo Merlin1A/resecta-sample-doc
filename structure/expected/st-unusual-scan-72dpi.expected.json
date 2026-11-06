@@ -7,5 +7,6 @@
  "property": "one page that is a 72 dpi picture (612 x 792 px)",
  "facts": {"image_px": [612, 792], "dpi": 72},
  "bytes": 11320,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

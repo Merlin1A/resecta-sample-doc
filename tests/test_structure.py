@@ -14,7 +14,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 
 from hidden_layer.verify_docs import read_sums  # noqa: E402
-from structure import build, docs, rc4, verify_docs  # noqa: E402
+from structure import build, docs, verify_docs  # noqa: E402
 
 ST = ROOT / "structure"
 
@@ -26,11 +26,6 @@ def test_exact_ratio_bodies() -> None:
         assert len(d.decompress(body)) == out
         assert d.unused_data == b""
         assert out == ratio * len(body)
-
-
-def test_rc4_known_vector() -> None:
-    # RC4 with key "Key" on "Plaintext" (the published test vector).
-    assert rc4.rc4(b"Key", b"Plaintext").hex() == "bbf316e8d940af0ad3"
 
 
 def test_every_document_has_a_measured_kind() -> None:

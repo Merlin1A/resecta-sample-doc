@@ -7,5 +7,6 @@
  "property": "one stream inflates to 16,777,216 bytes",
  "facts": {"largest_inflated": 16777216},
  "bytes": 330750,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

@@ -7,5 +7,6 @@
  "property": "one page that is a 150 dpi picture (1275 x 1650 px)",
  "facts": {"image_px": [1275, 1650], "dpi": 150},
  "bytes": 37063,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

@@ -7,5 +7,6 @@
  "property": "one string holds 32,767 bytes",
  "facts": {"longest_string": 32767},
  "bytes": 33549,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

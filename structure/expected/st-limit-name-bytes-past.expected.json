@@ -7,5 +7,6 @@
  "property": "one name holds 128 bytes",
  "facts": {"longest_name": 128},
  "bytes": 852,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

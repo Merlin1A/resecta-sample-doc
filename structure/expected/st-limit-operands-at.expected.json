@@ -7,5 +7,6 @@
  "property": "one content operator takes 64 operands",
  "facts": {"most_operands": 64},
  "bytes": 854,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

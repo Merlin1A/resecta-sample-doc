@@ -7,5 +7,6 @@
  "property": "a tagged file: /MarkInfo /Marked true, a structure tree with one paragraph element bound to MCID 0",
  "facts": {"marked": true, "struct_elements": 1, "mcid": 0},
  "bytes": 1048,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

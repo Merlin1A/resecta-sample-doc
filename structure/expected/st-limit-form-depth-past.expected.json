@@ -7,5 +7,6 @@
  "property": "form XObjects nest 9 levels deep",
  "facts": {"form_depth": 9},
  "bytes": 2291,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

@@ -7,5 +7,6 @@
  "property": "the file holds 100,000 objects",
  "facts": {"objects": 100000},
  "bytes": 4389426,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

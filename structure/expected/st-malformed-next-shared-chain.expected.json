@@ -7,5 +7,6 @@
  "property": "400 link annotations share one /Next chain of 400 GoTo actions",
  "facts": {"chain_length": 400, "links_sharing_it": 400, "chain_head": 6},
  "bytes": 84465,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

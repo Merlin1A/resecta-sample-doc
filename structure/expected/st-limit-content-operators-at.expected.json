@@ -7,5 +7,6 @@
  "property": "the content streams hold 1,000,000 operators",
  "facts": {"content_operators": 1000000},
  "bytes": 2000711,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

@@ -7,5 +7,6 @@
  "property": "one number has 18 significant digits",
  "facts": {"number": "123456789123456789", "significant_digits": 18},
  "bytes": 749,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

@@ -64,6 +64,13 @@ KIND: dict[str, str] = {
 }
 
 
+WRITERS = {
+    "st-unusual-object-streams": "pymupdf",
+    "st-unusual-linearized": "qpdf (recorded)",
+    "st-malformed-encrypted-empty-user": "standard security handler, revision 2 (recorded)",
+}
+
+
 def kind_of(d: docs.Doc) -> str:
     return KIND.get(d.doc_id) or d.tags[0]
 
@@ -97,6 +104,7 @@ def build_doc(d: docs.Doc) -> tuple[bytes, dict[str, Any]]:
         "facts": facts,
         "bytes": len(data),
         "qpdf_check_exit": qpdf_check(data),
+        "note": docs.ENCRYPTION_NOTE if d.doc_id == "st-malformed-encrypted-empty-user" else None,
     }
 
 
@@ -123,11 +131,7 @@ def build(out: Path, only: set[str] | None) -> list[dict[str, Any]]:
                 "kind": kind_of(d),
                 "property": d.property,
                 "stored": d.stored,
-                "writer": "pymupdf"
-                if d.doc_id == "st-unusual-object-streams"
-                else "qpdf (recorded)"
-                if d.doc_id == "st-unusual-linearized"
-                else "structure/pdfbytes.py",
+                "writer": WRITERS.get(d.doc_id, "structure/pdfbytes.py"),
             }
         )
         sys.stdout.write(f"{d.doc_id}  {len(data):>10,} bytes  {d.stored}\n")

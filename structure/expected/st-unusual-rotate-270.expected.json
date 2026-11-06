@@ -7,5 +7,6 @@
  "property": "the one page has /Rotate 270",
  "facts": {"rotate": 270, "inherited": false},
  "bytes": 729,
- "qpdf_check_exit": 0
+ "qpdf_check_exit": 0,
+ "note": null
 }

@@ -25,7 +25,6 @@ from PIL import Image, ImageDraw, ImageFont
 
 from hidden_layer.rng import mix_seed, splitmix64
 
-from . import rc4
 from .pdfbytes import Obj, build, flate, next_free, simple_pages, text_content
 
 HERE = Path(__file__).resolve().parent
@@ -748,35 +747,34 @@ def bounded_bomb() -> tuple[bytes, dict[str, Any]]:
     return data, {"inflated": BOMB_OUTPUT, "encoded": len(enc)}
 
 
-OWNER_PASSWORD = b"synthetic-owner-password"
-FILE_ID = hashlib.md5(b"resecta-sample-doc structure rc4", usedforsecurity=False).digest()
+ENCRYPTION_NOTE = (
+    "Encrypted by the standard security handler, revision 2 (40-bit RC4), as ISO 32000-1 7.6.3 "
+    "defines it. The user password is empty and the owner password is the synthetic string 'syn"
+    "thetic-owner-password'. /O: the owner password, padded to 32 bytes with the standard paddi"
+    "ng string, is hashed with MD5; the first 5 bytes of the hash are an RC4 key that encrypts "
+    "the padded user password. File key: MD5 over the padded user password, /O, /P as four litt"
+    "le-endian bytes and the first /ID string; its first 5 bytes. /U: the padding string encryp"
+    "ted with the file key. Each object: MD5 over the file key, the object number (three little"
+    "-endian bytes) and the generation (two); its first 10 bytes are the RC4 key for that objec"
+    "t's strings and streams. The file was written once with that procedure and is kept as writ"
+    "ten."
+)
+ENCRYPTED_ENTRIES = {
+    "filter": "/Standard",
+    "v": 1,
+    "revision": 2,
+    "o": "6c7fbd492bf971a9f62afc778b48ab3056a0c52a5c63af9c8d43755230e4635c",
+    "u": "a6a9030418d429ac07ce2cc08912e93a35a1910bff014ca9e6fadaa02641443e",
+    "p": -4,
+    "id": "7220bd22cf67a6af45e1cf6ddc4db2da",
+}
 
 
 def encrypted_empty_user() -> tuple[bytes, dict[str, Any]]:
-    objs, root = one_page()
-    o_entry, key = rc4.standard_r2(b"", OWNER_PASSWORD, FILE_ID, permissions=-4)
-    for o in objs:
-        if o.stream is not None:
-            d, data = o.stream
-            o.stream = (d, rc4.encrypt_object(key, o.num, o.gen, data))
-    enc_num = next_free(objs)
-    objs.append(
-        Obj(
-            enc_num,
-            b"<< /Filter /Standard /V 1 /R 2 /O <"
-            + o_entry.hex().encode("ascii")
-            + b"> /U <"
-            + rc4.u_entry(key).hex().encode("ascii")
-            + b"> /P -4 >>",
-        )
-    )
-    trailer = f" /Encrypt {enc_num} 0 R /ID [<{FILE_ID.hex()}> <{FILE_ID.hex()}>]".encode("ascii")
-    return build(objs, root, trailer_extra=trailer).data, {
-        "filter": "/Standard",
-        "revision": 2,
-        "user_password": "",
-        "text": " ".join(PAGE_TEXT),
-    }
+    """An RC4-encrypted file (standard handler, revision 2, empty user password), kept as written in
+    ``recorded/``. The facts are its encryption entries; the README gives the key derivation."""
+    data = (RECORDED_DIR / "st-malformed-encrypted-empty-user.pdf").read_bytes()
+    return data, {**ENCRYPTED_ENTRIES, "user_password": "", "text": " ".join(PAGE_TEXT)}
 
 
 INERT_JS = b"/* A synthetic test script. It does nothing. */ function inert() {}"
