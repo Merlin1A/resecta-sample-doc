@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-ja-prose-clean-placed",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "ja",
+ "layout": "prose",
+ "source": "sh-born-ja-prose",
+ "condition": "clean",
+ "dpi": 300,
+ "jpeg_quality": 85,
+ "image": {"sha256": "ed55e4aa33bdd5f20bcbd055f7ae377a14520015ed0d857f12cad944171ba27a", "px": [2550, 3300]},
+ "layer": "placed",
+ "fonts_embedded": ["/AAAAAC+NotoSansSubset-Regular", "/AAAAAE+NotoSansJPSubset-Regular"],
+ "render_modes": [3],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 778, 217], [793, 204, 803, 207], [820, 187, 1027, 217], [1043, 187, 1138, 217]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line0", "script": "ja", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u3053\u308c\u306f\u30c6\u30b9\u30c8\u7528\u306e\u66f8\u985e\u3067\u3059\u3002", "gloss": "Kore wa tesuto-y\u014d no shorui desu.", "meaning": "This is a document for testing.", "ink_boxes_px": [[310, 421, 585, 470], [611, 418, 1014, 472]], "layer_text": "\u3053\u308c\u306f\u30c6\u30b9\u30c8\u7528\u306e\u66f8\u985e\u3067\u3059\u3002", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line1", "script": "ja", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u6765\u9031\u306e\u6708\u66dc\u65e5\u307e\u3067\u306b\u3054\u8fd4\u4fe1\u304f\u3060\u3055\u3044\u3002", "gloss": "Raish\u016b no getsuy\u014dbi made ni go-henshin kudasai.", "meaning": "Please reply by next Monday.", "ink_boxes_px": [[302, 559, 641, 613], [661, 559, 996, 613], [1011, 562, 1041, 611], [1061, 562, 1166, 611], [1182, 567, 1252, 612]], "layer_text": "\u6765\u9031\u306e\u6708\u66dc\u65e5\u307e\u3067\u306b\u3054\u8fd4\u4fe1\u304f\u3060\u3055\u3044\u3002", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line2", "script": "ja", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u62c5\u5f53\u8005\uff1a\u5317\u5ddd \u5948\u82b1", "gloss": "Tant\u014dsha: Kitagawa Naka", "meaning": "Person in charge: Kitagawa Naka", "ink_boxes_px": [[302, 701, 472, 755], [500, 710, 509, 747], [535, 702, 624, 755], [639, 704, 644, 755], [665, 701, 777, 755]], "layer_text": "\u62c5\u5f53\u8005\uff1a\u5317\u5ddd \u5948\u82b1", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line3", "script": "ja", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u96fb\u8a71\uff1a(206) 555-0143", "gloss": "Denwa: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[304, 844, 414, 897], [442, 851, 451, 889], [480, 844, 606, 903], [627, 848, 868, 893]], "layer_text": "\u96fb\u8a71\uff1a(206) 555-0143", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line4", "script": "ja", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u53e3\u5ea7\u756a\u53f7\uff1a0000 4471 2290 18", "gloss": "K\u014dza bang\u014d: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[307, 984, 530, 1038], [558, 993, 567, 1030], [595, 990, 719, 1034], [735, 990, 860, 1033], [880, 989, 1004, 1034], [1024, 990, 1082, 1034]], "layer_text": "\u53e3\u5ea7\u756a\u53f7\uff1a0000 4471 2290 18", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line5", "script": "ja", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u65e5\u4ed8\uff1a2026\u5e7410\u670830\u65e5", "gloss": "Hizuke: 2026-nen 10-gatsu 30-nichi", "meaning": "Date: 30 October 2026", "ink_boxes_px": [[310, 1127, 414, 1180], [442, 1135, 451, 1172], [478, 1126, 900, 1180]], "layer_text": "\u65e5\u4ed8\uff1a2026\u5e7410\u670830\u65e5", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true}
+ ],
+ "vision": null
+}

@@ -33,3 +33,48 @@ filings the exhibits imitate); identifiers are
 invented or taken from published test and reserved ranges;
 e-mail addresses use the RFC 2606 reserved example domains. No real personal
 data is included.
+
+================================================================================
+Fonts of the script and handwriting fixtures (scripts_handwriting/)
+================================================================================
+
+The script pages and handwriting pictures use these fonts, each taken from the
+Google Fonts catalogue (https://github.com/google/fonts) at commit
+24ddc1f324cac5d9f5aedca126d298f56e3f1640, each under the SIL Open Font License,
+Version 1.1. Each family's licence text ships beside it as
+scripts_handwriting/fonts/OFL-<family>.txt.
+
+  Noto Sans SC, Noto Sans TC, Noto Sans JP, Noto Sans KR
+  Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source'
+
+  Noto Naskh Arabic
+  Copyright 2022 The Noto Project Authors (https://github.com/notofonts/arabic)
+
+  Noto Sans Hebrew
+  Copyright 2022 The Noto Project Authors (https://github.com/notofonts/hebrew)
+
+  Noto Sans Devanagari
+  Copyright 2022 The Noto Project Authors (https://github.com/notofonts/devanagari)
+
+  Noto Sans Thai
+  Copyright 2022 The Noto Project Authors (https://github.com/notofonts/thai)
+
+  Noto Sans
+  Copyright 2022 The Noto Project Authors (https://github.com/notofonts/latin-greek-cyrillic)
+
+  Caveat
+  Copyright 2014 The Caveat Project Authors (https://github.com/googlefonts/caveat)
+
+  Patrick Hand
+  Copyright (c) 2010-2012 Patrick Wagesreiter (mail@patrickwagesreiter.at)
+
+The committed Noto files (scripts_handwriting/fonts/*-subset.ttf) are Modified
+Versions under the licence: a static instance of each variable font, subset to
+the characters the pages use, renamed "<family> Subset", with every name record
+holding a Reserved Font Name removed. scripts_handwriting/fonts.py makes them
+from the source files. Caveat and Patrick Hand are committed unmodified and are
+used only to draw page pictures. No full source font file is committed.
+
+The Vision-layer documents also embed a glyphless font that
+scripts_handwriting/vision.py generates (one empty glyph per recognised
+character); it is part of this repository's Apache-2.0 code.

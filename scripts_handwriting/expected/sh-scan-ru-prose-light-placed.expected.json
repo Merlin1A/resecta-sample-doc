@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-ru-prose-light-placed",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "ru",
+ "layout": "prose",
+ "source": "sh-born-ru-prose",
+ "condition": "light",
+ "dpi": 200,
+ "jpeg_quality": 75,
+ "image": {"sha256": "f911f1a731b9c3e4fd1ec753b2edfd8b489a7c3553ad96a2e5df9af2d6c1d8fb", "px": [1700, 2200]},
+ "layer": "placed",
+ "fonts_embedded": ["/AAAAAA+NotoSansSubset-Regular"],
+ "render_modes": [3],
+ "ink_dpi": 200,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[201, 124, 345, 144], [354, 124, 445, 144], [455, 124, 521, 144], [531, 135, 537, 138], [549, 124, 686, 144], [697, 124, 765, 144]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line0", "script": "ru", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u042d\u0442\u043e \u0442\u0435\u0441\u0442\u043e\u0432\u044b\u0439 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442.", "gloss": "Eto testovyy dokument.", "meaning": "This is a test document.", "ink_boxes_px": [[202, 283, 264, 311], [277, 282, 449, 311], [462, 290, 650, 320]], "layer_text": "\u042d\u0442\u043e \u0442\u0435\u0441\u0442\u043e\u0432\u044b\u0439 \u0434\u043e\u043a\u0443\u043c\u0435\u043d\u0442.", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line1", "script": "ru", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u043e\u0442\u0432\u0435\u0442\u044c\u0442\u0435 \u0434\u043e \u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0435\u0433\u043e \u043f\u043e\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u0438\u043a\u0430.", "gloss": "Pozhaluysta, otvet'te do sleduyushchego ponedel'nika.", "meaning": "Please reply by next Monday.", "ink_boxes_px": [[204, 377, 436, 415], [451, 385, 611, 406], [623, 385, 667, 411], [681, 385, 912, 415], [927, 385, 1203, 411]], "layer_text": "\u041f\u043e\u0436\u0430\u043b\u0443\u0439\u0441\u0442\u0430, \u043e\u0442\u0432\u0435\u0442\u044c\u0442\u0435 \u0434\u043e \u0441\u043b\u0435\u0434\u0443\u044e\u0449\u0435\u0433\u043e \u043f\u043e\u043d\u0435\u0434\u0435\u043b\u044c\u043d\u0438\u043a\u0430.", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line2", "script": "ru", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u041a\u043e\u043d\u0442\u0430\u043a\u0442: \u041d\u0438\u043d\u0430 \u0417\u0438\u043c\u0438\u043d\u0430", "gloss": "Kontakt: Nina Zimina", "meaning": "Contact: Nina Zimina", "ink_boxes_px": [[204, 472, 357, 500], [374, 472, 465, 500], [481, 472, 622, 500]], "layer_text": "\u041a\u043e\u043d\u0442\u0430\u043a\u0442: \u041d\u0438\u043d\u0430 \u0417\u0438\u043c\u0438\u043d\u0430", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line3", "script": "ru", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0422\u0435\u043b\u0435\u0444\u043e\u043d: (206) 555-0143", "gloss": "Telefon: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[200, 564, 371, 603], [385, 566, 472, 600], [486, 566, 650, 594]], "layer_text": "\u0422\u0435\u043b\u0435\u0444\u043e\u043d: (206) 555-0143", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line4", "script": "ru", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u041d\u043e\u043c\u0435\u0440 \u0441\u0447\u0451\u0442\u0430: 0000 4471 2290 18", "gloss": "Nomer schyota: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[204, 661, 325, 698], [339, 661, 448, 689], [463, 661, 548, 689], [561, 661, 640, 689], [661, 661, 746, 689], [762, 661, 772, 689], [782, 661, 801, 689]], "layer_text": "\u041d\u043e\u043c\u0435\u0440 \u0441\u0447\u0451\u0442\u0430: 0000 4471 2290 18", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line5", "script": "ru", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0414\u0430\u0442\u0430: 30.10.2026", "gloss": "Data: 30.10.2026", "meaning": "Date: 30.10.2026", "ink_boxes_px": [[200, 755, 297, 789], [312, 755, 379, 783], [389, 755, 507, 783]], "layer_text": "\u0414\u0430\u0442\u0430: 30.10.2026", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true}
+ ],
+ "vision": null
+}

@@ -1,0 +1,25 @@
+{
+ "schema": 1,
+ "id": "sh-scan-mixed-prose-clean-none",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "mixed",
+ "layout": "prose",
+ "source": "sh-born-mixed-prose",
+ "condition": "clean",
+ "dpi": 300,
+ "jpeg_quality": 85,
+ "image": {"sha256": "a777a64a0d861c1db9ab18bb48ec2b1b4eabcf1b0ba466ecb7a1e6f4480dbcc2", "px": [2550, 3300]},
+ "layer": "none",
+ "fonts_embedded": [],
+ "render_modes": [],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 778, 217], [793, 204, 803, 207], [820, 187, 1027, 217], [1043, 187, 1138, 217]]},
+  {"key": "line0", "script": "mixed", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Contact \u6797\u96ea\u5b81 or \u0643\u0631\u064a\u0645 \u0627\u0644\u0631\u0627\u0634\u062f at (206) 555-0143.", "gloss": "Contact Lin Xuening or Karim ar-Rashid at (206) 555-0143.", "meaning": "Contact Lin Xuening or Karim ar-Rashid at (206) 555-0143.", "ink_boxes_px": [[304, 425, 510, 468], [528, 418, 697, 472], [719, 435, 775, 468], [793, 428, 917, 479], [940, 429, 1033, 484], [1053, 429, 1102, 468], [1121, 425, 1251, 476], [1273, 425, 1532, 468]]},
+  {"key": "line1", "script": "mixed", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "File \u6587\u4ef6 0417 and \u0645\u0644\u0641 0417 are closed.", "gloss": "File w\u00e9nji\u00e0n 0417 and milaff 0417 are closed.", "meaning": "File (file) 0417 and file 0417 are closed.", "ink_boxes_px": [[306, 564, 390, 609], [410, 559, 523, 613], [543, 566, 628, 609], [643, 566, 671, 608], [692, 564, 789, 609], [812, 566, 896, 609], [912, 566, 940, 608], [961, 569, 1043, 608], [1064, 576, 1147, 609], [1168, 564, 1351, 609]]},
+  {"key": "line2", "script": "mixed", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Account 0000 4471 2290 18 \u8d26\u53f7 \u0631\u0642\u0645 \u0627\u0644\u062d\u0633\u0627\u0628", "gloss": "Account 0000 4471 2290 18 zh\u00e0ngh\u00e0o raqm al-\u1e25is\u0101b", "meaning": "Account 0000 4471 2290 18, account number, account number", "ink_boxes_px": [[300, 708, 521, 751], [540, 708, 667, 751], [687, 708, 807, 750], [837, 708, 964, 751], [989, 708, 1004, 750], [1019, 708, 1046, 751], [1068, 702, 1177, 755], [1201, 711, 1356, 762], [1379, 712, 1451, 767]]},
+  {"key": "line3", "script": "mixed", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Reply by Monday \u5468\u4e00 \u0627\u0644\u0627\u062b\u0646\u064a\u0646 please.", "gloss": "Reply by Monday zh\u014duy\u012b al-ithnayn please.", "meaning": "Reply by Monday, Monday, Monday, please.", "ink_boxes_px": [[306, 848, 449, 906], [470, 848, 529, 906], [551, 848, 767, 906], [784, 846, 897, 897], [918, 852, 1047, 907], [1071, 848, 1254, 906]]}
+ ],
+ "vision": null
+}

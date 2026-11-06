@@ -1,0 +1,21 @@
+{
+ "schema": 1,
+ "id": "sh-born-is-prose",
+ "family": "scripts-handwriting",
+ "kind": "born",
+ "script": "is",
+ "layout": "prose",
+ "writer": "reportlab",
+ "fonts_embedded": ["/AAAAAA+NotoSansSubset-Regular"],
+ "render_modes": [0],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 781, 217], [796, 204, 806, 207], [823, 187, 1030, 217], [1046, 187, 1148, 217]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line0", "script": "is", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u00deetta er pr\u00f3funarskjal.", "gloss": "", "meaning": "This is a test document.", "ink_boxes_px": [[306, 425, 438, 468], [461, 435, 514, 468], [535, 422, 908, 481]], "layer_text": "\u00deetta er pr\u00f3funarskjal.", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line1", "script": "is", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Vinsamlegast svari\u00f0 fyrir n\u00e6sta m\u00e1nudag.", "gloss": "", "meaning": "Please reply before next Monday.", "ink_boxes_px": [[300, 564, 666, 622], [685, 564, 843, 609], [863, 563, 974, 622], [995, 570, 1154, 609], [1178, 563, 1448, 622]], "layer_text": "Vinsamlegast svari\u00f0 fyrir n\u00e6sta m\u00e1nudag.", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line2", "script": "is", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Tengili\u00f0ur: Hr\u00f6nn \u00de\u00f3risd\u00f3ttir", "gloss": "", "meaning": "Contact: Hronn Thorisdottir", "ink_boxes_px": [[301, 706, 589, 764], [615, 707, 778, 751], [805, 705, 1088, 751]], "layer_text": "Tengili\u00f0ur: Hr\u00f6nn \u00de\u00f3risd\u00f3ttir", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line3", "script": "is", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "S\u00edmi: (206) 555-0143", "gloss": "", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[303, 847, 428, 893], [449, 850, 580, 901], [602, 850, 847, 893]], "layer_text": "S\u00edmi: (206) 555-0143", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line4", "script": "is", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Reikningsn\u00famer: 0000 4471 2290 18", "gloss": "", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[306, 988, 761, 1047], [784, 991, 911, 1034], [930, 991, 1051, 1033], [1081, 991, 1208, 1034], [1233, 991, 1248, 1033], [1263, 991, 1290, 1034]], "layer_text": "Reikningsn\u00famer: 0000 4471 2290 18", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line5", "script": "is", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Dagsetning: 30.10.2026", "gloss": "", "meaning": "Date: 30.10.2026", "ink_boxes_px": [[306, 1132, 627, 1189], [650, 1133, 750, 1176], [766, 1133, 943, 1176]], "layer_text": "Dagsetning: 30.10.2026", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true}
+ ]
+}

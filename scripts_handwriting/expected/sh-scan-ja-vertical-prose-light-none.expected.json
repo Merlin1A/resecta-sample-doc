@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-ja-vertical-prose-light-none",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "ja-vertical",
+ "layout": "prose",
+ "source": "sh-born-ja-vertical-prose",
+ "condition": "light",
+ "dpi": 200,
+ "jpeg_quality": 75,
+ "image": {"sha256": "ea35be51f11bde967eaf70a432e7b85e0797b0654594e9c17b4a5ff34db1649a", "px": [1700, 2200]},
+ "layer": "none",
+ "fonts_embedded": [],
+ "render_modes": [],
+ "ink_dpi": 200,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[201, 124, 345, 144], [354, 124, 445, 144], [455, 124, 519, 144], [529, 135, 535, 138], [547, 124, 684, 144], [695, 124, 759, 144]]},
+  {"key": "line0", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [520, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u3053\u308c\u306f\u30c6\u30b9\u30c8\u7528\u306e\u66f8\u985e\u3067\u3059\u3002", "gloss": "Kore wa tesuto-y\u014d no shorui desu.", "meaning": "This is a document for testing.", "ink_boxes_px": [[1438, 263, 1474, 731]]},
+  {"key": "line1", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [474, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u6765\u9031\u306e\u6708\u66dc\u65e5\u307e\u3067\u306b\u3054\u8fd4\u4fe1\u304f\u3060\u3055\u3044\u3002", "gloss": "Raish\u016b no getsuy\u014dbi made ni go-henshin kudasai.", "meaning": "Please reply by next Monday.", "ink_boxes_px": [[1310, 257, 1346, 889]]},
+  {"key": "line2", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [428, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u62c5\u5f53\u8005\uff1a\u5317\u5ddd \u5948\u82b1", "gloss": "Tant\u014dsha: Kitagawa Naka", "meaning": "Person in charge: Kitagawa Naka", "ink_boxes_px": [[1183, 257, 1218, 487], [1183, 529, 1218, 604]]},
+  {"key": "line3", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [382, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u96fb\u8a71\uff1a(206) 555-0143", "gloss": "Denwa: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[1055, 259, 1090, 569], [1063, 611, 1082, 719], [1063, 744, 1082, 912]]},
+  {"key": "line4", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [336, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u53e3\u5ea7\u756a\u53f7\uff1a0000 4471 2290 18", "gloss": "K\u014dza bang\u014d: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[927, 261, 962, 601], [935, 650, 954, 795], [936, 844, 954, 991], [936, 1039, 954, 1107]]},
+  {"key": "line5", "script": "ja", "direction": "ttb", "vertical": true, "align": "left", "anchor_pt": [290, 700], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u65e5\u4ed8\uff1a2026\u5e7410\u670830\u65e5", "gloss": "Hizuke: 2026-nen 10-gatsu 30-nichi", "meaning": "Date: 30 October 2026", "ink_boxes_px": [[800, 260, 835, 798]]}
+ ],
+ "vision": null
+}

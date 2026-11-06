@@ -1,0 +1,25 @@
+{
+ "schema": 1,
+ "id": "sh-scan-mixed-prose-light-placed",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "mixed",
+ "layout": "prose",
+ "source": "sh-born-mixed-prose",
+ "condition": "light",
+ "dpi": 200,
+ "jpeg_quality": 75,
+ "image": {"sha256": "d0951687fc555445028d6fa2427ad184162db6104d1f333f0c3708cd5a0a8c80", "px": [1700, 2200]},
+ "layer": "placed",
+ "fonts_embedded": ["/AAAAAC+NotoSansSubset-Regular", "/AAAAAE+NotoSansSubset-Regular", "/AAAAAG+NotoSansSCSubset-Regular", "/AAAAAI+NotoNaskhArabicSubset-Regular"],
+ "render_modes": [3],
+ "ink_dpi": 200,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[201, 124, 345, 144], [354, 124, 445, 144], [455, 124, 519, 144], [529, 135, 535, 138], [547, 124, 684, 144], [695, 124, 759, 144]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line0", "script": "mixed", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Contact \u6797\u96ea\u5b81 or \u0643\u0631\u064a\u0645 \u0627\u0644\u0631\u0627\u0634\u062f at (206) 555-0143.", "gloss": "Contact Lin Xuening or Karim ar-Rashid at (206) 555-0143.", "meaning": "Contact Lin Xuening or Karim ar-Rashid at (206) 555-0143.", "ink_boxes_px": [[202, 283, 340, 311], [352, 278, 465, 314], [480, 290, 516, 311], [529, 285, 611, 319], [627, 286, 689, 322], [701, 285, 735, 311], [747, 283, 834, 317], [848, 283, 1022, 311]], "layer_text": "Contact \u6797\u96ea\u5b81 or \ufeaa\ufeb3\u0627\ufeae\ufedf\u0627 \ufee2\ufffd\ufffd\ufeae\ufedb at (206) 555-0143.", "layer_unmapped": 2, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line1", "script": "mixed", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "File \u6587\u4ef6 0417 and \u0645\u0644\u0641 0417 are closed.", "gloss": "File w\u00e9nji\u00e0n 0417 and milaff 0417 are closed.", "meaning": "File (file) 0417 and file 0417 are closed.", "ink_boxes_px": [[204, 376, 260, 406], [274, 373, 348, 409], [362, 378, 418, 406], [429, 378, 447, 406], [461, 376, 526, 406], [541, 378, 597, 406], [608, 378, 626, 406], [641, 381, 695, 406], [709, 385, 764, 406], [779, 376, 901, 407]], "layer_text": "File \u6587\u4ef6 0417 and 0417 \ufffd\ufee0\ufee3 are closed.", "layer_unmapped": 1, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line2", "script": "mixed", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Account 0000 4471 2290 18 \u8d26\u53f7 \u0631\u0642\u0645 \u0627\u0644\u062d\u0633\u0627\u0628", "gloss": "Account 0000 4471 2290 18 zh\u00e0ngh\u00e0o raqm al-\u1e25is\u0101b", "meaning": "Account 0000 4471 2290 18, account number, account number", "ink_boxes_px": [[200, 472, 347, 500], [360, 472, 445, 500], [458, 472, 537, 500], [558, 472, 643, 500], [659, 472, 669, 500], [679, 472, 698, 500], [712, 468, 785, 503], [800, 474, 904, 507], [920, 475, 967, 512]], "layer_text": "Account 0000 4471 2290 18 \u8d26\u53f7 \ufffd\ufffd\ufe8e\ufeb4\ufea4\ufedf\u0627 \ufee2\ufffd\u0631", "layer_unmapped": 3, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line3", "script": "mixed", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Reply by Monday \u5468\u4e00 \u0627\u0644\u0627\u062b\u0646\u064a\u0646 please.", "gloss": "Reply by Monday zh\u014duy\u012b al-ithnayn please.", "meaning": "Reply by Monday, Monday, Monday, please.", "ink_boxes_px": [[204, 564, 299, 603], [313, 564, 352, 603], [367, 564, 511, 603], [523, 563, 598, 597], [612, 568, 698, 604], [714, 564, 836, 603]], "layer_text": "Reply by Monday \u5468\u4e00 \ufb9f\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\u0627 please.", "layer_unmapped": 6, "decodes_exactly": false, "decodes_normalised": false}
+ ],
+ "vision": null
+}

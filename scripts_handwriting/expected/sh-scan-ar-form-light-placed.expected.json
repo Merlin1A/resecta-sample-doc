@@ -1,0 +1,31 @@
+{
+ "schema": 1,
+ "id": "sh-scan-ar-form-light-placed",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "ar",
+ "layout": "form",
+ "source": "sh-born-ar-form",
+ "condition": "light",
+ "dpi": 200,
+ "jpeg_quality": 75,
+ "image": {"sha256": "8d1b7c9d6a616170a5435c1ab6c52a3fbca041727c7822cfed0a4680fae7e05b", "px": [1700, 2200]},
+ "layer": "placed",
+ "fonts_embedded": ["/AAAAAA+NotoNaskhArabicSubset-Regular", "/AAAAAA+NotoSansSubset-Regular"],
+ "render_modes": [3],
+ "ink_dpi": 200,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[201, 124, 345, 144], [354, 124, 445, 144], [455, 124, 521, 144], [531, 135, 537, 138], [549, 124, 686, 144], [697, 124, 765, 144]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "label0", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 660], "span_pt": [370, 612], "size_pt": 14, "text": "\u0627\u0644\u0627\u0633\u0645", "gloss": "Al-ism", "meaning": "label: name", "ink_boxes_px": [[1427, 341, 1497, 378]], "layer_text": "\ufee2\ufeb3\ufefb\ufe8d", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "value0", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [370, 660], "span_pt": [0.0, 370], "size_pt": 14, "text": "\u0643\u0631\u064a\u0645 \u0627\u0644\u0631\u0627\u0634\u062f", "gloss": "", "meaning": "value: name", "ink_boxes_px": [[868, 341, 951, 375], [965, 342, 1027, 377]], "layer_text": "\ufeaa\ufeb7\ufe8d\ufeae\ufedf\ufe8d \ufee2\ufef3\ufeae\ufedb", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "label1", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 616], "span_pt": [370, 612], "size_pt": 14, "text": "\u0627\u0644\u0647\u0627\u062a\u0641", "gloss": "Al-h\u0101tif", "meaning": "label: phone", "ink_boxes_px": [[1418, 463, 1497, 497]], "layer_text": "\ufed2\ufe97\ufe8e\ufeec\ufedf\ufe8d", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "value1", "script": "ar", "direction": "ltr", "vertical": false, "align": "right", "anchor_pt": [370, 616], "span_pt": [0.0, 370], "size_pt": 14, "text": "(206) 555-0143", "gloss": "", "meaning": "value: phone", "ink_boxes_px": [[765, 460, 853, 494], [866, 461, 1025, 489]], "layer_text": "(206) 555-0143", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "label2", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 572], "span_pt": [370, 612], "size_pt": 14, "text": "\u0631\u0642\u0645 \u0627\u0644\u062d\u0633\u0627\u0628", "gloss": "Raqm al-\u1e25is\u0101b", "meaning": "label: account", "ink_boxes_px": [[1333, 585, 1437, 619], [1451, 586, 1498, 622]], "layer_text": "\ufe8f\ufe8e\ufeb4\ufea4\ufedf\ufe8d \ufee2\ufed7\ufead", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "value2", "script": "ar", "direction": "ltr", "vertical": false, "align": "right", "anchor_pt": [370, 572], "span_pt": [0.0, 370], "size_pt": 14, "text": "0000 4471 2290 18", "gloss": "", "meaning": "value: account", "ink_boxes_px": [[699, 583, 783, 611], [794, 583, 877, 611], [891, 583, 974, 611], [987, 583, 1026, 611]], "layer_text": "0000 4471 2290 18", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "label3", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 528], "span_pt": [370, 612], "size_pt": 14, "text": "\u0627\u0644\u062a\u0627\u0631\u064a\u062e", "gloss": "At-t\u0101r\u012bkh", "meaning": "label: date", "ink_boxes_px": [[1407, 707, 1497, 744]], "layer_text": "\ufea6\ufef3\ufead\ufe8e\ufe98\ufedf\ufe8d", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "value3", "script": "ar", "direction": "ltr", "vertical": false, "align": "right", "anchor_pt": [370, 528], "span_pt": [0.0, 370], "size_pt": 14, "text": "30/10/2026", "gloss": "", "meaning": "value: date", "ink_boxes_px": [[834, 704, 1026, 738]], "layer_text": "30/10/2026", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "label4", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 484], "span_pt": [370, 612], "size_pt": 14, "text": "\u0627\u0644\u0628\u0631\u064a\u062f \u0627\u0644\u0625\u0644\u0643\u062a\u0631\u0648\u0646\u064a", "gloss": "Al-bar\u012bd al-iliktr\u016bn\u012b", "meaning": "label: email", "ink_boxes_px": [[1277, 830, 1413, 872], [1425, 830, 1497, 864]], "layer_text": "\ufef2\ufee7\ufeed\ufeae\ufe98\ufedc\ufedf\ufef9\ufe8d \ufeaa\ufef3\ufeae\ufe92\ufedf\ufe8d", "layer_unmapped": 0, "decodes_exactly": false, "decodes_normalised": true},
+  {"key": "value4", "script": "ar", "direction": "ltr", "vertical": false, "align": "right", "anchor_pt": [370, 484], "span_pt": [0.0, 370], "size_pt": 14, "text": "office@example.org", "gloss": "", "meaning": "value: email", "ink_boxes_px": [[662, 826, 1027, 865]], "layer_text": "office@example.org", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true}
+ ],
+ "vision": null
+}

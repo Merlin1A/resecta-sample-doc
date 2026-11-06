@@ -1,0 +1,21 @@
+{
+ "schema": 1,
+ "id": "sh-born-zh-Hant-prose",
+ "family": "scripts-handwriting",
+ "kind": "born",
+ "script": "zh-Hant",
+ "layout": "prose",
+ "writer": "coretext",
+ "fonts_embedded": ["/AAAAAC+NotoSansSubset-Regular", "/AAAAAE+NotoSansTCSubset-Regular"],
+ "render_modes": [0],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 778, 217], [793, 204, 803, 207], [820, 187, 1027, 217], [1043, 187, 1138, 217]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line0", "script": "zh-Hant", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u9019\u662f\u4e00\u4efd\u6e2c\u8a66\u6587\u4ef6\u3002", "gloss": "Zh\u00e8 sh\u00ec y\u012b f\u00e8n c\u00e8sh\u00ec w\u00e9nji\u00e0n.", "meaning": "This is a test document.", "ink_boxes_px": [[302, 418, 764, 472], [787, 436, 805, 454]], "layer_text": "\u9019\u662f\u4e00\u4efd\u6e2c\u8a66\u6587\u4ef6\u3002", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line1", "script": "zh-Hant", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u8acb\u65bc\u4e0b\u9031\u4e00\u524d\u56de\u8986\u672c\u8fa6\u516c\u5ba4\u3002", "gloss": "Q\u01d0ng y\u00fa xi\u00e0 zh\u014duy\u012b qi\u00e1n hu\u00edf\u00f9 b\u011bn b\u00e0ng\u014dngsh\u00ec.", "meaning": "Please reply to this office before next Monday.", "ink_boxes_px": [[303, 559, 997, 613], [1020, 577, 1038, 595]], "layer_text": "\u8acb\u65bc\u4e0b\u9031\u4e00\u524d\u56de\u8986\u672c\u8fa6\u516c\u5ba4\u3002", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line2", "script": "zh-Hant", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u806f\u7d61\u4eba\uff1a\u5b8b\u5be7\u96ea", "gloss": "Li\u00e1nlu\u00f2 r\u00e9n: Song Ningxue", "meaning": "Contact: Song Ningxue", "ink_boxes_px": [[302, 701, 473, 755], [500, 710, 509, 747], [535, 701, 705, 755]], "layer_text": "\u806f\u7d61\u4eba\uff1a\u5b8b\u5be7\u96ea", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line3", "script": "zh-Hant", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u96fb\u8a71\uff1a(206) 555-0143", "gloss": "Di\u00e0nhu\u00e0: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[304, 843, 414, 897], [442, 852, 451, 889], [480, 844, 606, 903], [627, 848, 868, 893]], "layer_text": "\u96fb\u8a71\uff1a(206) 555-0143", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line4", "script": "zh-Hant", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u5e33\u865f\uff1a0000 4471 2290 18", "gloss": "Zh\u00e0ngh\u00e0o: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[304, 984, 414, 1038], [442, 993, 451, 1030], [478, 989, 602, 1034], [619, 990, 744, 1033], [763, 989, 887, 1034], [908, 990, 965, 1034]], "layer_text": "\u5e33\u865f\uff1a0000 4471 2290 18", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line5", "script": "zh-Hant", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u65e5\u671f\uff1a2026\u5e7410\u670830\u65e5", "gloss": "R\u00ecq\u012b: 2026 ni\u00e1n 10 yu\u00e8 30 r\u00ec", "meaning": "Date: 30 October 2026", "ink_boxes_px": [[310, 1127, 412, 1179], [442, 1135, 451, 1172], [478, 1126, 900, 1180]], "layer_text": "\u65e5\u671f\uff1a2026\u5e7410\u670830\u65e5", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true}
+ ]
+}

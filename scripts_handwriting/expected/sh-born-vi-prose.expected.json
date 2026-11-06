@@ -1,0 +1,21 @@
+{
+ "schema": 1,
+ "id": "sh-born-vi-prose",
+ "family": "scripts-handwriting",
+ "kind": "born",
+ "script": "vi",
+ "layout": "prose",
+ "writer": "reportlab",
+ "fonts_embedded": ["/AAAAAA+NotoSansSubset-Regular"],
+ "render_modes": [0],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 781, 217], [796, 204, 806, 207], [823, 187, 1030, 217], [1046, 187, 1148, 217]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line0", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0110\u00e2y l\u00e0 m\u1ed9t t\u00e0i li\u1ec7u th\u1eed nghi\u1ec7m.", "gloss": "", "meaning": "This is a test document.", "ink_boxes_px": [[302, 422, 404, 481], [425, 422, 463, 468], [488, 422, 593, 477], [610, 422, 674, 468], [698, 422, 787, 477], [808, 419, 906, 468], [924, 422, 1140, 481]], "layer_text": "\u0110\u00e2y l\u00e0 m\u1ed9t t\u00e0i li\u1ec7u th\u1eed nghi\u1ec7m.", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line1", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Vui l\u00f2ng tr\u1ea3 l\u1eddi tr\u01b0\u1edbc th\u1ee9 Hai tu\u1ea7n sau.", "gloss": "", "meaning": "Please reply before Monday next week.", "ink_boxes_px": [[300, 565, 382, 609], [406, 563, 519, 622], [540, 560, 612, 609], [637, 563, 694, 609], [714, 563, 859, 609], [878, 563, 975, 609], [994, 565, 1075, 609], [1095, 561, 1215, 609], [1238, 576, 1343, 609]], "layer_text": "Vui l\u00f2ng tr\u1ea3 l\u1eddi tr\u01b0\u1edbc th\u1ee9 Hai tu\u1ea7n sau.", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line2", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Ng\u01b0\u1eddi li\u00ean h\u1ec7: \u0110o\u00e0n Ng\u1ecdc", "gloss": "", "meaning": "Contact: Doan Ngoc", "ink_boxes_px": [[306, 705, 466, 764], [491, 705, 580, 751], [605, 705, 680, 760], [702, 705, 841, 751], [867, 708, 1003, 764]], "layer_text": "Ng\u01b0\u1eddi li\u00ean h\u1ec7: \u0110o\u00e0n Ng\u1ecdc", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line3", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0110i\u1ec7n tho\u1ea1i: (206) 555-0143", "gloss": "", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[302, 847, 422, 902], [443, 848, 593, 902], [615, 850, 745, 901], [767, 850, 1012, 893]], "layer_text": "\u0110i\u1ec7n tho\u1ea1i: (206) 555-0143", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line4", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "S\u1ed1 t\u00e0i kho\u1ea3n: 0000 4471 2290 18", "gloss": "", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[303, 986, 365, 1034], [383, 988, 447, 1034], [471, 985, 649, 1034], [672, 991, 799, 1034], [818, 991, 938, 1033], [969, 991, 1096, 1034], [1120, 991, 1135, 1033], [1151, 991, 1178, 1034]], "layer_text": "S\u1ed1 t\u00e0i kho\u1ea3n: 0000 4471 2290 18", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line5", "script": "vi", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "Ng\u00e0y: 30/10/2026", "gloss": "", "meaning": "Date: 30/10/2026", "ink_boxes_px": [[306, 1130, 454, 1189], [476, 1133, 583, 1176], [598, 1133, 781, 1176]], "layer_text": "Ng\u00e0y: 30/10/2026", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true}
+ ]
+}

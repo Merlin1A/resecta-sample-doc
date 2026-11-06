@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-th-prose-clean-vision",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "th",
+ "layout": "prose",
+ "source": "sh-born-th-prose",
+ "condition": "clean",
+ "dpi": 300,
+ "jpeg_quality": 85,
+ "image": {"sha256": "db172add881d732b5433b4c4d88fa7b42e6651ac3865b32f33b70e87d2493a60", "px": [2550, 3300]},
+ "layer": "vision",
+ "fonts_embedded": ["/AVYWKR+GlyphlessLayer Regular"],
+ "render_modes": [3],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 778, 217], [793, 204, 803, 207], [820, 187, 1027, 217], [1043, 187, 1138, 217]]},
+  {"key": "line0", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e19\u0e35\u0e48\u0e04\u0e37\u0e2d\u0e40\u0e2d\u0e01\u0e2a\u0e32\u0e23\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e17\u0e14\u0e2a\u0e2d\u0e1a", "gloss": "N\u00ee khue \u00e8kkas\u0103an s\u0103mr\u00e0p kaan th\u00f3ts\u00f2p", "meaning": "This is a document for testing.", "ink_boxes_px": [[305, 408, 1022, 468]]},
+  {"key": "line1", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e01\u0e23\u0e38\u0e13\u0e32\u0e15\u0e2d\u0e1a\u0e01\u0e25\u0e31\u0e1a\u0e20\u0e32\u0e22\u0e43\u0e19\u0e27\u0e31\u0e19\u0e08\u0e31\u0e19\u0e17\u0e23\u0e4c\u0e2b\u0e19\u0e49\u0e32", "gloss": "Karunaa t\u00f2p kl\u00e0p phaainai wan chan n\u00e2a", "meaning": "Please reply by next Monday.", "ink_boxes_px": [[304, 559, 1080, 623]]},
+  {"key": "line2", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e1c\u0e39\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d: \u0e18\u0e19\u0e32 \u0e27\u0e07\u0e28\u0e4c\u0e17\u0e2d\u0e07", "gloss": "Ph\u00fbu t\u00ect t\u00f2o: Thana Wongthong", "meaning": "Contact: Thana Wongthong", "ink_boxes_px": [[305, 701, 492, 765], [516, 717, 599, 751], [621, 706, 812, 751]]},
+  {"key": "line3", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c: (206) 555-0143", "gloss": "Thooras\u00e0p: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[301, 844, 506, 893], [527, 850, 658, 901], [680, 850, 925, 893]]},
+  {"key": "line4", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e40\u0e25\u0e02\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e0d\u0e0a\u0e35: 0000 4471 2290 18", "gloss": "L\u00eaek th\u00eei banchii: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[306, 974, 549, 1043], [572, 991, 700, 1034], [718, 991, 838, 1033], [869, 991, 997, 1034], [1020, 991, 1035, 1033], [1051, 991, 1078, 1034]]},
+  {"key": "line5", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e27\u0e31\u0e19\u0e17\u0e35\u0e48: 30/10/2026", "gloss": "Wan th\u00eei: 30/10/2026", "meaning": "Date: 30/10/2026", "ink_boxes_px": [[302, 1116, 411, 1176], [434, 1133, 540, 1176], [556, 1133, 739, 1176]]}
+ ],
+ "vision": {"recording": "vision/sh-pic-th-prose-clean.vision.json", "recording_sha256": "497e3af41df11eecf5c6f15a1d227004b14f801c02604fd5c3e17a90dcb2c06d", "macos": "27.2.0", "revision": 3, "languages": ["th-TH", "en-US"], "pieces": [["SYNTHETIC", [71.323, 737.895, 126.0, 747.12]], ["SCRIPT", [127.14, 738.0, 161.34, 747.12]], ["PAGE", [162.48, 738.0, 187.56, 747.12]], ["-", [188.7, 738.0, 194.4, 747.12]], ["FICTIONAL", [195.54, 738.0, 247.98, 747.12]], ["DATA", [249.12, 737.895, 276.09, 747.12]], ["\u0e19\u0e35\u0e48\u0e04\u0e37\u0e2d\u0e40\u0e2d\u0e01\u0e2a\u0e32\u0e23\u0e2a\u0e1b\u0e49\u0e32\u0e2b\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e17\u0e14\u0e2a\u0e2d\u0e1a", [71.059, 674.31, 246.388, 693.19]], ["\u0e01\u0e23\u0e38\u0e13\u0e32\u0e15\u0e2d\u0e1a\u0e01\u0e25\u0e31\u0e1a\u0e20\u0e32\u0e22\u0e43\u0e19\u0e27\u0e31\u0e19\u0e08\u0e31\u0e19\u0e17\u0e23\u0e4c\u0e2b\u0e19\u0e49\u0e32", [71.099, 640.901, 260.145, 659.69]], ["\u0e1c\u0e39\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d:", [72.016, 606.458, 118.518, 625.584]], ["\u0e18\u0e19\u0e32", [120.174, 608.138, 142.59, 626.307]], ["\u0e27\u0e07\u0e28\u0e4c\u0e17\u0e2d\u0e07", [144.253, 608.627, 195.839, 627.906]], ["\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c:", [70.068, 574.452, 123.276, 589.68]], ["(206)", [124.967, 574.187, 159.875, 589.157]], ["555-0143", [161.564, 573.509, 222.132, 588.808]], ["\u0e40\u0e25\u0e02\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e0d\u0e0a\u0e35:", [69.943, 540.436, 133.401, 559.129]], ["0000", [135.019, 539.515, 169.086, 557.269]], ["4471", [170.705, 538.495, 204.772, 556.249]], ["2290", [206.39, 537.474, 240.457, 555.228]], ["18", [242.073, 536.811, 260.216, 554.208]], ["\u0e27\u0e31\u0e19\u0e17\u0e35\u0e48:", [71.323, 507.6, 101.52, 524.93]], ["30/10/2026", [103.68, 507.6, 179.459, 524.93]]]}
+}

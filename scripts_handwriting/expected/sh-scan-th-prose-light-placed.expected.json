@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-th-prose-light-placed",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "th",
+ "layout": "prose",
+ "source": "sh-born-th-prose",
+ "condition": "light",
+ "dpi": 200,
+ "jpeg_quality": 75,
+ "image": {"sha256": "5cd99f143063da28bf0edc14e000480f9c924e6b4e3f7744829df7b3cc221c0f", "px": [1700, 2200]},
+ "layer": "placed",
+ "fonts_embedded": ["/AAAAAC+NotoSansSubset-Regular", "/AAAAAD+NotoSansThaiSubset-Regular", "/AAAAAE+NotoSansThaiSubset-Regular"],
+ "render_modes": [3],
+ "ink_dpi": 200,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[201, 124, 345, 144], [354, 124, 445, 144], [455, 124, 519, 144], [529, 135, 535, 138], [547, 124, 684, 144], [695, 124, 759, 144]], "layer_text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line0", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e19\u0e35\u0e48\u0e04\u0e37\u0e2d\u0e40\u0e2d\u0e01\u0e2a\u0e32\u0e23\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e17\u0e14\u0e2a\u0e2d\u0e1a", "gloss": "N\u00ee khue \u00e8kkas\u0103an s\u0103mr\u00e0p kaan th\u00f3ts\u00f2p", "meaning": "This is a document for testing.", "ink_boxes_px": [[203, 272, 681, 311]], "layer_text": "\u0e19\u0e35\ufffd\u0e04\u0e37\u0e2d\u0e40\u0e2d\u0e01\u0e2a\u0e32\u0e23\u0e2a\ufffd\u0e32\u0e2b\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e17\u0e14\u0e2a\u0e2d\u0e1a", "layer_unmapped": 2, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line1", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e01\u0e23\u0e38\u0e13\u0e32\u0e15\u0e2d\u0e1a\u0e01\u0e25\u0e31\u0e1a\u0e20\u0e32\u0e22\u0e43\u0e19\u0e27\u0e31\u0e19\u0e08\u0e31\u0e19\u0e17\u0e23\u0e4c\u0e2b\u0e19\u0e49\u0e32", "gloss": "Karunaa t\u00f2p kl\u00e0p phaainai wan chan n\u00e2a", "meaning": "Please reply by next Monday.", "ink_boxes_px": [[203, 373, 720, 416]], "layer_text": "\u0e01\u0e23\u0e38\u0e13\u0e32\u0e15\u0e2d\u0e1a\u0e01\u0e25\u0e31\u0e1a\u0e20\u0e32\u0e22\u0e43\u0e19\u0e27\u0e31\u0e19\u0e08\u0e31\u0e19\u0e17\u0e23\u0e4c\u0e2b\u0e19\u0e49\u0e32", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line2", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e1c\u0e39\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d: \u0e18\u0e19\u0e32 \u0e27\u0e07\u0e28\u0e4c\u0e17\u0e2d\u0e07", "gloss": "Ph\u00fbu t\u00ect t\u00f2o: Thana Wongthong", "meaning": "Contact: Thana Wongthong", "ink_boxes_px": [[203, 467, 329, 510], [344, 478, 399, 500], [414, 471, 542, 500]], "layer_text": "\u0e1c\u0e39\u0e49\u0e15\u0e34\u0e14\u0e15\u0e48\u0e2d: \u0e18\u0e19\u0e32 \u0e27\u0e07\u0e28\u0e4c\u0e17\u0e2d\u0e07", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line3", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c: (206) 555-0143", "gloss": "Thooras\u00e0p: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[200, 562, 338, 594], [352, 566, 439, 600], [453, 566, 617, 594]], "layer_text": "\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c: (206) 555-0143", "layer_unmapped": 0, "decodes_exactly": true, "decodes_normalised": true},
+  {"key": "line4", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e40\u0e25\u0e02\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e0d\u0e0a\u0e35: 0000 4471 2290 18", "gloss": "L\u00eaek th\u00eei banchii: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[204, 650, 366, 696], [381, 661, 466, 689], [479, 661, 559, 689], [579, 661, 664, 689], [680, 661, 690, 689], [700, 661, 719, 689]], "layer_text": "\u0e40\u0e25\u0e02\u0e17\u0e35\ufffd\u0e1a\u0e31\u0e0d\u0e0a\u0e35: 0000 4471 2290 18", "layer_unmapped": 1, "decodes_exactly": false, "decodes_normalised": false},
+  {"key": "line5", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0e27\u0e31\u0e19\u0e17\u0e35\u0e48: 30/10/2026", "gloss": "Wan th\u00eei: 30/10/2026", "meaning": "Date: 30/10/2026", "ink_boxes_px": [[202, 744, 274, 784], [289, 755, 360, 783], [370, 755, 492, 783]], "layer_text": "\u0e27\u0e31\u0e19\u0e17\u0e35\ufffd: 30/10/2026", "layer_unmapped": 1, "decodes_exactly": false, "decodes_normalised": false}
+ ],
+ "vision": null
+}

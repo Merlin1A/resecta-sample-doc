@@ -1,0 +1,31 @@
+{
+ "schema": 1,
+ "id": "sh-scan-th-form-clean-vision",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "th",
+ "layout": "form",
+ "source": "sh-born-th-form",
+ "condition": "clean",
+ "dpi": 300,
+ "jpeg_quality": 85,
+ "image": {"sha256": "137c4f385f0dafc862d2524d0e7cd930762c8db28fcbe8688dfb6f7eb05531a4", "px": [2550, 3300]},
+ "layer": "vision",
+ "fonts_embedded": ["/AVYWKR+GlyphlessLayer Regular"],
+ "render_modes": [3],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[306, 187, 522, 217], [536, 187, 671, 217], [687, 187, 782, 217], [797, 204, 807, 207], [824, 187, 1031, 217], [1047, 187, 1143, 217]]},
+  {"key": "label0", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 660], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\u0e0a\u0e37\u0e48\u0e2d", "gloss": "Ch\u00fbe", "meaning": "label: name", "ink_boxes_px": [[307, 491, 366, 551]]},
+  {"key": "value0", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 660], "span_pt": [241.5, 612], "size_pt": 14, "text": "\u0e18\u0e19\u0e32 \u0e27\u0e07\u0e28\u0e4c\u0e17\u0e2d\u0e07", "gloss": "", "meaning": "value: name", "ink_boxes_px": [[1017, 517, 1099, 551], [1121, 506, 1313, 551]]},
+  {"key": "label1", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 616], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c", "gloss": "Thooras\u00e0p", "meaning": "label: phone", "ink_boxes_px": [[305, 685, 497, 734]]},
+  {"key": "value1", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 616], "span_pt": [241.5, 612], "size_pt": 14, "text": "(206) 555-0143", "gloss": "", "meaning": "value: phone", "ink_boxes_px": [[1015, 691, 1145, 742], [1167, 691, 1412, 734]]},
+  {"key": "label2", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 572], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\u0e40\u0e25\u0e02\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e0d\u0e0a\u0e35", "gloss": "L\u00eaek th\u00eei banchii", "meaning": "label: account", "ink_boxes_px": [[310, 858, 538, 927]]},
+  {"key": "value2", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 572], "span_pt": [241.5, 612], "size_pt": 14, "text": "0000 4471 2290 18", "gloss": "", "meaning": "value: account", "ink_boxes_px": [[1016, 875, 1143, 918], [1162, 875, 1282, 917], [1313, 875, 1440, 918], [1463, 875, 1479, 917], [1495, 875, 1522, 918]]},
+  {"key": "label3", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 528], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\u0e27\u0e31\u0e19\u0e17\u0e35\u0e48", "gloss": "Wan th\u00eei", "meaning": "label: date", "ink_boxes_px": [[306, 1041, 400, 1101]]},
+  {"key": "value3", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 528], "span_pt": [241.5, 612], "size_pt": 14, "text": "30/10/2026", "gloss": "", "meaning": "value: date", "ink_boxes_px": [[1016, 1058, 1122, 1101], [1137, 1058, 1320, 1101]]},
+  {"key": "label4", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 484], "span_pt": [0.0, 241.5], "size_pt": 14, "text": "\u0e2d\u0e35\u0e40\u0e21\u0e25", "gloss": "Iimeel", "meaning": "label: email", "ink_boxes_px": [[307, 1237, 420, 1284]]},
+  {"key": "value4", "script": "th", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [242, 484], "span_pt": [241.5, 612], "size_pt": 14, "text": "office@example.org", "gloss": "", "meaning": "value: email", "ink_boxes_px": [[1016, 1238, 1555, 1297]]}
+ ],
+ "vision": {"recording": "vision/sh-pic-th-form-clean.vision.json", "recording_sha256": "5070224a2fdb320b576e5bc8ec1b67cf26651852e2d1efca44eafe86f82f6b49", "macos": "27.2.0", "revision": 3, "languages": ["th-TH", "en-US"], "pieces": [["SYNTHETIC", [71.273, 737.556, 126.69, 748.817]], ["SCRIPT", [127.972, 737.452, 161.79, 748.462]], ["PAGE", [163.072, 737.291, 187.439, 748.243]], ["-", [188.721, 737.24, 195.539, 748.082]], ["FICTIONAL", [196.821, 736.911, 248.188, 748.031]], ["DATA", [249.47, 736.615, 277.294, 747.703]], ["\u0e18\u0e19\u0e32", [242.73, 657.314, 264.87, 671.128]], ["\u0e27\u0e07\u0e28\u0e4c\u0e17\u0e2d\u0e07", [266.58, 657.314, 315.203, 671.128]], ["\u0e42\u0e17\u0e23\u0e28\u0e31\u0e1e\u0e17\u0e4c", [71.323, 613.57, 120.789, 627.384]], ["\u0e40\u0e25\u0e02\u0e17\u0e35\u0e48\u0e1a\u0e31\u0e0d\u0e0a\u0e35", [71.256, 568.79, 131.417, 588.451]], ["\u0e27\u0e31\u0e19\u0e17\u0e35\u0e48", [71.323, 526.08, 100.083, 542.198]], ["(206)", [240.428, 612.419, 276.39, 626.233]], ["555-0143", [278.1, 612.419, 339.361, 626.233]], ["0000", [241.579, 569.76, 276.66, 582.488]], ["4471", [278.25, 569.76, 313.23, 582.48]], ["2290", [314.82, 569.76, 348.21, 582.48]], ["18", [349.8, 569.76, 365.819, 582.488]], ["30/10/2026", [241.579, 526.08, 318.654, 538.8]], ["\u0e2d\u0e35\u0e40\u0e21\u0e25", [71.839, 480.747, 102.954, 495.443]], ["office@example.org", [242.73, 478.8, 373.872, 493.92]]]}
+}

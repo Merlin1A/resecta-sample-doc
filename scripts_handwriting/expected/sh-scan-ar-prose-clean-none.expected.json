@@ -1,0 +1,27 @@
+{
+ "schema": 1,
+ "id": "sh-scan-ar-prose-clean-none",
+ "family": "scripts-handwriting",
+ "kind": "scan",
+ "script": "ar",
+ "layout": "prose",
+ "source": "sh-born-ar-prose",
+ "condition": "clean",
+ "dpi": 300,
+ "jpeg_quality": 85,
+ "image": {"sha256": "f2b5def1c2ece3306beb3f03266f1e230d6a88c0354cd7ea4566e801ea086abd", "px": [2550, 3300]},
+ "layer": "none",
+ "fonts_embedded": [],
+ "render_modes": [],
+ "ink_dpi": 300,
+ "lines": [
+  {"key": "heading", "script": "latin", "direction": "ltr", "vertical": false, "align": "left", "anchor_pt": [72, 740], "span_pt": [0.0, 612.0], "size_pt": 10, "text": "SYNTHETIC SCRIPT PAGE - FICTIONAL DATA", "gloss": "", "meaning": "heading", "ink_boxes_px": [[302, 187, 517, 217], [532, 187, 667, 217], [683, 187, 778, 217], [793, 204, 803, 207], [820, 187, 1027, 217], [1043, 187, 1138, 217]]},
+  {"key": "line0", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 680], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0647\u0630\u0647 \u0648\u062b\u064a\u0642\u0629 \u0644\u0644\u0627\u062e\u062a\u0628\u0627\u0631.", "gloss": "H\u0101dhihi wath\u012bqa lil-ikhtib\u0101r.", "meaning": "This is a document for testing.", "ink_boxes_px": [[1857, 428, 2023, 479], [2043, 431, 2153, 479], [2173, 433, 2247, 468]]},
+  {"key": "line1", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 646], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u064a\u0631\u062c\u0649 \u0627\u0644\u0631\u062f \u0642\u0628\u0644 \u064a\u0648\u0645 \u0627\u0644\u0627\u062b\u0646\u064a\u0646 \u0627\u0644\u0642\u0627\u062f\u0645.", "gloss": "Yurj\u0101 ar-radd qabla yawm al-ithnayn al-q\u0101dim.", "meaning": "Please reply before next Monday.", "ink_boxes_px": [[1577, 569, 1699, 626], [1720, 568, 1848, 623], [1869, 586, 1938, 626], [1957, 569, 2027, 623], [2044, 569, 2112, 620], [2133, 586, 2248, 623]]},
+  {"key": "line2", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 612], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u062c\u0647\u0629 \u0627\u0644\u0627\u062a\u0635\u0627\u0644: \u0643\u0631\u064a\u0645 \u0627\u0644\u0631\u0627\u0634\u062f", "gloss": "Jihat al-itti\u1e63\u0101l: Karim ar-Rashid", "meaning": "Contact: Karim ar-Rashid", "ink_boxes_px": [[1728, 711, 1852, 762], [1873, 712, 1966, 768], [1983, 710, 2148, 765], [2168, 715, 2248, 762]]},
+  {"key": "line3", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 578], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0627\u0644\u0647\u0627\u062a\u0641: (206) 555-0143", "gloss": "Al-h\u0101tif: (206) 555-0143", "meaning": "Telephone: (206) 555-0143", "ink_boxes_px": [[1700, 850, 1938, 893], [1959, 848, 2091, 899], [2110, 853, 2246, 904]]},
+  {"key": "line4", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 544], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0631\u0642\u0645 \u0627\u0644\u062d\u0633\u0627\u0628: 0000 4471 2290 18", "gloss": "Raqm al-\u1e25is\u0101b: 0000 4471 2290 18", "meaning": "Account number: 0000 4471 2290 18", "ink_boxes_px": [[1480, 991, 1538, 1034], [1558, 991, 1682, 1034], [1698, 991, 1823, 1033], [1843, 991, 1968, 1034], [1987, 994, 2155, 1045], [2176, 996, 2247, 1050]]},
+  {"key": "line5", "script": "ar", "direction": "rtl", "vertical": false, "align": "right", "anchor_pt": [540, 510], "span_pt": [0.0, 612.0], "size_pt": 14, "text": "\u0627\u0644\u062a\u0627\u0631\u064a\u062e: 30/10/2026", "gloss": "At-t\u0101r\u012bkh: 30/10/2026", "meaning": "Date: 30/10/2026", "ink_boxes_px": [[1790, 1131, 2079, 1182], [2098, 1136, 2246, 1192]]}
+ ],
+ "vision": null
+}
