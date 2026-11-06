@@ -104,6 +104,11 @@ source of each is
 `https://raw.githubusercontent.com/google/fonts/24ddc1f324cac5d9f5aedca126d298f56e3f1640/ofl/<path>`,
 with the path and SHA-256 in `fonts.py`.
 
+Two builds on one machine are byte-identical. On another platform the reportlab pages and the
+twins made from them rebuild byte for byte (the tests check this), but the handwriting pictures do
+not: the variable handwriting fonts rasterise slightly differently there. For those pages the
+committed files are the reference.
+
 The born pages and the `clean` pictures are committed (`documents/`). The `light` pictures stay
 local and are rebuilt, and `SHA256SUMS` lists every document.
 

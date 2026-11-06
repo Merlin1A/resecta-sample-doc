@@ -59,13 +59,12 @@ def test_committed_born_and_reportlab_documents_verify() -> None:
 
 @pytest.mark.skipif(not (SH / "manifest.json").exists(), reason="no published set")
 def test_rebuild_reportlab_pages_and_a_twin_byte_identical() -> None:
+    """The reportlab pages and a twin of one rebuild byte for byte on any platform. The handwriting
+    pictures are left out: they rebuild identically on one platform, but the variable handwriting
+    font rasterises differently elsewhere (see the README)."""
     by_id = {Path(r["path"]).stem: r for r in _rows()}
     picks = [s for s in build.specs() if s.kind == "born" and s.writer == "reportlab"]
-    picks += [
-        s
-        for s in build.specs()
-        if s.doc_id in ("sh-scan-el-prose-clean-placed", "sh-hand-note-clean-none")
-    ]
+    picks += [s for s in build.specs() if s.doc_id == "sh-scan-el-prose-clean-placed"]
     for spec in picks:
         pdf, exp = build.build_doc(spec)
         row = by_id[spec.doc_id]
