@@ -1,0 +1,8 @@
+{
+ "macos": "27.2",
+ "sha256": {
+  "ff-pdfkit-blackwidget-cover": "bff8bff650b940a74d39353dfdbb0d03b98ec199a99ce28add302f08a8e124bd",
+  "ff-pdfkit-filled": "d627a5f37e9e962f24678523b8e1a693986cb547d02ce92be42a1609d90acd6d"
+ },
+ "writer": "PDFKit PDFDocument.write (gen_pdfkit.swift)"
+}

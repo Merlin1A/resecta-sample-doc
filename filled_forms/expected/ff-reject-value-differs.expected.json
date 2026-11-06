@@ -1,0 +1,15 @@
+{
+ "schema": 1,
+ "id": "ff-reject-value-differs",
+ "family": "filled-forms",
+ "kind": "reject",
+ "purpose": "one text field whose stored value is one name and whose appearance draws another",
+ "producer": "pypdf",
+ "facts": {"pages": 1, "needs_rendering": false, "acroform": {"present": true, "need_appearances": false, "sig_flags": 0, "fields": 1, "xfa_packets": null}, "widgets": [{"name": "full_name", "ft": "/Tx", "ff": 0, "value": "Teodora Delgado", "default": null, "options": null, "annot_flags": 4, "annot_flag_names": ["print"], "rect": [210.0, 684.0, 450.0, 706.0], "state": null, "background": null, "appearance": {"present": true, "normal": "stream", "bbox": [0.0, 0.0, 240.0, 22.0], "drawn": ["Wren Castellano"], "clip": [1.0, 1.0, 238.0, 20.0], "size": 11.0, "origin": [2.0, 7.5]}}], "other_annotations": [], "page_text": "SYNTHETIC INTAKE FORM - FICTIONAL DATA\nFull name:\nTelephone:\nE-mail:\nSSN:\nDate of birth:\nConsent on file:\nMail me copies:\nContact by:\nState:\nProgram:\nNotes:\nSignature:\nphone\nemail\npost\nThis synthetic form is a test document. Every name and number on it is invented.\n", "info": {"/Author": "resecta-sample-doc (synthetic)", "/CreationDate": "D:20000101000000+00'00'", "/Creator": "ReportLab PDF Library - www.reportlab.com", "/Keywords": "", "/ModDate": "D:20000101000000+00'00'", "/Producer": "ReportLab PDF Library - www.reportlab.com", "/Subject": "SYNTHETIC TEST DOCUMENT - FICTIONAL DATA", "/Title": "Synthetic filled-form fixture", "/Trapped": "/False"}},
+ "fields": [
+  {"name": "full_name", "ft": "/Tx", "kind": "text", "ff": 0, "value": "Teodora Delgado", "widgets": [0]}
+ ],
+ "visible": [true],
+ "draws": [true],
+ "appearance_matches_value": false
+}
